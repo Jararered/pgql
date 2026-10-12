@@ -1,0 +1,2306 @@
+{
+  "path": "analysis/extracted/assets/pokemod-injector",
+  "sha256": "60da475360e685524a3a622ae47b3065242785eaa53896b20488f82a4da58ac3",
+  "size": 33219024,
+  "elf_type": 3,
+  "machine": 183,
+  "entry": "0x472000",
+  "section_offset": 0,
+  "section_count": 0,
+  "program_headers": [
+    {
+      "type": 6,
+      "flags": 4,
+      "offset": 64,
+      "vaddr": 64,
+      "filesz": 560,
+      "memsz": 560,
+      "align": 8
+    },
+    {
+      "type": 3,
+      "flags": 4,
+      "offset": 624,
+      "vaddr": 624,
+      "filesz": 21,
+      "memsz": 21,
+      "align": 1
+    },
+    {
+      "type": 1,
+      "flags": 5,
+      "offset": 0,
+      "vaddr": 0,
+      "filesz": 32643728,
+      "memsz": 32643728,
+      "align": 16384
+    },
+    {
+      "type": 1,
+      "flags": 6,
+      "offset": 32643728,
+      "vaddr": 32660112,
+      "filesz": 550816,
+      "memsz": 554352,
+      "align": 16384
+    },
+    {
+      "type": 1,
+      "flags": 6,
+      "offset": 33194544,
+      "vaddr": 33227312,
+      "filesz": 24480,
+      "memsz": 58288,
+      "align": 16384
+    },
+    {
+      "type": 2,
+      "flags": 6,
+      "offset": 33186728,
+      "vaddr": 33203112,
+      "filesz": 384,
+      "memsz": 384,
+      "align": 8
+    },
+    {
+      "type": 1685382482,
+      "flags": 4,
+      "offset": 32643728,
+      "vaddr": 32660112,
+      "filesz": 550816,
+      "memsz": 554352,
+      "align": 1
+    },
+    {
+      "type": 1685382480,
+      "flags": 4,
+      "offset": 3473472,
+      "vaddr": 3473472,
+      "filesz": 284252,
+      "memsz": 284252,
+      "align": 4
+    },
+    {
+      "type": 1685382481,
+      "flags": 6,
+      "offset": 0,
+      "vaddr": 0,
+      "filesz": 0,
+      "memsz": 0,
+      "align": 0
+    },
+    {
+      "type": 4,
+      "flags": 4,
+      "offset": 648,
+      "vaddr": 648,
+      "filesz": 152,
+      "memsz": 152,
+      "align": 4
+    }
+  ],
+  "dynamic_tags": {
+    "0x1": [
+      1072,
+      1063,
+      1055
+    ],
+    "0x1e": [
+      8
+    ],
+    "0x6ffffffb": [
+      1
+    ],
+    "0x15": [
+      0
+    ],
+    "0x7": [
+      12536
+    ],
+    "0x8": [
+      754464
+    ],
+    "0x9": [
+      24
+    ],
+    "0x6ffffff9": [
+      31411
+    ],
+    "0x17": [
+      767000
+    ],
+    "0x2": [
+      6312
+    ],
+    "0x3": [
+      33208800
+    ],
+    "0x14": [
+      7
+    ],
+    "0x6": [
+      800
+    ],
+    "0xb": [
+      24
+    ],
+    "0x5": [
+      9980
+    ],
+    "0xa": [
+      2554
+    ],
+    "0x1c": [
+      24
+    ],
+    "0x4": [
+      7844
+    ],
+    "0x19": [
+      33203040
+    ],
+    "0x1b": [
+      48
+    ],
+    "0x1a": [
+      33203088
+    ]
+  },
+  "needed": [
+    "libm.so",
+    "libdl.so",
+    "libc.so"
+  ],
+  "symbol_count_method": "SYSV hash nchain",
+  "symbols": [
+    {
+      "name": "",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 0,
+      "type": 0
+    },
+    {
+      "name": "__libc_init",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "__cxa_atexit",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "strlen",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "fwrite",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "fflush",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "setsid",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "setlocale",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "signal",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "__sF",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 1
+    },
+    {
+      "name": "feof",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "fgets",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "memset",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "fileno",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "read",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "fputs",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "fputc",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "memcpy",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "__errno",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "memcmp",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "socketpair",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "unlink",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "chmod",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "sigemptyset",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "sigaction",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "kill",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "open",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "dlopen",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "dlsym",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "dlerror",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "dlclose",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "sigfillset",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "sigprocmask",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "memmem",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "strstr",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "inet_ntop",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "getpwnam",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "strchr",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "getpid",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "getuid",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "getgid",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "strtoul",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "strnlen",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "sscanf",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "sysconf",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "getpwuid_r",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "strcmp",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "malloc",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "strdup",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "realloc",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "write",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "close",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "ptrace",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "memmove",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "pread",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "pwrite",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "syscall",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "fork",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "dup2",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "raise",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "execve",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "strerror",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "fprintf",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "_exit",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "memchr",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "abort",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "bsearch",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "time",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "mmap",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "sched_yield",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "munmap",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "mremap",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "mprotect",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "ioctl",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "atoi",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "gettid",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "sprintf",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "pthread_rwlock_rdlock",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "pthread_rwlock_unlock",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "prctl",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "waitpid",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "exit",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "dladdr",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "strrchr",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "pthread_self",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "pthread_attr_destroy",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "uname",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "fopen",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "fseek",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "fclose",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "fread",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "pthread_key_create",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "pthread_key_delete",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "pthread_getspecific",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "pthread_setspecific",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "__gxx_personality_v0",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 2,
+      "type": 0
+    },
+    {
+      "name": "__system_property_get",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "pthread_mutex_lock",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "pthread_mutex_unlock",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "stat",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "getpagesize",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "setsockopt",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "strncmp",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "inotify_init1",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "inotify_init",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "inotify_add_watch",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "inotify_rm_watch",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "geteuid",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "getegid",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "fcntl",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "dup",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "strtol",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "fstat",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "splice",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "inet_pton",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "getaddrinfo",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "freeaddrinfo",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "getservbyname",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "endservent",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "inet_aton",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "gai_strerror",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "socket",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "getsockopt",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "getsockname",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "getpeername",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "listen",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "bind",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "accept",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "connect",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "recv",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "send",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "shutdown",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "sendmsg",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "__cmsg_nxthdr",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "sendmmsg",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "recvmsg",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "recvmmsg",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "getnameinfo",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "res_query",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "__get_h_errno",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "dn_expand",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "strcpy",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "qsort",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "remove",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "strcspn",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "opendir",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "readdir",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "closedir",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "gettimeofday",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "ferror",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "getenv",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "strncpy",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "fnmatch",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "getc_unlocked",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "ungetc",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "endmntent",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "getmntent_r",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "setmntent",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "epoll_create1",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "epoll_ctl",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "writev",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "lstat",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "statfs",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "rename",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "mkdir",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "symlink",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "fstatat",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "openat",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "fdopendir",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "readlink",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "getgrgid",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "chown",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "lchown",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "utimensat",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "lseek",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "fsync",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "link",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "fchown",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "fchmod",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "ftruncate",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "strcat",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "pthread_mutex_destroy",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "pthread_mutex_init",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "calloc",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "free",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "atol",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "localtime_r",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "strftime",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "environ",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 1
+    },
+    {
+      "name": "access",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "fdopen",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "fallocate",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "getcwd",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "strcasecmp",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "strpbrk",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "waitid",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "pthread_sigmask",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "clock_gettime",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "posix_memalign",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "isatty",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "localtime",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "__ctype_get_mb_cur_max",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "wcslen",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "wcrtomb",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "frexpl",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "frexp",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "poll",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "setvbuf",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "getppid",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "chdir",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "stpcpy",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "strtod",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "strerror_r",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "setrlimit",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "pipe",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "nanosleep",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "mktime",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "gmtime_r",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "getpwnam_r",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "getpwuid",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "getauxval",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "strspn",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "eventfd",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "pipe2",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "execv",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "pthread_mutexattr_init",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "pthread_mutexattr_settype",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "pthread_mutexattr_destroy",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "pthread_rwlock_init",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "pthread_rwlock_destroy",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "pthread_rwlock_wrlock",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "pthread_detach",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "pthread_attr_init",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "pthread_attr_setstacksize",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "pthread_create",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "pthread_join",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "pthread_setname_np",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "mbrtowc",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "mbsinit",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "vsnprintf",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "vfprintf",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "dl_iterate_phdr",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "ftell",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "pthread_once",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "pthread_equal",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "getentropy",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 2,
+      "type": 0
+    },
+    {
+      "name": "snprintf",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "basename",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "strndup",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "dirname",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "fscanf",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "faccessat",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "strtoull",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "getrlimit",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "realpath",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "memccpy",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "memrchr",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "fsetxattr",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "setxattr",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "fgetxattr",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "getxattr",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "statvfs",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "getline",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "readv",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "fseeko",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "ftello",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    }
+  ],
+  "byte_entropy": 6.125088392831332
+}

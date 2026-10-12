@@ -1,0 +1,10 @@
+build/
+toolchains/
+vendor/
+.gradle/
+node_modules/
+__pycache__/
+local.properties
+app/src/main/assets/agent.js
+app/src/main/jniLibs/
+*.keystore

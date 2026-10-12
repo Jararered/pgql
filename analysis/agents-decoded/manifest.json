@@ -1,0 +1,26 @@
+[
+  {
+    "source": "/Users/jared/Ghidra/PokeMod/com.pokemod.app.public/files/agents/main_agent",
+    "source_sha256": "b71588ea98279123285a3def6bcfcaa38d5a5376d5515a9da7ebd730f49ad073",
+    "base64_payload_sha256": "b2a252d1417e927a587f36569946ae0ae46856eccd2b9ff58d860f157d898b7a",
+    "output": "/Users/jared/Ghidra/PokeMod/analysis/agents-decoded/main_agent.js",
+    "output_sha256": "9a20b21248e731f157a65d31a77ae26227efd88735a2119d625b94f61b7a5552",
+    "output_size": 2285749,
+    "utf8": true,
+    "ascii_text_ratio": 0.9999982500265777,
+    "reconstructed_mode": 2,
+    "unencrypted_flag": 0
+  },
+  {
+    "source": "/Users/jared/Ghidra/PokeMod/com.pokemod.app.public/files/agents/vpgp_agent",
+    "source_sha256": "40408e1ccfcb6337bb9ec63b2890b35beeb43f5408bcdf2b547eebc8abb157b0",
+    "base64_payload_sha256": "0faeea51009c78ddee6e239b6829da5f4e3257ce7061da3d8d4d0fc61970b3e1",
+    "output": "/Users/jared/Ghidra/PokeMod/analysis/agents-decoded/vpgp_agent.js",
+    "output_sha256": "288002113b26b8ef563b943329ce14b635eef3a239a7f04c44cf4ff3000f0749",
+    "output_size": 29842,
+    "utf8": true,
+    "ascii_text_ratio": 0.9998324509081161,
+    "reconstructed_mode": 2,
+    "unencrypted_flag": 0
+  }
+]

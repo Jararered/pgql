@@ -1,0 +1,1554 @@
+[
+  {
+    "offset": "0x991c1",
+    "text": "script-path"
+  },
+  {
+    "offset": "0x9adc4",
+    "text": "id-smime-aa-smimeEncryptCerts"
+  },
+  {
+    "offset": "0x9b39a",
+    "text": "S/MIME encryption"
+  },
+  {
+    "offset": "0x9b692",
+    "text": "sm2_to_EncryptedPrivateKeyInfo_der_encode"
+  },
+  {
+    "offset": "0x9bd5d",
+    "text": "floyd_inject_application_construct"
+  },
+  {
+    "offset": "0x9e05a",
+    "text": "ossl_sm2_encrypt"
+  },
+  {
+    "offset": "0x9e694",
+    "text": "floyd_inject_application_stop"
+  },
+  {
+    "offset": "0xa0096",
+    "text": "error decrypting symmetric key"
+  },
+  {
+    "offset": "0xa108b",
+    "text": "tlsv1 alert decrypt error"
+  },
+  {
+    "offset": "0xa11d6",
+    "text": "floyd_inject_application_run"
+  },
+  {
+    "offset": "0xa2af8",
+    "text": "not encrypted data"
+  },
+  {
+    "offset": "0xa2b19",
+    "text": "unsupported content encryption algorithm"
+  },
+  {
+    "offset": "0xa2cfa",
+    "text": "md5WithRSAEncryption"
+  },
+  {
+    "offset": "0xa2e05",
+    "text": "id-cmc-encryptedPOP"
+  },
+  {
+    "offset": "0xa3148",
+    "text": "bad fixed header decrypt"
+  },
+  {
+    "offset": "0xa3170",
+    "text": "rsa_ossl_public_decrypt"
+  },
+  {
+    "offset": "0xa35b9",
+    "text": "ed448_to_EncryptedPrivateKeyInfo_pem_encode"
+  },
+  {
+    "offset": "0xa3aa9",
+    "text": "bad rsa encrypt"
+  },
+  {
+    "offset": "0xa3c4c",
+    "text": "floyd_inject_application_start_co"
+  },
+  {
+    "offset": "0xa3c82",
+    "text": "floyd_inject_application_stop_co"
+  },
+  {
+    "offset": "0xa5be8",
+    "text": "Microsoft Encrypted File System"
+  },
+  {
+    "offset": "0xa6181",
+    "text": "rsa_ossl_public_encrypt"
+  },
+  {
+    "offset": "0xa64f1",
+    "text": "sm2_asym_encrypt"
+  },
+  {
+    "offset": "0xa652a",
+    "text": "ossl_sm2_decrypt"
+  },
+  {
+    "offset": "0xa6afb",
+    "text": "encrypted length too long"
+  },
+  {
+    "offset": "0xa6d14",
+    "text": "floyd_inject_application_get_spawn_file"
+  },
+  {
+    "offset": "0xa6d3c",
+    "text": "floyd_inject_application_get_enable_development"
+  },
+  {
+    "offset": "0xa6da4",
+    "text": "floyd_inject_application_set_script_source"
+  },
+  {
+    "offset": "0xa8530",
+    "text": "type not encrypted data"
+  },
+  {
+    "offset": "0xa887b",
+    "text": "sm3WithRSAEncryption"
+  },
+  {
+    "offset": "0xa88da",
+    "text": "unsupported encryption"
+  },
+  {
+    "offset": "0xa8c52",
+    "text": "provider=base,fips=yes,output=pem,structure=EncryptedPrivateKeyInfo"
+  },
+  {
+    "offset": "0xa9541",
+    "text": "floyd_inject_application_set_session_options"
+  },
+  {
+    "offset": "0xab1e4",
+    "text": "pkcs7-encryptedData"
+  },
+  {
+    "offset": "0xab213",
+    "text": "dsaEncryption"
+  },
+  {
+    "offset": "0xab360",
+    "text": "rsaOAEPEncryptionSET"
+  },
+  {
+    "offset": "0xab878",
+    "text": "provider=base,fips=no,output=pem,structure=EncryptedPrivateKeyInfo"
+  },
+  {
+    "offset": "0xabb09",
+    "text": "rsa_to_EncryptedPrivateKeyInfo_der_encode"
+  },
+  {
+    "offset": "0xabb33",
+    "text": "rsa_to_EncryptedPrivateKeyInfo_pem_encode"
+  },
+  {
+    "offset": "0xadf51",
+    "text": "encryption ctrl failure"
+  },
+  {
+    "offset": "0xae316",
+    "text": "provider=default,fips=yes,input=der,structure=EncryptedPrivateKeyInfo"
+  },
+  {
+    "offset": "0xaebd5",
+    "text": "floyd_inject_encryptLogs"
+  },
+  {
+    "offset": "0xb1480",
+    "text": "tls_process_encrypted_extensions"
+  },
+  {
+    "offset": "0xb169a",
+    "text": "floyd_inject_application_get_device_id"
+  },
+  {
+    "offset": "0xb16c1",
+    "text": "floyd_inject_application_get_target_pid"
+  },
+  {
+    "offset": "0xb372b",
+    "text": "encrypted track 2"
+  },
+  {
+    "offset": "0xb392d",
+    "text": "PKCS12_item_decrypt_d2i_ex"
+  },
+  {
+    "offset": "0xb396e",
+    "text": "encryption not supported for this key type"
+  },
+  {
+    "offset": "0xb3ec7",
+    "text": "EncryptedPrivateKeyInfo"
+  },
+  {
+    "offset": "0xb3edf",
+    "text": "rsapss_to_EncryptedPrivateKeyInfo_pem_encode"
+  },
+  {
+    "offset": "0xb43e7",
+    "text": "quic_set_encryption_secrets"
+  },
+  {
+    "offset": "0xb4644",
+    "text": "floyd_inject_application_set_target_pid"
+  },
+  {
+    "offset": "0xb5d7a",
+    "text": "EVP_PKEY_encrypt"
+  },
+  {
+    "offset": "0xb63b0",
+    "text": "sha512-256WithRSAEncryption"
+  },
+  {
+    "offset": "0xb6ba0",
+    "text": "encrypt-level"
+  },
+  {
+    "offset": "0xb71a7",
+    "text": "floyd_inject_application_get_script_runtime"
+  },
+  {
+    "offset": "0xb9302",
+    "text": "RSA:rsaEncryption:1.2.840.113549.1.1.1"
+  },
+  {
+    "offset": "0xb93be",
+    "text": "rsa_encrypt"
+  },
+  {
+    "offset": "0xb93f6",
+    "text": "ec_to_EncryptedPrivateKeyInfo_der_encode"
+  },
+  {
+    "offset": "0xb9b18",
+    "text": "floyd_inject_application_get_parameters"
+  },
+  {
+    "offset": "0xbb10c",
+    "text": "invalid key encryption parameter"
+  },
+  {
+    "offset": "0xbb87e",
+    "text": "smimeencrypt"
+  },
+  {
+    "offset": "0xbbb1f",
+    "text": "dsa_to_EncryptedPrivateKeyInfo_der_encode"
+  },
+  {
+    "offset": "0xbc084",
+    "text": "decryption failed"
+  },
+  {
+    "offset": "0xbc0b2",
+    "text": "missing rsa encrypting cert"
+  },
+  {
+    "offset": "0xbdba5",
+    "text": "evp_EncryptDecryptUpdate"
+  },
+  {
+    "offset": "0xbded3",
+    "text": "error decrypting certificate"
+  },
+  {
+    "offset": "0xbe1f8",
+    "text": "sha512-224WithRSAEncryption"
+  },
+  {
+    "offset": "0xbe281",
+    "text": "encrypt error"
+  },
+  {
+    "offset": "0xbeeb9",
+    "text": "floyd_inject_application_shutdown"
+  },
+  {
+    "offset": "0xbeedb",
+    "text": "floyd_inject_application_start"
+  },
+  {
+    "offset": "0xbeefa",
+    "text": "floyd_inject_application_on_detached"
+  },
+  {
+    "offset": "0xc09f6",
+    "text": "unsupported key encryption algorithm"
+  },
+  {
+    "offset": "0xc0eeb",
+    "text": "error setting encrypted data type"
+  },
+  {
+    "offset": "0xc112a",
+    "text": "unable to decrypt CRL's signature"
+  },
+  {
+    "offset": "0xc12c1",
+    "text": "provider=default,fips=yes,output=pem,structure=EncryptedPrivateKeyInfo"
+  },
+  {
+    "offset": "0xc13eb",
+    "text": "rsa_decrypt"
+  },
+  {
+    "offset": "0xc17ee",
+    "text": "EncryptThenMac"
+  },
+  {
+    "offset": "0xc1904",
+    "text": "floyd_inject_application_set_target_name"
+  },
+  {
+    "offset": "0xc192d",
+    "text": "floyd_inject_application_set_parameters"
+  },
+  {
+    "offset": "0xc3009",
+    "text": "EVP_DecryptUpdate"
+  },
+  {
+    "offset": "0xc3c1c",
+    "text": "x448_to_EncryptedPrivateKeyInfo_der_encode"
+  },
+  {
+    "offset": "0xc4135",
+    "text": "tlsv1 alert decryption failed"
+  },
+  {
+    "offset": "0xc4254",
+    "text": "floyd_inject_application_get_session_options"
+  },
+  {
+    "offset": "0xc4281",
+    "text": "floyd_inject_application_get_script_path"
+  },
+  {
+    "offset": "0xc6375",
+    "text": "provider=default,fips=yes,output=der,structure=EncryptedPrivateKeyInfo"
+  },
+  {
+    "offset": "0xc63fa",
+    "text": "provider=default,fips=no,output=der,structure=EncryptedPrivateKeyInfo"
+  },
+  {
+    "offset": "0xc65fa",
+    "text": "ec_to_EncryptedPrivateKeyInfo_pem_encode"
+  },
+  {
+    "offset": "0xc6bf4",
+    "text": "floyd_inject_application_get_script_source"
+  },
+  {
+    "offset": "0xcad15",
+    "text": "md2WithRSAEncryption"
+  },
+  {
+    "offset": "0xcbf87",
+    "text": "floyd_inject_application_set_script_runtime"
+  },
+  {
+    "offset": "0xce0c0",
+    "text": "unable to decrypt certificate's signature"
+  },
+  {
+    "offset": "0xceb40",
+    "text": "Pokemod Injector version %s"
+  },
+  {
+    "offset": "0xceb5d",
+    "text": "Failed to convert UTF-8 in unencrypted mode: %s"
+  },
+  {
+    "offset": "0xd0089",
+    "text": "EVP_EncryptUpdate"
+  },
+  {
+    "offset": "0xd0554",
+    "text": "shaWithRSAEncryption"
+  },
+  {
+    "offset": "0xd08d8",
+    "text": "rsa_ossl_private_encrypt"
+  },
+  {
+    "offset": "0xd0d6d",
+    "text": "dh_to_EncryptedPrivateKeyInfo_der_encode"
+  },
+  {
+    "offset": "0xd0da9",
+    "text": "dsa_to_EncryptedPrivateKeyInfo_pem_encode"
+  },
+  {
+    "offset": "0xd0df8",
+    "text": "x25519_to_EncryptedPrivateKeyInfo_der_encode"
+  },
+  {
+    "offset": "0xd29c3",
+    "text": "encryption"
+  },
+  {
+    "offset": "0xd2e0d",
+    "text": "sha384WithRSAEncryption"
+  },
+  {
+    "offset": "0xd2e25",
+    "text": "sha224WithRSAEncryption"
+  },
+  {
+    "offset": "0xd2fee",
+    "text": "not encrypted"
+  },
+  {
+    "offset": "0xd32ef",
+    "text": "provider=base,fips=yes,output=der,structure=EncryptedPrivateKeyInfo"
+  },
+  {
+    "offset": "0xd34d7",
+    "text": "x448_to_EncryptedPrivateKeyInfo_pem_encode"
+  },
+  {
+    "offset": "0xd5176",
+    "text": "EVP_DecryptFinal_ex"
+  },
+  {
+    "offset": "0xd5bdb",
+    "text": "DSA:dsaEncryption:1.2.840.10040.4.1"
+  },
+  {
+    "offset": "0xd6491",
+    "text": "Parameters as JSON, same as Gadget"
+  },
+  {
+    "offset": "0xd7e79",
+    "text": "unsupported encryption type"
+  },
+  {
+    "offset": "0xd8385",
+    "text": "PKCS12_item_i2d_encrypt_ex"
+  },
+  {
+    "offset": "0xd88ff",
+    "text": "dhx_to_EncryptedPrivateKeyInfo_der_encode"
+  },
+  {
+    "offset": "0xda91b",
+    "text": "invalid encrypted key length"
+  },
+  {
+    "offset": "0xdaa8a",
+    "text": "dsaEncryption-old"
+  },
+  {
+    "offset": "0xdabc6",
+    "text": "id-cmc-decryptedPOP"
+  },
+  {
+    "offset": "0xdafa3",
+    "text": "rsa_ossl_private_decrypt"
+  },
+  {
+    "offset": "0xdb2ad",
+    "text": "provider=base,fips=yes,input=der,structure=EncryptedPrivateKeyInfo"
+  },
+  {
+    "offset": "0xdb9d8",
+    "text": "wrong encryption level received"
+  },
+  {
+    "offset": "0xdbae9",
+    "text": "floyd_inject_application_set_spawn_file"
+  },
+  {
+    "offset": "0xdda6b",
+    "text": "d.encrypted"
+  },
+  {
+    "offset": "0xddef3",
+    "text": "provider=default,fips=no,output=pem,structure=EncryptedPrivateKeyInfo"
+  },
+  {
+    "offset": "0xde137",
+    "text": "ed25519_to_EncryptedPrivateKeyInfo_der_encode"
+  },
+  {
+    "offset": "0xde165",
+    "text": "ed25519_to_EncryptedPrivateKeyInfo_pem_encode"
+  },
+  {
+    "offset": "0xe0b54",
+    "text": "dhx_to_EncryptedPrivateKeyInfo_pem_encode"
+  },
+  {
+    "offset": "0xe0c86",
+    "text": "failed to decrypt"
+  },
+  {
+    "offset": "0xe1346",
+    "text": "floyd_inject_application_set_enable_development"
+  },
+  {
+    "offset": "0xe2a89",
+    "text": "EVP_PKEY_decrypt"
+  },
+  {
+    "offset": "0xe2b43",
+    "text": "bad decrypt"
+  },
+  {
+    "offset": "0xe2db4",
+    "text": "sha1WithRSAEncryption"
+  },
+  {
+    "offset": "0xe36da",
+    "text": "sm2_to_EncryptedPrivateKeyInfo_pem_encode"
+  },
+  {
+    "offset": "0xe3716",
+    "text": "x25519_to_EncryptedPrivateKeyInfo_pem_encode"
+  },
+  {
+    "offset": "0xe3a93",
+    "text": "decryption failed or bad record mac"
+  },
+  {
+    "offset": "0xe53a2",
+    "text": "EVP_EncryptFinal_ex"
+  },
+  {
+    "offset": "0xe58ea",
+    "text": "sha256WithRSAEncryption"
+  },
+  {
+    "offset": "0xe5b45",
+    "text": "PKCS8_encrypt_ex"
+  },
+  {
+    "offset": "0xe66cc",
+    "text": "floyd_inject_application_set_script_path"
+  },
+  {
+    "offset": "0xe7fa1",
+    "text": "rsaEncryption"
+  },
+  {
+    "offset": "0xe874b",
+    "text": "provider=base,fips=no,output=der,structure=EncryptedPrivateKeyInfo"
+  },
+  {
+    "offset": "0xeab72",
+    "text": "decrypt error"
+  },
+  {
+    "offset": "0xeaeaa",
+    "text": "md4WithRSAEncryption"
+  },
+  {
+    "offset": "0xeaf6f",
+    "text": "sha512WithRSAEncryption"
+  },
+  {
+    "offset": "0xeb62e",
+    "text": "dh_to_EncryptedPrivateKeyInfo_pem_encode"
+  },
+  {
+    "offset": "0xebd6a",
+    "text": "floyd_inject_application_get_target_name"
+  },
+  {
+    "offset": "0xebdb1",
+    "text": "floyd_inject_application_set_device_id"
+  },
+  {
+    "offset": "0xee086",
+    "text": "rsapss_to_EncryptedPrivateKeyInfo_der_encode"
+  },
+  {
+    "offset": "0xee0c6",
+    "text": "ed448_to_EncryptedPrivateKeyInfo_der_encode"
+  },
+  {
+    "offset": "0x5e983a",
+    "text": "id-smime-aa-smimeEncryptCerts"
+  },
+  {
+    "offset": "0x5e9e10",
+    "text": "S/MIME encryption"
+  },
+  {
+    "offset": "0x5ea108",
+    "text": "sm2_to_EncryptedPrivateKeyInfo_der_encode"
+  },
+  {
+    "offset": "0x5eb0b0",
+    "text": "g_base64_decode"
+  },
+  {
+    "offset": "0x5f05b0",
+    "text": "ossl_sm2_encrypt"
+  },
+  {
+    "offset": "0x5f683e",
+    "text": "error decrypting symmetric key"
+  },
+  {
+    "offset": "0x5f779a",
+    "text": "tlsv1 alert decrypt error"
+  },
+  {
+    "offset": "0x5fd560",
+    "text": "not encrypted data"
+  },
+  {
+    "offset": "0x5fd581",
+    "text": "unsupported content encryption algorithm"
+  },
+  {
+    "offset": "0x5fd762",
+    "text": "md5WithRSAEncryption"
+  },
+  {
+    "offset": "0x5fd86d",
+    "text": "id-cmc-encryptedPOP"
+  },
+  {
+    "offset": "0x5fdba9",
+    "text": "bad fixed header decrypt"
+  },
+  {
+    "offset": "0x5fdbd1",
+    "text": "rsa_ossl_public_decrypt"
+  },
+  {
+    "offset": "0x5fe015",
+    "text": "ed448_to_EncryptedPrivateKeyInfo_pem_encode"
+  },
+  {
+    "offset": "0x5fe4c6",
+    "text": "bad rsa encrypt"
+  },
+  {
+    "offset": "0x5ff85e",
+    "text": "Cannot decrypt PEM-encoded private key"
+  },
+  {
+    "offset": "0x6045fa",
+    "text": "Microsoft Encrypted File System"
+  },
+  {
+    "offset": "0x604b8c",
+    "text": "rsa_ossl_public_encrypt"
+  },
+  {
+    "offset": "0x604efc",
+    "text": "sm2_asym_encrypt"
+  },
+  {
+    "offset": "0x604f35",
+    "text": "ossl_sm2_decrypt"
+  },
+  {
+    "offset": "0x605481",
+    "text": "encrypted length too long"
+  },
+  {
+    "offset": "0x60abc7",
+    "text": "type not encrypted data"
+  },
+  {
+    "offset": "0x60af0d",
+    "text": "sm3WithRSAEncryption"
+  },
+  {
+    "offset": "0x60af6c",
+    "text": "unsupported encryption"
+  },
+  {
+    "offset": "0x60b2e4",
+    "text": "provider=base,fips=yes,output=pem,structure=EncryptedPrivateKeyInfo"
+  },
+  {
+    "offset": "0x60f96e",
+    "text": "keys_string"
+  },
+  {
+    "offset": "0x61170b",
+    "text": "pkcs7-encryptedData"
+  },
+  {
+    "offset": "0x61173a",
+    "text": "dsaEncryption"
+  },
+  {
+    "offset": "0x611887",
+    "text": "rsaOAEPEncryptionSET"
+  },
+  {
+    "offset": "0x611d8e",
+    "text": "provider=base,fips=no,output=pem,structure=EncryptedPrivateKeyInfo"
+  },
+  {
+    "offset": "0x61201f",
+    "text": "rsa_to_EncryptedPrivateKeyInfo_der_encode"
+  },
+  {
+    "offset": "0x612049",
+    "text": "rsa_to_EncryptedPrivateKeyInfo_pem_encode"
+  },
+  {
+    "offset": "0x618332",
+    "text": "encryption ctrl failure"
+  },
+  {
+    "offset": "0x61870a",
+    "text": "provider=default,fips=yes,input=der,structure=EncryptedPrivateKeyInfo"
+  },
+  {
+    "offset": "0x61f9ba",
+    "text": "tls_process_encrypted_extensions"
+  },
+  {
+    "offset": "0x625c82",
+    "text": "encrypted track 2"
+  },
+  {
+    "offset": "0x625e84",
+    "text": "PKCS12_item_decrypt_d2i_ex"
+  },
+  {
+    "offset": "0x625ec5",
+    "text": "encryption not supported for this key type"
+  },
+  {
+    "offset": "0x62641e",
+    "text": "EncryptedPrivateKeyInfo"
+  },
+  {
+    "offset": "0x626436",
+    "text": "rsapss_to_EncryptedPrivateKeyInfo_pem_encode"
+  },
+  {
+    "offset": "0x6268c2",
+    "text": "quic_set_encryption_secrets"
+  },
+  {
+    "offset": "0x62c1c4",
+    "text": "EVP_PKEY_encrypt"
+  },
+  {
+    "offset": "0x62c7fa",
+    "text": "sha512-256WithRSAEncryption"
+  },
+  {
+    "offset": "0x62cfea",
+    "text": "encrypt-level"
+  },
+  {
+    "offset": "0x633bbd",
+    "text": "RSA:rsaEncryption:1.2.840.113549.1.1.1"
+  },
+  {
+    "offset": "0x633c79",
+    "text": "rsa_encrypt"
+  },
+  {
+    "offset": "0x633cb1",
+    "text": "ec_to_EncryptedPrivateKeyInfo_der_encode"
+  },
+  {
+    "offset": "0x639814",
+    "text": "invalid key encryption parameter"
+  },
+  {
+    "offset": "0x639f84",
+    "text": "smimeencrypt"
+  },
+  {
+    "offset": "0x63a22f",
+    "text": "dsa_to_EncryptedPrivateKeyInfo_der_encode"
+  },
+  {
+    "offset": "0x63a704",
+    "text": "decryption failed"
+  },
+  {
+    "offset": "0x63a732",
+    "text": "missing rsa encrypting cert"
+  },
+  {
+    "offset": "0x63fddc",
+    "text": "evp_EncryptDecryptUpdate"
+  },
+  {
+    "offset": "0x64010a",
+    "text": "error decrypting certificate"
+  },
+  {
+    "offset": "0x64042f",
+    "text": "sha512-224WithRSAEncryption"
+  },
+  {
+    "offset": "0x6404ca",
+    "text": "encrypt error"
+  },
+  {
+    "offset": "0x647050",
+    "text": "unsupported key encryption algorithm"
+  },
+  {
+    "offset": "0x647545",
+    "text": "error setting encrypted data type"
+  },
+  {
+    "offset": "0x647784",
+    "text": "unable to decrypt CRL's signature"
+  },
+  {
+    "offset": "0x64791b",
+    "text": "provider=default,fips=yes,output=pem,structure=EncryptedPrivateKeyInfo"
+  },
+  {
+    "offset": "0x647a45",
+    "text": "rsa_decrypt"
+  },
+  {
+    "offset": "0x647dc4",
+    "text": "EncryptThenMac"
+  },
+  {
+    "offset": "0x64deef",
+    "text": "EVP_DecryptUpdate"
+  },
+  {
+    "offset": "0x64eaf5",
+    "text": "x448_to_EncryptedPrivateKeyInfo_der_encode"
+  },
+  {
+    "offset": "0x64efeb",
+    "text": "tlsv1 alert decryption failed"
+  },
+  {
+    "offset": "0x6553e7",
+    "text": "provider=default,fips=yes,output=der,structure=EncryptedPrivateKeyInfo"
+  },
+  {
+    "offset": "0x65546c",
+    "text": "provider=default,fips=no,output=der,structure=EncryptedPrivateKeyInfo"
+  },
+  {
+    "offset": "0x65566c",
+    "text": "ec_to_EncryptedPrivateKeyInfo_pem_encode"
+  },
+  {
+    "offset": "0x65d0b1",
+    "text": "g_base64_decode_inplace"
+  },
+  {
+    "offset": "0x6622d0",
+    "text": "md2WithRSAEncryption"
+  },
+  {
+    "offset": "0x669a57",
+    "text": "unable to decrypt certificate's signature"
+  },
+  {
+    "offset": "0x66f7c2",
+    "text": "EVP_EncryptUpdate"
+  },
+  {
+    "offset": "0x66fc88",
+    "text": "shaWithRSAEncryption"
+  },
+  {
+    "offset": "0x66ffff",
+    "text": "rsa_ossl_private_encrypt"
+  },
+  {
+    "offset": "0x670494",
+    "text": "dh_to_EncryptedPrivateKeyInfo_der_encode"
+  },
+  {
+    "offset": "0x6704d0",
+    "text": "dsa_to_EncryptedPrivateKeyInfo_pem_encode"
+  },
+  {
+    "offset": "0x67051f",
+    "text": "x25519_to_EncryptedPrivateKeyInfo_der_encode"
+  },
+  {
+    "offset": "0x675e9d",
+    "text": "encryption"
+  },
+  {
+    "offset": "0x6762e7",
+    "text": "sha384WithRSAEncryption"
+  },
+  {
+    "offset": "0x6762ff",
+    "text": "sha224WithRSAEncryption"
+  },
+  {
+    "offset": "0x6764c8",
+    "text": "not encrypted"
+  },
+  {
+    "offset": "0x6767ce",
+    "text": "provider=base,fips=yes,output=der,structure=EncryptedPrivateKeyInfo"
+  },
+  {
+    "offset": "0x6769b6",
+    "text": "x448_to_EncryptedPrivateKeyInfo_pem_encode"
+  },
+  {
+    "offset": "0x67c8ae",
+    "text": "EVP_DecryptFinal_ex"
+  },
+  {
+    "offset": "0x67d2f6",
+    "text": "DSA:dsaEncryption:1.2.840.10040.4.1"
+  },
+  {
+    "offset": "0x68312f",
+    "text": "unsupported encryption type"
+  },
+  {
+    "offset": "0x683639",
+    "text": "PKCS12_item_i2d_encrypt_ex"
+  },
+  {
+    "offset": "0x683baf",
+    "text": "dhx_to_EncryptedPrivateKeyInfo_der_encode"
+  },
+  {
+    "offset": "0x68932d",
+    "text": "invalid encrypted key length"
+  },
+  {
+    "offset": "0x68949c",
+    "text": "dsaEncryption-old"
+  },
+  {
+    "offset": "0x6895d8",
+    "text": "id-cmc-decryptedPOP"
+  },
+  {
+    "offset": "0x6899b5",
+    "text": "rsa_ossl_private_decrypt"
+  },
+  {
+    "offset": "0x689cba",
+    "text": "provider=base,fips=yes,input=der,structure=EncryptedPrivateKeyInfo"
+  },
+  {
+    "offset": "0x68a381",
+    "text": "wrong encryption level received"
+  },
+  {
+    "offset": "0x6907cf",
+    "text": "d.encrypted"
+  },
+  {
+    "offset": "0x690c4b",
+    "text": "provider=default,fips=no,output=pem,structure=EncryptedPrivateKeyInfo"
+  },
+  {
+    "offset": "0x690e8f",
+    "text": "ed25519_to_EncryptedPrivateKeyInfo_der_encode"
+  },
+  {
+    "offset": "0x690ebd",
+    "text": "ed25519_to_EncryptedPrivateKeyInfo_pem_encode"
+  },
+  {
+    "offset": "0x6975a3",
+    "text": "dhx_to_EncryptedPrivateKeyInfo_pem_encode"
+  },
+  {
+    "offset": "0x6976d5",
+    "text": "failed to decrypt"
+  },
+  {
+    "offset": "0x69db95",
+    "text": "EVP_PKEY_decrypt"
+  },
+  {
+    "offset": "0x69dc4f",
+    "text": "bad decrypt"
+  },
+  {
+    "offset": "0x69debe",
+    "text": "sha1WithRSAEncryption"
+  },
+  {
+    "offset": "0x69e7e4",
+    "text": "sm2_to_EncryptedPrivateKeyInfo_pem_encode"
+  },
+  {
+    "offset": "0x69e820",
+    "text": "x25519_to_EncryptedPrivateKeyInfo_pem_encode"
+  },
+  {
+    "offset": "0x69eb6a",
+    "text": "decryption failed or bad record mac"
+  },
+  {
+    "offset": "0x6a413f",
+    "text": "EVP_EncryptFinal_ex"
+  },
+  {
+    "offset": "0x6a4678",
+    "text": "sha256WithRSAEncryption"
+  },
+  {
+    "offset": "0x6a48d3",
+    "text": "PKCS8_encrypt_ex"
+  },
+  {
+    "offset": "0x6aad03",
+    "text": "rsaEncryption"
+  },
+  {
+    "offset": "0x6ab4bc",
+    "text": "provider=base,fips=no,output=der,structure=EncryptedPrivateKeyInfo"
+  },
+  {
+    "offset": "0x6b164f",
+    "text": "decrypt error"
+  },
+  {
+    "offset": "0x6b1980",
+    "text": "md4WithRSAEncryption"
+  },
+  {
+    "offset": "0x6b1a45",
+    "text": "sha512WithRSAEncryption"
+  },
+  {
+    "offset": "0x6b210e",
+    "text": "dh_to_EncryptedPrivateKeyInfo_pem_encode"
+  },
+  {
+    "offset": "0x6b320f",
+    "text": "g_base64_decode_step"
+  },
+  {
+    "offset": "0x6b8c35",
+    "text": "rsapss_to_EncryptedPrivateKeyInfo_der_encode"
+  },
+  {
+    "offset": "0x6b8c75",
+    "text": "ed448_to_EncryptedPrivateKeyInfo_der_encode"
+  },
+  {
+    "offset": "0x6c7284",
+    "text": "gsize g_base64_decode_step (const gchar * in, gsize len, guchar * out,"
+  },
+  {
+    "offset": "0x6c72ec",
+    "text": "guchar * g_base64_decode (const gchar * text, gsize * out_len);"
+  },
+  {
+    "offset": "0x6c732c",
+    "text": "guchar * g_base64_decode_inplace (gchar * text, gsize * out_len);"
+  },
+  {
+    "offset": "0x1b88018",
+    "text": "id-smime-aa-smimeEncryptCerts"
+  },
+  {
+    "offset": "0x1b885ee",
+    "text": "S/MIME encryption"
+  },
+  {
+    "offset": "0x1b888e6",
+    "text": "sm2_to_EncryptedPrivateKeyInfo_der_encode"
+  },
+  {
+    "offset": "0x1b89892",
+    "text": "g_base64_decode"
+  },
+  {
+    "offset": "0x1b8ed05",
+    "text": "ossl_sm2_encrypt"
+  },
+  {
+    "offset": "0x1b94cd8",
+    "text": "error decrypting symmetric key"
+  },
+  {
+    "offset": "0x1b95c47",
+    "text": "tlsv1 alert decrypt error"
+  },
+  {
+    "offset": "0x1b9b9ef",
+    "text": "not encrypted data"
+  },
+  {
+    "offset": "0x1b9ba10",
+    "text": "unsupported content encryption algorithm"
+  },
+  {
+    "offset": "0x1b9bbf1",
+    "text": "md5WithRSAEncryption"
+  },
+  {
+    "offset": "0x1b9bcfc",
+    "text": "id-cmc-encryptedPOP"
+  },
+  {
+    "offset": "0x1b9c038",
+    "text": "bad fixed header decrypt"
+  },
+  {
+    "offset": "0x1b9c060",
+    "text": "rsa_ossl_public_decrypt"
+  },
+  {
+    "offset": "0x1b9c4a4",
+    "text": "ed448_to_EncryptedPrivateKeyInfo_pem_encode"
+  },
+  {
+    "offset": "0x1b9c955",
+    "text": "bad rsa encrypt"
+  },
+  {
+    "offset": "0x1b9dca5",
+    "text": "Cannot decrypt PEM-encoded private key"
+  },
+  {
+    "offset": "0x1ba2670",
+    "text": "Microsoft Encrypted File System"
+  },
+  {
+    "offset": "0x1ba2c02",
+    "text": "rsa_ossl_public_encrypt"
+  },
+  {
+    "offset": "0x1ba2f72",
+    "text": "sm2_asym_encrypt"
+  },
+  {
+    "offset": "0x1ba2fab",
+    "text": "ossl_sm2_decrypt"
+  },
+  {
+    "offset": "0x1ba34f7",
+    "text": "encrypted length too long"
+  },
+  {
+    "offset": "0x1ba8b77",
+    "text": "type not encrypted data"
+  },
+  {
+    "offset": "0x1ba8ebd",
+    "text": "sm3WithRSAEncryption"
+  },
+  {
+    "offset": "0x1ba8f1c",
+    "text": "unsupported encryption"
+  },
+  {
+    "offset": "0x1ba9294",
+    "text": "provider=base,fips=yes,output=pem,structure=EncryptedPrivateKeyInfo"
+  },
+  {
+    "offset": "0x1bad6bf",
+    "text": "keys_string"
+  },
+  {
+    "offset": "0x1baf421",
+    "text": "pkcs7-encryptedData"
+  },
+  {
+    "offset": "0x1baf450",
+    "text": "dsaEncryption"
+  },
+  {
+    "offset": "0x1baf59d",
+    "text": "rsaOAEPEncryptionSET"
+  },
+  {
+    "offset": "0x1bafaa4",
+    "text": "provider=base,fips=no,output=pem,structure=EncryptedPrivateKeyInfo"
+  },
+  {
+    "offset": "0x1bafd35",
+    "text": "rsa_to_EncryptedPrivateKeyInfo_der_encode"
+  },
+  {
+    "offset": "0x1bafd5f",
+    "text": "rsa_to_EncryptedPrivateKeyInfo_pem_encode"
+  },
+  {
+    "offset": "0x1bb5d8b",
+    "text": "encryption ctrl failure"
+  },
+  {
+    "offset": "0x1bb6163",
+    "text": "provider=default,fips=yes,input=der,structure=EncryptedPrivateKeyInfo"
+  },
+  {
+    "offset": "0x1bbd1b7",
+    "text": "tls_process_encrypted_extensions"
+  },
+  {
+    "offset": "0x1bc30ab",
+    "text": "encrypted track 2"
+  },
+  {
+    "offset": "0x1bc32ad",
+    "text": "PKCS12_item_decrypt_d2i_ex"
+  },
+  {
+    "offset": "0x1bc32ee",
+    "text": "encryption not supported for this key type"
+  },
+  {
+    "offset": "0x1bc3847",
+    "text": "EncryptedPrivateKeyInfo"
+  },
+  {
+    "offset": "0x1bc385f",
+    "text": "rsapss_to_EncryptedPrivateKeyInfo_pem_encode"
+  },
+  {
+    "offset": "0x1bc3ceb",
+    "text": "quic_set_encryption_secrets"
+  },
+  {
+    "offset": "0x1bc93e6",
+    "text": "EVP_PKEY_encrypt"
+  },
+  {
+    "offset": "0x1bc9a1c",
+    "text": "sha512-256WithRSAEncryption"
+  },
+  {
+    "offset": "0x1bca20c",
+    "text": "encrypt-level"
+  },
+  {
+    "offset": "0x1bd0d48",
+    "text": "RSA:rsaEncryption:1.2.840.113549.1.1.1"
+  },
+  {
+    "offset": "0x1bd0e04",
+    "text": "rsa_encrypt"
+  },
+  {
+    "offset": "0x1bd0e3c",
+    "text": "ec_to_EncryptedPrivateKeyInfo_der_encode"
+  },
+  {
+    "offset": "0x1bd69f6",
+    "text": "invalid key encryption parameter"
+  },
+  {
+    "offset": "0x1bd7166",
+    "text": "smimeencrypt"
+  },
+  {
+    "offset": "0x1bd7411",
+    "text": "dsa_to_EncryptedPrivateKeyInfo_der_encode"
+  },
+  {
+    "offset": "0x1bd78e6",
+    "text": "decryption failed"
+  },
+  {
+    "offset": "0x1bd7914",
+    "text": "missing rsa encrypting cert"
+  },
+  {
+    "offset": "0x1bdcd7a",
+    "text": "evp_EncryptDecryptUpdate"
+  },
+  {
+    "offset": "0x1bdd0ae",
+    "text": "error decrypting certificate"
+  },
+  {
+    "offset": "0x1bdd3d3",
+    "text": "sha512-224WithRSAEncryption"
+  },
+  {
+    "offset": "0x1bdd46e",
+    "text": "encrypt error"
+  },
+  {
+    "offset": "0x1be3b59",
+    "text": "unsupported key encryption algorithm"
+  },
+  {
+    "offset": "0x1be404e",
+    "text": "error setting encrypted data type"
+  },
+  {
+    "offset": "0x1be428d",
+    "text": "unable to decrypt CRL's signature"
+  },
+  {
+    "offset": "0x1be4424",
+    "text": "provider=default,fips=yes,output=pem,structure=EncryptedPrivateKeyInfo"
+  },
+  {
+    "offset": "0x1be454e",
+    "text": "rsa_decrypt"
+  },
+  {
+    "offset": "0x1be48cd",
+    "text": "EncryptThenMac"
+  },
+  {
+    "offset": "0x1bea074",
+    "text": "EVP_DecryptUpdate"
+  },
+  {
+    "offset": "0x1beac7a",
+    "text": "x448_to_EncryptedPrivateKeyInfo_der_encode"
+  },
+  {
+    "offset": "0x1beb170",
+    "text": "tlsv1 alert decryption failed"
+  },
+  {
+    "offset": "0x1bf13ac",
+    "text": "provider=default,fips=yes,output=der,structure=EncryptedPrivateKeyInfo"
+  },
+  {
+    "offset": "0x1bf1431",
+    "text": "provider=default,fips=no,output=der,structure=EncryptedPrivateKeyInfo"
+  },
+  {
+    "offset": "0x1bf1631",
+    "text": "ec_to_EncryptedPrivateKeyInfo_pem_encode"
+  },
+  {
+    "offset": "0x1bf8c6a",
+    "text": "g_base64_decode_inplace"
+  },
+  {
+    "offset": "0x1bfdacb",
+    "text": "md2WithRSAEncryption"
+  },
+  {
+    "offset": "0x1c04fb4",
+    "text": "unable to decrypt certificate's signature"
+  },
+  {
+    "offset": "0x1c0b5d9",
+    "text": "EVP_EncryptUpdate"
+  },
+  {
+    "offset": "0x1c0baa4",
+    "text": "shaWithRSAEncryption"
+  },
+  {
+    "offset": "0x1c0be1b",
+    "text": "rsa_ossl_private_encrypt"
+  },
+  {
+    "offset": "0x1c0c2b0",
+    "text": "dh_to_EncryptedPrivateKeyInfo_der_encode"
+  },
+  {
+    "offset": "0x1c0c2ec",
+    "text": "dsa_to_EncryptedPrivateKeyInfo_pem_encode"
+  },
+  {
+    "offset": "0x1c0c33b",
+    "text": "x25519_to_EncryptedPrivateKeyInfo_der_encode"
+  },
+  {
+    "offset": "0x1c118ba",
+    "text": "encryption"
+  },
+  {
+    "offset": "0x1c11d08",
+    "text": "sha384WithRSAEncryption"
+  },
+  {
+    "offset": "0x1c11d20",
+    "text": "sha224WithRSAEncryption"
+  },
+  {
+    "offset": "0x1c11ee9",
+    "text": "not encrypted"
+  },
+  {
+    "offset": "0x1c121ef",
+    "text": "provider=base,fips=yes,output=der,structure=EncryptedPrivateKeyInfo"
+  },
+  {
+    "offset": "0x1c123d7",
+    "text": "x448_to_EncryptedPrivateKeyInfo_pem_encode"
+  },
+  {
+    "offset": "0x1c17fdc",
+    "text": "EVP_DecryptFinal_ex"
+  },
+  {
+    "offset": "0x1c18a24",
+    "text": "DSA:dsaEncryption:1.2.840.10040.4.1"
+  },
+  {
+    "offset": "0x1c1e5e5",
+    "text": "unsupported encryption type"
+  },
+  {
+    "offset": "0x1c1eaef",
+    "text": "PKCS12_item_i2d_encrypt_ex"
+  },
+  {
+    "offset": "0x1c1f065",
+    "text": "dhx_to_EncryptedPrivateKeyInfo_der_encode"
+  },
+  {
+    "offset": "0x1c246c5",
+    "text": "invalid encrypted key length"
+  },
+  {
+    "offset": "0x1c24834",
+    "text": "dsaEncryption-old"
+  },
+  {
+    "offset": "0x1c24970",
+    "text": "id-cmc-decryptedPOP"
+  },
+  {
+    "offset": "0x1c24d4d",
+    "text": "rsa_ossl_private_decrypt"
+  },
+  {
+    "offset": "0x1c25052",
+    "text": "provider=base,fips=yes,input=der,structure=EncryptedPrivateKeyInfo"
+  },
+  {
+    "offset": "0x1c25719",
+    "text": "wrong encryption level received"
+  },
+  {
+    "offset": "0x1c2b974",
+    "text": "d.encrypted"
+  },
+  {
+    "offset": "0x1c2bdf0",
+    "text": "provider=default,fips=no,output=pem,structure=EncryptedPrivateKeyInfo"
+  },
+  {
+    "offset": "0x1c2c034",
+    "text": "ed25519_to_EncryptedPrivateKeyInfo_der_encode"
+  },
+  {
+    "offset": "0x1c2c062",
+    "text": "ed25519_to_EncryptedPrivateKeyInfo_pem_encode"
+  },
+  {
+    "offset": "0x1c32534",
+    "text": "dhx_to_EncryptedPrivateKeyInfo_pem_encode"
+  },
+  {
+    "offset": "0x1c32666",
+    "text": "failed to decrypt"
+  },
+  {
+    "offset": "0x1c38920",
+    "text": "EVP_PKEY_decrypt"
+  },
+  {
+    "offset": "0x1c389da",
+    "text": "bad decrypt"
+  },
+  {
+    "offset": "0x1c38c49",
+    "text": "sha1WithRSAEncryption"
+  },
+  {
+    "offset": "0x1c3956f",
+    "text": "sm2_to_EncryptedPrivateKeyInfo_pem_encode"
+  },
+  {
+    "offset": "0x1c395ab",
+    "text": "x25519_to_EncryptedPrivateKeyInfo_pem_encode"
+  },
+  {
+    "offset": "0x1c398f5",
+    "text": "decryption failed or bad record mac"
+  },
+  {
+    "offset": "0x1c3eb35",
+    "text": "EVP_EncryptFinal_ex"
+  },
+  {
+    "offset": "0x1c3f06e",
+    "text": "sha256WithRSAEncryption"
+  },
+  {
+    "offset": "0x1c3f2c9",
+    "text": "PKCS8_encrypt_ex"
+  },
+  {
+    "offset": "0x1c45430",
+    "text": "rsaEncryption"
+  },
+  {
+    "offset": "0x1c45be9",
+    "text": "provider=base,fips=no,output=der,structure=EncryptedPrivateKeyInfo"
+  },
+  {
+    "offset": "0x1c4bcab",
+    "text": "decrypt error"
+  },
+  {
+    "offset": "0x1c4bfdc",
+    "text": "md4WithRSAEncryption"
+  },
+  {
+    "offset": "0x1c4c0a1",
+    "text": "sha512WithRSAEncryption"
+  },
+  {
+    "offset": "0x1c4c745",
+    "text": "dh_to_EncryptedPrivateKeyInfo_pem_encode"
+  },
+  {
+    "offset": "0x1c4d7fb",
+    "text": "g_base64_decode_step"
+  },
+  {
+    "offset": "0x1c53036",
+    "text": "rsapss_to_EncryptedPrivateKeyInfo_der_encode"
+  },
+  {
+    "offset": "0x1c53076",
+    "text": "ed448_to_EncryptedPrivateKeyInfo_der_encode"
+  },
+  {
+    "offset": "0x1c60b41",
+    "text": "gsize g_base64_decode_step (const gchar * in, gsize len, guchar * out,"
+  },
+  {
+    "offset": "0x1c60ba9",
+    "text": "guchar * g_base64_decode (const gchar * text, gsize * out_len);"
+  },
+  {
+    "offset": "0x1c60be9",
+    "text": "guchar * g_base64_decode_inplace (gchar * text, gsize * out_len);"
+  }
+]

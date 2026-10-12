@@ -1,0 +1,62 @@
+{
+  "sha256": "726eb015167e4408ef4dc2ac95c0986a3ae7f19ce5d384929e88505c07f65d1e",
+  "method": "bounded ADRP + ADD (within 8 instructions), no control/data-flow validation; function starts from .eh_frame_hdr",
+  "xrefs": [
+    {
+      "string_offset": "0xbefd7",
+      "string": "u:object_r:floyd_memfd:s0",
+      "adrp_address": "0x297a324",
+      "add_address": "0x297a32c",
+      "candidate_function_unwind_start": "0x297a324",
+      "candidate_next_unwind_start": "0x297a334"
+    },
+    {
+      "string_offset": "0xd1656",
+      "string": "u:object_r:floyd_file:s0",
+      "adrp_address": "0x297c31c",
+      "add_address": "0x297c320",
+      "candidate_function_unwind_start": "0x297c314",
+      "candidate_next_unwind_start": "0x297c328"
+    },
+    {
+      "string_offset": "0x9e962",
+      "string": "Unable to load SELinux policy from the kernel: %s",
+      "adrp_address": "0x2c4f040",
+      "add_address": "0x2c4f044",
+      "candidate_function_unwind_start": "0x2c4ef88",
+      "candidate_next_unwind_start": "0x2c4f464"
+    },
+    {
+      "string_offset": "0xe3f6c",
+      "string": "floyd_file",
+      "adrp_address": "0x2c4f064",
+      "add_address": "0x2c4f070",
+      "candidate_function_unwind_start": "0x2c4ef88",
+      "candidate_next_unwind_start": "0x2c4f464"
+    },
+    {
+      "string_offset": "0xd16ad",
+      "string": "floyd_memfd",
+      "adrp_address": "0x2c4f080",
+      "add_address": "0x2c4f08c",
+      "candidate_function_unwind_start": "0x2c4ef88",
+      "candidate_next_unwind_start": "0x2c4f464"
+    },
+    {
+      "string_offset": "0x9e99b",
+      "string": "Unable to save SELinux policy to the kernel: %s",
+      "adrp_address": "0x2c4f3e0",
+      "add_address": "0x2c4f3e4",
+      "candidate_function_unwind_start": "0x2c4ef88",
+      "candidate_next_unwind_start": "0x2c4f464"
+    },
+    {
+      "string_offset": "0xd1656",
+      "string": "u:object_r:floyd_file:s0",
+      "adrp_address": "0x2ca54fc",
+      "add_address": "0x2ca5504",
+      "candidate_function_unwind_start": "0x2ca537c",
+      "candidate_next_unwind_start": "0x2ca5664"
+    }
+  ]
+}

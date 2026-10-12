@@ -1,0 +1,624 @@
+{
+  "path": "analysis/extracted/lib/arm64-v8a/libfancier.so",
+  "sha256": "449753004a60f6c346e2430ea87c50c4b0892e654a7abd0ecefe8fe77d50e4cc",
+  "size": 47840,
+  "elf_type": 3,
+  "machine": 183,
+  "entry": "0x38d4",
+  "section_offset": 46368,
+  "section_count": 23,
+  "program_headers": [
+    {
+      "type": 6,
+      "flags": 4,
+      "offset": 64,
+      "vaddr": 64,
+      "filesz": 504,
+      "memsz": 504,
+      "align": 8
+    },
+    {
+      "type": 1,
+      "flags": 5,
+      "offset": 0,
+      "vaddr": 0,
+      "filesz": 44128,
+      "memsz": 44128,
+      "align": 4096
+    },
+    {
+      "type": 1,
+      "flags": 6,
+      "offset": 44128,
+      "vaddr": 48224,
+      "filesz": 1064,
+      "memsz": 1064,
+      "align": 4096
+    },
+    {
+      "type": 1,
+      "flags": 6,
+      "offset": 45192,
+      "vaddr": 53384,
+      "filesz": 672,
+      "memsz": 704,
+      "align": 4096
+    },
+    {
+      "type": 2,
+      "flags": 6,
+      "offset": 44312,
+      "vaddr": 48408,
+      "filesz": 432,
+      "memsz": 432,
+      "align": 8
+    },
+    {
+      "type": 1685382482,
+      "flags": 4,
+      "offset": 44128,
+      "vaddr": 48224,
+      "filesz": 1064,
+      "memsz": 5024,
+      "align": 1
+    },
+    {
+      "type": 1685382480,
+      "flags": 4,
+      "offset": 7304,
+      "vaddr": 7304,
+      "filesz": 1484,
+      "memsz": 1484,
+      "align": 4
+    },
+    {
+      "type": 1685382481,
+      "flags": 6,
+      "offset": 0,
+      "vaddr": 0,
+      "filesz": 0,
+      "memsz": 0,
+      "align": 0
+    },
+    {
+      "type": 4,
+      "flags": 4,
+      "offset": 568,
+      "vaddr": 568,
+      "filesz": 188,
+      "memsz": 188,
+      "align": 4
+    }
+  ],
+  "dynamic_tags": {
+    "0x1": [
+      520,
+      530,
+      538,
+      546,
+      507
+    ],
+    "0xe": [
+      555
+    ],
+    "0x1e": [
+      8
+    ],
+    "0x6ffffffb": [
+      1
+    ],
+    "0x7": [
+      2856
+    ],
+    "0x8": [
+      2400
+    ],
+    "0x9": [
+      24
+    ],
+    "0x6ffffff9": [
+      100
+    ],
+    "0x17": [
+      5256
+    ],
+    "0x2": [
+      1272
+    ],
+    "0x3": [
+      48840
+    ],
+    "0x14": [
+      7
+    ],
+    "0x6": [
+      760
+    ],
+    "0xb": [
+      24
+    ],
+    "0x5": [
+      2284
+    ],
+    "0xa": [
+      569
+    ],
+    "0x6ffffef5": [
+      2248
+    ],
+    "0x1a": [
+      48392
+    ],
+    "0x1c": [
+      16
+    ],
+    "0x6ffffff0": [
+      2104
+    ],
+    "0x6ffffffe": [
+      2216
+    ],
+    "0x6fffffff": [
+      1
+    ]
+  },
+  "needed": [
+    "liblog.so",
+    "libz.so",
+    "libm.so",
+    "libdl.so",
+    "libc.so"
+  ],
+  "symbol_count_method": "GNU hash bucket/chain bound",
+  "symbols": [
+    {
+      "name": "",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 0,
+      "type": 0
+    },
+    {
+      "name": "__cxa_atexit",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "__cxa_finalize",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "__register_atfork",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "__stack_chk_fail",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "free",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "calloc",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "strcasecmp",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "strlen",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "strncasecmp",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "__open_2",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "__strrchr_chk",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "close",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "fclose",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "fgets",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "fopen",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "read",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "sscanf",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "strdup",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "strstr",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "__strcpy_chk",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "strncmp",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "__strlen_chk",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "strcmp",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "malloc",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "strcpy",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "strncat",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "strncpy",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "__errno",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "chmod",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "closedir",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "mkdir",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "opendir",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "readdir",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "stat",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "utime",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "crc32",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "deflate",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "deflateEnd",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "deflateInit2_",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "get_crc_table",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "inflate",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "inflateEnd",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "inflateInit2_",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "memset",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "memcpy",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "ferror",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "fread",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "fseeko",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "ftello",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "fwrite",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "__vsnprintf_chk",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "localtime",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "mktime",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "Java_Init_Context",
+      "defined": true,
+      "value": "0x3938",
+      "size": 264,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "Java_Init_Init",
+      "defined": true,
+      "value": "0x4c68",
+      "size": 732,
+      "binding": 1,
+      "type": 2
+    }
+  ],
+  "byte_entropy": 5.679821985799267
+}

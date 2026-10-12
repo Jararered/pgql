@@ -1,0 +1,101 @@
+[
+  {
+    "method": "LInit$EPewkUNW$$bpWv8h2jBJhL;->invoke()Lio/reactivex/rxjava3/core/Observable;",
+    "source_file": "SourceFile",
+    "access": 17,
+    "code_offset": 1524608,
+    "strings": [],
+    "calls": [
+      {
+        "code_unit": 4,
+        "file_offset": 1524632,
+        "target": "Lkotlin/Lazy;->getValue()Ljava/lang/Object;"
+      },
+      {
+        "code_unit": 17,
+        "file_offset": 1524658,
+        "target": "LInit$eK4_jZ4q;->$bpWv8h2jBJhL(JLInit$gs;)Ljava/lang/Object;"
+      },
+      {
+        "code_unit": 25,
+        "file_offset": 1524674,
+        "target": "LInit$c81;->_2ur(Landroid/app/Activity;)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 29,
+        "file_offset": 1524682,
+        "target": "LInit$ca0;->getModuleAgent(Ljava/lang/String;Ljava/lang/String;)Lio/reactivex/rxjava3/core/Observable;"
+      }
+    ],
+    "coverage": "linear-instruction-scan",
+    "dex": "classes.dex"
+  },
+  {
+    "method": "LInit$ij0$a;->invoke()Ljava/lang/Object;",
+    "source_file": "SourceFile",
+    "access": 17,
+    "code_offset": 2178608,
+    "strings": [
+      {
+        "code_unit": 2,
+        "file_offset": 2178628,
+        "value": "https://discovery.pokemod.dev/hal/"
+      }
+    ],
+    "calls": [
+      {
+        "code_unit": 4,
+        "file_offset": 2178632,
+        "target": "LInit$b71;-><init>(Ljava/lang/String;)V"
+      }
+    ],
+    "coverage": "linear-instruction-scan",
+    "dex": "classes.dex"
+  },
+  {
+    "method": "LInit$rt$$bpWv8h2jBJhL;->invoke()Lio/reactivex/rxjava3/core/Observable;",
+    "source_file": "SourceFile",
+    "access": 17,
+    "code_offset": 1945272,
+    "strings": [],
+    "calls": [
+      {
+        "code_unit": 4,
+        "file_offset": 1945296,
+        "target": "Lkotlin/Lazy;->getValue()Ljava/lang/Object;"
+      },
+      {
+        "code_unit": 17,
+        "file_offset": 1945322,
+        "target": "LInit$eK4_jZ4q;->$bpWv8h2jBJhL(JLInit$gs;)Ljava/lang/Object;"
+      },
+      {
+        "code_unit": 23,
+        "file_offset": 1945334,
+        "target": "Landroidx/fragment/app/Fragment;->requireActivity()Landroidx/fragment/app/b;"
+      },
+      {
+        "code_unit": 32,
+        "file_offset": 1945352,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 36,
+        "file_offset": 1945360,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->checkNotNullExpressionValue(Ljava/lang/Object;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 39,
+        "file_offset": 1945366,
+        "target": "LInit$c81;->_2ur(Landroid/app/Activity;)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 43,
+        "file_offset": 1945374,
+        "target": "LInit$ca0;->getModuleAgent(Ljava/lang/String;Ljava/lang/String;)Lio/reactivex/rxjava3/core/Observable;"
+      }
+    ],
+    "coverage": "linear-instruction-scan",
+    "dex": "classes.dex"
+  }
+]

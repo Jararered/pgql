@@ -1,0 +1,6079 @@
+[
+  {
+    "method": "LInit$a00;->$bpWv8h2jBJhL(LInit$wi0;JLjava/lang/String;ZLjava/lang/String;Ljava/lang/String;)Ljava/lang/String;",
+    "source_file": "SourceFile",
+    "access": 9,
+    "code_offset": 1996480,
+    "strings": [
+      {
+        "code_unit": 4,
+        "file_offset": 1996504,
+        "value": "com.nianticlabs.pokemongo"
+      }
+    ],
+    "calls": [
+      {
+        "code_unit": 20,
+        "file_offset": 1996536,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 37,
+        "file_offset": 1996570,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 47,
+        "file_offset": 1996590,
+        "target": "Ljava/lang/StringBuilder;-><init>()V"
+      },
+      {
+        "code_unit": 55,
+        "file_offset": 1996606,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 59,
+        "file_offset": 1996614,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 62,
+        "file_offset": 1996620,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 70,
+        "file_offset": 1996636,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 74,
+        "file_offset": 1996644,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 77,
+        "file_offset": 1996650,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 88,
+        "file_offset": 1996672,
+        "target": "Ljava/lang/StringBuilder;-><init>()V"
+      },
+      {
+        "code_unit": 96,
+        "file_offset": 1996688,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 100,
+        "file_offset": 1996696,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 103,
+        "file_offset": 1996702,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 111,
+        "file_offset": 1996718,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 115,
+        "file_offset": 1996726,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 118,
+        "file_offset": 1996732,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 129,
+        "file_offset": 1996754,
+        "target": "Ljava/lang/StringBuilder;-><init>()V"
+      },
+      {
+        "code_unit": 137,
+        "file_offset": 1996770,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 141,
+        "file_offset": 1996778,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 144,
+        "file_offset": 1996784,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 152,
+        "file_offset": 1996800,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 156,
+        "file_offset": 1996808,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 159,
+        "file_offset": 1996814,
+        "target": "Ljava/lang/StringBuilder;->toString()Ljava/lang/String;"
+      },
+      {
+        "code_unit": 167,
+        "file_offset": 1996830,
+        "target": "Ljava/lang/StringBuilder;-><init>()V"
+      },
+      {
+        "code_unit": 175,
+        "file_offset": 1996846,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 179,
+        "file_offset": 1996854,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 182,
+        "file_offset": 1996860,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 190,
+        "file_offset": 1996876,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 194,
+        "file_offset": 1996884,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 197,
+        "file_offset": 1996890,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 205,
+        "file_offset": 1996906,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 209,
+        "file_offset": 1996914,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 212,
+        "file_offset": 1996920,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 220,
+        "file_offset": 1996936,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 224,
+        "file_offset": 1996944,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 227,
+        "file_offset": 1996950,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 235,
+        "file_offset": 1996966,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 239,
+        "file_offset": 1996974,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 242,
+        "file_offset": 1996980,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 250,
+        "file_offset": 1996996,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 254,
+        "file_offset": 1997004,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 257,
+        "file_offset": 1997010,
+        "target": "Ljava/lang/StringBuilder;->toString()Ljava/lang/String;"
+      },
+      {
+        "code_unit": 267,
+        "file_offset": 1997030,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 275,
+        "file_offset": 1997046,
+        "target": "Ljava/lang/StringBuilder;-><init>()V"
+      },
+      {
+        "code_unit": 283,
+        "file_offset": 1997062,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 287,
+        "file_offset": 1997070,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 290,
+        "file_offset": 1997076,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 298,
+        "file_offset": 1997092,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 302,
+        "file_offset": 1997100,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 305,
+        "file_offset": 1997106,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 313,
+        "file_offset": 1997122,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 317,
+        "file_offset": 1997130,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 320,
+        "file_offset": 1997136,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 328,
+        "file_offset": 1997152,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 332,
+        "file_offset": 1997160,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 335,
+        "file_offset": 1997166,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 343,
+        "file_offset": 1997182,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 347,
+        "file_offset": 1997190,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 350,
+        "file_offset": 1997196,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 358,
+        "file_offset": 1997212,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 362,
+        "file_offset": 1997220,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 365,
+        "file_offset": 1997226,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 373,
+        "file_offset": 1997242,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 377,
+        "file_offset": 1997250,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 380,
+        "file_offset": 1997256,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 388,
+        "file_offset": 1997272,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 392,
+        "file_offset": 1997280,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 395,
+        "file_offset": 1997286,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 403,
+        "file_offset": 1997302,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 407,
+        "file_offset": 1997310,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 410,
+        "file_offset": 1997316,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 418,
+        "file_offset": 1997332,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 422,
+        "file_offset": 1997340,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 425,
+        "file_offset": 1997346,
+        "target": "Ljava/lang/StringBuilder;->toString()Ljava/lang/String;"
+      },
+      {
+        "code_unit": 435,
+        "file_offset": 1997366,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 441,
+        "file_offset": 1997378,
+        "target": "Ljava/lang/StringBuilder;-><init>()V"
+      },
+      {
+        "code_unit": 449,
+        "file_offset": 1997394,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 453,
+        "file_offset": 1997402,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 456,
+        "file_offset": 1997408,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 464,
+        "file_offset": 1997424,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 468,
+        "file_offset": 1997432,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 471,
+        "file_offset": 1997438,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 479,
+        "file_offset": 1997454,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 483,
+        "file_offset": 1997462,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 486,
+        "file_offset": 1997468,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 494,
+        "file_offset": 1997484,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 498,
+        "file_offset": 1997492,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 501,
+        "file_offset": 1997498,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 509,
+        "file_offset": 1997514,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 513,
+        "file_offset": 1997522,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 516,
+        "file_offset": 1997528,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 524,
+        "file_offset": 1997544,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 528,
+        "file_offset": 1997552,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 531,
+        "file_offset": 1997558,
+        "target": "Ljava/lang/StringBuilder;->append(J)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 539,
+        "file_offset": 1997574,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 543,
+        "file_offset": 1997582,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 546,
+        "file_offset": 1997588,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 554,
+        "file_offset": 1997604,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 558,
+        "file_offset": 1997612,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 561,
+        "file_offset": 1997618,
+        "target": "Ljava/lang/StringBuilder;->append(J)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 569,
+        "file_offset": 1997634,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 573,
+        "file_offset": 1997642,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 576,
+        "file_offset": 1997648,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 584,
+        "file_offset": 1997664,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 588,
+        "file_offset": 1997672,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 591,
+        "file_offset": 1997678,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 599,
+        "file_offset": 1997694,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 603,
+        "file_offset": 1997702,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 606,
+        "file_offset": 1997708,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 614,
+        "file_offset": 1997724,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 618,
+        "file_offset": 1997732,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 621,
+        "file_offset": 1997738,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 629,
+        "file_offset": 1997754,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 633,
+        "file_offset": 1997762,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 636,
+        "file_offset": 1997768,
+        "target": "Ljava/lang/StringBuilder;->toString()Ljava/lang/String;"
+      },
+      {
+        "code_unit": 640,
+        "file_offset": 1997776,
+        "target": "Lkotlin/text/StringsKt;->trimIndent(Ljava/lang/String;)Ljava/lang/String;"
+      }
+    ],
+    "coverage": "linear-instruction-scan",
+    "dex": "classes.dex"
+  },
+  {
+    "method": "LInit$a00;-><clinit>()V",
+    "source_file": "SourceFile",
+    "access": 65545,
+    "code_offset": 1997788,
+    "strings": [],
+    "calls": [
+      {
+        "code_unit": 2,
+        "file_offset": 1997808,
+        "target": "Ljava/util/concurrent/locks/ReentrantLock;-><init>()V"
+      }
+    ],
+    "coverage": "linear-instruction-scan",
+    "dex": "classes.dex"
+  },
+  {
+    "method": "LInit$a00;-><init>(Ljava/lang/String;Lcom/pokemod/app/injector/$bpWv8h2jBJhL;)V",
+    "source_file": "SourceFile",
+    "access": 65537,
+    "code_offset": 1997820,
+    "strings": [],
+    "calls": [
+      {
+        "code_unit": 0,
+        "file_offset": 1997836,
+        "target": "Ljava/lang/Object;-><init>()V"
+      },
+      {
+        "code_unit": 9,
+        "file_offset": 1997854,
+        "target": "Ljava/util/concurrent/locks/ReentrantLock;-><init>()V"
+      },
+      {
+        "code_unit": 17,
+        "file_offset": 1997870,
+        "target": "Ljava/util/concurrent/atomic/AtomicBoolean;-><init>(Z)V"
+      },
+      {
+        "code_unit": 25,
+        "file_offset": 1997886,
+        "target": "Ljava/util/concurrent/atomic/AtomicBoolean;-><init>(Z)V"
+      }
+    ],
+    "coverage": "linear-instruction-scan",
+    "dex": "classes.dex"
+  },
+  {
+    "method": "LInit$a00;->$SWnMuvk(Ljava/lang/String;Ljava/lang/String;Z)V",
+    "source_file": "SourceFile",
+    "access": 17,
+    "code_offset": 1997900,
+    "strings": [],
+    "calls": [
+      {
+        "code_unit": 5,
+        "file_offset": 1997926,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 9,
+        "file_offset": 1997934,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->checkNotNullParameter(Ljava/lang/Object;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 14,
+        "file_offset": 1997944,
+        "target": "Ljava/util/concurrent/locks/ReentrantLock;->lock()V"
+      },
+      {
+        "code_unit": 21,
+        "file_offset": 1997958,
+        "target": "Ljava/util/concurrent/atomic/AtomicBoolean;->compareAndSet(ZZ)Z"
+      },
+      {
+        "code_unit": 27,
+        "file_offset": 1997970,
+        "target": "Ljava/util/concurrent/locks/ReentrantLock;->unlock()V"
+      },
+      {
+        "code_unit": 33,
+        "file_offset": 1997982,
+        "target": "Ljava/util/concurrent/atomic/AtomicBoolean;->set(Z)V"
+      },
+      {
+        "code_unit": 41,
+        "file_offset": 1997998,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 47,
+        "file_offset": 1998010,
+        "target": "Ljava/lang/StringBuilder;-><init>()V"
+      },
+      {
+        "code_unit": 55,
+        "file_offset": 1998026,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 59,
+        "file_offset": 1998034,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 62,
+        "file_offset": 1998040,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 65,
+        "file_offset": 1998046,
+        "target": "Ljava/lang/StringBuilder;->toString()Ljava/lang/String;"
+      },
+      {
+        "code_unit": 69,
+        "file_offset": 1998054,
+        "target": "Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I"
+      },
+      {
+        "code_unit": 76,
+        "file_offset": 1998068,
+        "target": "LInit$et0;->close()V"
+      },
+      {
+        "code_unit": 83,
+        "file_offset": 1998082,
+        "target": "LInit$et0;->close()V"
+      },
+      {
+        "code_unit": 93,
+        "file_offset": 1998102,
+        "target": "Ljava/util/concurrent/locks/ReentrantLock;->lock()V"
+      },
+      {
+        "code_unit": 100,
+        "file_offset": 1998116,
+        "target": "Ljava/util/concurrent/locks/ReentrantLock;->unlock()V"
+      },
+      {
+        "code_unit": 107,
+        "file_offset": 1998130,
+        "target": "Lkotlin/jvm/functions/Function2;->invoke(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;"
+      },
+      {
+        "code_unit": 117,
+        "file_offset": 1998150,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 126,
+        "file_offset": 1998168,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 130,
+        "file_offset": 1998176,
+        "target": "Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I"
+      },
+      {
+        "code_unit": 135,
+        "file_offset": 1998186,
+        "target": "Ljava/util/concurrent/locks/ReentrantLock;->unlock()V"
+      },
+      {
+        "code_unit": 140,
+        "file_offset": 1998196,
+        "target": "Ljava/util/concurrent/locks/ReentrantLock;->unlock()V"
+      },
+      {
+        "code_unit": 145,
+        "file_offset": 1998206,
+        "target": "Ljava/util/concurrent/locks/ReentrantLock;->unlock()V"
+      }
+    ],
+    "coverage": "linear-instruction-scan",
+    "dex": "classes.dex"
+  },
+  {
+    "method": "LInit$a00;->_2ur(Ljava/lang/String;LInit$wi0;)Z",
+    "source_file": "SourceFile",
+    "access": 17,
+    "code_offset": 1995600,
+    "strings": [],
+    "calls": [
+      {
+        "code_unit": 2,
+        "file_offset": 1995620,
+        "target": "LInit$d2;-><init>()V"
+      },
+      {
+        "code_unit": 5,
+        "file_offset": 1995626,
+        "target": "LInit$d2;->$bpWv8h2jBJhL()LInit$et0;"
+      },
+      {
+        "code_unit": 14,
+        "file_offset": 1995644,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 18,
+        "file_offset": 1995652,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->checkNotNullExpressionValue(Ljava/lang/Object;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 39,
+        "file_offset": 1995694,
+        "target": "LInit$a00$$SWnMuvk;-><init>()V"
+      },
+      {
+        "code_unit": 44,
+        "file_offset": 1995704,
+        "target": "LInit$a00$$bpWv8h2jBJhL;-><init>()V"
+      },
+      {
+        "code_unit": 53,
+        "file_offset": 1995722,
+        "target": "LInit$p10;-><init>(LInit$et0;)V"
+      },
+      {
+        "code_unit": 60,
+        "file_offset": 1995736,
+        "target": "LInit$p10;->aaP([Ljava/lang/String;)LInit$p10;"
+      },
+      {
+        "code_unit": 71,
+        "file_offset": 1995758,
+        "target": "LInit$zz;-><init>(LInit$et0;LInit$a00;Z)V"
+      },
+      {
+        "code_unit": 74,
+        "file_offset": 1995764,
+        "target": "LInit$ct0$_2ur;->a(LInit$ct0$aaP;)V"
+      },
+      {
+        "code_unit": 78,
+        "file_offset": 1995772,
+        "target": "LInit$et0;->close()V"
+      }
+    ],
+    "coverage": "linear-instruction-scan",
+    "dex": "classes.dex"
+  },
+  {
+    "method": "LInit$a00;->a(LInit$wi0;Ljava/lang/String;Ljava/lang/String;IZLjava/lang/String;Ljava/lang/String;)Z",
+    "source_file": "SourceFile",
+    "access": 17,
+    "code_offset": 1995780,
+    "strings": [
+      {
+        "code_unit": 126,
+        "file_offset": 1996048,
+        "value": "com.nianticlabs.pokemongo"
+      }
+    ],
+    "calls": [
+      {
+        "code_unit": 12,
+        "file_offset": 1995820,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 16,
+        "file_offset": 1995828,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->checkNotNullParameter(Ljava/lang/Object;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 24,
+        "file_offset": 1995844,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 30,
+        "file_offset": 1995856,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->checkNotNullParameter(Ljava/lang/Object;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 38,
+        "file_offset": 1995872,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 44,
+        "file_offset": 1995884,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->checkNotNullParameter(Ljava/lang/Object;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 49,
+        "file_offset": 1995894,
+        "target": "Ljava/util/concurrent/locks/ReentrantLock;->lock()V"
+      },
+      {
+        "code_unit": 54,
+        "file_offset": 1995904,
+        "target": "Ljava/util/concurrent/atomic/AtomicBoolean;->get()Z"
+      },
+      {
+        "code_unit": 66,
+        "file_offset": 1995928,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 75,
+        "file_offset": 1995946,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 79,
+        "file_offset": 1995954,
+        "target": "Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I"
+      },
+      {
+        "code_unit": 82,
+        "file_offset": 1995960,
+        "target": "Ljava/util/concurrent/locks/ReentrantLock;->unlock()V"
+      },
+      {
+        "code_unit": 100,
+        "file_offset": 1995996,
+        "target": "LInit$et0;->close()V"
+      },
+      {
+        "code_unit": 108,
+        "file_offset": 1996012,
+        "target": "LInit$et0;->close()V"
+      },
+      {
+        "code_unit": 115,
+        "file_offset": 1996026,
+        "target": "LInit$et0;->close()V"
+      },
+      {
+        "code_unit": 154,
+        "file_offset": 1996104,
+        "target": "Ljava/lang/StringBuilder;-><init>()V"
+      },
+      {
+        "code_unit": 162,
+        "file_offset": 1996120,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 166,
+        "file_offset": 1996128,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 169,
+        "file_offset": 1996134,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 177,
+        "file_offset": 1996150,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 181,
+        "file_offset": 1996158,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 184,
+        "file_offset": 1996164,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 192,
+        "file_offset": 1996180,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 196,
+        "file_offset": 1996188,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 199,
+        "file_offset": 1996194,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 207,
+        "file_offset": 1996210,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 211,
+        "file_offset": 1996218,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 214,
+        "file_offset": 1996224,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 222,
+        "file_offset": 1996240,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 226,
+        "file_offset": 1996248,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 229,
+        "file_offset": 1996254,
+        "target": "Ljava/lang/StringBuilder;->toString()Ljava/lang/String;"
+      },
+      {
+        "code_unit": 236,
+        "file_offset": 1996268,
+        "target": "Ljava/lang/StringBuilder;-><init>()V"
+      },
+      {
+        "code_unit": 244,
+        "file_offset": 1996284,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 248,
+        "file_offset": 1996292,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 251,
+        "file_offset": 1996298,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 259,
+        "file_offset": 1996314,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 263,
+        "file_offset": 1996322,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 266,
+        "file_offset": 1996328,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 274,
+        "file_offset": 1996344,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 278,
+        "file_offset": 1996352,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 281,
+        "file_offset": 1996358,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 289,
+        "file_offset": 1996374,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 293,
+        "file_offset": 1996382,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 296,
+        "file_offset": 1996388,
+        "target": "Ljava/lang/StringBuilder;->toString()Ljava/lang/String;"
+      },
+      {
+        "code_unit": 310,
+        "file_offset": 1996416,
+        "target": "LInit$a00;->$bpWv8h2jBJhL(LInit$wi0;JLjava/lang/String;ZLjava/lang/String;Ljava/lang/String;)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 314,
+        "file_offset": 1996424,
+        "target": "LInit$a00;->_2ur(Ljava/lang/String;LInit$wi0;)Z"
+      },
+      {
+        "code_unit": 318,
+        "file_offset": 1996432,
+        "target": "Ljava/util/concurrent/locks/ReentrantLock;->unlock()V"
+      },
+      {
+        "code_unit": 323,
+        "file_offset": 1996442,
+        "target": "Ljava/util/concurrent/locks/ReentrantLock;->unlock()V"
+      }
+    ],
+    "coverage": "linear-instruction-scan",
+    "dex": "classes.dex"
+  },
+  {
+    "method": "LInit$ca0;-><init>(Ljava/lang/String;)V",
+    "source_file": "SourceFile",
+    "access": 65537,
+    "code_offset": 2100320,
+    "strings": [],
+    "calls": [
+      {
+        "code_unit": 5,
+        "file_offset": 2100346,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 9,
+        "file_offset": 2100354,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->checkNotNullParameter(Ljava/lang/Object;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 12,
+        "file_offset": 2100360,
+        "target": "Ljava/lang/Object;-><init>()V"
+      },
+      {
+        "code_unit": 17,
+        "file_offset": 2100370,
+        "target": "LInit$v90;-><init>(Ljava/lang/String;)V"
+      }
+    ],
+    "coverage": "linear-instruction-scan",
+    "dex": "classes.dex"
+  },
+  {
+    "method": "LInit$ca0;->getAgentHash(Ljava/lang/String;Ljava/lang/String;)Lio/reactivex/rxjava3/core/Observable;",
+    "source_file": "SourceFile",
+    "access": 17,
+    "code_offset": 2099604,
+    "strings": [],
+    "calls": [
+      {
+        "code_unit": 5,
+        "file_offset": 2099630,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 9,
+        "file_offset": 2099638,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->checkNotNullParameter(Ljava/lang/Object;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 17,
+        "file_offset": 2099654,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 21,
+        "file_offset": 2099662,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->checkNotNullParameter(Ljava/lang/Object;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 26,
+        "file_offset": 2099672,
+        "target": "LInit$y90;-><init>(LInit$ca0;Ljava/lang/String;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 29,
+        "file_offset": 2099678,
+        "target": "Lio/reactivex/rxjava3/core/Observable;->create(Lio/reactivex/rxjava3/core/ObservableOnSubscribe;)Lio/reactivex/rxjava3/core/Observable;"
+      },
+      {
+        "code_unit": 38,
+        "file_offset": 2099696,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 42,
+        "file_offset": 2099704,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->checkNotNullExpressionValue(Ljava/lang/Object;Ljava/lang/String;)V"
+      }
+    ],
+    "coverage": "linear-instruction-scan",
+    "dex": "classes.dex"
+  },
+  {
+    "method": "LInit$ca0;->getModuleAgent(Ljava/lang/String;Ljava/lang/String;)Lio/reactivex/rxjava3/core/Observable;",
+    "source_file": "SourceFile",
+    "access": 17,
+    "code_offset": 2099712,
+    "strings": [],
+    "calls": [
+      {
+        "code_unit": 5,
+        "file_offset": 2099738,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 9,
+        "file_offset": 2099746,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->checkNotNullParameter(Ljava/lang/Object;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 17,
+        "file_offset": 2099762,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 21,
+        "file_offset": 2099770,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->checkNotNullParameter(Ljava/lang/Object;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 26,
+        "file_offset": 2099780,
+        "target": "Lkotlin/Lazy;->getValue()Ljava/lang/Object;"
+      },
+      {
+        "code_unit": 32,
+        "file_offset": 2099792,
+        "target": "LInit;->$bpWv8h2jBJhL()Ljava/lang/String;"
+      },
+      {
+        "code_unit": 45,
+        "file_offset": 2099818,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 49,
+        "file_offset": 2099826,
+        "target": "Ljava/lang/Exception;-><init>(Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 52,
+        "file_offset": 2099832,
+        "target": "Lio/reactivex/rxjava3/core/Observable;->error(Ljava/lang/Throwable;)Lio/reactivex/rxjava3/core/Observable;"
+      },
+      {
+        "code_unit": 64,
+        "file_offset": 2099856,
+        "target": "LInit$z90;-><init>(LInit$ca0;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 67,
+        "file_offset": 2099862,
+        "target": "Lio/reactivex/rxjava3/core/Observable;->create(Lio/reactivex/rxjava3/core/ObservableOnSubscribe;)Lio/reactivex/rxjava3/core/Observable;"
+      },
+      {
+        "code_unit": 76,
+        "file_offset": 2099880,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 80,
+        "file_offset": 2099888,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->checkNotNullExpressionValue(Ljava/lang/Object;Ljava/lang/String;)V"
+      }
+    ],
+    "coverage": "linear-instruction-scan",
+    "dex": "classes.dex"
+  },
+  {
+    "method": "LInit$ca0;->getMyModules(Ljava/lang/String;Ljava/lang/String;)Lio/reactivex/rxjava3/core/Observable;",
+    "source_file": "SourceFile",
+    "access": 17,
+    "code_offset": 2099896,
+    "strings": [],
+    "calls": [
+      {
+        "code_unit": 5,
+        "file_offset": 2099922,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 9,
+        "file_offset": 2099930,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->checkNotNullParameter(Ljava/lang/Object;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 17,
+        "file_offset": 2099946,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 21,
+        "file_offset": 2099954,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->checkNotNullParameter(Ljava/lang/Object;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 26,
+        "file_offset": 2099964,
+        "target": "LInit$aa0;-><init>(LInit$ca0;Ljava/lang/String;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 29,
+        "file_offset": 2099970,
+        "target": "Lio/reactivex/rxjava3/core/Observable;->create(Lio/reactivex/rxjava3/core/ObservableOnSubscribe;)Lio/reactivex/rxjava3/core/Observable;"
+      },
+      {
+        "code_unit": 38,
+        "file_offset": 2099988,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 42,
+        "file_offset": 2099996,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->checkNotNullExpressionValue(Ljava/lang/Object;Ljava/lang/String;)V"
+      }
+    ],
+    "coverage": "linear-instruction-scan",
+    "dex": "classes.dex"
+  },
+  {
+    "method": "LInit$ca0;->getVpgpAgent(Ljava/lang/String;Ljava/lang/String;)Lio/reactivex/rxjava3/core/Observable;",
+    "source_file": "SourceFile",
+    "access": 17,
+    "code_offset": 2100004,
+    "strings": [],
+    "calls": [
+      {
+        "code_unit": 5,
+        "file_offset": 2100030,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 9,
+        "file_offset": 2100038,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->checkNotNullParameter(Ljava/lang/Object;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 17,
+        "file_offset": 2100054,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 21,
+        "file_offset": 2100062,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->checkNotNullParameter(Ljava/lang/Object;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 26,
+        "file_offset": 2100072,
+        "target": "Lkotlin/Lazy;->getValue()Ljava/lang/Object;"
+      },
+      {
+        "code_unit": 32,
+        "file_offset": 2100084,
+        "target": "LInit;->$bpWv8h2jBJhL()Ljava/lang/String;"
+      },
+      {
+        "code_unit": 45,
+        "file_offset": 2100110,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 49,
+        "file_offset": 2100118,
+        "target": "Ljava/lang/Exception;-><init>(Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 52,
+        "file_offset": 2100124,
+        "target": "Lio/reactivex/rxjava3/core/Observable;->error(Ljava/lang/Throwable;)Lio/reactivex/rxjava3/core/Observable;"
+      },
+      {
+        "code_unit": 64,
+        "file_offset": 2100148,
+        "target": "LInit$ba0;-><init>(LInit$ca0;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 67,
+        "file_offset": 2100154,
+        "target": "Lio/reactivex/rxjava3/core/Observable;->create(Lio/reactivex/rxjava3/core/ObservableOnSubscribe;)Lio/reactivex/rxjava3/core/Observable;"
+      },
+      {
+        "code_unit": 76,
+        "file_offset": 2100172,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 80,
+        "file_offset": 2100180,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->checkNotNullExpressionValue(Ljava/lang/Object;Ljava/lang/String;)V"
+      }
+    ],
+    "coverage": "linear-instruction-scan",
+    "dex": "classes.dex"
+  },
+  {
+    "method": "LInit$ca0;->setMyModules(Ljava/lang/String;Ljava/util/List;Ljava/lang/String;)Lio/reactivex/rxjava3/core/Observable;",
+    "source_file": "SourceFile",
+    "access": 17,
+    "code_offset": 2100188,
+    "strings": [],
+    "calls": [
+      {
+        "code_unit": 5,
+        "file_offset": 2100214,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 9,
+        "file_offset": 2100222,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->checkNotNullParameter(Ljava/lang/Object;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 17,
+        "file_offset": 2100238,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 21,
+        "file_offset": 2100246,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->checkNotNullParameter(Ljava/lang/Object;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 29,
+        "file_offset": 2100262,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 33,
+        "file_offset": 2100270,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->checkNotNullParameter(Ljava/lang/Object;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 38,
+        "file_offset": 2100280,
+        "target": "LInit$x90;-><init>(LInit$ca0;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 41,
+        "file_offset": 2100286,
+        "target": "Lio/reactivex/rxjava3/core/Observable;->create(Lio/reactivex/rxjava3/core/ObservableOnSubscribe;)Lio/reactivex/rxjava3/core/Observable;"
+      },
+      {
+        "code_unit": 50,
+        "file_offset": 2100304,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 54,
+        "file_offset": 2100312,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->checkNotNullExpressionValue(Ljava/lang/Object;Ljava/lang/String;)V"
+      }
+    ],
+    "coverage": "linear-instruction-scan",
+    "dex": "classes.dex"
+  },
+  {
+    "method": "LInit$eq;->AJZl24Fp(Landroid/content/Context;LInit$um0;Ljava/lang/String;)Ljava/lang/String;",
+    "source_file": "SourceFile",
+    "access": 25,
+    "code_offset": 1917772,
+    "strings": [
+      {
+        "code_unit": 0,
+        "file_offset": 1917788,
+        "value": "context"
+      },
+      {
+        "code_unit": 5,
+        "file_offset": 1917798,
+        "value": "body"
+      },
+      {
+        "code_unit": 10,
+        "file_offset": 1917808,
+        "value": "agentName"
+      }
+    ],
+    "calls": [
+      {
+        "code_unit": 2,
+        "file_offset": 1917792,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->checkNotNullParameter(Ljava/lang/Object;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 7,
+        "file_offset": 1917802,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->checkNotNullParameter(Ljava/lang/Object;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 12,
+        "file_offset": 1917812,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->checkNotNullParameter(Ljava/lang/Object;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 22,
+        "file_offset": 1917832,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 26,
+        "file_offset": 1917840,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->checkNotNullParameter(Ljava/lang/Object;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 34,
+        "file_offset": 1917856,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 38,
+        "file_offset": 1917864,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->checkNotNullParameter(Ljava/lang/Object;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 46,
+        "file_offset": 1917880,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 50,
+        "file_offset": 1917888,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->checkNotNullParameter(Ljava/lang/Object;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 57,
+        "file_offset": 1917902,
+        "target": "Landroid/content/Context;->getFilesDir()Ljava/io/File;"
+      },
+      {
+        "code_unit": 66,
+        "file_offset": 1917920,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 70,
+        "file_offset": 1917928,
+        "target": "Ljava/io/File;-><init>(Ljava/io/File;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 73,
+        "file_offset": 1917934,
+        "target": "Ljava/io/File;-><init>(Ljava/io/File;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 76,
+        "file_offset": 1917940,
+        "target": "Ljava/io/File;->getParentFile()Ljava/io/File;"
+      },
+      {
+        "code_unit": 82,
+        "file_offset": 1917952,
+        "target": "Ljava/io/File;->mkdirs()Z"
+      },
+      {
+        "code_unit": 87,
+        "file_offset": 1917962,
+        "target": "Ljava/io/File;->getParentFile()Ljava/io/File;"
+      },
+      {
+        "code_unit": 96,
+        "file_offset": 1917980,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 100,
+        "file_offset": 1917988,
+        "target": "Ljava/lang/String;->concat(Ljava/lang/String;)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 104,
+        "file_offset": 1917996,
+        "target": "Ljava/io/File;-><init>(Ljava/io/File;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 107,
+        "file_offset": 1918002,
+        "target": "LInit$um0;->byteStream()Ljava/io/InputStream;"
+      },
+      {
+        "code_unit": 113,
+        "file_offset": 1918014,
+        "target": "Ljava/io/FileOutputStream;-><init>(Ljava/io/File;)V"
+      },
+      {
+        "code_unit": 121,
+        "file_offset": 1918030,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 125,
+        "file_offset": 1918038,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->checkNotNullExpressionValue(Ljava/lang/Object;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 131,
+        "file_offset": 1918050,
+        "target": "Lkotlin/io/ByteStreamsKt;->copyTo$default(Ljava/io/InputStream;Ljava/io/OutputStream;IILjava/lang/Object;)J"
+      },
+      {
+        "code_unit": 135,
+        "file_offset": 1918058,
+        "target": "Lkotlin/io/CloseableKt;->closeFinally(Ljava/io/Closeable;Ljava/lang/Throwable;)V"
+      },
+      {
+        "code_unit": 138,
+        "file_offset": 1918064,
+        "target": "Lkotlin/io/CloseableKt;->closeFinally(Ljava/io/Closeable;Ljava/lang/Throwable;)V"
+      },
+      {
+        "code_unit": 147,
+        "file_offset": 1918082,
+        "target": "Ljava/io/File;->renameTo(Ljava/io/File;)Z"
+      },
+      {
+        "code_unit": 154,
+        "file_offset": 1918096,
+        "target": "Ljava/io/File;->getAbsolutePath()Ljava/lang/String;"
+      },
+      {
+        "code_unit": 163,
+        "file_offset": 1918114,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 167,
+        "file_offset": 1918122,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->checkNotNullExpressionValue(Ljava/lang/Object;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 171,
+        "file_offset": 1918130,
+        "target": "Ljava/io/File;->delete()Z"
+      },
+      {
+        "code_unit": 179,
+        "file_offset": 1918146,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 187,
+        "file_offset": 1918162,
+        "target": "Lkotlin/io/CloseableKt;->closeFinally(Ljava/io/Closeable;Ljava/lang/Throwable;)V"
+      },
+      {
+        "code_unit": 194,
+        "file_offset": 1918176,
+        "target": "Lkotlin/io/CloseableKt;->closeFinally(Ljava/io/Closeable;Ljava/lang/Throwable;)V"
+      }
+    ],
+    "coverage": "linear-instruction-scan",
+    "dex": "classes.dex"
+  },
+  {
+    "method": "LInit;->$SWnMuvk(Ljava/lang/String;Ljava/lang/Throwable;)V",
+    "source_file": "SourceFile",
+    "access": 9,
+    "code_offset": 2576588,
+    "strings": [],
+    "calls": [
+      {
+        "code_unit": 0,
+        "file_offset": 2576604,
+        "target": "LInit$yz;->$bpWv8h2jBJhL()LInit$al;"
+      },
+      {
+        "code_unit": 9,
+        "file_offset": 2576622,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 15,
+        "file_offset": 2576634,
+        "target": "Ljava/lang/StringBuilder;-><init>()V"
+      },
+      {
+        "code_unit": 18,
+        "file_offset": 2576640,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 23,
+        "file_offset": 2576650,
+        "target": "Ljava/lang/StringBuilder;->append(C)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 28,
+        "file_offset": 2576660,
+        "target": "Ljava/lang/Throwable;->getMessage()Ljava/lang/String;"
+      },
+      {
+        "code_unit": 39,
+        "file_offset": 2576682,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 43,
+        "file_offset": 2576690,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 46,
+        "file_offset": 2576696,
+        "target": "Ljava/lang/StringBuilder;->toString()Ljava/lang/String;"
+      },
+      {
+        "code_unit": 50,
+        "file_offset": 2576704,
+        "target": "LInit$al;->a(Ljava/lang/String;Ljava/lang/String;)V"
+      }
+    ],
+    "coverage": "linear-instruction-scan",
+    "dex": "classes.dex"
+  },
+  {
+    "method": "LInit;-><clinit>()V",
+    "source_file": "SourceFile",
+    "access": 65545,
+    "code_offset": 2576320,
+    "strings": [],
+    "calls": [
+      {
+        "code_unit": 2,
+        "file_offset": 2576340,
+        "target": "Lkotlin/LazyKt;->lazy(Lkotlin/jvm/functions/Function0;)Lkotlin/Lazy;"
+      }
+    ],
+    "coverage": "linear-instruction-scan",
+    "dex": "classes.dex"
+  },
+  {
+    "method": "LInit;-><init>()V",
+    "source_file": "SourceFile",
+    "access": 65537,
+    "code_offset": 2576356,
+    "strings": [],
+    "calls": [
+      {
+        "code_unit": 0,
+        "file_offset": 2576372,
+        "target": "Ljava/lang/Object;-><init>()V"
+      },
+      {
+        "code_unit": 8,
+        "file_offset": 2576388,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 19,
+        "file_offset": 2576410,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 30,
+        "file_offset": 2576432,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 34,
+        "file_offset": 2576440,
+        "target": "Ljava/lang/System;->loadLibrary(Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 42,
+        "file_offset": 2576456,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 52,
+        "file_offset": 2576476,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 56,
+        "file_offset": 2576484,
+        "target": "LInit;->$SWnMuvk(Ljava/lang/String;Ljava/lang/Throwable;)V"
+      },
+      {
+        "code_unit": 59,
+        "file_offset": 2576490,
+        "target": "LInit$yz;->$bpWv8h2jBJhL()LInit$al;"
+      },
+      {
+        "code_unit": 70,
+        "file_offset": 2576512,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 74,
+        "file_offset": 2576520,
+        "target": "Ljava/lang/Throwable;-><init>(Ljava/lang/String;Ljava/lang/Throwable;)V"
+      },
+      {
+        "code_unit": 77,
+        "file_offset": 2576526,
+        "target": "LInit$al;->_2ur(Ljava/lang/Throwable;)V"
+      },
+      {
+        "code_unit": 81,
+        "file_offset": 2576534,
+        "target": "Ljava/lang/System;->exit(I)V"
+      },
+      {
+        "code_unit": 91,
+        "file_offset": 2576554,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 95,
+        "file_offset": 2576562,
+        "target": "Ljava/lang/RuntimeException;-><init>(Ljava/lang/String;)V"
+      }
+    ],
+    "coverage": "linear-instruction-scan",
+    "dex": "classes.dex"
+  },
+  {
+    "method": "LInit;->Context()[B",
+    "source_file": "SourceFile",
+    "access": 274,
+    "code_offset": 0,
+    "strings": [],
+    "calls": [],
+    "coverage": "no-code",
+    "dex": "classes.dex"
+  },
+  {
+    "method": "LInit;->Init(Landroid/content/Context;)Z",
+    "source_file": "SourceFile",
+    "access": 274,
+    "code_offset": 0,
+    "strings": [],
+    "calls": [],
+    "coverage": "no-code",
+    "dex": "classes.dex"
+  },
+  {
+    "method": "LInit;->$bpWv8h2jBJhL()Ljava/lang/String;",
+    "source_file": "SourceFile",
+    "access": 17,
+    "code_offset": 2575908,
+    "strings": [],
+    "calls": [
+      {
+        "code_unit": 5,
+        "file_offset": 2575934,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 9,
+        "file_offset": 2575942,
+        "target": "LInit;->Context()[B"
+      },
+      {
+        "code_unit": 29,
+        "file_offset": 2575982,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 37,
+        "file_offset": 2575998,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 45,
+        "file_offset": 2576014,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 49,
+        "file_offset": 2576022,
+        "target": "Ljava/security/MessageDigest;->getInstance(Ljava/lang/String;)Ljava/security/MessageDigest;"
+      },
+      {
+        "code_unit": 53,
+        "file_offset": 2576030,
+        "target": "Ljava/security/MessageDigest;->update([B)V"
+      },
+      {
+        "code_unit": 56,
+        "file_offset": 2576036,
+        "target": "Ljava/security/MessageDigest;->digest()[B"
+      },
+      {
+        "code_unit": 61,
+        "file_offset": 2576046,
+        "target": "Landroid/util/Base64;->encodeToString([BI)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 70,
+        "file_offset": 2576064,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 74,
+        "file_offset": 2576072,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->checkNotNullExpressionValue(Ljava/lang/Object;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 77,
+        "file_offset": 2576078,
+        "target": "Lkotlin/text/StringsKt;->trim(Ljava/lang/CharSequence;)Ljava/lang/CharSequence;"
+      },
+      {
+        "code_unit": 81,
+        "file_offset": 2576086,
+        "target": "Ljava/lang/Object;->toString()Ljava/lang/String;"
+      },
+      {
+        "code_unit": 90,
+        "file_offset": 2576104,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 99,
+        "file_offset": 2576122,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 103,
+        "file_offset": 2576130,
+        "target": "LInit;->$SWnMuvk(Ljava/lang/String;Ljava/lang/Throwable;)V"
+      },
+      {
+        "code_unit": 106,
+        "file_offset": 2576136,
+        "target": "LInit$yz;->$bpWv8h2jBJhL()LInit$al;"
+      },
+      {
+        "code_unit": 115,
+        "file_offset": 2576154,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 124,
+        "file_offset": 2576172,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 128,
+        "file_offset": 2576180,
+        "target": "LInit$al;->a(Ljava/lang/String;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 138,
+        "file_offset": 2576200,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 142,
+        "file_offset": 2576208,
+        "target": "LInit;->$SWnMuvk(Ljava/lang/String;Ljava/lang/Throwable;)V"
+      },
+      {
+        "code_unit": 145,
+        "file_offset": 2576214,
+        "target": "LInit$yz;->$bpWv8h2jBJhL()LInit$al;"
+      },
+      {
+        "code_unit": 154,
+        "file_offset": 2576232,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 160,
+        "file_offset": 2576244,
+        "target": "Ljava/lang/StringBuilder;-><init>()V"
+      },
+      {
+        "code_unit": 168,
+        "file_offset": 2576260,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 172,
+        "file_offset": 2576268,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 175,
+        "file_offset": 2576274,
+        "target": "Ljava/lang/Throwable;->getMessage()Ljava/lang/String;"
+      },
+      {
+        "code_unit": 179,
+        "file_offset": 2576282,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 182,
+        "file_offset": 2576288,
+        "target": "Ljava/lang/StringBuilder;->toString()Ljava/lang/String;"
+      },
+      {
+        "code_unit": 186,
+        "file_offset": 2576296,
+        "target": "LInit$al;->a(Ljava/lang/String;Ljava/lang/String;)V"
+      }
+    ],
+    "coverage": "linear-instruction-scan",
+    "dex": "classes.dex"
+  },
+  {
+    "method": "LInit;->_2ur(Landroid/content/Context;LInit$xr;)Z",
+    "source_file": "SourceFile",
+    "access": 17,
+    "code_offset": 2573512,
+    "strings": [],
+    "calls": [
+      {
+        "code_unit": 7,
+        "file_offset": 2573542,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 11,
+        "file_offset": 2573550,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->checkNotNullParameter(Ljava/lang/Object;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 19,
+        "file_offset": 2573566,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 22,
+        "file_offset": 2573572,
+        "target": "Landroid/content/Context;->getApplicationContext()Landroid/content/Context;"
+      },
+      {
+        "code_unit": 31,
+        "file_offset": 2573590,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 35,
+        "file_offset": 2573598,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->checkNotNullExpressionValue(Ljava/lang/Object;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 43,
+        "file_offset": 2573614,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 51,
+        "file_offset": 2573630,
+        "target": "LInit$vz;-><init>(ILjava/lang/Object;Ljava/lang/Object;)V"
+      },
+      {
+        "code_unit": 54,
+        "file_offset": 2573636,
+        "target": "Ljava/lang/Thread;-><init>(Ljava/lang/Runnable;)V"
+      },
+      {
+        "code_unit": 62,
+        "file_offset": 2573652,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 66,
+        "file_offset": 2573660,
+        "target": "Ljava/lang/Thread;->setName(Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 70,
+        "file_offset": 2573668,
+        "target": "Ljava/lang/Thread;->setPriority(I)V"
+      },
+      {
+        "code_unit": 73,
+        "file_offset": 2573674,
+        "target": "Ljava/lang/Thread;->start()V"
+      },
+      {
+        "code_unit": 78,
+        "file_offset": 2573684,
+        "target": "Ljava/lang/Class;->getSuperclass()Ljava/lang/Class;"
+      },
+      {
+        "code_unit": 85,
+        "file_offset": 2573698,
+        "target": "Ljava/lang/Class;->getName()Ljava/lang/String;"
+      },
+      {
+        "code_unit": 93,
+        "file_offset": 2573714,
+        "target": "Ljava/lang/Class;->getName()Ljava/lang/String;"
+      },
+      {
+        "code_unit": 97,
+        "file_offset": 2573722,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->areEqual(Ljava/lang/Object;Ljava/lang/Object;)Z"
+      },
+      {
+        "code_unit": 105,
+        "file_offset": 2573738,
+        "target": "Ljava/lang/StringBuilder;-><init>()V"
+      },
+      {
+        "code_unit": 113,
+        "file_offset": 2573754,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 117,
+        "file_offset": 2573762,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 120,
+        "file_offset": 2573768,
+        "target": "Ljava/lang/Class;->getName()Ljava/lang/String;"
+      },
+      {
+        "code_unit": 124,
+        "file_offset": 2573776,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 132,
+        "file_offset": 2573792,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 136,
+        "file_offset": 2573800,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 139,
+        "file_offset": 2573806,
+        "target": "Ljava/lang/Class;->getSuperclass()Ljava/lang/Class;"
+      },
+      {
+        "code_unit": 145,
+        "file_offset": 2573818,
+        "target": "Ljava/lang/Class;->getName()Ljava/lang/String;"
+      },
+      {
+        "code_unit": 151,
+        "file_offset": 2573830,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 154,
+        "file_offset": 2573836,
+        "target": "Ljava/lang/StringBuilder;->toString()Ljava/lang/String;"
+      },
+      {
+        "code_unit": 158,
+        "file_offset": 2573844,
+        "target": "LInit;->$SWnMuvk(Ljava/lang/String;Ljava/lang/Throwable;)V"
+      },
+      {
+        "code_unit": 161,
+        "file_offset": 2573850,
+        "target": "LInit$yz;->$bpWv8h2jBJhL()LInit$al;"
+      },
+      {
+        "code_unit": 170,
+        "file_offset": 2573868,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 176,
+        "file_offset": 2573880,
+        "target": "Ljava/lang/StringBuilder;-><init>()V"
+      },
+      {
+        "code_unit": 184,
+        "file_offset": 2573896,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 188,
+        "file_offset": 2573904,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 191,
+        "file_offset": 2573910,
+        "target": "Ljava/lang/Class;->getSuperclass()Ljava/lang/Class;"
+      },
+      {
+        "code_unit": 197,
+        "file_offset": 2573922,
+        "target": "Ljava/lang/Class;->getName()Ljava/lang/String;"
+      },
+      {
+        "code_unit": 201,
+        "file_offset": 2573930,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 209,
+        "file_offset": 2573946,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 213,
+        "file_offset": 2573954,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 216,
+        "file_offset": 2573960,
+        "target": "Ljava/lang/Class;->getName()Ljava/lang/String;"
+      },
+      {
+        "code_unit": 220,
+        "file_offset": 2573968,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 223,
+        "file_offset": 2573974,
+        "target": "Ljava/lang/StringBuilder;->toString()Ljava/lang/String;"
+      },
+      {
+        "code_unit": 227,
+        "file_offset": 2573982,
+        "target": "LInit$al;->a(Ljava/lang/String;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 236,
+        "file_offset": 2574000,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 244,
+        "file_offset": 2574016,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 247,
+        "file_offset": 2574022,
+        "target": "LInit;->Init(Landroid/content/Context;)Z"
+      },
+      {
+        "code_unit": 258,
+        "file_offset": 2574044,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 262,
+        "file_offset": 2574052,
+        "target": "LInit;->$SWnMuvk(Ljava/lang/String;Ljava/lang/Throwable;)V"
+      },
+      {
+        "code_unit": 265,
+        "file_offset": 2574058,
+        "target": "LInit$yz;->$bpWv8h2jBJhL()LInit$al;"
+      },
+      {
+        "code_unit": 274,
+        "file_offset": 2574076,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 283,
+        "file_offset": 2574094,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 287,
+        "file_offset": 2574102,
+        "target": "LInit$al;->a(Ljava/lang/String;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 296,
+        "file_offset": 2574120,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 304,
+        "file_offset": 2574136,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 307,
+        "file_offset": 2574142,
+        "target": "Landroid/content/Context;->getPackageName()Ljava/lang/String;"
+      },
+      {
+        "code_unit": 311,
+        "file_offset": 2574150,
+        "target": "Landroid/content/Context;->getPackageManager()Landroid/content/pm/PackageManager;"
+      },
+      {
+        "code_unit": 317,
+        "file_offset": 2574162,
+        "target": "Landroid/content/pm/PackageManager;->getPackageInfo(Ljava/lang/String;I)Landroid/content/pm/PackageInfo;"
+      },
+      {
+        "code_unit": 325,
+        "file_offset": 2574178,
+        "target": "Landroid/content/pm/SigningInfo;->getApkContentsSigners()[Landroid/content/pm/Signature;"
+      },
+      {
+        "code_unit": 350,
+        "file_offset": 2574228,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 358,
+        "file_offset": 2574244,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 361,
+        "file_offset": 2574250,
+        "target": "LInit$yz;->$bpWv8h2jBJhL()LInit$al;"
+      },
+      {
+        "code_unit": 370,
+        "file_offset": 2574268,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 376,
+        "file_offset": 2574280,
+        "target": "Ljava/lang/StringBuilder;-><init>()V"
+      },
+      {
+        "code_unit": 384,
+        "file_offset": 2574296,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 388,
+        "file_offset": 2574304,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 392,
+        "file_offset": 2574312,
+        "target": "Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 395,
+        "file_offset": 2574318,
+        "target": "Ljava/lang/StringBuilder;->toString()Ljava/lang/String;"
+      },
+      {
+        "code_unit": 399,
+        "file_offset": 2574326,
+        "target": "LInit$al;->a(Ljava/lang/String;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 405,
+        "file_offset": 2574338,
+        "target": "Landroid/content/pm/Signature;->toByteArray()[B"
+      },
+      {
+        "code_unit": 414,
+        "file_offset": 2574356,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 423,
+        "file_offset": 2574374,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 431,
+        "file_offset": 2574390,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 434,
+        "file_offset": 2574396,
+        "target": "LInit;->Context()[B"
+      },
+      {
+        "code_unit": 455,
+        "file_offset": 2574438,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 463,
+        "file_offset": 2574454,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 479,
+        "file_offset": 2574486,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 483,
+        "file_offset": 2574494,
+        "target": "LInit;->$SWnMuvk(Ljava/lang/String;Ljava/lang/Throwable;)V"
+      },
+      {
+        "code_unit": 486,
+        "file_offset": 2574500,
+        "target": "LInit$yz;->$bpWv8h2jBJhL()LInit$al;"
+      },
+      {
+        "code_unit": 495,
+        "file_offset": 2574518,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 504,
+        "file_offset": 2574536,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 508,
+        "file_offset": 2574544,
+        "target": "LInit$al;->a(Ljava/lang/String;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 512,
+        "file_offset": 2574552,
+        "target": "Ljava/util/Arrays;->equals([B[B)Z"
+      },
+      {
+        "code_unit": 523,
+        "file_offset": 2574574,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 527,
+        "file_offset": 2574582,
+        "target": "LInit;->$SWnMuvk(Ljava/lang/String;Ljava/lang/Throwable;)V"
+      },
+      {
+        "code_unit": 532,
+        "file_offset": 2574592,
+        "target": "Ljava/lang/StringBuilder;-><init>()V"
+      },
+      {
+        "code_unit": 540,
+        "file_offset": 2574608,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 544,
+        "file_offset": 2574616,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 548,
+        "file_offset": 2574624,
+        "target": "Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 556,
+        "file_offset": 2574640,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 560,
+        "file_offset": 2574648,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 564,
+        "file_offset": 2574656,
+        "target": "Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 567,
+        "file_offset": 2574662,
+        "target": "Ljava/lang/StringBuilder;->toString()Ljava/lang/String;"
+      },
+      {
+        "code_unit": 571,
+        "file_offset": 2574670,
+        "target": "LInit;->$SWnMuvk(Ljava/lang/String;Ljava/lang/Throwable;)V"
+      },
+      {
+        "code_unit": 574,
+        "file_offset": 2574676,
+        "target": "LInit$yz;->$bpWv8h2jBJhL()LInit$al;"
+      },
+      {
+        "code_unit": 583,
+        "file_offset": 2574694,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 589,
+        "file_offset": 2574706,
+        "target": "Ljava/lang/StringBuilder;-><init>()V"
+      },
+      {
+        "code_unit": 597,
+        "file_offset": 2574722,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 601,
+        "file_offset": 2574730,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 605,
+        "file_offset": 2574738,
+        "target": "Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 613,
+        "file_offset": 2574754,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 617,
+        "file_offset": 2574762,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 621,
+        "file_offset": 2574770,
+        "target": "Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 626,
+        "file_offset": 2574780,
+        "target": "Ljava/lang/StringBuilder;->append(C)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 629,
+        "file_offset": 2574786,
+        "target": "Ljava/lang/StringBuilder;->toString()Ljava/lang/String;"
+      },
+      {
+        "code_unit": 633,
+        "file_offset": 2574794,
+        "target": "LInit$al;->a(Ljava/lang/String;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 642,
+        "file_offset": 2574812,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 650,
+        "file_offset": 2574828,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 654,
+        "file_offset": 2574836,
+        "target": "Ljava/security/MessageDigest;->getInstance(Ljava/lang/String;)Ljava/security/MessageDigest;"
+      },
+      {
+        "code_unit": 658,
+        "file_offset": 2574844,
+        "target": "Ljava/security/MessageDigest;->update([B)V"
+      },
+      {
+        "code_unit": 661,
+        "file_offset": 2574850,
+        "target": "Ljava/security/MessageDigest;->digest()[B"
+      },
+      {
+        "code_unit": 666,
+        "file_offset": 2574860,
+        "target": "Landroid/util/Base64;->encodeToString([BI)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 675,
+        "file_offset": 2574878,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 679,
+        "file_offset": 2574886,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->checkNotNullExpressionValue(Ljava/lang/Object;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 682,
+        "file_offset": 2574892,
+        "target": "Lkotlin/text/StringsKt;->trim(Ljava/lang/CharSequence;)Ljava/lang/CharSequence;"
+      },
+      {
+        "code_unit": 686,
+        "file_offset": 2574900,
+        "target": "Ljava/lang/Object;->toString()Ljava/lang/String;"
+      },
+      {
+        "code_unit": 695,
+        "file_offset": 2574918,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 703,
+        "file_offset": 2574934,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 706,
+        "file_offset": 2574940,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->areEqual(Ljava/lang/Object;Ljava/lang/Object;)Z"
+      },
+      {
+        "code_unit": 717,
+        "file_offset": 2574962,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 724,
+        "file_offset": 2574976,
+        "target": "LInit$we;-><init>(LInit$xr;)V"
+      },
+      {
+        "code_unit": 734,
+        "file_offset": 2574996,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 744,
+        "file_offset": 2575016,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 748,
+        "file_offset": 2575024,
+        "target": "LInit;->$SWnMuvk(Ljava/lang/String;Ljava/lang/Throwable;)V"
+      },
+      {
+        "code_unit": 751,
+        "file_offset": 2575030,
+        "target": "LInit$yz;->$bpWv8h2jBJhL()LInit$al;"
+      },
+      {
+        "code_unit": 762,
+        "file_offset": 2575052,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 766,
+        "file_offset": 2575060,
+        "target": "Ljava/lang/Throwable;-><init>(Ljava/lang/String;Ljava/lang/Throwable;)V"
+      },
+      {
+        "code_unit": 769,
+        "file_offset": 2575066,
+        "target": "LInit$al;->_2ur(Ljava/lang/Throwable;)V"
+      },
+      {
+        "code_unit": 778,
+        "file_offset": 2575084,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 782,
+        "file_offset": 2575092,
+        "target": "LInit;->$SWnMuvk(Ljava/lang/String;Ljava/lang/Throwable;)V"
+      },
+      {
+        "code_unit": 785,
+        "file_offset": 2575098,
+        "target": "LInit$yz;->$bpWv8h2jBJhL()LInit$al;"
+      },
+      {
+        "code_unit": 794,
+        "file_offset": 2575116,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 800,
+        "file_offset": 2575128,
+        "target": "Ljava/lang/StringBuilder;-><init>()V"
+      },
+      {
+        "code_unit": 808,
+        "file_offset": 2575144,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 812,
+        "file_offset": 2575152,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 815,
+        "file_offset": 2575158,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 823,
+        "file_offset": 2575174,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 827,
+        "file_offset": 2575182,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 830,
+        "file_offset": 2575188,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 833,
+        "file_offset": 2575194,
+        "target": "Ljava/lang/StringBuilder;->toString()Ljava/lang/String;"
+      },
+      {
+        "code_unit": 837,
+        "file_offset": 2575202,
+        "target": "LInit$al;->a(Ljava/lang/String;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 847,
+        "file_offset": 2575222,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 851,
+        "file_offset": 2575230,
+        "target": "LInit;->$SWnMuvk(Ljava/lang/String;Ljava/lang/Throwable;)V"
+      },
+      {
+        "code_unit": 854,
+        "file_offset": 2575236,
+        "target": "LInit$yz;->$bpWv8h2jBJhL()LInit$al;"
+      },
+      {
+        "code_unit": 863,
+        "file_offset": 2575254,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 869,
+        "file_offset": 2575266,
+        "target": "Ljava/lang/StringBuilder;-><init>()V"
+      },
+      {
+        "code_unit": 877,
+        "file_offset": 2575282,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 881,
+        "file_offset": 2575290,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 884,
+        "file_offset": 2575296,
+        "target": "Ljava/lang/Throwable;->getMessage()Ljava/lang/String;"
+      },
+      {
+        "code_unit": 888,
+        "file_offset": 2575304,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 891,
+        "file_offset": 2575310,
+        "target": "Ljava/lang/StringBuilder;->toString()Ljava/lang/String;"
+      },
+      {
+        "code_unit": 895,
+        "file_offset": 2575318,
+        "target": "LInit$al;->a(Ljava/lang/String;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 904,
+        "file_offset": 2575336,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 908,
+        "file_offset": 2575344,
+        "target": "LInit;->$SWnMuvk(Ljava/lang/String;Ljava/lang/Throwable;)V"
+      },
+      {
+        "code_unit": 911,
+        "file_offset": 2575350,
+        "target": "LInit$yz;->$bpWv8h2jBJhL()LInit$al;"
+      },
+      {
+        "code_unit": 920,
+        "file_offset": 2575368,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 929,
+        "file_offset": 2575386,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 933,
+        "file_offset": 2575394,
+        "target": "LInit$al;->a(Ljava/lang/String;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 943,
+        "file_offset": 2575414,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 947,
+        "file_offset": 2575422,
+        "target": "LInit;->$SWnMuvk(Ljava/lang/String;Ljava/lang/Throwable;)V"
+      },
+      {
+        "code_unit": 950,
+        "file_offset": 2575428,
+        "target": "LInit$yz;->$bpWv8h2jBJhL()LInit$al;"
+      },
+      {
+        "code_unit": 959,
+        "file_offset": 2575446,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 965,
+        "file_offset": 2575458,
+        "target": "Ljava/lang/StringBuilder;-><init>()V"
+      },
+      {
+        "code_unit": 973,
+        "file_offset": 2575474,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 977,
+        "file_offset": 2575482,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 980,
+        "file_offset": 2575488,
+        "target": "Ljava/lang/Throwable;->getMessage()Ljava/lang/String;"
+      },
+      {
+        "code_unit": 984,
+        "file_offset": 2575496,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 987,
+        "file_offset": 2575502,
+        "target": "Ljava/lang/StringBuilder;->toString()Ljava/lang/String;"
+      },
+      {
+        "code_unit": 991,
+        "file_offset": 2575510,
+        "target": "LInit$al;->a(Ljava/lang/String;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 1000,
+        "file_offset": 2575528,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 1004,
+        "file_offset": 2575536,
+        "target": "LInit;->$SWnMuvk(Ljava/lang/String;Ljava/lang/Throwable;)V"
+      },
+      {
+        "code_unit": 1007,
+        "file_offset": 2575542,
+        "target": "LInit$yz;->$bpWv8h2jBJhL()LInit$al;"
+      },
+      {
+        "code_unit": 1016,
+        "file_offset": 2575560,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 1025,
+        "file_offset": 2575578,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 1029,
+        "file_offset": 2575586,
+        "target": "LInit$al;->a(Ljava/lang/String;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 1039,
+        "file_offset": 2575606,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 1043,
+        "file_offset": 2575614,
+        "target": "LInit;->$SWnMuvk(Ljava/lang/String;Ljava/lang/Throwable;)V"
+      },
+      {
+        "code_unit": 1046,
+        "file_offset": 2575620,
+        "target": "LInit$yz;->$bpWv8h2jBJhL()LInit$al;"
+      },
+      {
+        "code_unit": 1055,
+        "file_offset": 2575638,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 1061,
+        "file_offset": 2575650,
+        "target": "Ljava/lang/StringBuilder;-><init>()V"
+      },
+      {
+        "code_unit": 1069,
+        "file_offset": 2575666,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 1073,
+        "file_offset": 2575674,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 1076,
+        "file_offset": 2575680,
+        "target": "Ljava/lang/Throwable;->getMessage()Ljava/lang/String;"
+      },
+      {
+        "code_unit": 1080,
+        "file_offset": 2575688,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 1083,
+        "file_offset": 2575694,
+        "target": "Ljava/lang/StringBuilder;->toString()Ljava/lang/String;"
+      },
+      {
+        "code_unit": 1087,
+        "file_offset": 2575702,
+        "target": "LInit$al;->a(Ljava/lang/String;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 1097,
+        "file_offset": 2575722,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 1101,
+        "file_offset": 2575730,
+        "target": "LInit;->$SWnMuvk(Ljava/lang/String;Ljava/lang/Throwable;)V"
+      },
+      {
+        "code_unit": 1104,
+        "file_offset": 2575736,
+        "target": "LInit$yz;->$bpWv8h2jBJhL()LInit$al;"
+      },
+      {
+        "code_unit": 1113,
+        "file_offset": 2575754,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 1119,
+        "file_offset": 2575766,
+        "target": "Ljava/lang/StringBuilder;-><init>()V"
+      },
+      {
+        "code_unit": 1127,
+        "file_offset": 2575782,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 1131,
+        "file_offset": 2575790,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 1134,
+        "file_offset": 2575796,
+        "target": "Ljava/lang/Throwable;->getMessage()Ljava/lang/String;"
+      },
+      {
+        "code_unit": 1138,
+        "file_offset": 2575804,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 1141,
+        "file_offset": 2575810,
+        "target": "Ljava/lang/StringBuilder;->toString()Ljava/lang/String;"
+      },
+      {
+        "code_unit": 1145,
+        "file_offset": 2575818,
+        "target": "LInit$al;->a(Ljava/lang/String;Ljava/lang/String;)V"
+      }
+    ],
+    "coverage": "linear-instruction-scan",
+    "dex": "classes.dex"
+  },
+  {
+    "method": "Lcom/pokemod/app/injector/HALService;->$SWnMuvk(Lcom/pokemod/app/injector/HALService;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/ArrayList;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;",
+    "source_file": "SourceFile",
+    "access": 25,
+    "code_offset": 3777348,
+    "strings": [
+      {
+        "code_unit": 421,
+        "file_offset": 3778206,
+        "value": "cmd"
+      }
+    ],
+    "calls": [
+      {
+        "code_unit": 4,
+        "file_offset": 3777372,
+        "target": "Ljava/lang/Object;->getClass()Ljava/lang/Class;"
+      },
+      {
+        "code_unit": 28,
+        "file_offset": 3777420,
+        "target": "LInit$hr;-><init>(Lcom/pokemod/app/injector/HALService;Lkotlin/coroutines/Continuation;)V"
+      },
+      {
+        "code_unit": 33,
+        "file_offset": 3777430,
+        "target": "Lkotlin/coroutines/intrinsics/IntrinsicsKt;->getCOROUTINE_SUSPENDED()Ljava/lang/Object;"
+      },
+      {
+        "code_unit": 56,
+        "file_offset": 3777476,
+        "target": "Lkotlin/ResultKt;->throwOnFailure(Ljava/lang/Object;)V"
+      },
+      {
+        "code_unit": 71,
+        "file_offset": 3777506,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 75,
+        "file_offset": 3777514,
+        "target": "Ljava/lang/IllegalStateException;-><init>(Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 79,
+        "file_offset": 3777522,
+        "target": "Lkotlin/ResultKt;->throwOnFailure(Ljava/lang/Object;)V"
+      },
+      {
+        "code_unit": 84,
+        "file_offset": 3777532,
+        "target": "Ljava/lang/Object;->getClass()Ljava/lang/Class;"
+      },
+      {
+        "code_unit": 87,
+        "file_offset": 3777538,
+        "target": "LInit$ep;->$SWnMuvk(Landroid/content/Context;)Z"
+      },
+      {
+        "code_unit": 98,
+        "file_offset": 3777560,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 102,
+        "file_offset": 3777568,
+        "target": "LInit$eq;->aaP(Landroid/content/Context;Ljava/lang/String;Z)Z"
+      },
+      {
+        "code_unit": 115,
+        "file_offset": 3777594,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 121,
+        "file_offset": 3777606,
+        "target": "LInit$ct0;->a([Ljava/lang/String;)LInit$xg0;"
+      },
+      {
+        "code_unit": 125,
+        "file_offset": 3777614,
+        "target": "LInit$xg0;->aRk5Sm0v()LInit$ct0$a;"
+      },
+      {
+        "code_unit": 133,
+        "file_offset": 3777630,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 137,
+        "file_offset": 3777638,
+        "target": "LInit$eq;->aaP(Landroid/content/Context;Ljava/lang/String;Z)Z"
+      },
+      {
+        "code_unit": 145,
+        "file_offset": 3777654,
+        "target": "Ljava/util/ArrayList;-><init>()V"
+      },
+      {
+        "code_unit": 153,
+        "file_offset": 3777670,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 162,
+        "file_offset": 3777688,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 166,
+        "file_offset": 3777696,
+        "target": "LInit$kt0;->$bpWv8h2jBJhL(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 175,
+        "file_offset": 3777714,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 179,
+        "file_offset": 3777722,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->areEqual(Ljava/lang/Object;Ljava/lang/Object;)Z"
+      },
+      {
+        "code_unit": 190,
+        "file_offset": 3777744,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 199,
+        "file_offset": 3777762,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 208,
+        "file_offset": 3777780,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 212,
+        "file_offset": 3777788,
+        "target": "LInit$kt0;->$SWnMuvk(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/ArrayList;)V"
+      },
+      {
+        "code_unit": 220,
+        "file_offset": 3777804,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 229,
+        "file_offset": 3777822,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 233,
+        "file_offset": 3777830,
+        "target": "LInit$kt0;->$bpWv8h2jBJhL(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 242,
+        "file_offset": 3777848,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 246,
+        "file_offset": 3777856,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->areEqual(Ljava/lang/Object;Ljava/lang/Object;)Z"
+      },
+      {
+        "code_unit": 257,
+        "file_offset": 3777878,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 266,
+        "file_offset": 3777896,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 275,
+        "file_offset": 3777914,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 279,
+        "file_offset": 3777922,
+        "target": "LInit$kt0;->$SWnMuvk(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/ArrayList;)V"
+      },
+      {
+        "code_unit": 287,
+        "file_offset": 3777938,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 296,
+        "file_offset": 3777956,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 300,
+        "file_offset": 3777964,
+        "target": "LInit$kt0;->$bpWv8h2jBJhL(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 309,
+        "file_offset": 3777982,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 313,
+        "file_offset": 3777990,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->areEqual(Ljava/lang/Object;Ljava/lang/Object;)Z"
+      },
+      {
+        "code_unit": 324,
+        "file_offset": 3778012,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 333,
+        "file_offset": 3778030,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 342,
+        "file_offset": 3778048,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 346,
+        "file_offset": 3778056,
+        "target": "LInit$kt0;->$SWnMuvk(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/ArrayList;)V"
+      },
+      {
+        "code_unit": 354,
+        "file_offset": 3778072,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 363,
+        "file_offset": 3778090,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 367,
+        "file_offset": 3778098,
+        "target": "Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I"
+      },
+      {
+        "code_unit": 379,
+        "file_offset": 3778122,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 385,
+        "file_offset": 3778134,
+        "target": "LInit$a00;->$SWnMuvk(Ljava/lang/String;Ljava/lang/String;Z)V"
+      },
+      {
+        "code_unit": 390,
+        "file_offset": 3778144,
+        "target": "LInit$lt0;->$SWnMuvk()V"
+      },
+      {
+        "code_unit": 395,
+        "file_offset": 3778154,
+        "target": "Ljava/lang/StringBuilder;-><init>()V"
+      },
+      {
+        "code_unit": 398,
+        "file_offset": 3778160,
+        "target": "LInit$kt0;->a()Ljava/lang/String;"
+      },
+      {
+        "code_unit": 402,
+        "file_offset": 3778168,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 410,
+        "file_offset": 3778184,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 414,
+        "file_offset": 3778192,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 417,
+        "file_offset": 3778198,
+        "target": "Ljava/lang/StringBuilder;->toString()Ljava/lang/String;"
+      },
+      {
+        "code_unit": 423,
+        "file_offset": 3778210,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->checkNotNullParameter(Ljava/lang/Object;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 428,
+        "file_offset": 3778220,
+        "target": "LInit$kt0;->_2ur(JLjava/lang/String;)LInit$ct0$a;"
+      },
+      {
+        "code_unit": 434,
+        "file_offset": 3778232,
+        "target": "LInit$ct0$a;->a()Z"
+      },
+      {
+        "code_unit": 440,
+        "file_offset": 3778244,
+        "target": "LInit$ct0$a;->_2ur()Ljava/util/List;"
+      },
+      {
+        "code_unit": 449,
+        "file_offset": 3778262,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 453,
+        "file_offset": 3778270,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->checkNotNullExpressionValue(Ljava/lang/Object;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 456,
+        "file_offset": 3778276,
+        "target": "Ljava/util/Collection;->isEmpty()Z"
+      },
+      {
+        "code_unit": 468,
+        "file_offset": 3778300,
+        "target": "Ljava/lang/StringBuilder;-><init>()V"
+      },
+      {
+        "code_unit": 476,
+        "file_offset": 3778316,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 480,
+        "file_offset": 3778324,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 483,
+        "file_offset": 3778330,
+        "target": "LInit$ct0$a;->_2ur()Ljava/util/List;"
+      },
+      {
+        "code_unit": 492,
+        "file_offset": 3778348,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 496,
+        "file_offset": 3778356,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->checkNotNullExpressionValue(Ljava/lang/Object;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 504,
+        "file_offset": 3778372,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 525,
+        "file_offset": 3778414,
+        "target": "Lkotlin/collections/CollectionsKt;->Ax(Ljava/lang/Iterable;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlin/jvm/functions/Function1;I)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 529,
+        "file_offset": 3778422,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 532,
+        "file_offset": 3778428,
+        "target": "Ljava/lang/StringBuilder;->toString()Ljava/lang/String;"
+      },
+      {
+        "code_unit": 536,
+        "file_offset": 3778436,
+        "target": "Ljava/lang/RuntimeException;-><init>(Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 547,
+        "file_offset": 3778458,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 556,
+        "file_offset": 3778476,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 560,
+        "file_offset": 3778484,
+        "target": "Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I"
+      },
+      {
+        "code_unit": 569,
+        "file_offset": 3778502,
+        "target": "LInit$ir;-><init>(Lcom/pokemod/app/injector/HALService;Lkotlin/coroutines/Continuation;)V"
+      },
+      {
+        "code_unit": 596,
+        "file_offset": 3778556,
+        "target": "LInit$ck0;->a(Lkotlin/coroutines/CoroutineContext;Lkotlin/jvm/functions/Function2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;"
+      },
+      {
+        "code_unit": 610,
+        "file_offset": 3778584,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 619,
+        "file_offset": 3778602,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 623,
+        "file_offset": 3778610,
+        "target": "Lkotlin/text/StringsKt;->bzbAWjx4(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 632,
+        "file_offset": 3778628,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 641,
+        "file_offset": 3778646,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 645,
+        "file_offset": 3778654,
+        "target": "Lkotlin/text/StringsKt;->bzbAWjx4(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 654,
+        "file_offset": 3778672,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 663,
+        "file_offset": 3778690,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 667,
+        "file_offset": 3778698,
+        "target": "Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I"
+      },
+      {
+        "code_unit": 675,
+        "file_offset": 3778714,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 679,
+        "file_offset": 3778722,
+        "target": "LInit$eq;->ah(ILandroid/content/Context;Ljava/lang/String;)I"
+      },
+      {
+        "code_unit": 692,
+        "file_offset": 3778748,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 696,
+        "file_offset": 3778756,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->areEqual(Ljava/lang/Object;Ljava/lang/Object;)Z"
+      },
+      {
+        "code_unit": 709,
+        "file_offset": 3778782,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 713,
+        "file_offset": 3778790,
+        "target": "Ljava/lang/Object;->getClass()Ljava/lang/Class;"
+      },
+      {
+        "code_unit": 721,
+        "file_offset": 3778806,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 725,
+        "file_offset": 3778814,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->checkNotNullParameter(Ljava/lang/Object;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 735,
+        "file_offset": 3778834,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 744,
+        "file_offset": 3778852,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 748,
+        "file_offset": 3778860,
+        "target": "LInit$vr;->$SWnMuvk(Ljava/lang/Object;Ljava/lang/String;)Ljava/lang/Object;"
+      },
+      {
+        "code_unit": 754,
+        "file_offset": 3778872,
+        "target": "Lorg/json/JSONObject;-><init>(Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 757,
+        "file_offset": 3778878,
+        "target": "Ljava/lang/System;->currentTimeMillis()J"
+      },
+      {
+        "code_unit": 766,
+        "file_offset": 3778896,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 770,
+        "file_offset": 3778904,
+        "target": "Lorg/json/JSONObject;->optLong(Ljava/lang/String;J)J"
+      },
+      {
+        "code_unit": 796,
+        "file_offset": 3778956,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 800,
+        "file_offset": 3778964,
+        "target": "Lorg/json/JSONObject;->optJSONObject(Ljava/lang/String;)Lorg/json/JSONObject;"
+      },
+      {
+        "code_unit": 806,
+        "file_offset": 3778976,
+        "target": "Lorg/json/JSONObject;->optJSONObject(Ljava/lang/String;)Lorg/json/JSONObject;"
+      },
+      {
+        "code_unit": 822,
+        "file_offset": 3779008,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 826,
+        "file_offset": 3779016,
+        "target": "Lorg/json/JSONObject;->optString(Ljava/lang/String;)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 835,
+        "file_offset": 3779034,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 839,
+        "file_offset": 3779042,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->checkNotNullExpressionValue(Ljava/lang/Object;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 847,
+        "file_offset": 3779058,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 851,
+        "file_offset": 3779066,
+        "target": "Lorg/json/JSONObject;->optJSONObject(Ljava/lang/String;)Lorg/json/JSONObject;"
+      },
+      {
+        "code_unit": 859,
+        "file_offset": 3779082,
+        "target": "Lorg/json/JSONObject;-><init>()V"
+      },
+      {
+        "code_unit": 862,
+        "file_offset": 3779088,
+        "target": "LInit$abiowxPM$$bpWv8h2jBJhL;-><init>(Ljava/lang/String;Lorg/json/JSONObject;)V"
+      },
+      {
+        "code_unit": 878,
+        "file_offset": 3779120,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 882,
+        "file_offset": 3779128,
+        "target": "Lorg/json/JSONObject;->optInt(Ljava/lang/String;I)I"
+      },
+      {
+        "code_unit": 889,
+        "file_offset": 3779142,
+        "target": "Ljava/lang/System;->currentTimeMillis()J"
+      },
+      {
+        "code_unit": 902,
+        "file_offset": 3779168,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 911,
+        "file_offset": 3779186,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 915,
+        "file_offset": 3779194,
+        "target": "LInit$eq;->AI(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 921,
+        "file_offset": 3779206,
+        "target": "Ljava/lang/Object;->getClass()Ljava/lang/Class;"
+      },
+      {
+        "code_unit": 929,
+        "file_offset": 3779222,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 933,
+        "file_offset": 3779230,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->checkNotNullParameter(Ljava/lang/Object;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 941,
+        "file_offset": 3779246,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 945,
+        "file_offset": 3779254,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->checkNotNullParameter(Ljava/lang/Object;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 953,
+        "file_offset": 3779270,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 957,
+        "file_offset": 3779278,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->checkNotNullParameter(Ljava/lang/Object;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 969,
+        "file_offset": 3779302,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 973,
+        "file_offset": 3779310,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->throwUninitializedPropertyAccessException(Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 983,
+        "file_offset": 3779330,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 987,
+        "file_offset": 3779338,
+        "target": "LInit$c81;->$SWnMuvk(Landroid/content/Context;Ljava/lang/String;)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 995,
+        "file_offset": 3779354,
+        "target": "Ljava/util/concurrent/atomic/AtomicBoolean;->get()Z"
+      },
+      {
+        "code_unit": 1003,
+        "file_offset": 3779370,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->areEqual(Ljava/lang/Object;Ljava/lang/Object;)Z"
+      },
+      {
+        "code_unit": 1013,
+        "file_offset": 3779390,
+        "target": "LInit$cu0;-><init>(Ljava/lang/String;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 1016,
+        "file_offset": 3779396,
+        "target": "Ljava/util/concurrent/ExecutorService;->submit(Ljava/lang/Runnable;)Ljava/util/concurrent/Future;"
+      },
+      {
+        "code_unit": 1026,
+        "file_offset": 3779416,
+        "target": "Ljava/util/concurrent/Future;->get(JLjava/util/concurrent/TimeUnit;)Ljava/lang/Object;"
+      },
+      {
+        "code_unit": 1042,
+        "file_offset": 3779448,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 1048,
+        "file_offset": 3779460,
+        "target": "Ljava/lang/StringBuilder;-><init>()V"
+      },
+      {
+        "code_unit": 1056,
+        "file_offset": 3779476,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 1060,
+        "file_offset": 3779484,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 1065,
+        "file_offset": 3779494,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 1073,
+        "file_offset": 3779510,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 1077,
+        "file_offset": 3779518,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 1080,
+        "file_offset": 3779524,
+        "target": "Ljava/lang/StringBuilder;->toString()Ljava/lang/String;"
+      },
+      {
+        "code_unit": 1084,
+        "file_offset": 3779532,
+        "target": "Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I"
+      },
+      {
+        "code_unit": 1091,
+        "file_offset": 3779546,
+        "target": "Ljava/lang/StringBuilder;-><init>()V"
+      },
+      {
+        "code_unit": 1099,
+        "file_offset": 3779562,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 1103,
+        "file_offset": 3779570,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 1106,
+        "file_offset": 3779576,
+        "target": "Ljava/util/UUID;->randomUUID()Ljava/util/UUID;"
+      },
+      {
+        "code_unit": 1110,
+        "file_offset": 3779584,
+        "target": "Ljava/util/UUID;->toString()Ljava/lang/String;"
+      },
+      {
+        "code_unit": 1119,
+        "file_offset": 3779602,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 1123,
+        "file_offset": 3779610,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->checkNotNullExpressionValue(Ljava/lang/Object;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 1129,
+        "file_offset": 3779622,
+        "target": "Ljava/lang/String;->substring(II)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 1138,
+        "file_offset": 3779640,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 1142,
+        "file_offset": 3779648,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->checkNotNullExpressionValue(Ljava/lang/Object;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 1145,
+        "file_offset": 3779654,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 1148,
+        "file_offset": 3779660,
+        "target": "Ljava/lang/StringBuilder;->toString()Ljava/lang/String;"
+      },
+      {
+        "code_unit": 1161,
+        "file_offset": 3779686,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 1167,
+        "file_offset": 3779698,
+        "target": "Lorg/json/JSONObject;-><init>()V"
+      },
+      {
+        "code_unit": 1175,
+        "file_offset": 3779714,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 1183,
+        "file_offset": 3779730,
+        "target": "Lorg/json/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;"
+      },
+      {
+        "code_unit": 1192,
+        "file_offset": 3779748,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 1196,
+        "file_offset": 3779756,
+        "target": "Lorg/json/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;"
+      },
+      {
+        "code_unit": 1200,
+        "file_offset": 3779764,
+        "target": "Lorg/json/JSONObject;->toString()Ljava/lang/String;"
+      },
+      {
+        "code_unit": 1204,
+        "file_offset": 3779772,
+        "target": "LInit$vr;->_2ur(Ljava/lang/Object;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 1218,
+        "file_offset": 3779800,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 1227,
+        "file_offset": 3779818,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 1231,
+        "file_offset": 3779826,
+        "target": "Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I"
+      },
+      {
+        "code_unit": 1236,
+        "file_offset": 3779836,
+        "target": "Lorg/json/JSONObject;-><init>()V"
+      },
+      {
+        "code_unit": 1244,
+        "file_offset": 3779852,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 1248,
+        "file_offset": 3779860,
+        "target": "Lorg/json/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;"
+      },
+      {
+        "code_unit": 1257,
+        "file_offset": 3779878,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 1261,
+        "file_offset": 3779886,
+        "target": "Ljava/lang/String;->valueOf(I)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 1265,
+        "file_offset": 3779894,
+        "target": "Lorg/json/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;"
+      },
+      {
+        "code_unit": 1274,
+        "file_offset": 3779912,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 1278,
+        "file_offset": 3779920,
+        "target": "Lorg/json/JSONObject;->put(Ljava/lang/String;I)Lorg/json/JSONObject;"
+      },
+      {
+        "code_unit": 1287,
+        "file_offset": 3779938,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 1291,
+        "file_offset": 3779946,
+        "target": "Lorg/json/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;"
+      },
+      {
+        "code_unit": 1300,
+        "file_offset": 3779964,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 1304,
+        "file_offset": 3779972,
+        "target": "Lorg/json/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;"
+      },
+      {
+        "code_unit": 1313,
+        "file_offset": 3779990,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 1317,
+        "file_offset": 3779998,
+        "target": "Lorg/json/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;"
+      },
+      {
+        "code_unit": 1326,
+        "file_offset": 3780016,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 1330,
+        "file_offset": 3780024,
+        "target": "Lorg/json/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;"
+      },
+      {
+        "code_unit": 1341,
+        "file_offset": 3780046,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 1345,
+        "file_offset": 3780054,
+        "target": "Lorg/json/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;"
+      },
+      {
+        "code_unit": 1354,
+        "file_offset": 3780072,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 1362,
+        "file_offset": 3780088,
+        "target": "Lorg/json/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;"
+      },
+      {
+        "code_unit": 1370,
+        "file_offset": 3780104,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 1379,
+        "file_offset": 3780122,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 1383,
+        "file_offset": 3780130,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->checkNotNullExpressionValue(Ljava/lang/Object;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 1386,
+        "file_offset": 3780136,
+        "target": "LInit$fu0;->bsx(Ljava/lang/String;Lorg/json/JSONObject;)V"
+      },
+      {
+        "code_unit": 1391,
+        "file_offset": 3780146,
+        "target": "LInit$fu0;->BgM(J)V"
+      },
+      {
+        "code_unit": 1403,
+        "file_offset": 3780170,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 1407,
+        "file_offset": 3780178,
+        "target": "Ljava/lang/Object;->getClass()Ljava/lang/Class;"
+      },
+      {
+        "code_unit": 1415,
+        "file_offset": 3780194,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 1419,
+        "file_offset": 3780202,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->checkNotNullParameter(Ljava/lang/Object;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 1427,
+        "file_offset": 3780218,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 1431,
+        "file_offset": 3780226,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->checkNotNullParameter(Ljava/lang/Object;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 1439,
+        "file_offset": 3780242,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 1443,
+        "file_offset": 3780250,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->checkNotNullParameter(Ljava/lang/Object;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 1453,
+        "file_offset": 3780270,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 1459,
+        "file_offset": 3780282,
+        "target": "Lorg/json/JSONObject;-><init>()V"
+      },
+      {
+        "code_unit": 1467,
+        "file_offset": 3780298,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 1471,
+        "file_offset": 3780306,
+        "target": "Lorg/json/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;"
+      },
+      {
+        "code_unit": 1480,
+        "file_offset": 3780324,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 1486,
+        "file_offset": 3780336,
+        "target": "Lorg/json/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;"
+      },
+      {
+        "code_unit": 1495,
+        "file_offset": 3780354,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 1499,
+        "file_offset": 3780362,
+        "target": "Lorg/json/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;"
+      },
+      {
+        "code_unit": 1508,
+        "file_offset": 3780380,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 1512,
+        "file_offset": 3780388,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->checkNotNullExpressionValue(Ljava/lang/Object;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 1515,
+        "file_offset": 3780394,
+        "target": "Ljava/lang/Object;->getClass()Ljava/lang/Class;"
+      },
+      {
+        "code_unit": 1518,
+        "file_offset": 3780400,
+        "target": "LInit$fu0;->bsx(Ljava/lang/String;Lorg/json/JSONObject;)V"
+      },
+      {
+        "code_unit": 1526,
+        "file_offset": 3780416,
+        "target": "Ljava/lang/Object;->getClass()Ljava/lang/Class;"
+      },
+      {
+        "code_unit": 1531,
+        "file_offset": 3780426,
+        "target": "LInit$xt0;-><init>()V"
+      },
+      {
+        "code_unit": 1536,
+        "file_offset": 3780436,
+        "target": "Ljava/util/concurrent/Executor;->execute(Ljava/lang/Runnable;)V"
+      },
+      {
+        "code_unit": 1544,
+        "file_offset": 3780452,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 1548,
+        "file_offset": 3780460,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->areEqual(Ljava/lang/Object;Ljava/lang/Object;)Z"
+      },
+      {
+        "code_unit": 1557,
+        "file_offset": 3780478,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 1561,
+        "file_offset": 3780486,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->checkNotNullParameter(Ljava/lang/Object;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 1569,
+        "file_offset": 3780502,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 1575,
+        "file_offset": 3780514,
+        "target": "Landroid/content/Context;->getFilesDir()Ljava/io/File;"
+      },
+      {
+        "code_unit": 1584,
+        "file_offset": 3780532,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 1588,
+        "file_offset": 3780540,
+        "target": "Ljava/io/File;-><init>(Ljava/io/File;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 1593,
+        "file_offset": 3780550,
+        "target": "Ljava/io/File;-><init>(Ljava/io/File;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 1596,
+        "file_offset": 3780556,
+        "target": "Ljava/io/File;->mkdir()Z"
+      },
+      {
+        "code_unit": 1599,
+        "file_offset": 3780562,
+        "target": "LInit$eq;->a(Landroid/content/Context;Ljava/lang/String;Ljava/io/File;)Z"
+      },
+      {
+        "code_unit": 1613,
+        "file_offset": 3780590,
+        "target": "Ljava/lang/StringBuilder;-><init>()V"
+      },
+      {
+        "code_unit": 1621,
+        "file_offset": 3780606,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 1625,
+        "file_offset": 3780614,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 1628,
+        "file_offset": 3780620,
+        "target": "Ljava/io/File;->getPath()Ljava/lang/String;"
+      },
+      {
+        "code_unit": 1632,
+        "file_offset": 3780628,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 1635,
+        "file_offset": 3780634,
+        "target": "Ljava/lang/StringBuilder;->toString()Ljava/lang/String;"
+      },
+      {
+        "code_unit": 1642,
+        "file_offset": 3780648,
+        "target": "LInit$ct0;->a([Ljava/lang/String;)LInit$xg0;"
+      },
+      {
+        "code_unit": 1646,
+        "file_offset": 3780656,
+        "target": "LInit$xg0;->aRk5Sm0v()LInit$ct0$a;"
+      },
+      {
+        "code_unit": 1655,
+        "file_offset": 3780674,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 1659,
+        "file_offset": 3780682,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->checkNotNullExpressionValue(Ljava/lang/Object;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 1662,
+        "file_offset": 3780688,
+        "target": "LInit$ct0$a;->a()Z"
+      },
+      {
+        "code_unit": 1673,
+        "file_offset": 3780710,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 1677,
+        "file_offset": 3780718,
+        "target": "LInit$ct0$a;->$SWnMuvk()Ljava/util/List;"
+      },
+      {
+        "code_unit": 1686,
+        "file_offset": 3780736,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 1690,
+        "file_offset": 3780744,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->checkNotNullExpressionValue(Ljava/lang/Object;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 1698,
+        "file_offset": 3780760,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 1719,
+        "file_offset": 3780802,
+        "target": "Lkotlin/collections/CollectionsKt;->Ax(Ljava/lang/Iterable;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlin/jvm/functions/Function1;I)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 1723,
+        "file_offset": 3780810,
+        "target": "Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I"
+      },
+      {
+        "code_unit": 1731,
+        "file_offset": 3780826,
+        "target": "Ljava/lang/Throwable;->printStackTrace()V"
+      },
+      {
+        "code_unit": 1736,
+        "file_offset": 3780836,
+        "target": "Ljava/io/File;->getPath()Ljava/lang/String;"
+      },
+      {
+        "code_unit": 1749,
+        "file_offset": 3780862,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 1758,
+        "file_offset": 3780880,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 1762,
+        "file_offset": 3780888,
+        "target": "Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I"
+      },
+      {
+        "code_unit": 1772,
+        "file_offset": 3780908,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 1778,
+        "file_offset": 3780920,
+        "target": "Ljava/lang/Object;->getClass()Ljava/lang/Class;"
+      },
+      {
+        "code_unit": 1781,
+        "file_offset": 3780926,
+        "target": "LInit$fu0;->abiowxPM(JLjava/lang/String;)V"
+      },
+      {
+        "code_unit": 1784,
+        "file_offset": 3780932,
+        "target": "Landroid/app/Service;->stopSelf()V"
+      },
+      {
+        "code_unit": 1793,
+        "file_offset": 3780950,
+        "target": "Lcom/pokemod/app/injector/$bpWv8h2jBJhL;-><init>(Lcom/pokemod/app/injector/HALService;)V"
+      },
+      {
+        "code_unit": 1801,
+        "file_offset": 3780966,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 1805,
+        "file_offset": 3780974,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->checkNotNullParameter(Ljava/lang/Object;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 1813,
+        "file_offset": 3780990,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 1817,
+        "file_offset": 3780998,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->checkNotNullParameter(Ljava/lang/Object;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 1822,
+        "file_offset": 3781008,
+        "target": "Ljava/util/concurrent/locks/ReentrantLock;->lock()V"
+      },
+      {
+        "code_unit": 1834,
+        "file_offset": 3781032,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 1843,
+        "file_offset": 3781050,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 1847,
+        "file_offset": 3781058,
+        "target": "Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I"
+      },
+      {
+        "code_unit": 1850,
+        "file_offset": 3781064,
+        "target": "Ljava/util/concurrent/locks/ReentrantLock;->unlock()V"
+      },
+      {
+        "code_unit": 1857,
+        "file_offset": 3781078,
+        "target": "LInit$a00;-><init>(Ljava/lang/String;Lcom/pokemod/app/injector/$bpWv8h2jBJhL;)V"
+      },
+      {
+        "code_unit": 1862,
+        "file_offset": 3781088,
+        "target": "Ljava/util/concurrent/locks/ReentrantLock;->unlock()V"
+      },
+      {
+        "code_unit": 1875,
+        "file_offset": 3781114,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 1884,
+        "file_offset": 3781132,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 1888,
+        "file_offset": 3781140,
+        "target": "Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I"
+      },
+      {
+        "code_unit": 1898,
+        "file_offset": 3781160,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 1904,
+        "file_offset": 3781172,
+        "target": "Ljava/lang/Object;->getClass()Ljava/lang/Class;"
+      },
+      {
+        "code_unit": 1907,
+        "file_offset": 3781178,
+        "target": "LInit$fu0;->abiowxPM(JLjava/lang/String;)V"
+      },
+      {
+        "code_unit": 1919,
+        "file_offset": 3781202,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 1926,
+        "file_offset": 3781216,
+        "target": "Lcom/pokemod/app/injector/$SWnMuvk;->$SWnMuvk(LInit$zq0;Ljava/lang/String;Ljava/lang/Throwable;)V"
+      },
+      {
+        "code_unit": 1936,
+        "file_offset": 3781236,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 1940,
+        "file_offset": 3781244,
+        "target": "Ljava/lang/Object;->getClass()Ljava/lang/Class;"
+      },
+      {
+        "code_unit": 1944,
+        "file_offset": 3781252,
+        "target": "Lcom/pokemod/app/injector/HALService$$bpWv8h2jBJhL;->$bpWv8h2jBJhL(Landroid/content/Context;Ljava/lang/String;Z)V"
+      },
+      {
+        "code_unit": 1952,
+        "file_offset": 3781268,
+        "target": "Ljava/lang/Object;->getClass()Ljava/lang/Class;"
+      },
+      {
+        "code_unit": 1955,
+        "file_offset": 3781274,
+        "target": "LInit$fu0;->aRk5Sm0v()Ljava/lang/String;"
+      },
+      {
+        "code_unit": 1970,
+        "file_offset": 3781304,
+        "target": "LInit$eK4_jZ4q;->$bpWv8h2jBJhL(JLInit$gs;)Ljava/lang/Object;"
+      },
+      {
+        "code_unit": 1981,
+        "file_offset": 3781326,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 1990,
+        "file_offset": 3781344,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 1994,
+        "file_offset": 3781352,
+        "target": "LInit$eq;->AI(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 2011,
+        "file_offset": 3781386,
+        "target": "Lorg/json/JSONObject;-><init>()V"
+      },
+      {
+        "code_unit": 2019,
+        "file_offset": 3781402,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 2023,
+        "file_offset": 3781410,
+        "target": "Lorg/json/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;"
+      },
+      {
+        "code_unit": 2032,
+        "file_offset": 3781428,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 2036,
+        "file_offset": 3781436,
+        "target": "Lorg/json/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;"
+      },
+      {
+        "code_unit": 2045,
+        "file_offset": 3781454,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 2051,
+        "file_offset": 3781466,
+        "target": "Lorg/json/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;"
+      },
+      {
+        "code_unit": 2060,
+        "file_offset": 3781484,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 2069,
+        "file_offset": 3781502,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 2073,
+        "file_offset": 3781510,
+        "target": "Lorg/json/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;"
+      },
+      {
+        "code_unit": 2082,
+        "file_offset": 3781528,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 2088,
+        "file_offset": 3781540,
+        "target": "Lorg/json/JSONObject;->put(Ljava/lang/String;Ljava/lang/Object;)Lorg/json/JSONObject;"
+      },
+      {
+        "code_unit": 2094,
+        "file_offset": 3781552,
+        "target": "Lorg/json/JSONObject;->toString()Ljava/lang/String;"
+      },
+      {
+        "code_unit": 2105,
+        "file_offset": 3781574,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 2111,
+        "file_offset": 3781586,
+        "target": "Ljava/lang/StringBuilder;-><init>()V"
+      },
+      {
+        "code_unit": 2119,
+        "file_offset": 3781602,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 2123,
+        "file_offset": 3781610,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 2126,
+        "file_offset": 3781616,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 2134,
+        "file_offset": 3781632,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 2138,
+        "file_offset": 3781640,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 2141,
+        "file_offset": 3781646,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 2149,
+        "file_offset": 3781662,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 2153,
+        "file_offset": 3781670,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 2169,
+        "file_offset": 3781702,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 2173,
+        "file_offset": 3781710,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 2181,
+        "file_offset": 3781726,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 2185,
+        "file_offset": 3781734,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 2188,
+        "file_offset": 3781740,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 2196,
+        "file_offset": 3781756,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 2200,
+        "file_offset": 3781764,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 2203,
+        "file_offset": 3781770,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 2211,
+        "file_offset": 3781786,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 2215,
+        "file_offset": 3781794,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 2218,
+        "file_offset": 3781800,
+        "target": "Ljava/lang/StringBuilder;->toString()Ljava/lang/String;"
+      },
+      {
+        "code_unit": 2222,
+        "file_offset": 3781808,
+        "target": "LInit$kt0;->a()Ljava/lang/String;"
+      },
+      {
+        "code_unit": 2239,
+        "file_offset": 3781842,
+        "target": "LInit$a00;->a(LInit$wi0;Ljava/lang/String;Ljava/lang/String;IZLjava/lang/String;Ljava/lang/String;)Z"
+      },
+      {
+        "code_unit": 2252,
+        "file_offset": 3781868,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 2261,
+        "file_offset": 3781886,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 2265,
+        "file_offset": 3781894,
+        "target": "Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I"
+      },
+      {
+        "code_unit": 2273,
+        "file_offset": 3781910,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 2279,
+        "file_offset": 3781922,
+        "target": "LInit$fu0;->abiowxPM(JLjava/lang/String;)V"
+      },
+      {
+        "code_unit": 2283,
+        "file_offset": 3781930,
+        "target": "Ljava/lang/String;->length()I"
+      },
+      {
+        "code_unit": 2309,
+        "file_offset": 3781982,
+        "target": "LInit$a00;->a(LInit$wi0;Ljava/lang/String;Ljava/lang/String;IZLjava/lang/String;Ljava/lang/String;)Z"
+      },
+      {
+        "code_unit": 2320,
+        "file_offset": 3782004,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 2329,
+        "file_offset": 3782022,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 2333,
+        "file_offset": 3782030,
+        "target": "Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I"
+      },
+      {
+        "code_unit": 2345,
+        "file_offset": 3782054,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 2352,
+        "file_offset": 3782068,
+        "target": "Lcom/pokemod/app/injector/$SWnMuvk;->$SWnMuvk(LInit$zq0;Ljava/lang/String;Ljava/lang/Throwable;)V"
+      },
+      {
+        "code_unit": 2359,
+        "file_offset": 3782082,
+        "target": "Ljava/util/concurrent/locks/ReentrantLock;->unlock()V"
+      },
+      {
+        "code_unit": 2367,
+        "file_offset": 3782098,
+        "target": "Ljava/lang/StringBuilder;-><init>()V"
+      },
+      {
+        "code_unit": 2375,
+        "file_offset": 3782114,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 2379,
+        "file_offset": 3782122,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 2382,
+        "file_offset": 3782128,
+        "target": "LInit$ep;->$bpWv8h2jBJhL(Landroid/content/Context;)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 2386,
+        "file_offset": 3782136,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 2391,
+        "file_offset": 3782146,
+        "target": "Ljava/lang/StringBuilder;->append(C)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 2394,
+        "file_offset": 3782152,
+        "target": "Ljava/lang/StringBuilder;->toString()Ljava/lang/String;"
+      },
+      {
+        "code_unit": 2398,
+        "file_offset": 3782160,
+        "target": "Ljava/lang/RuntimeException;-><init>(Ljava/lang/String;)V"
+      }
+    ],
+    "coverage": "linear-instruction-scan",
+    "dex": "classes.dex"
+  },
+  {
+    "method": "Lcom/pokemod/app/injector/HALService;->$bpWv8h2jBJhL(Lcom/pokemod/app/injector/HALService;ZLjava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;",
+    "source_file": "SourceFile",
+    "access": 25,
+    "code_offset": 3776232,
+    "strings": [],
+    "calls": [
+      {
+        "code_unit": 4,
+        "file_offset": 3776256,
+        "target": "Ljava/lang/Object;->getClass()Ljava/lang/Class;"
+      },
+      {
+        "code_unit": 28,
+        "file_offset": 3776304,
+        "target": "LInit$cr;-><init>(Lcom/pokemod/app/injector/HALService;Lkotlin/coroutines/Continuation;)V"
+      },
+      {
+        "code_unit": 33,
+        "file_offset": 3776314,
+        "target": "Lkotlin/coroutines/intrinsics/IntrinsicsKt;->getCOROUTINE_SUSPENDED()Ljava/lang/Object;"
+      },
+      {
+        "code_unit": 62,
+        "file_offset": 3776372,
+        "target": "Lkotlin/ResultKt;->throwOnFailure(Ljava/lang/Object;)V"
+      },
+      {
+        "code_unit": 77,
+        "file_offset": 3776402,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 81,
+        "file_offset": 3776410,
+        "target": "Ljava/lang/IllegalStateException;-><init>(Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 95,
+        "file_offset": 3776438,
+        "target": "Lkotlin/ResultKt;->throwOnFailure(Ljava/lang/Object;)V"
+      },
+      {
+        "code_unit": 114,
+        "file_offset": 3776476,
+        "target": "Lkotlin/ResultKt;->throwOnFailure(Ljava/lang/Object;)V"
+      },
+      {
+        "code_unit": 129,
+        "file_offset": 3776506,
+        "target": "Lkotlin/ResultKt;->throwOnFailure(Ljava/lang/Object;)V"
+      },
+      {
+        "code_unit": 146,
+        "file_offset": 3776540,
+        "target": "Lkotlin/ResultKt;->throwOnFailure(Ljava/lang/Object;)V"
+      },
+      {
+        "code_unit": 151,
+        "file_offset": 3776550,
+        "target": "Lkotlin/ResultKt;->throwOnFailure(Ljava/lang/Object;)V"
+      },
+      {
+        "code_unit": 170,
+        "file_offset": 3776588,
+        "target": "Lkotlinx/coroutines/sync/$bpWv8h2jBJhL;->_2ur(Lkotlin/coroutines/Continuation;)Ljava/lang/Object;"
+      },
+      {
+        "code_unit": 185,
+        "file_offset": 3776618,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 191,
+        "file_offset": 3776630,
+        "target": "Ljava/lang/StringBuilder;-><init>()V"
+      },
+      {
+        "code_unit": 199,
+        "file_offset": 3776646,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 203,
+        "file_offset": 3776654,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 206,
+        "file_offset": 3776660,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 209,
+        "file_offset": 3776666,
+        "target": "Ljava/lang/StringBuilder;->toString()Ljava/lang/String;"
+      },
+      {
+        "code_unit": 213,
+        "file_offset": 3776674,
+        "target": "Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I"
+      },
+      {
+        "code_unit": 222,
+        "file_offset": 3776692,
+        "target": "Lcom/pokemod/app/injector/$SWnMuvk;->$SWnMuvk(LInit$zq0;Ljava/lang/String;Ljava/lang/Throwable;)V"
+      },
+      {
+        "code_unit": 230,
+        "file_offset": 3776708,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 235,
+        "file_offset": 3776718,
+        "target": "LInit$eq;->aaP(Landroid/content/Context;Ljava/lang/String;Z)Z"
+      },
+      {
+        "code_unit": 248,
+        "file_offset": 3776744,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 254,
+        "file_offset": 3776756,
+        "target": "LInit$ct0;->a([Ljava/lang/String;)LInit$xg0;"
+      },
+      {
+        "code_unit": 258,
+        "file_offset": 3776764,
+        "target": "LInit$xg0;->aRk5Sm0v()LInit$ct0$a;"
+      },
+      {
+        "code_unit": 266,
+        "file_offset": 3776780,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 275,
+        "file_offset": 3776798,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 279,
+        "file_offset": 3776806,
+        "target": "Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I"
+      },
+      {
+        "code_unit": 288,
+        "file_offset": 3776824,
+        "target": "Ljava/lang/StringBuilder;-><init>()V"
+      },
+      {
+        "code_unit": 296,
+        "file_offset": 3776840,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 300,
+        "file_offset": 3776848,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 303,
+        "file_offset": 3776854,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 306,
+        "file_offset": 3776860,
+        "target": "Ljava/lang/StringBuilder;->toString()Ljava/lang/String;"
+      },
+      {
+        "code_unit": 312,
+        "file_offset": 3776872,
+        "target": "LInit$a00;->$SWnMuvk(Ljava/lang/String;Ljava/lang/String;Z)V"
+      },
+      {
+        "code_unit": 326,
+        "file_offset": 3776900,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 335,
+        "file_offset": 3776918,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 339,
+        "file_offset": 3776926,
+        "target": "Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I"
+      },
+      {
+        "code_unit": 342,
+        "file_offset": 3776932,
+        "target": "LInit$lt0;->$SWnMuvk()V"
+      },
+      {
+        "code_unit": 351,
+        "file_offset": 3776950,
+        "target": "LInit$dr;-><init>(Lcom/pokemod/app/injector/HALService;Lkotlin/coroutines/Continuation;)V"
+      },
+      {
+        "code_unit": 364,
+        "file_offset": 3776976,
+        "target": "LInit$ck0;->a(Lkotlin/coroutines/CoroutineContext;Lkotlin/jvm/functions/Function2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;"
+      },
+      {
+        "code_unit": 381,
+        "file_offset": 3777010,
+        "target": "LInit$er;-><init>(Lcom/pokemod/app/injector/HALService;Lkotlin/coroutines/Continuation;)V"
+      },
+      {
+        "code_unit": 390,
+        "file_offset": 3777028,
+        "target": "LInit$ck0;->a(Lkotlin/coroutines/CoroutineContext;Lkotlin/jvm/functions/Function2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;"
+      },
+      {
+        "code_unit": 406,
+        "file_offset": 3777060,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 412,
+        "file_offset": 3777072,
+        "target": "Lcom/pokemod/app/injector/$SWnMuvk;->$SWnMuvk(LInit$zq0;Ljava/lang/String;Ljava/lang/Throwable;)V"
+      },
+      {
+        "code_unit": 421,
+        "file_offset": 3777090,
+        "target": "LInit$fr;-><init>(Lcom/pokemod/app/injector/HALService;Lkotlin/coroutines/Continuation;)V"
+      },
+      {
+        "code_unit": 430,
+        "file_offset": 3777108,
+        "target": "LInit$ck0;->a(Lkotlin/coroutines/CoroutineContext;Lkotlin/jvm/functions/Function2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;"
+      },
+      {
+        "code_unit": 444,
+        "file_offset": 3777136,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 453,
+        "file_offset": 3777154,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 457,
+        "file_offset": 3777162,
+        "target": "Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I"
+      },
+      {
+        "code_unit": 462,
+        "file_offset": 3777172,
+        "target": "Lkotlin/Lazy;->getValue()Ljava/lang/Object;"
+      },
+      {
+        "code_unit": 468,
+        "file_offset": 3777184,
+        "target": "LInit$al;->_2ur(Ljava/lang/Throwable;)V"
+      },
+      {
+        "code_unit": 477,
+        "file_offset": 3777202,
+        "target": "LInit$gr;-><init>(Lcom/pokemod/app/injector/HALService;Lkotlin/coroutines/Continuation;)V"
+      },
+      {
+        "code_unit": 488,
+        "file_offset": 3777224,
+        "target": "LInit$ck0;->a(Lkotlin/coroutines/CoroutineContext;Lkotlin/jvm/functions/Function2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;"
+      },
+      {
+        "code_unit": 497,
+        "file_offset": 3777242,
+        "target": "LInit$qa0;->$bpWv8h2jBJhL(Ljava/lang/Object;)V"
+      },
+      {
+        "code_unit": 504,
+        "file_offset": 3777256,
+        "target": "LInit$qa0;->$bpWv8h2jBJhL(Ljava/lang/Object;)V"
+      }
+    ],
+    "coverage": "linear-instruction-scan",
+    "dex": "classes.dex"
+  },
+  {
+    "method": "Lcom/pokemod/app/injector/HALService;-><clinit>()V",
+    "source_file": "SourceFile",
+    "access": 65545,
+    "code_offset": 3782268,
+    "strings": [],
+    "calls": [
+      {
+        "code_unit": 5,
+        "file_offset": 3782294,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 13,
+        "file_offset": 3782310,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 21,
+        "file_offset": 3782326,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 29,
+        "file_offset": 3782342,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 37,
+        "file_offset": 3782358,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 45,
+        "file_offset": 3782374,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 53,
+        "file_offset": 3782390,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 61,
+        "file_offset": 3782406,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 69,
+        "file_offset": 3782422,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 77,
+        "file_offset": 3782438,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 85,
+        "file_offset": 3782454,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 93,
+        "file_offset": 3782470,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 101,
+        "file_offset": 3782486,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 106,
+        "file_offset": 3782496,
+        "target": "Lcom/pokemod/app/injector/HALService$$bpWv8h2jBJhL;-><init>()V"
+      }
+    ],
+    "coverage": "linear-instruction-scan",
+    "dex": "classes.dex"
+  },
+  {
+    "method": "Lcom/pokemod/app/injector/HALService;-><init>()V",
+    "source_file": "SourceFile",
+    "access": 65537,
+    "code_offset": 3782508,
+    "strings": [],
+    "calls": [
+      {
+        "code_unit": 0,
+        "file_offset": 3782524,
+        "target": "Landroid/app/Service;-><init>()V"
+      },
+      {
+        "code_unit": 5,
+        "file_offset": 3782534,
+        "target": "Lkotlin/LazyKt;->lazy(Lkotlin/jvm/functions/Function0;)Lkotlin/Lazy;"
+      },
+      {
+        "code_unit": 13,
+        "file_offset": 3782550,
+        "target": "Lkotlin/LazyKt;->lazy(Lkotlin/jvm/functions/Function0;)Lkotlin/Lazy;"
+      },
+      {
+        "code_unit": 21,
+        "file_offset": 3782566,
+        "target": "Lcom/pokemod/app/injector/$SWnMuvk$$bpWv8h2jBJhL;->$bpWv8h2jBJhL()Lcom/pokemod/app/injector/$SWnMuvk;"
+      },
+      {
+        "code_unit": 29,
+        "file_offset": 3782582,
+        "target": "LInit$ob;->$SWnMuvk()LInit$o10;"
+      },
+      {
+        "code_unit": 33,
+        "file_offset": 3782590,
+        "target": "Lkotlin/coroutines/AbstractCoroutineContextElement;->plus(Lkotlin/coroutines/CoroutineContext;)Lkotlin/coroutines/CoroutineContext;"
+      },
+      {
+        "code_unit": 37,
+        "file_offset": 3782598,
+        "target": "LInit$yg;->$bpWv8h2jBJhL(Lkotlin/coroutines/CoroutineContext;)LInit$nc;"
+      },
+      {
+        "code_unit": 46,
+        "file_offset": 3782616,
+        "target": "Lkotlinx/coroutines/sync/$bpWv8h2jBJhL;-><init>(Z)V"
+      }
+    ],
+    "coverage": "linear-instruction-scan",
+    "dex": "classes.dex"
+  },
+  {
+    "method": "Lcom/pokemod/app/injector/HALService;->_2ur()V",
+    "source_file": "SourceFile",
+    "access": 17,
+    "code_offset": 3782628,
+    "strings": [],
+    "calls": [
+      {
+        "code_unit": 4,
+        "file_offset": 3782652,
+        "target": "Landroid/content/Intent;-><init>(Landroid/content/Context;Ljava/lang/Class;)V"
+      },
+      {
+        "code_unit": 12,
+        "file_offset": 3782668,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 16,
+        "file_offset": 3782676,
+        "target": "Landroid/content/Intent;->setAction(Ljava/lang/String;)Landroid/content/Intent;"
+      },
+      {
+        "code_unit": 24,
+        "file_offset": 3782692,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 33,
+        "file_offset": 3782710,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 37,
+        "file_offset": 3782718,
+        "target": "Landroid/content/Intent;->putExtra(Ljava/lang/String;Ljava/lang/String;)Landroid/content/Intent;"
+      },
+      {
+        "code_unit": 45,
+        "file_offset": 3782734,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 50,
+        "file_offset": 3782744,
+        "target": "Landroid/content/Intent;->putExtra(Ljava/lang/String;Z)Landroid/content/Intent;"
+      },
+      {
+        "code_unit": 56,
+        "file_offset": 3782756,
+        "target": "Landroid/app/PendingIntent;->getService(Landroid/content/Context;ILandroid/content/Intent;I)Landroid/app/PendingIntent;"
+      },
+      {
+        "code_unit": 65,
+        "file_offset": 3782774,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 69,
+        "file_offset": 3782782,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->checkNotNullExpressionValue(Ljava/lang/Object;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 77,
+        "file_offset": 3782798,
+        "target": "Landroid/content/Context;->getString(I)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 82,
+        "file_offset": 3782808,
+        "target": "Landroid/app/Notification$Action$Builder;-><init>(Landroid/graphics/drawable/Icon;Ljava/lang/CharSequence;Landroid/app/PendingIntent;)V"
+      },
+      {
+        "code_unit": 85,
+        "file_offset": 3782814,
+        "target": "Landroid/app/Notification$Action$Builder;->build()Landroid/app/Notification$Action;"
+      },
+      {
+        "code_unit": 94,
+        "file_offset": 3782832,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 98,
+        "file_offset": 3782840,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->checkNotNullExpressionValue(Ljava/lang/Object;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 106,
+        "file_offset": 3782856,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 113,
+        "file_offset": 3782870,
+        "target": "Landroid/content/Context;->getString(I)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 122,
+        "file_offset": 3782888,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 126,
+        "file_offset": 3782896,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->checkNotNullExpressionValue(Ljava/lang/Object;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 134,
+        "file_offset": 3782912,
+        "target": "Landroid/content/Context;->getString(I)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 140,
+        "file_offset": 3782924,
+        "target": "Ljava/util/Arrays;->copyOf([Ljava/lang/Object;I)[Ljava/lang/Object;"
+      },
+      {
+        "code_unit": 144,
+        "file_offset": 3782932,
+        "target": "Ljava/lang/String;->format(Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 153,
+        "file_offset": 3782950,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 157,
+        "file_offset": 3782958,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->checkNotNullExpressionValue(Ljava/lang/Object;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 162,
+        "file_offset": 3782968,
+        "target": "Lkotlin/collections/CollectionsKt;->listOf(Ljava/lang/Object;)Ljava/util/List;"
+      },
+      {
+        "code_unit": 169,
+        "file_offset": 3782982,
+        "target": "LInit$i51;->$bpWv8h2jBJhL(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ZLjava/util/List;I)Landroid/app/Notification;"
+      },
+      {
+        "code_unit": 190,
+        "file_offset": 3783024,
+        "target": "LInit$ul;->a(Landroid/content/Context;I)I"
+      },
+      {
+        "code_unit": 200,
+        "file_offset": 3783044,
+        "target": "Landroid/content/Intent;-><init>(Landroid/content/Context;Ljava/lang/Class;)V"
+      },
+      {
+        "code_unit": 203,
+        "file_offset": 3783050,
+        "target": "Landroid/app/PendingIntent;->getActivity(Landroid/content/Context;ILandroid/content/Intent;I)Landroid/app/PendingIntent;"
+      },
+      {
+        "code_unit": 211,
+        "file_offset": 3783066,
+        "target": "Landroid/content/Intent;-><init>(Landroid/content/Context;Ljava/lang/Class;)V"
+      },
+      {
+        "code_unit": 219,
+        "file_offset": 3783082,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 223,
+        "file_offset": 3783090,
+        "target": "Landroid/content/Intent;->setAction(Ljava/lang/String;)Landroid/content/Intent;"
+      },
+      {
+        "code_unit": 228,
+        "file_offset": 3783100,
+        "target": "Landroid/app/PendingIntent;->getService(Landroid/content/Context;ILandroid/content/Intent;I)Landroid/app/PendingIntent;"
+      },
+      {
+        "code_unit": 236,
+        "file_offset": 3783116,
+        "target": "Landroid/app/Service;->startForeground(ILandroid/app/Notification;)V"
+      }
+    ],
+    "coverage": "linear-instruction-scan",
+    "dex": "classes.dex"
+  },
+  {
+    "method": "Lcom/pokemod/app/injector/HALService;->onBind(Landroid/content/Intent;)Landroid/os/IBinder;",
+    "source_file": "SourceFile",
+    "access": 17,
+    "code_offset": 3775224,
+    "strings": [],
+    "calls": [],
+    "coverage": "linear-instruction-scan",
+    "dex": "classes.dex"
+  },
+  {
+    "method": "Lcom/pokemod/app/injector/HALService;->onCreate()V",
+    "source_file": "SourceFile",
+    "access": 17,
+    "code_offset": 3783124,
+    "strings": [],
+    "calls": [
+      {
+        "code_unit": 0,
+        "file_offset": 3783140,
+        "target": "Landroid/app/Service;->onCreate()V"
+      },
+      {
+        "code_unit": 3,
+        "file_offset": 3783146,
+        "target": "LInit$kt0;->a()Ljava/lang/String;"
+      },
+      {
+        "code_unit": 12,
+        "file_offset": 3783164,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 19,
+        "file_offset": 3783178,
+        "target": "LInit$kh;->$bpWv8h2jBJhL(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 28,
+        "file_offset": 3783196,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 32,
+        "file_offset": 3783204,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 35,
+        "file_offset": 3783210,
+        "target": "Ljava/lang/StringBuilder;->toString()Ljava/lang/String;"
+      },
+      {
+        "code_unit": 42,
+        "file_offset": 3783224,
+        "target": "LInit$kh;->$bpWv8h2jBJhL(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 51,
+        "file_offset": 3783242,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 55,
+        "file_offset": 3783250,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 58,
+        "file_offset": 3783256,
+        "target": "Ljava/lang/StringBuilder;->toString()Ljava/lang/String;"
+      },
+      {
+        "code_unit": 67,
+        "file_offset": 3783274,
+        "target": "Ljava/lang/StringBuilder;-><init>()V"
+      },
+      {
+        "code_unit": 75,
+        "file_offset": 3783290,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 79,
+        "file_offset": 3783298,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 82,
+        "file_offset": 3783304,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 90,
+        "file_offset": 3783320,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 94,
+        "file_offset": 3783328,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 97,
+        "file_offset": 3783334,
+        "target": "Ljava/lang/StringBuilder;->toString()Ljava/lang/String;"
+      },
+      {
+        "code_unit": 104,
+        "file_offset": 3783348,
+        "target": "LInit$ct0;->a([Ljava/lang/String;)LInit$xg0;"
+      },
+      {
+        "code_unit": 109,
+        "file_offset": 3783358,
+        "target": "LInit$ct0$_2ur;->a(LInit$ct0$aaP;)V"
+      },
+      {
+        "code_unit": 114,
+        "file_offset": 3783368,
+        "target": "Lkotlin/Lazy;->getValue()Ljava/lang/Object;"
+      },
+      {
+        "code_unit": 128,
+        "file_offset": 3783396,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 132,
+        "file_offset": 3783404,
+        "target": "Landroid/content/IntentFilter;-><init>(Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 140,
+        "file_offset": 3783420,
+        "target": "LInit$c2;->$bpWv8h2jBJhL()Z"
+      },
+      {
+        "code_unit": 147,
+        "file_offset": 3783434,
+        "target": "LInit$kc$ah;->$bpWv8h2jBJhL(Landroid/content/Context;Landroid/content/BroadcastReceiver;Landroid/content/IntentFilter;Ljava/lang/String;Landroid/os/Handler;I)Landroid/content/Intent;"
+      },
+      {
+        "code_unit": 155,
+        "file_offset": 3783450,
+        "target": "LInit$kc$abiowxPM;->$bpWv8h2jBJhL(Landroid/content/Context;Landroid/content/BroadcastReceiver;Landroid/content/IntentFilter;Ljava/lang/String;Landroid/os/Handler;I)Landroid/content/Intent;"
+      }
+    ],
+    "coverage": "linear-instruction-scan",
+    "dex": "classes.dex"
+  },
+  {
+    "method": "Lcom/pokemod/app/injector/HALService;->onDestroy()V",
+    "source_file": "SourceFile",
+    "access": 17,
+    "code_offset": 3783460,
+    "strings": [],
+    "calls": [
+      {
+        "code_unit": 5,
+        "file_offset": 3783486,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 14,
+        "file_offset": 3783504,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 18,
+        "file_offset": 3783512,
+        "target": "Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I"
+      },
+      {
+        "code_unit": 28,
+        "file_offset": 3783532,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 34,
+        "file_offset": 3783544,
+        "target": "Ljava/lang/Object;->getClass()Ljava/lang/Class;"
+      },
+      {
+        "code_unit": 37,
+        "file_offset": 3783550,
+        "target": "LInit$fu0;->abiowxPM(JLjava/lang/String;)V"
+      },
+      {
+        "code_unit": 45,
+        "file_offset": 3783566,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 49,
+        "file_offset": 3783574,
+        "target": "Landroid/content/Context;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;"
+      },
+      {
+        "code_unit": 58,
+        "file_offset": 3783592,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 62,
+        "file_offset": 3783600,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->checkNotNull(Ljava/lang/Object;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 67,
+        "file_offset": 3783610,
+        "target": "Landroid/app/NotificationManager;->cancelAll()V"
+      },
+      {
+        "code_unit": 72,
+        "file_offset": 3783620,
+        "target": "Lkotlin/Lazy;->getValue()Ljava/lang/Object;"
+      },
+      {
+        "code_unit": 78,
+        "file_offset": 3783632,
+        "target": "Landroid/content/Context;->unregisterReceiver(Landroid/content/BroadcastReceiver;)V"
+      },
+      {
+        "code_unit": 88,
+        "file_offset": 3783652,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 97,
+        "file_offset": 3783670,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 101,
+        "file_offset": 3783678,
+        "target": "Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I"
+      },
+      {
+        "code_unit": 111,
+        "file_offset": 3783698,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 120,
+        "file_offset": 3783716,
+        "target": "Lcom/pokemod/app/injector/$SWnMuvk;->$SWnMuvk(LInit$zq0;Ljava/lang/String;Ljava/lang/Throwable;)V"
+      },
+      {
+        "code_unit": 123,
+        "file_offset": 3783722,
+        "target": "Landroid/app/Service;->onDestroy()V"
+      },
+      {
+        "code_unit": 134,
+        "file_offset": 3783744,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 141,
+        "file_offset": 3783758,
+        "target": "LInit$ct0;->a([Ljava/lang/String;)LInit$xg0;"
+      },
+      {
+        "code_unit": 145,
+        "file_offset": 3783766,
+        "target": "LInit$ct0$_2ur;->a(LInit$ct0$aaP;)V"
+      }
+    ],
+    "coverage": "linear-instruction-scan",
+    "dex": "classes.dex"
+  },
+  {
+    "method": "Lcom/pokemod/app/injector/HALService;->onStartCommand(Landroid/content/Intent;II)I",
+    "source_file": "SourceFile",
+    "access": 17,
+    "code_offset": 3775244,
+    "strings": [],
+    "calls": [
+      {
+        "code_unit": 3,
+        "file_offset": 3775266,
+        "target": "Landroid/content/Intent;->getAction()Ljava/lang/String;"
+      },
+      {
+        "code_unit": 14,
+        "file_offset": 3775288,
+        "target": "Ljava/lang/String;->hashCode()I"
+      },
+      {
+        "code_unit": 28,
+        "file_offset": 3775316,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 32,
+        "file_offset": 3775324,
+        "target": "Ljava/lang/String;->equals(Ljava/lang/Object;)Z"
+      },
+      {
+        "code_unit": 45,
+        "file_offset": 3775350,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 49,
+        "file_offset": 3775358,
+        "target": "Landroid/content/Intent;->getStringExtra(Ljava/lang/String;)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 60,
+        "file_offset": 3775380,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 70,
+        "file_offset": 3775400,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 74,
+        "file_offset": 3775408,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->checkNotNullExpressionValue(Ljava/lang/Object;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 82,
+        "file_offset": 3775424,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 86,
+        "file_offset": 3775432,
+        "target": "Landroid/content/Intent;->getStringExtra(Ljava/lang/String;)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 95,
+        "file_offset": 3775450,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 99,
+        "file_offset": 3775458,
+        "target": "Landroid/content/Intent;->getBooleanExtra(Ljava/lang/String;Z)Z"
+      },
+      {
+        "code_unit": 108,
+        "file_offset": 3775476,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 114,
+        "file_offset": 3775488,
+        "target": "Ljava/lang/StringBuilder;-><init>()V"
+      },
+      {
+        "code_unit": 122,
+        "file_offset": 3775504,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 126,
+        "file_offset": 3775512,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 129,
+        "file_offset": 3775518,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 137,
+        "file_offset": 3775534,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 141,
+        "file_offset": 3775542,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 144,
+        "file_offset": 3775548,
+        "target": "Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+      },
+      {
+        "code_unit": 147,
+        "file_offset": 3775554,
+        "target": "Ljava/lang/StringBuilder;->toString()Ljava/lang/String;"
+      },
+      {
+        "code_unit": 151,
+        "file_offset": 3775562,
+        "target": "Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I"
+      },
+      {
+        "code_unit": 159,
+        "file_offset": 3775578,
+        "target": "Lcom/pokemod/app/injector/HALService$a;-><init>(Lcom/pokemod/app/injector/HALService;ZLjava/lang/String;Ljava/lang/String;Lkotlin/coroutines/Continuation;)V"
+      },
+      {
+        "code_unit": 162,
+        "file_offset": 3775584,
+        "target": "LInit$ck0;->$SWnMuvk(LInit$id;Lkotlin/coroutines/CoroutineContext;ILkotlin/jvm/functions/Function2;I)LInit$nv0;"
+      },
+      {
+        "code_unit": 171,
+        "file_offset": 3775602,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 175,
+        "file_offset": 3775610,
+        "target": "Ljava/lang/String;->equals(Ljava/lang/Object;)Z"
+      },
+      {
+        "code_unit": 187,
+        "file_offset": 3775634,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 196,
+        "file_offset": 3775652,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 200,
+        "file_offset": 3775660,
+        "target": "Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I"
+      },
+      {
+        "code_unit": 209,
+        "file_offset": 3775678,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 213,
+        "file_offset": 3775686,
+        "target": "Ljava/lang/String;->equals(Ljava/lang/Object;)Z"
+      },
+      {
+        "code_unit": 225,
+        "file_offset": 3775710,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 234,
+        "file_offset": 3775728,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 238,
+        "file_offset": 3775736,
+        "target": "Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I"
+      },
+      {
+        "code_unit": 247,
+        "file_offset": 3775754,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 251,
+        "file_offset": 3775762,
+        "target": "Ljava/lang/String;->equals(Ljava/lang/Object;)Z"
+      },
+      {
+        "code_unit": 263,
+        "file_offset": 3775786,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 272,
+        "file_offset": 3775804,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 276,
+        "file_offset": 3775812,
+        "target": "Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I"
+      },
+      {
+        "code_unit": 279,
+        "file_offset": 3775818,
+        "target": "Lcom/pokemod/app/injector/HALService;->_2ur()V"
+      },
+      {
+        "code_unit": 288,
+        "file_offset": 3775836,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 292,
+        "file_offset": 3775844,
+        "target": "Landroid/content/Intent;->getStringExtra(Ljava/lang/String;)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 303,
+        "file_offset": 3775866,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 313,
+        "file_offset": 3775886,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 317,
+        "file_offset": 3775894,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->checkNotNullExpressionValue(Ljava/lang/Object;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 325,
+        "file_offset": 3775910,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 329,
+        "file_offset": 3775918,
+        "target": "Landroid/content/Intent;->getStringExtra(Ljava/lang/String;)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 340,
+        "file_offset": 3775940,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 350,
+        "file_offset": 3775960,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 354,
+        "file_offset": 3775968,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->checkNotNullExpressionValue(Ljava/lang/Object;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 362,
+        "file_offset": 3775984,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 366,
+        "file_offset": 3775992,
+        "target": "Landroid/content/Intent;->getStringExtra(Ljava/lang/String;)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 377,
+        "file_offset": 3776014,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 387,
+        "file_offset": 3776034,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 391,
+        "file_offset": 3776042,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->checkNotNullExpressionValue(Ljava/lang/Object;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 399,
+        "file_offset": 3776058,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 403,
+        "file_offset": 3776066,
+        "target": "Landroid/content/Intent;->getStringExtra(Ljava/lang/String;)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 414,
+        "file_offset": 3776088,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 424,
+        "file_offset": 3776108,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 428,
+        "file_offset": 3776116,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->checkNotNullExpressionValue(Ljava/lang/Object;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 436,
+        "file_offset": 3776132,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 440,
+        "file_offset": 3776140,
+        "target": "Landroid/content/Intent;->getStringArrayListExtra(Ljava/lang/String;)Ljava/util/ArrayList;"
+      },
+      {
+        "code_unit": 448,
+        "file_offset": 3776156,
+        "target": "Ljava/util/ArrayList;-><init>()V"
+      },
+      {
+        "code_unit": 457,
+        "file_offset": 3776174,
+        "target": "Lcom/pokemod/app/injector/HALService$aaP;-><init>(Lcom/pokemod/app/injector/HALService;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/ArrayList;Lkotlin/coroutines/Continuation;)V"
+      },
+      {
+        "code_unit": 460,
+        "file_offset": 3776180,
+        "target": "LInit$ck0;->$SWnMuvk(LInit$id;Lkotlin/coroutines/CoroutineContext;ILkotlin/jvm/functions/Function2;I)LInit$nv0;"
+      },
+      {
+        "code_unit": 463,
+        "file_offset": 3776186,
+        "target": "Lcom/pokemod/app/injector/HALService;->_2ur()V"
+      }
+    ],
+    "coverage": "linear-instruction-scan",
+    "dex": "classes.dex"
+  },
+  {
+    "method": "LInit$z90;-><init>(LInit$ca0;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V",
+    "source_file": "SourceFile",
+    "access": 69633,
+    "code_offset": 2098324,
+    "strings": [],
+    "calls": [
+      {
+        "code_unit": 0,
+        "file_offset": 2098340,
+        "target": "Ljava/lang/Object;-><init>()V"
+      }
+    ],
+    "coverage": "linear-instruction-scan",
+    "dex": "classes.dex"
+  },
+  {
+    "method": "LInit$z90;->subscribe(Lio/reactivex/rxjava3/core/ObservableEmitter;)V",
+    "source_file": "SourceFile",
+    "access": 17,
+    "code_offset": 2098364,
+    "strings": [],
+    "calls": [
+      {
+        "code_unit": 5,
+        "file_offset": 2098390,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 11,
+        "file_offset": 2098402,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->checkNotNullParameter(Ljava/lang/Object;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 19,
+        "file_offset": 2098418,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 25,
+        "file_offset": 2098430,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->checkNotNullParameter(Ljava/lang/Object;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 33,
+        "file_offset": 2098446,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 39,
+        "file_offset": 2098458,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->checkNotNullParameter(Ljava/lang/Object;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 47,
+        "file_offset": 2098474,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 51,
+        "file_offset": 2098482,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->checkNotNullParameter(Ljava/lang/Object;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 56,
+        "file_offset": 2098492,
+        "target": "Ljava/lang/Object;->getClass()Ljava/lang/Class;"
+      },
+      {
+        "code_unit": 64,
+        "file_offset": 2098508,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 68,
+        "file_offset": 2098516,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->checkNotNullParameter(Ljava/lang/Object;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 76,
+        "file_offset": 2098532,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 80,
+        "file_offset": 2098540,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->checkNotNullParameter(Ljava/lang/Object;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 88,
+        "file_offset": 2098556,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 94,
+        "file_offset": 2098568,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->checkNotNullParameter(Ljava/lang/Object;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 99,
+        "file_offset": 2098578,
+        "target": "LInit$w90;->A(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lretrofit2/Call;"
+      },
+      {
+        "code_unit": 103,
+        "file_offset": 2098586,
+        "target": "Lretrofit2/Call;->execute()Lretrofit2/Response;"
+      },
+      {
+        "code_unit": 112,
+        "file_offset": 2098604,
+        "target": "LInit$dg;->$bpWv8h2jBJhL(J)Ljava/lang/String;"
+      },
+      {
+        "code_unit": 116,
+        "file_offset": 2098612,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->checkNotNullExpressionValue(Ljava/lang/Object;Ljava/lang/String;)V"
+      },
+      {
+        "code_unit": 119,
+        "file_offset": 2098618,
+        "target": "Lretrofit2/Response;->isSuccessful()Z"
+      },
+      {
+        "code_unit": 125,
+        "file_offset": 2098630,
+        "target": "Lretrofit2/Response;->body()Ljava/lang/Object;"
+      },
+      {
+        "code_unit": 129,
+        "file_offset": 2098638,
+        "target": "Lkotlin/jvm/internal/Intrinsics;->checkNotNull(Ljava/lang/Object;)V"
+      },
+      {
+        "code_unit": 132,
+        "file_offset": 2098644,
+        "target": "Lio/reactivex/rxjava3/core/Emitter;->onNext(Ljava/lang/Object;)V"
+      },
+      {
+        "code_unit": 135,
+        "file_offset": 2098650,
+        "target": "Lio/reactivex/rxjava3/core/Emitter;->onComplete()V"
+      },
+      {
+        "code_unit": 141,
+        "file_offset": 2098662,
+        "target": "Lretrofit2/HttpException;-><init>(Lretrofit2/Response;)V"
+      },
+      {
+        "code_unit": 144,
+        "file_offset": 2098668,
+        "target": "Lio/reactivex/rxjava3/core/Emitter;->onError(Ljava/lang/Throwable;)V"
+      }
+    ],
+    "coverage": "linear-instruction-scan",
+    "dex": "classes.dex"
+  }
+]

@@ -1,0 +1,14 @@
+[
+  {
+    "file": "com.pokemod.app.public/files/agents/main_agent",
+    "decoded_bytes": 2285749,
+    "prefix_hex": "b1b6d8cffcdd5366138bd6536fa0538d2ef28d0e2f6d01b4",
+    "entropy": 7.999913434019773
+  },
+  {
+    "file": "com.pokemod.app.public/files/agents/vpgp_agent",
+    "decoded_bytes": 29842,
+    "prefix_hex": "efb1df81c0f6486612d7a07729e81d9a23eb870f693f4ebd",
+    "entropy": 7.995346806706425
+  }
+]

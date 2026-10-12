@@ -1,0 +1,342 @@
+{
+  "sha256": "726eb015167e4408ef4dc2ac95c0986a3ae7f19ce5d384929e88505c07f65d1e",
+  "method": "bounded ADRP + ADD (within 8 instructions), no control/data-flow validation; function starts from .eh_frame_hdr",
+  "xrefs": [
+    {
+      "string_offset": "0xaebd5",
+      "string": "floyd_inject_encryptLogs",
+      "adrp_address": "0x43b3bc",
+      "add_address": "0x43b3c8",
+      "candidate_function_unwind_start": "0x43b2f0",
+      "candidate_next_unwind_start": "0x43b3dc"
+    },
+    {
+      "string_offset": "0xceb40",
+      "string": "Pokemod Injector version %s",
+      "adrp_address": "0x43ba64",
+      "add_address": "0x43ba6c",
+      "candidate_function_unwind_start": "0x43b9ac",
+      "candidate_next_unwind_start": "0x43bfc4"
+    },
+    {
+      "string_offset": "0xbeeab",
+      "string": "script-source",
+      "adrp_address": "0x43c0cc",
+      "add_address": "0x43c0d0",
+      "candidate_function_unwind_start": "0x43c064",
+      "candidate_next_unwind_start": "0x43c13c"
+    },
+    {
+      "string_offset": "0x991c1",
+      "string": "script-path",
+      "adrp_address": "0x43c0e4",
+      "add_address": "0x43c0e8",
+      "candidate_function_unwind_start": "0x43c064",
+      "candidate_next_unwind_start": "0x43c13c"
+    },
+    {
+      "string_offset": "0xceaf7",
+      "string": "floyd_inject_script_runner_construct",
+      "adrp_address": "0x43c728",
+      "add_address": "0x43c734",
+      "candidate_function_unwind_start": "0x43c610",
+      "candidate_next_unwind_start": "0x43c780"
+    },
+    {
+      "string_offset": "0xceaf7",
+      "string": "floyd_inject_script_runner_construct",
+      "adrp_address": "0x43c744",
+      "add_address": "0x43c750",
+      "candidate_function_unwind_start": "0x43c610",
+      "candidate_next_unwind_start": "0x43c780"
+    },
+    {
+      "string_offset": "0xceaf7",
+      "string": "floyd_inject_script_runner_construct",
+      "adrp_address": "0x43c760",
+      "add_address": "0x43c76c",
+      "candidate_function_unwind_start": "0x43c610",
+      "candidate_next_unwind_start": "0x43c780"
+    },
+    {
+      "string_offset": "0xd8f57",
+      "string": "floyd_inject_script_runner_start",
+      "adrp_address": "0x43c8fc",
+      "add_address": "0x43c90c",
+      "candidate_function_unwind_start": "0x43c88c",
+      "candidate_next_unwind_start": "0x43c914"
+    },
+    {
+      "string_offset": "0xc42f5",
+      "string": "floyd_inject_script_runner_save_terminal_config",
+      "adrp_address": "0x43cb28",
+      "add_address": "0x43cb30",
+      "candidate_function_unwind_start": "0x43c940",
+      "candidate_next_unwind_start": "0x43cbf4"
+    },
+    {
+      "string_offset": "0xd8f89",
+      "string": "floyd_inject_script_runner_start_co",
+      "adrp_address": "0x43cbe0",
+      "add_address": "0x43cbe8",
+      "candidate_function_unwind_start": "0x43c940",
+      "candidate_next_unwind_start": "0x43cbf4"
+    },
+    {
+      "string_offset": "0xa11f3",
+      "string": "floyd_inject_script_runner_stop",
+      "adrp_address": "0x43ccb8",
+      "add_address": "0x43ccc8",
+      "candidate_function_unwind_start": "0x43cbf4",
+      "candidate_next_unwind_start": "0x43ccd0"
+    },
+    {
+      "string_offset": "0xa124f",
+      "string": "floyd_inject_script_runner_restore_terminal_config",
+      "adrp_address": "0x43ce50",
+      "add_address": "0x43ce58",
+      "candidate_function_unwind_start": "0x43cd10",
+      "candidate_next_unwind_start": "0x43cea0"
+    },
+    {
+      "string_offset": "0xebe0c",
+      "string": "floyd_inject_script_runner_stop_co",
+      "adrp_address": "0x43ce8c",
+      "add_address": "0x43ce94",
+      "candidate_function_unwind_start": "0x43cd10",
+      "candidate_next_unwind_start": "0x43cea0"
+    },
+    {
+      "string_offset": "0xceb1c",
+      "string": "floyd_inject_script_runner_on_stdin",
+      "adrp_address": "0x43cf74",
+      "add_address": "0x43cf7c",
+      "candidate_function_unwind_start": "0x43cea0",
+      "candidate_next_unwind_start": "0x43cfac"
+    },
+    {
+      "string_offset": "0xceb1c",
+      "string": "floyd_inject_script_runner_on_stdin",
+      "adrp_address": "0x43cf8c",
+      "add_address": "0x43cf98",
+      "candidate_function_unwind_start": "0x43cea0",
+      "candidate_next_unwind_start": "0x43cfac"
+    },
+    {
+      "string_offset": "0xcbf4e",
+      "string": "floyd_inject_script_runner_get_terminal_mode",
+      "adrp_address": "0x43d028",
+      "add_address": "0x43d030",
+      "candidate_function_unwind_start": "0x43d008",
+      "candidate_next_unwind_start": "0x43d040"
+    },
+    {
+      "string_offset": "0x991c1",
+      "string": "script-path",
+      "adrp_address": "0x43e09c",
+      "add_address": "0x43e0a4",
+      "candidate_function_unwind_start": "0x43df78",
+      "candidate_next_unwind_start": "0x43e17c"
+    },
+    {
+      "string_offset": "0xbeeab",
+      "string": "script-source",
+      "adrp_address": "0x43e0c0",
+      "add_address": "0x43e0c8",
+      "candidate_function_unwind_start": "0x43df78",
+      "candidate_next_unwind_start": "0x43e17c"
+    },
+    {
+      "string_offset": "0xac345",
+      "string": "floyd_inject_script_runner_load",
+      "adrp_address": "0x43e84c",
+      "add_address": "0x43e85c",
+      "candidate_function_unwind_start": "0x43e7dc",
+      "candidate_next_unwind_start": "0x43e864"
+    },
+    {
+      "string_offset": "0xd64f2",
+      "string": "floyd_inject_script_runner_on_script_file_changed",
+      "adrp_address": "0x43e944",
+      "add_address": "0x43e94c",
+      "candidate_function_unwind_start": "0x43e874",
+      "candidate_next_unwind_start": "0x43e980"
+    },
+    {
+      "string_offset": "0xd64f2",
+      "string": "floyd_inject_script_runner_on_script_file_changed",
+      "adrp_address": "0x43e95c",
+      "add_address": "0x43e968",
+      "candidate_function_unwind_start": "0x43e874",
+      "candidate_next_unwind_start": "0x43e980"
+    },
+    {
+      "string_offset": "0xaec33",
+      "string": "floyd_inject_script_runner_query_terminal_mode",
+      "adrp_address": "0x43f1a0",
+      "add_address": "0x43f1a8",
+      "candidate_function_unwind_start": "0x43e9ac",
+      "candidate_next_unwind_start": "0x43f424"
+    },
+    {
+      "string_offset": "0xbef31",
+      "string": "floyd_inject_script_runner_call_init",
+      "adrp_address": "0x43f1b4",
+      "add_address": "0x43f1bc",
+      "candidate_function_unwind_start": "0x43e9ac",
+      "candidate_next_unwind_start": "0x43f424"
+    },
+    {
+      "string_offset": "0xceb5d",
+      "string": "Failed to convert UTF-8 in unencrypted mode: %s",
+      "adrp_address": "0x43f3a0",
+      "add_address": "0x43f3a8",
+      "candidate_function_unwind_start": "0x43e9ac",
+      "candidate_next_unwind_start": "0x43f424"
+    },
+    {
+      "string_offset": "0xa3cba",
+      "string": "floyd_inject_script_runner_load_co",
+      "adrp_address": "0x43f3f8",
+      "add_address": "0x43f400",
+      "candidate_function_unwind_start": "0x43e9ac",
+      "candidate_next_unwind_start": "0x43f424"
+    },
+    {
+      "string_offset": "0xc94a6",
+      "string": "floyd_inject_script_runner_query_terminal_mode_co",
+      "adrp_address": "0x43f410",
+      "add_address": "0x43f418",
+      "candidate_function_unwind_start": "0x43e9ac",
+      "candidate_next_unwind_start": "0x43f424"
+    },
+    {
+      "string_offset": "0xde9b2",
+      "string": "floyd_inject_script_runner_on_message",
+      "adrp_address": "0x43f978",
+      "add_address": "0x43f980",
+      "candidate_function_unwind_start": "0x43f434",
+      "candidate_next_unwind_start": "0x43fa18"
+    },
+    {
+      "string_offset": "0xde9b2",
+      "string": "floyd_inject_script_runner_on_message",
+      "adrp_address": "0x43f990",
+      "add_address": "0x43f99c",
+      "candidate_function_unwind_start": "0x43f434",
+      "candidate_next_unwind_start": "0x43fa18"
+    },
+    {
+      "string_offset": "0xa3cdd",
+      "string": "floyd_inject_script_runner_try_handle_log_message",
+      "adrp_address": "0x43f9b8",
+      "add_address": "0x43f9c0",
+      "candidate_function_unwind_start": "0x43f434",
+      "candidate_next_unwind_start": "0x43fa18"
+    },
+    {
+      "string_offset": "0xd3ac7",
+      "string": "floyd_inject_script_runner_try_handle_stdout_message",
+      "adrp_address": "0x43f9cc",
+      "add_address": "0x43f9d4",
+      "candidate_function_unwind_start": "0x43f434",
+      "candidate_next_unwind_start": "0x43fa18"
+    },
+    {
+      "string_offset": "0xebdd8",
+      "string": "floyd_inject_script_runner_try_handle_error_message",
+      "adrp_address": "0x43f9e0",
+      "add_address": "0x43f9e8",
+      "candidate_function_unwind_start": "0x43f434",
+      "candidate_next_unwind_start": "0x43fa18"
+    },
+    {
+      "string_offset": "0xde9b2",
+      "string": "floyd_inject_script_runner_on_message",
+      "adrp_address": "0x43fa04",
+      "add_address": "0x43fa0c",
+      "candidate_function_unwind_start": "0x43f434",
+      "candidate_next_unwind_start": "0x43fa18"
+    },
+    {
+      "string_offset": "0xa9583",
+      "string": "floyd_inject_script_runner_set_terminal_mode",
+      "adrp_address": "0x43fa48",
+      "add_address": "0x43fa58",
+      "candidate_function_unwind_start": "0x43fa18",
+      "candidate_next_unwind_start": "0x43fa60"
+    },
+    {
+      "string_offset": "0xd64ca",
+      "string": "floyd_inject_script_runner_call_init_co",
+      "adrp_address": "0x43fc30",
+      "add_address": "0x43fc38",
+      "candidate_function_unwind_start": "0x43fa8c",
+      "candidate_next_unwind_start": "0x43fc44"
+    },
+    {
+      "string_offset": "0xe3d04",
+      "string": "floyd_inject_script_runner_try_reload_co",
+      "adrp_address": "0x43fe38",
+      "add_address": "0x43fe40",
+      "candidate_function_unwind_start": "0x43fd4c",
+      "candidate_next_unwind_start": "0x43fe4c"
+    },
+    {
+      "string_offset": "0xaec62",
+      "string": "floyd_inject_script_runner_real_post_rpc_message",
+      "adrp_address": "0x4402a4",
+      "add_address": "0x4402b8",
+      "candidate_function_unwind_start": "0x440150",
+      "candidate_next_unwind_start": "0x4402e4"
+    },
+    {
+      "string_offset": "0xe137c",
+      "string": "floyd_inject_script_runner_real_post_rpc_message_co",
+      "adrp_address": "0x4402d0",
+      "add_address": "0x4402d8",
+      "candidate_function_unwind_start": "0x440150",
+      "candidate_next_unwind_start": "0x4402e4"
+    },
+    {
+      "string_offset": "0xdcd03",
+      "string": "keys",
+      "adrp_address": "0x2d93688",
+      "add_address": "0x2d9368c",
+      "candidate_function_unwind_start": "0x2d93404",
+      "candidate_next_unwind_start": "0x2d93738"
+    },
+    {
+      "string_offset": "0xdcd03",
+      "string": "keys",
+      "adrp_address": "0x2d9afb8",
+      "add_address": "0x2d9afbc",
+      "candidate_function_unwind_start": "0x2d9ae7c",
+      "candidate_next_unwind_start": "0x2d9b03c"
+    },
+    {
+      "string_offset": "0xdcd03",
+      "string": "keys",
+      "adrp_address": "0x2da3a28",
+      "add_address": "0x2da3a2c",
+      "candidate_function_unwind_start": "0x2da39e0",
+      "candidate_next_unwind_start": "0x2da3ac4"
+    },
+    {
+      "string_offset": "0xdcd03",
+      "string": "keys",
+      "adrp_address": "0x2da6b74",
+      "add_address": "0x2da6b78",
+      "candidate_function_unwind_start": "0x2da6a50",
+      "candidate_next_unwind_start": "0x2da6c70"
+    },
+    {
+      "string_offset": "0xb6ba0",
+      "string": "encrypt-level",
+      "adrp_address": "0x2ea0e58",
+      "add_address": "0x2ea0e60",
+      "candidate_function_unwind_start": "0x2ea0e48",
+      "candidate_next_unwind_start": "0x2ea0e8c"
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+# Validation — October 12, 2026
+
+## Earlier injector artifact
+
+`build/qol-lab-debug.apk`: 45,490,715 bytes, SHA-256 `cc6ca5bc6edc12ccda7831263abfc3af42cd52662768a9dd8fe31d75bdb680f4`.
+
+Built from this project's original Java/C/JavaScript source with Android platform 35/build-tools 35.0.0, NDK r27c and the checksum-verified Frida core 17.23.3 Android arm64 devkit. The APK signature was verified by `apksigner`; installation and activity launch succeeded on the connected phone. `build/build.log` records the final cross-build/signature check. Only arm64 is packaged. The manual build path is tested; the optional Gradle configuration is not.
+
+## Local checks
+
+- Native runner compiled for Android arm64 API 28 with `-Wall -Wextra -Werror`, PIE, and 16 KiB ELF segment alignment.
+- Native JSON input validation cases passed under host AddressSanitizer and UndefinedBehaviorSanitizer, including malformed/truncated input, embedded NUL and nesting bounds.
+- Original module-runtime tests passed: registry/command responses, diagnostics invocation, observer enable/disable, repeated disable, rollback after failed initialization, disabled action rejection, bulk shutdown and tracked-resource disposal.
+- Python build scripts passed syntax compilation.
+- These tests parse/execute our own framework code. They do not execute the recovered Pokemod agents.
+
+## Observed phone results
+
+Phone: Pixel 9a, arm64-v8a, Android 17, 4 KiB memory pages. Root returned UID 0 under the Magisk domain. Installed Pokémon GO version: 0.431.0. Device identification/serial is not needed in the report.
+
+The Android app installed, rendered its controls and notification permission request, and launched its root helper. Initial failures were investigated rather than treated as successful injection:
+
+1. A cached/frozen target caused a stop-wait timeout. Attach now foregrounds the game and resolves its PID after launch.
+2. The initial helper omitted Frida's SELinux policy initialization. A concrete audit denial on `/memfd:frida-agent-64.so` explained the closed agent connection; attachment to our own app also failed before setup. After the user explicitly authorized setup, the upstream helper was enabled. Enforcement remained `Enforcing` when checked after setup.
+3. Successful injected diagnostics reported the actual game PID, arm64 architecture and loaded Unity, IL2CPP and Niantic native libraries. This was a target-process message from our script, not a host mock.
+4. The library observer module enabled and disabled through app commands, returning matching successful command responses. A diagnostics action returned a fresh snapshot.
+5. Full native-agent unload was followed by a game SIGSEGV recorded in Android exit information/tombstone data. The exact cause was not proven; unknown program counters after unload make a stale-code/unload compatibility issue a candidate. The final app therefore uses resident-agent detach instead.
+6. In resident mode, shutdown acknowledged all modules disabled (including an active library observer), `eternalized=true` was reported, the native controller detached, and no helper process remained. The same game PID **15146** was still running afterwards. A subsequent attach to that same process loaded a fresh diagnostics module and completed the registry handshake.
+
+The final state and second detach result are recorded in `build/device-validation.json`; relevant app-only runtime logs are in `build/device-session.log`. Initial failures and the earlier full-unload crash remain material evidence, not successful test cases.
+
+## PGQL settings menu validation
+
+The current build is `build/pgql-debug.apk`, branded PGQL 0.1 / Pokemon Go QoL. The injected Android button and dialog rendered inside Pokémon GO’s `UnityMainActivity`; the dialog displayed the name and version, two module enable switches, and both declared boolean settings. Screenshots are in `build/pgql-settings.png`.
+
+The phone emitted configuration events for `diagnostics.includeAddresses=false` and `library-watch.logUnloads=false`, and an enabled event for the library observer after its switch was tapped. Only the framework’s configuration JSON was inspected in the game-private `pgql_settings` preferences; it contained these values and module enable states. The final installed APK is 45584923 bytes, SHA-256 `72e602c4317f71974f45f359a7a4c6013dfa498274a4d03c8137871f736b8628`. After reattachment to PID 19992, the same toggles and module states were restored. After detach, Android UI inspection found no PGQL button/dialog, and PID 19992 remained alive. The controller now synchronizes module change events from the injected menu. Runtime schema/configuration, subscriptions, rollback and lifecycle tests passed.
+
+Initial Java-menu tests stalled during script startup. Deferring initialization and excluding the menu’s own registry notification fixed the handshake dependency. A subsequent ART abort (`method_index=65535`, `num_methods=127`) occurred during optional JVMTI plugin setup. Avoiding JVMTI completely encountered a separate unsupported class-layout path. The final bundle instead applies upstream Java bridge PR #400 to a build copy; menu creation and interaction succeeded with this patch. One earlier startup test also produced a native crash with a Niantic-library stack; its cause was not established. These failed tests are not evidence of menu stability.
+
+## Practical limits
+
+This is a developer foundation with two diagnostic modules, injected settings and an original Mass Gift module. See `MASS-GIFT.md` for the current live preview validation and the untested send/open boundary. It includes a first game-gifting service adapter and Unity-frame scheduler. It does not yet supply hot reload, spawn gating, Unity prefab integration, non-boolean settings controls or an unattended daily task engine. Native method addresses/signatures and managed services need separate version-aware work before implementing game QoL behavior.
+
+Resident detach leaves an inactive script/Frida engine in the target until the game exits; reattaching can accumulate inactive scripts. Module code must register its owned resources and stop its own in-flight asynchronous operations in cleanup. A timeout/missing acknowledgement is reported as unconfirmed cleanup. The explicit policy setup has system-wide live effects until reboot, and detachment does not revert them. Details and the original-app comparison are in `../analysis/selinux-comparison.md` and the project README.
+
+The observed attach/command/shutdown cycles establish this foundation on the connected phone/game version. They do not establish prolonged stability, compatibility with other devices/game versions, or successful server-side gameplay actions.
+
+## Current Mass Gift artifact
+
+`build/pgql-debug.apk`: 45617691 bytes; SHA-256 `e30dde317f345c98d960d2f8d0a7e5e806140e8d401f6b3d8e8e41be69fd478b`. Built/signature-verified, installed, and exercised through the injected menu. The current read-only opening preview reports 82 friends, 33 inventory gifts and 56 friends with incoming gifts. Send/open confirmation Cancel paths were exercised. Native handle target verification and deferred cleanup completed without the prior cleanup error. The same PID 27645 survived repeated previews/reattachments in the final checks. Actual send/open requests and prolonged stability remain untested; see `MASS-GIFT.md`.
+
+
+## Encounter module implementation — October 12, 2026
+
+Added independent Instant Catch, Perfect Throw, and Headshot toggles; see [ENCOUNTERS.md](ENCOUNTERS.md). Five Node suites pass and the APK is signed and installed. SHA-256: `4552f90f19a2d4f13c51b70df7d18f1a385619a197c3299c6bf140ab368fe74d`. The initial device build displayed the switches and reported metadata mismatches safely; these were corrected. After earlier native crashes, the final app-driven session on PID 5639 installed all three hooks and reported ready. Entered one encounter, verified independent disable and returned to the map without hook or cleanup errors; all three new toggles were left off. No balls were thrown, so catch/throw/recovery/XP outcomes remain untested. See `build/encounter-final-session.log` and `build/encounter-validation.json`.

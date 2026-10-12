@@ -1,0 +1,34 @@
+[
+  {
+    "name": "ve",
+    "kind": "class",
+    "start": 2280458,
+    "end": 2287173,
+    "startLine": 67928,
+    "endLine": 68117
+  },
+  {
+    "name": "g0e",
+    "kind": "class",
+    "start": 2957158,
+    "end": 2957539,
+    "startLine": 82605,
+    "endLine": 82615
+  },
+  {
+    "name": "_0",
+    "kind": "function",
+    "start": 2957541,
+    "end": 2957921,
+    "startLine": 82616,
+    "endLine": 82627
+  },
+  {
+    "name": "GC",
+    "kind": "class",
+    "start": 2957946,
+    "end": 2992787,
+    "startLine": 82629,
+    "endLine": 83427
+  }
+]

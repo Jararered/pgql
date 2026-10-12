@@ -1,0 +1,87 @@
+[
+  {
+    "path": "classes.dex",
+    "bytes": 9775444,
+    "sha256": "1089cf895912e7072cc08cf2c637533c840cecc0b43fa8d619feb69c75437f97"
+  },
+  {
+    "path": "classes2.dex",
+    "bytes": 452860,
+    "sha256": "8587e1701c6fc7e5c0ca1df0b855b2eb29d527a36d8347d4eca5686f0198543e"
+  },
+  {
+    "path": "lib/arm64-v8a/libconceal.so",
+    "bytes": 267928,
+    "sha256": "9bc3cc06192654d1377df0061e85b9c3abb993dcb85ae972edfec4ec9c296f59"
+  },
+  {
+    "path": "lib/arm64-v8a/libfancier.so",
+    "bytes": 47840,
+    "sha256": "449753004a60f6c346e2430ea87c50c4b0892e654a7abd0ecefe8fe77d50e4cc"
+  },
+  {
+    "path": "lib/armeabi-v7a/libconceal.so",
+    "bytes": 210328,
+    "sha256": "f5c5e80209e60419ccfa3f12cab874a706c4ff2a394a29981af18b13baa6c2ac"
+  },
+  {
+    "path": "lib/armeabi-v7a/libfancier.so",
+    "bytes": 33172,
+    "sha256": "dcc0eafa01a7c4a7828daa6315acaf97acd4e24f1686e509a92a1603bce9473a"
+  },
+  {
+    "path": "lib/armeabi/libconceal.so",
+    "bytes": 198028,
+    "sha256": "7f9863b95eb36a3905f6282d4330a1ca3383ce26ccd73f6a14800868d49de1fc"
+  },
+  {
+    "path": "lib/x86/libconceal.so",
+    "bytes": 263556,
+    "sha256": "09e7dcf555fe1d352605a22369b9a3c93c8be54a082df1099bbf66ade157ac63"
+  },
+  {
+    "path": "lib/x86/libfancier.so",
+    "bytes": 56388,
+    "sha256": "727739bc89b2456cf92c620eb54d92f56a74540258232de4a34661aaa8dc78af"
+  },
+  {
+    "path": "lib/x86_64/libconceal.so",
+    "bytes": 276424,
+    "sha256": "28978be3fd9a7fc2ec0953890cd8eace11259d75790b1595df05cc3002fb78d1"
+  },
+  {
+    "path": "lib/x86_64/libfancier.so",
+    "bytes": 49696,
+    "sha256": "7b3f89b18984ebe326f441e403d0aac3735b933f2c19ffb36ecbfa7567f18d03"
+  },
+  {
+    "path": "assets/busybox-arm64",
+    "bytes": 1478216,
+    "sha256": "d1ac865958598b77172410a23057843a1da5d784966e55488d262f759d5d7390"
+  },
+  {
+    "path": "assets/nostatusbar.zip",
+    "bytes": 13430,
+    "sha256": "9c3034f78b803336b279972729f0fc178ba4e508f89549d862f83a8c073ae6ce"
+  },
+  {
+    "path": "assets/pokemod-injector",
+    "bytes": 33219024,
+    "sha256": "60da475360e685524a3a622ae47b3065242785eaa53896b20488f82a4da58ac3"
+  },
+  {
+    "path": "assets/sqlite3-arm64",
+    "bytes": 709600,
+    "sha256": "a4e320514de96618bf0bf397c1566add7afba906856832cb88a0a197d434479b"
+  },
+  {
+    "path": "AndroidManifest.xml",
+    "bytes": 18384,
+    "sha256": "f8e14c4212db50337b4bcc7e7eb51483f7bc61a2a470d56dba98369404eb8d58"
+  },
+  {
+    "path": "resources.arsc",
+    "bytes": 1064736,
+    "sha256": "a77f68a7d8a977653619bec1ebec2c84ac0bb74a23a7a65cb4e5c04614fcd0fb"
+  }
+]

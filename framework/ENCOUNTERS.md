@@ -1,0 +1,25 @@
+# Encounter modules
+
+PGQL 0.1 now contains three independent, default-off modules. Enable them in the injected settings menu before entering a new encounter. Each has a **Feature status** action: `initializing` means metadata is being checked; `ready` means its hooks have installed. A contract mismatch disables that module and logs the error. Perfect Throw never enables Headshot automatically.
+
+- **Instant Catch** observes successful catch results and schedules encounter completion on the next Unity frame. It does not submit a catch request, guarantee capture, or accelerate failed catches. Enable before entering the encounter so its state can be captured. Repeated success parsing is deduplicated, and pending completion is invalidated when an encounter ends or a new intro runs.
+- **Perfect Throw** overrides the reticle quality/bullseye checks, requests action suppression and disables the invulnerability getter. It supplies curveball and AR+ values during catch serialization. Miss delegates reactivate the ball once per launch and compensate a nonzero raid-ball counter; they do not request a server-side inventory refund. Existing animations may finish. AR+ XP awards have not been verified.
+- **Headshot** moves an ordinary ball 90% toward the reticle at launch and changes its collision target to the encounter Pokemon's collider. Master Ball launch positioning is left to the game. Existing contact-pair fields are preserved. This is targeting assistance, not a guarantee that the server accepts a catch.
+
+## Implementation and cleanup
+
+`agent/core/encounter-module.js` handles deferred, cancellable initialization and stale-generation failures. The three files in `agent/modules/` register independent switches. `agent/adapters/game-encounters.js` implements the managed hooks using the existing deferred IL2CPP loader and Unity frame scheduler. No recovered Pokemod code is loaded into PGQL.
+
+The adapter is gated to GO 0.431.0 and resolves classes, signatures, and fields before installing each feature. Ambiguous or missing bindings fail rather than selecting an arbitrary overload. Source-derived aliases are scoped to their owner class. An initial on-device pass identified interface-typed Pokemon fields and missing protobuf accessors. The adapter uses concrete encounter classes and protobuf fields for these. The final device pass resolved all three contracts and installed all hooks successfully.
+
+Disabling removes native hooks and restores the ball's saved miss delegates only if PGQL still owns those fields. Retired callbacks cannot act on released handles. Encounter completion clears retained ball/action objects. Perfect Throw restores the game's last requested action setting on the Unity frame thread; a new installation waits for that cleanup. If no game frame arrives before the scheduler deadline, it logs a restoration failure; leave the encounter to reset its state. This deferred cleanup relies on the framework's resident-agent detach mode. Effects already applied to a launched ball or serialized request cannot be undone.
+
+## Validation on October 12, 2026
+
+All five Node suites pass, including tests exercising the actual adapter through simulated managed methods: independent toggles, cancelled initialization, stale generations, unsupported-contract rollback, success-only/next-frame/deduplicated catch completion, stale encounter cancellation, float/boolean overrides, missed-ball deduplication, retired callbacks, saved delegate restoration, outbound values, collision preservation, and the Master Ball launch exception.
+
+The debug APK builds, passes signature verification, and is installed. The final app-driven session on game PID 5639 reported **Headshot ready**, **Instant Catch ready**, and **Perfect Throw ready** together. Entering a Spoink encounter exercised initialization without hook errors. Disabling Perfect Throw left the other two enabled. All three were then disabled and the encounter exited back to the map, in the same process, with no cleanup/restore error logged. The new switches are left off.
+
+Earlier standalone probes and some app attaches encountered recurring native crashes at `libNianticLabsPlugin.so + 0x254328`, the previously documented non-executable alias dispatch signature. The first stable metadata check exposed interface/protobuf-accessor mismatches; these were corrected before the successful final pass. This session does not establish prolonged runtime stability.
+
+No ball was thrown during validation. Actual catch completion, excellent-curve results, missed-ball inventory effects, collision outcomes, and awarded AR+ XP remain untested. The build is an implementation candidate with verified hook installation and encounter initialization, not a gameplay-verified release. See `build/encounter-validation.json` for the current APK digest and installation result, and `../analysis/encounter-contract.md` for static evidence and remaining gaps.

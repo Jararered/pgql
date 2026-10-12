@@ -1,0 +1,637 @@
+{
+  "path": "analysis/extracted/lib/arm64-v8a/libconceal.so",
+  "sha256": "9bc3cc06192654d1377df0061e85b9c3abb993dcb85ae972edfec4ec9c296f59",
+  "size": 267928,
+  "elf_type": 3,
+  "machine": 183,
+  "entry": "0x12150",
+  "section_offset": 266648,
+  "section_count": 20,
+  "program_headers": [
+    {
+      "type": 1,
+      "flags": 5,
+      "offset": 0,
+      "vaddr": 0,
+      "filesz": 217928,
+      "memsz": 217928,
+      "align": 65536
+    },
+    {
+      "type": 1,
+      "flags": 6,
+      "offset": 221680,
+      "vaddr": 287216,
+      "filesz": 44768,
+      "memsz": 46792,
+      "align": 65536
+    },
+    {
+      "type": 2,
+      "flags": 6,
+      "offset": 261280,
+      "vaddr": 326816,
+      "filesz": 496,
+      "memsz": 496,
+      "align": 8
+    },
+    {
+      "type": 1685382480,
+      "flags": 4,
+      "offset": 216248,
+      "vaddr": 216248,
+      "filesz": 292,
+      "memsz": 292,
+      "align": 4
+    },
+    {
+      "type": 1685382481,
+      "flags": 6,
+      "offset": 0,
+      "vaddr": 0,
+      "filesz": 0,
+      "memsz": 0,
+      "align": 16
+    },
+    {
+      "type": 1685382482,
+      "flags": 4,
+      "offset": 221680,
+      "vaddr": 287216,
+      "filesz": 44560,
+      "memsz": 44560,
+      "align": 1
+    }
+  ],
+  "dynamic_tags": {
+    "0x1": [
+      1397,
+      1407,
+      1420,
+      1428,
+      1436
+    ],
+    "0xe": [
+      1503
+    ],
+    "0x10": [
+      0
+    ],
+    "0x19": [
+      287216
+    ],
+    "0x1b": [
+      8
+    ],
+    "0x1a": [
+      287224
+    ],
+    "0x1c": [
+      16
+    ],
+    "0x4": [
+      400
+    ],
+    "0x5": [
+      2264
+    ],
+    "0x6": [
+      800
+    ],
+    "0xa": [
+      1517
+    ],
+    "0xb": [
+      24
+    ],
+    "0x3": [
+      327312
+    ],
+    "0x2": [
+      648
+    ],
+    "0x14": [
+      7
+    ],
+    "0x17": [
+      72952
+    ],
+    "0x7": [
+      3784
+    ],
+    "0x8": [
+      69168
+    ],
+    "0x9": [
+      24
+    ],
+    "0x18": [
+      0
+    ],
+    "0x6ffffffb": [
+      1
+    ],
+    "0x6ffffff9": [
+      2876
+    ]
+  },
+  "needed": [
+    "liblog.so",
+    "libstdc++.so",
+    "libm.so",
+    "libc.so",
+    "libdl.so"
+  ],
+  "symbol_count_method": "SYSV hash nchain",
+  "symbols": [
+    {
+      "name": "",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 0,
+      "type": 0
+    },
+    {
+      "name": "",
+      "defined": true,
+      "value": "0x12150",
+      "size": 0,
+      "binding": 0,
+      "type": 3
+    },
+    {
+      "name": "",
+      "defined": true,
+      "value": "0x46210",
+      "size": 0,
+      "binding": 0,
+      "type": 3
+    },
+    {
+      "name": "_bss_end__",
+      "defined": true,
+      "value": "0x518b8",
+      "size": 0,
+      "binding": 0,
+      "type": 0
+    },
+    {
+      "name": "__bss_start",
+      "defined": true,
+      "value": "0x510d0",
+      "size": 0,
+      "binding": 0,
+      "type": 0
+    },
+    {
+      "name": "__end__",
+      "defined": true,
+      "value": "0x518b8",
+      "size": 0,
+      "binding": 0,
+      "type": 0
+    },
+    {
+      "name": "__bss_start__",
+      "defined": true,
+      "value": "0x510d0",
+      "size": 0,
+      "binding": 0,
+      "type": 0
+    },
+    {
+      "name": "_edata",
+      "defined": true,
+      "value": "0x510d0",
+      "size": 0,
+      "binding": 0,
+      "type": 0
+    },
+    {
+      "name": "__bss_end__",
+      "defined": true,
+      "value": "0x518b8",
+      "size": 0,
+      "binding": 0,
+      "type": 0
+    },
+    {
+      "name": "_end",
+      "defined": true,
+      "value": "0x518b8",
+      "size": 0,
+      "binding": 0,
+      "type": 0
+    },
+    {
+      "name": "memcmp",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "qsort",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "__errno",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "abort",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "realloc",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "connect",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "Java_com_facebook_crypto_mac_NativeMac_nativeDoFinal",
+      "defined": true,
+      "value": "0x12c8c",
+      "size": 208,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "write",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "Java_com_facebook_crypto_cipher_NativeGCMCipher_nativeEncryptFinal",
+      "defined": true,
+      "value": "0x1215c",
+      "size": 288,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "Java_com_facebook_crypto_cipher_NativeGCMCipher_nativeDestroy",
+      "defined": true,
+      "value": "0x1227c",
+      "size": 88,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "Java_com_facebook_crypto_mac_NativeMac_nativeInit",
+      "defined": true,
+      "value": "0x12a64",
+      "size": 188,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "Java_com_facebook_crypto_mac_NativeMac_nativeUpdate___3BII",
+      "defined": true,
+      "value": "0x12bc0",
+      "size": 204,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "Java_com_facebook_crypto_cipher_NativeGCMCipher_nativeDecryptInit",
+      "defined": true,
+      "value": "0x12334",
+      "size": 64,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "getpid",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "strcmp",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "time",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "memset",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "sigx_app",
+      "defined": true,
+      "value": "0x0",
+      "size": 8,
+      "binding": 1,
+      "type": 1
+    },
+    {
+      "name": "Java_com_facebook_crypto_keygen_PasswordBasedKeyDerivation_nativePbkdf2",
+      "defined": true,
+      "value": "0x12f50",
+      "size": 384,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "malloc",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "memmove",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "Java_com_facebook_crypto_cipher_NativeGCMCipher_nativeGetCipherBlockSize",
+      "defined": true,
+      "value": "0x126e0",
+      "size": 8,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "fstat",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "open",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "Java_com_facebook_crypto_mac_NativeMac_nativeDestroy",
+      "defined": true,
+      "value": "0x12b20",
+      "size": 88,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "Java_com_facebook_crypto_mac_NativeMac_nativeFailure",
+      "defined": true,
+      "value": "0x12d64",
+      "size": 16,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "vfprintf",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "Java_com_facebook_crypto_mac_NativeMac_nativeUpdate__B",
+      "defined": true,
+      "value": "0x12b78",
+      "size": 72,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "JNI_OnLoad",
+      "defined": true,
+      "value": "0x130d0",
+      "size": 124,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "poll",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "sig_app",
+      "defined": true,
+      "value": "0x8",
+      "size": 8,
+      "binding": 1,
+      "type": 1
+    },
+    {
+      "name": "__sF",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 1
+    },
+    {
+      "name": "Java_com_facebook_crypto_cipher_NativeGCMCipher_nativeEncryptInit",
+      "defined": true,
+      "value": "0x122d4",
+      "size": 96,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "__stack_chk_guard",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 1
+    },
+    {
+      "name": "Java_com_facebook_crypto_cipher_NativeGCMCipher_nativeUpdate",
+      "defined": true,
+      "value": "0x12374",
+      "size": 356,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "Java_com_facebook_crypto_cipher_NativeGCMCipher_nativeDecryptFinal",
+      "defined": true,
+      "value": "0x125c4",
+      "size": 284,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "__cxa_finalize",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "socket",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "close",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "read",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "Java_com_facebook_crypto_cipher_NativeGCMCipher_nativeUpdateAad",
+      "defined": true,
+      "value": "0x124d8",
+      "size": 236,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "Java_com_facebook_crypto_util_NativeUtils_failureJni",
+      "defined": true,
+      "value": "0x13154",
+      "size": 8,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "free",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "memchr",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "memcpy",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "Java_com_facebook_crypto_util_NativeUtils_successJni",
+      "defined": true,
+      "value": "0x1314c",
+      "size": 8,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "strlen",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "__stack_chk_fail",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "Java_com_facebook_crypto_mac_NativeMac_nativeGetMacLength",
+      "defined": true,
+      "value": "0x12d5c",
+      "size": 8,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "Java_com_facebook_crypto_cipher_NativeGCMCipher_nativeFailure",
+      "defined": true,
+      "value": "0x126e8",
+      "size": 16,
+      "binding": 1,
+      "type": 2
+    },
+    {
+      "name": "getuid",
+      "defined": false,
+      "value": "0x0",
+      "size": 0,
+      "binding": 1,
+      "type": 2
+    }
+  ],
+  "byte_entropy": 4.971808461822828
+}
