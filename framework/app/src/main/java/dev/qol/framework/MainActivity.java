@@ -56,7 +56,9 @@ public class MainActivity extends Activity {
         });
         controls.addView(detach); page.addView(controls);
         TextView heading=new TextView(this); heading.setText("Modules"); heading.setTextSize(20); page.addView(heading);
-        modules=new LinearLayout(this); modules.setOrientation(LinearLayout.VERTICAL); page.addView(modules);
+        modules=new LinearLayout(this); modules.setOrientation(LinearLayout.VERTICAL);
+        ScrollView moduleScroll=new ScrollView(this); moduleScroll.addView(modules);
+        page.addView(moduleScroll,new LinearLayout.LayoutParams(-1,0,1));
         snapshot=button("Run diagnostics",v -> {SessionService.command("invoke","diagnostics"); foregroundGame();}); page.addView(snapshot);
         TextView caption=new TextView(this); caption.setText("Session log"); page.addView(caption);
         ScrollView scroll=new ScrollView(this);
@@ -97,8 +99,11 @@ public class MainActivity extends Activity {
         for(int i=0;i<list.length();i++) {
             JSONObject item=list.optJSONObject(i); if(item==null) continue;
             String id=item.optString("id"); CheckBox check=new CheckBox(this);
-            check.setText(item.optString("name",id)); check.setChecked(item.optBoolean("enabled"));
-            check.setEnabled(state.equals("attached"));
+            String availability=item.optString("availability","implemented");
+            boolean planned=availability.equals("planned");
+            check.setText(item.optString("name",id)+(planned?" · Planned":availability.equals("experimental")?" · Experimental":""));
+            check.setChecked(item.optBoolean("enabled"));
+            check.setEnabled(state.equals("attached") && !planned);
             check.setOnCheckedChangeListener((view,enabled) -> {SessionService.command(enabled?"enable":"disable",id);foregroundGame();});
             modules.addView(check);
         }

@@ -124,6 +124,11 @@ Qol.register({
         for(const module of Qol.describe()) {
           if(module.id==='pgql-menu')continue;
           content.addView(text(module.name,18,true));
+          if(module.availability==='planned') {
+            content.addView(text(module.unavailableReason,14));
+            continue;
+          }
+          if(module.availability==='experimental')content.addView(text(module.unavailableReason || 'Experimental',14));
           const enabled=row('Enabled',module.enabled,value=>value?Qol.enable(module.id):Qol.disable(module.id));
           widgets.set(module.id+':enabled',enabled);content.addView(enabled);
           for(const setting of module.settings) {

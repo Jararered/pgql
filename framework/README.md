@@ -25,7 +25,7 @@ This first version is attach-only. Launch the game normally and wait for it to l
 Existing prerequisites: Python 3, a full JDK 21, Node.js/npm, and a POSIX shell. Build inputs stay under this project, not system installations.
 
 ```sh
-cd /Users/jared/Ghidra/PokeMod/framework
+cd /Users/jared/Development/pgql/framework
 python3 scripts/bootstrap.py
 npm ci
 python3 scripts/build.py
@@ -95,9 +95,23 @@ Build and protocol checks are recorded in `VALIDATION.md`. Local agent tests use
 
 Official API references: [Frida C API](https://frida.re/docs/c-api/), [Frida core API](https://frida.re/docs/frida-core-api/), [Frida JavaScript API](https://frida.re/docs/javascript-api/), and [pinned release](https://github.com/frida/frida/releases/tag/17.23.3).
 
+### Feature catalog and Tamagotchi
+
+The menu and controller now include all 32 requested feature slots. Planned
+features are labeled and cannot be enabled. [FEATURES.md](FEATURES.md) maps their
+scope and shared adapter boundaries. The module list scrolls independently of
+the controller log so the complete catalog fits on screen.
+
+Tamagotchi has an experimental care engine, persistent action/berry switches,
+preview, pause/resume and status controls. **Its live buddy bindings are not yet
+verified or implemented, so it performs no game interactions.** See
+[TAMAGOTCHI.md](TAMAGOTCHI.md) for the adapter contract and device-probe limits.
+`npm test` runs all ten local suites, including the feature framework and buddy
+lifecycle/timeout tests.
+
 ### Encounter toggles
 
-**Instant Catch**, **Perfect Throw**, and **Headshot** are independent, default-off modules in the injected menu. Enable before entering an encounter and check **Feature status**. They target game 0.431.0; incompatible method contracts turn the module off. See [ENCOUNTERS.md](ENCOUNTERS.md) for behavior, cleanup, and the current runtime-validation limits. Run all seven local suites with `npm test`.
+**Instant Catch**, **Perfect Throw**, and **Headshot** are independent, default-off modules in the injected menu. Enable before entering an encounter and check **Feature status**. They target game 0.431.0; incompatible method contracts turn the module off. See [ENCOUNTERS.md](ENCOUNTERS.md) for behavior, cleanup, and the current runtime-validation limits.
 
 ### Virtual GO Plus
 

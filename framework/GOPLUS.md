@@ -23,6 +23,28 @@ connection state, and the three toggles. Settings change live through the
 injected menu; toggling a setting only changes that behavior, it never
 re-installs or re-arms the other hooks.
 
+### Process model
+
+The game hosts its accessory (sfida) stack in a separate service process,
+`com.nianticlabs.pokemongo:pgp`, not in the main Unity process. `libholoholo.so`
+is loaded in both, so exports resolve in either, but the scan/pairing/catch
+functions only ever run in `:pgp`. PGQL therefore runs this module in two
+halves:
+
+- **Main process (front)** — the module shown in the settings menu. It installs
+  no hooks; its phase is `companion`.
+- **`:pgp` process (companion)** — when the front is enabled, `SessionService`
+  attaches a second runner to the `:pgp` pid with the same bundle prefixed by
+  `globalThis.PgqlRole='pgp'` (`files/agent-pgp.js`). That agent skips the
+  settings menu and installs the real adapter.
+
+The controller mirrors the front's `enabled`/`disabled`/`config` events to the
+companion, relays the companion's log lines back (shown under `companion` in
+**Feature status**), and disables the front if the companion disables itself,
+its runner exits, or `:pgp` is not running. Companion log lines are prefixed
+`GO Plus:` in the session log. The companion uses `--resident-agent` detach
+like the main session.
+
 How the session works while enabled:
 
 1. **Device advertisement** — when the game calls
@@ -51,8 +73,9 @@ How the session works while enabled:
 
 ## Native contract (pinned to game 0.431.0)
 
-The adapter is gated to GO **0.431.0** (`Il2Cpp.application.version`, lazy
-loader) and fails cleanly on any other build — no anti-version bricking. All
+The adapter is gated to GO **0.431.0** (installed package `versionName` via
+the Java bridge, `agent/core/package-version.js`; the `:pgp` process has no
+Unity/il2cpp) and fails cleanly on any other build — no anti-version bricking. All
 symbols are resolved by mangled name from `libholoholo.so` at runtime; missing
 exports disable the module. The struct field offsets below are
 version-pinned to 0.431.0, match the recovered agent, and are documented here so
@@ -121,6 +144,10 @@ No recovered Pokemod code is loaded into PGQL. See `THIRD_PARTY.md`.
   fabricated device, that `CatchPokemon`/`SearchPokestop` calls are accepted by
   the server, and that pairing state reads/writes are stable. Results are
   recorded in `VALIDATION.md`.
+- The process model above was established from the device (hooks armed in the
+  main process never fired; `:pgp` is a separate pid with `libholoholo.so`
+  loaded). The two-process attach itself builds and is unit-tested at the
+  module level, but has **not yet been exercised on a device**.
 - Known limits: version-locked to 0.431.0; struct offsets are documented but
   not independently re-derived; a mismatched build disables the module cleanly.
 - Explicitly **not** included: the recovered agent's mock-location bypass

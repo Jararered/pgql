@@ -60,8 +60,10 @@ globalThis.PgqlGameGoPlus = class PgqlGameGoPlus {
     this.timeouts.push(timer);
   }
   async initialize() {
-    if(globalThis.PgqlLoadIl2cpp)PgqlLoadIl2cpp();
-    const version=Il2Cpp.application.version;
+    // The sfida stack lives in the game's :pgp service process, which has no
+    // Unity/il2cpp; gate on the installed package version instead.
+    const version=await PgqlPackageVersion();
+    this.version=version;
     if(version!=='0.431.0')throw Error('Virtual GO Plus supports game 0.431.0; found '+version);
     this.lib=Process.getModuleByName('libholoholo.so');
     if(!this.lib)throw Error('libholoholo.so is not loaded');
@@ -93,7 +95,7 @@ globalThis.PgqlGameGoPlus = class PgqlGameGoPlus {
       this.setupCaptureHook();
       this.setupDistanceHook();
       Interceptor.flush();
-      this.ctx.log('Virtual GO Plus armed',{game:Il2Cpp.application.version});
+      this.ctx.log('Virtual GO Plus armed',{game:this.version});
     }catch(error){this.dispose();throw error;}
   }
   // When the game scans, fabricate a discovered GO Plus device.

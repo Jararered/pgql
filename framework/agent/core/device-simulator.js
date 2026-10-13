@@ -68,7 +68,7 @@ globalThis.PgqlDeviceSimulator = class PgqlDeviceSimulator {
     const ctor=jni.getMethodID(clazz,'<init>','(Landroid/bluetooth/BluetoothDevice;Landroid/bluetooth/le/ScanRecord;IJ)V');
     if(!ctor)return null;
     // jint/jlong primitive args are passed as pointer-sized values.
-    const result=jni.newObject(clazz,ctor,[device,record,ptr(this.rssi),ptr(this.timestampNanos)]);
+    const result=jni.newObject(clazz,ctor,[device,record,ptr(this.rssi),ptr(String(this.timestampNanos))]);
     jni.deleteLocalRef(clazz);
     return this.valid(result);
   }

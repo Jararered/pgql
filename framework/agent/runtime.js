@@ -19,11 +19,15 @@ globalThis.Qol = (() => {
   }
   function describe() {
     return [...definitions.values()].map(m => ({id: m.id, name: m.name, enabled: active.has(m.id),
+      category:globalThis.PgqlFeatures?.get(m.id)?.category || 'Developer',
+      requires:[...(globalThis.PgqlFeatures?.get(m.id)?.requires || [])],
+      availability:m.availability || 'implemented',unavailableReason:m.unavailableReason || null,
       settings:m.settings.map(s=>({...s})),actions:m.actions.map(a=>({...a})),config:{...configurations.get(m.id)}}));
   }
   function register(module) {
     if (!module || typeof module.id !== 'string' || !module.id || definitions.has(module.id)) throw new Error('Duplicate/missing module id');
     if (typeof module.enable !== 'function') throw new Error('Module requires enable');
+    if(module.availability!==undefined && !['implemented','experimental','planned'].includes(module.availability))throw Error('Invalid module availability');
     const settings=module.settings || [], config={}, keys=new Set();
     if (!Array.isArray(settings)) throw new Error('Settings must be an array');
     const schemas=settings.map(setting=>{
@@ -81,6 +85,7 @@ globalThis.Qol = (() => {
     if (active.has(id)) return;
     const module = definitions.get(id);
     if (!module) throw new Error('Unknown module: '+id);
+    if(module.availability==='planned')throw Error(module.unavailableReason || 'Feature is not implemented');
     const cleanups = [];
     const ctx = {
       get config() { return configurations.get(id); },

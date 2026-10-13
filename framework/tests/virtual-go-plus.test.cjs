@@ -1,7 +1,7 @@
 const assert=require('node:assert/strict');
 const fs=require('node:fs'),vm=require('node:vm'),path=require('node:path');
 const sessions=[],events=[],timers=[];
-const context=vm.createContext({send:e=>events.push(e),setTimeout:fn=>{timers.push(fn);return fn;},clearTimeout:fn=>{const i=timers.indexOf(fn);if(i>=0)timers.splice(i,1);},
+const context=vm.createContext({PgqlRole:'pgp',send:e=>events.push(e),setTimeout:fn=>{timers.push(fn);return fn;},clearTimeout:fn=>{const i=timers.indexOf(fn);if(i>=0)timers.splice(i,1);},
   PgqlGameGoPlus:class {
     constructor(ctx){this.disposed=false;this.autoCatch=true;this.autoSpin=true;this.autoReconnect=true;ctx.cleanup(()=>{this.disposed=true;});sessions.push(this);}
     install(feature){this.feature=feature;return new Promise((resolve,reject)=>{this.resolve=resolve;this.reject=reject;});}
@@ -48,6 +48,13 @@ const tick=()=>new Promise(setImmediate),runTimers=()=>{for(const fn of timers.s
  q.enable(moduleId);runTimers();sessions[3].reject(Error('Unsupported game'));
  await tick();assert(!q.describe().find(m=>m.id===moduleId).enabled);assert(sessions[3].disposed);
  assert(events.some(e=>e.message==='Virtual GO Plus unavailable'&&e.details.error.includes('Unsupported game')));
+ q.disable(moduleId);
+ // In the main game process the module is a front: no adapter, companion status relayed.
+ context.PgqlRole=undefined;
+ q.enable(moduleId);runTimers();assert.equal(sessions.length,4);
+ assert.equal((await q.invoke(moduleId,{action:'status'})).phase,'companion');
+ await q.invoke(moduleId,{action:'companion',message:'Virtual GO Plus ready',details:{}});
+ assert.equal((await q.invoke(moduleId,{action:'status'})).companion.message,'Virtual GO Plus ready');
  q.disable(moduleId);
  console.log('Virtual GO Plus module settings, live config, async cancellation, failure rollback and stale-generation tests passed.');
 })().catch(e=>{console.error(e);process.exitCode=1;});

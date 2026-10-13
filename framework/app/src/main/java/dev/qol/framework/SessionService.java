@@ -11,6 +11,8 @@ import org.json.*;
 
 public class SessionService extends Service {
     public static final String TARGET="com.nianticlabs.pokemongo";
+    // The game hosts its GO Plus accessory stack in a separate service process.
+    private static final String COMPANION_TARGET=TARGET+":pgp", GOPLUS="virtual-go-plus";
     public static final String ATTACH="dev.qol.framework.ATTACH", STOP="dev.qol.framework.STOP", UPDATE="dev.qol.framework.UPDATE";
     private static final Object LOCK=new Object();
     private static final ArrayDeque<String> LOG=new ArrayDeque<>();
@@ -18,7 +20,13 @@ public class SessionService extends Service {
     private static JSONArray moduleList=new JSONArray();
     private static volatile SessionService current;
     private final ExecutorService worker=Executors.newSingleThreadExecutor();
-    private volatile Process runner, pidProbe;
+    private final ExecutorService companionWorker=Executors.newSingleThreadExecutor();
+    private volatile Process runner, pidProbe, companion;
+    private BufferedWriter companionInput;
+    // Guarded by this: whether the :pgp agent's module is believed active, and
+    // how many of its "disabled" events answer a disable we mirrored ourselves.
+    private boolean companionActive;
+    private int companionDisables;
     private volatile boolean stopping=false, destroyed=false;
     private BufferedWriter input;
     private long commandId=0;
@@ -93,6 +101,7 @@ public class SessionService extends Service {
         finally {
             synchronized(this){if(input!=null)try{input.close();}catch(IOException ignored){} input=null;}
             Process process=runner; runner=null; if(process!=null && process.isAlive()) process.destroy();
+            closeCompanion();
             synchronized(LOCK){moduleList=new JSONArray();}
             state(failed?"error":"idle"); stopSelf();
         }
@@ -122,23 +131,150 @@ public class SessionService extends Service {
                         else module.put("enabled",change.equals("enabled"));
                     }
                 }
+                if(GOPLUS.equals(payload.optString("moduleId")) && (change.equals("enabled") || change.equals("disabled") || change.equals("config"))) mirror(change,payload);
             }
         }catch(JSONException ignored){}
         log(line);
     }
-    private synchronized void post(String action,String moduleId) {
+    private void post(String action,String moduleId) { post(action,moduleId,null); }
+    private synchronized void post(String action,String moduleId,JSONObject args) {
         if(input==null || stopping) return;
         try {
             JSONObject message=new JSONObject().put("type","command").put("id",Long.toString(++commandId)).put("action",action);
             if(moduleId!=null) message.put("moduleId",moduleId);
+            if(args!=null) message.put("args",args);
             input.write(message.toString());input.newLine();input.flush();
         } catch(Exception e){log("Command error: "+e.getMessage());}
+    }
+    private JSONObject goPlusModule() throws JSONException {
+        synchronized(LOCK) {
+            for(int i=0;i<moduleList.length();i++) {
+                JSONObject module=moduleList.optJSONObject(i);
+                if(module!=null && GOPLUS.equals(module.optString("id")))return new JSONObject(module.toString());
+            }
+        }
+        return null;
+    }
+    // Mirror the main-process Virtual GO Plus front onto the agent in the :pgp process.
+    private void mirror(String change,JSONObject payload) {
+        try {
+            JSONObject module=goPlusModule();
+            JSONObject config=module==null?null:module.optJSONObject("config");
+            String key=payload.optString("key"); boolean value=payload.optBoolean("value");
+            companionWorker.execute(()->{
+                try {
+                    if(change.equals("enabled")) {
+                        if(!ensureCompanion()) {post("disable",GOPLUS);return;}
+                        if(config!=null) for(java.util.Iterator<String> keys=config.keys();keys.hasNext();) {
+                            String name=keys.next();
+                            companionPost(new JSONObject().put("action","config").put("key",name).put("value",config.getBoolean(name)));
+                        }
+                        synchronized(this){companionActive=true;}
+                        companionPost(new JSONObject().put("action","enable"));
+                    } else if(change.equals("disabled")) {
+                        synchronized(this){if(companionActive)companionDisables++;}
+                        companionPost(new JSONObject().put("action","disable"));
+                    }
+                    else companionPost(new JSONObject().put("action","config").put("key",key).put("value",value));
+                } catch(JSONException e){log("GO Plus companion command error: "+e.getMessage());}
+            });
+        } catch(JSONException | RejectedExecutionException e){log("GO Plus companion command error: "+e.getMessage());}
+    }
+    private synchronized void companionPost(JSONObject message) {
+        if(companionInput==null || stopping) return;
+        try {
+            message.put("type","command").put("id","pgp-"+(++commandId)).put("moduleId",GOPLUS);
+            companionInput.write(message.toString());companionInput.newLine();companionInput.flush();
+        } catch(Exception e){log("GO Plus companion command error: "+e.getMessage());}
+    }
+    // Runs on companionWorker. Attaches a second runner to the :pgp process on first use.
+    private boolean ensureCompanion() {
+        Process existing=companion;
+        if(existing!=null && existing.isAlive()) return true;
+        if(stopping || destroyed) return false;
+        try {
+            Process probe=new ProcessBuilder("su","-c","pidof -s "+quote(COMPANION_TARGET)).redirectErrorStream(true).start();
+            if(!probe.waitFor(20,TimeUnit.SECONDS)) {probe.destroy();throw new IOException("PID check timed out");}
+            StringBuilder response=new StringBuilder();
+            try(BufferedReader reader=new BufferedReader(new InputStreamReader(probe.getInputStream(),StandardCharsets.UTF_8))) {
+                String line; while((line=reader.readLine())!=null) response.append(line);
+            }
+            String pid=response.toString().trim();
+            if(probe.exitValue()!=0 || !pid.matches("[0-9]+")) {log("Virtual GO Plus unavailable: "+COMPANION_TARGET+" is not running");return false;}
+            File script=new File(getFilesDir(),"agent-pgp.js");
+            try(InputStream src=new FileInputStream(new File(getFilesDir(),"agent.js"));OutputStream dst=new FileOutputStream(script)) {
+                dst.write("globalThis.PgqlRole='pgp';\n".getBytes(StandardCharsets.UTF_8));
+                byte[] bytes=new byte[16384]; int count; while((count=src.read(bytes))!=-1) dst.write(bytes,0,count);
+            }
+            String executable=getApplicationInfo().nativeLibraryDir+"/libqolrunner.so";
+            String shell="exec "+quote(executable)+" --pid "+pid+" --script "+quote(script.getAbsolutePath())+" --resident-agent";
+            Process process=new ProcessBuilder("su","-c",shell).start();
+            synchronized(this) {
+                companion=process;
+                companionInput=new BufferedWriter(new OutputStreamWriter(process.getOutputStream(),StandardCharsets.UTF_8));
+            }
+            if(stopping || destroyed) {closeCompanion();return false;}
+            new Thread(()->readErrors(process),"qol-pgp-stderr").start();
+            new Thread(()->{
+                try(BufferedReader reader=new BufferedReader(new InputStreamReader(process.getInputStream(),StandardCharsets.UTF_8))) {
+                    String line; while((line=reader.readLine())!=null) handleCompanion(line);
+                }catch(IOException ignored){}
+                boolean lost;
+                synchronized(this) {
+                    lost=companion==process;
+                    if(lost) {
+                        if(companionInput!=null)try{companionInput.close();}catch(IOException ignored){}
+                        companionInput=null;companion=null;companionActive=false;companionDisables=0;
+                    }
+                }
+                if(lost && !stopping) {log("Virtual GO Plus agent left "+COMPANION_TARGET+"; disabling the module");post("disable",GOPLUS);}
+            },"qol-pgp-stdout").start();
+            log("Attaching Virtual GO Plus agent to "+COMPANION_TARGET+" (pid "+pid+")");
+            return true;
+        } catch(Exception e) {
+            if(e instanceof InterruptedException)Thread.currentThread().interrupt();
+            log("GO Plus companion error: "+e.getMessage());return false;
+        }
+    }
+    private void handleCompanion(String line) {
+        try {
+            JSONObject event=new JSONObject(line);
+            JSONObject message=event.optJSONObject("message");
+            JSONObject payload=message==null?null:message.optJSONObject("payload");
+            if(payload!=null && payload.optString("source").equals("qol") && GOPLUS.equals(payload.optString("moduleId"))) {
+                String type=payload.optString("type");
+                JSONObject front=goPlusModule();
+                boolean enabled=front!=null && front.optBoolean("enabled"), own=false;
+                synchronized(this) {
+                    if(type.equals("enabled"))companionActive=true;
+                    else if(type.equals("disabled")) {companionActive=false;if(companionDisables>0){companionDisables--;own=true;}}
+                }
+                // A companion that disabled itself (failed hook, unsupported build) turns the front off too.
+                if(type.equals("disabled") && !own && enabled) post("disable",GOPLUS);
+                else if(type.equals("log") && enabled) post("invoke",GOPLUS,new JSONObject().put("action","companion")
+                    .put("message",payload.optString("message")).put("details",payload.optJSONObject("details")));
+            }
+        }catch(JSONException ignored){}
+        log("GO Plus: "+line);
+    }
+    // Closing stdin makes the runner shut its agent down and detach.
+    private void closeCompanion() {
+        Process process;
+        synchronized(this) {
+            if(companionInput!=null)try{companionInput.close();}catch(IOException ignored){}
+            companionInput=null; process=companion; companion=null; companionActive=false; companionDisables=0;
+        }
+        if(process==null)return;
+        new Thread(()->{
+            try { if(!process.waitFor(5,TimeUnit.SECONDS)) process.destroy(); }catch(InterruptedException e){Thread.currentThread().interrupt();}
+        },"qol-pgp-detach").start();
     }
     private void detach() {
         stopping=true;
         if(!state().equals("idle") && !state().equals("error")) state("detaching");
         Process probe=pidProbe;if(probe!=null)probe.destroy();
         synchronized(this){if(input!=null)try{input.close();}catch(IOException ignored){} input=null;}
+        closeCompanion();
         Process process=runner;
         if(process==null){state("idle");stopSelf();return;}
         new Thread(()->{
@@ -149,7 +285,8 @@ public class SessionService extends Service {
         destroyed=true; stopping=true;
         Process probe=pidProbe;if(probe!=null)probe.destroy();
         synchronized(this){if(input!=null)try{input.close();}catch(IOException ignored){}input=null;}
-        worker.shutdown(); if(current==this)current=null;
+        closeCompanion();
+        worker.shutdown(); companionWorker.shutdown(); if(current==this)current=null;
         super.onDestroy();
     }
     @Override public IBinder onBind(Intent intent){return null;}

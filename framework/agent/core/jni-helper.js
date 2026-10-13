@@ -11,13 +11,14 @@ globalThis.PgqlJniHelper = class PgqlJniHelper {
     this.errors=[];
   }
   // Resolve one JNIEnv function from the fixed-slot table.
-  fn(index,ret,args) {
-    let entry=this.cache.get(index);
+  fn(index,ret,args,variant=0) {
+    const key=index+':'+variant;
+    let entry=this.cache.get(key);
     if(!entry) {
       const address=this.table.add(index*Process.pointerSize).readPointer();
       if(!address || address.isNull())throw Error('Unsupported JNI slot '+index);
       entry=new NativeFunction(address,ret,args);
-      this.cache.set(index,entry);
+      this.cache.set(key,entry);
     }
     return entry;
   }
@@ -38,17 +39,19 @@ globalThis.PgqlJniHelper = class PgqlJniHelper {
   getObjectClass(object) { return this.fn(31,'pointer',['pointer','pointer'])(this.env,object); }
   getMethodID(clazz,name,sig) { return this.fn(33,'pointer',['pointer','pointer','pointer','pointer'])(this.env,clazz,Memory.allocUtf8String(name),Memory.allocUtf8String(sig)); }
   getStaticMethodID(clazz,name,sig) { return this.fn(113,'pointer',['pointer','pointer','pointer','pointer'])(this.env,clazz,Memory.allocUtf8String(name),Memory.allocUtf8String(sig)); }
-  newObject(clazz,ctor,args=[]) { return this.fn(28,'pointer',['pointer','pointer','pointer','...'])(this.env,clazz,ctor,...args); }
-  callVoidMethod(object,method,args=[]) { this.fn(61,'void',['pointer','pointer','pointer','...'])(this.env,object,method,...args); }
-  callObjectMethod(object,method,args=[]) { return this.fn(34,'pointer',['pointer','pointer','pointer','...'])(this.env,object,method,...args); }
-  callStaticObjectMethod(clazz,method,args=[]) { return this.fn(114,'pointer',['pointer','pointer','pointer','...'])(this.env,clazz,method,...args); }
+  // Variadic JNI entry points: Frida needs every passed argument typed, so the
+  // signature is built per argument count (all pointer-sized on arm64).
+  variadic(index,ret,args) { return this.fn(index,ret,['pointer','pointer','pointer',...args.map(()=>'pointer')],args.length); }
+  newObject(clazz,ctor,args=[]) { return this.variadic(28,'pointer',args)(this.env,clazz,ctor,...args); }
+  callVoidMethod(object,method,args=[]) { this.variadic(61,'void',args)(this.env,object,method,...args); }
+  callObjectMethod(object,method,args=[]) { return this.variadic(34,'pointer',args)(this.env,object,method,...args); }
+  callStaticObjectMethod(clazz,method,args=[]) { return this.variadic(114,'pointer',args)(this.env,clazz,method,...args); }
   newByteArray(length) { return this.fn(176,'pointer',['pointer','int'])(this.env,length); }
   // Copy bytes from Frida memory into a fresh jbyteArray.
   setByteArrayRegion(array,bytes) {
     const buffer=Memory.alloc(bytes.length);
     buffer.writeByteArray(bytes);
     this.fn(208,'void',['pointer','pointer','int','int','pointer'])(this.env,array,0,bytes.length,buffer);
-    Memory.free(buffer);
   }
   newStringUTF(value) { return this.fn(167,'pointer',['pointer','pointer'])(this.env,Memory.allocUtf8String(value)); }
   // Build a Java String[] from plain strings.

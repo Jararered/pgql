@@ -61,3 +61,31 @@ Added the original **Virtual GO Plus** module (`virtual-go-plus`, see [GOPLUS.md
 The two new local suites (`go-plus-adapter`, `virtual-go-plus`) run the real adapter/module sources against mocked Frida/JNI globals and all seven suites pass: hook installation, JNIEnv table slot resolution, advertisement JNI call sequencing and global-ref retention/release, pairing state write (`Device`+528→8) and `ConnectionComplete`, catch/spin offset reads and native calls, capture flush + timestamp, distance floor, reconnect routing, per-setting toggles, config rollback, stale-generation cancellation, and full revert/release on disable. `scripts/bundle-agent.py` produces the agent bundle including all new core/adapter/module files.
 
 **No live device session has run yet.** Whether the game's sfida module accepts the fabricated device, pairs cleanly, and accepts `CatchPokemon`/`SearchPokestop` server requests on this phone's GO 0.431.0 remains untested and is recorded as a validation boundary in `GOPLUS.md`.
+
+### Virtual GO Plus follow-up — October 12, 2026
+
+First device session showed the module reaching `armed`/`ready` in the main game process with no advertisement and no hook failure: the accessory stack runs in `com.nianticlabs.pokemongo:pgp`, which PGQL was not attached to. Fixed by attaching a second runner to `:pgp` on enable (see GOPLUS.md "Process model") and gating on package `versionName` there. Also fixed two JNI helper defects the mocks had hidden: untyped variadic `NativeFunction` signatures and a call to the non-existent `Memory.free`; the adapter suite's mocks now reject both. All seven local suites pass and the APK builds. **The two-process attach, device advertisement, pairing, catch and spin remain unvalidated on a device.**
+
+## Feature framework and Tamagotchi foundation — October 12, 2026
+
+All 32 requested features are cataloged with stable IDs, categories, adapter
+domains and explicit implementation availability. Planned entries cannot be
+enabled. Both menus expose availability, and the controller module list now
+scrolls independently. See [FEATURES.md](FEATURES.md).
+
+Tamagotchi includes persistent switches, preview/status/pause/resume, a bounded
+sequential care engine, duplicate-action receipts, cancellation and resource
+leases that survive request timeouts. Its game adapter is intentionally unbound:
+**no live feeding, souvenirs, play, snapshots or battles are implemented yet.**
+The attempted read-only metadata probe ended with target detachment before
+returning buddy signatures; no care actions were sent. Cause of the game exit
+is unknown. See [TAMAGOTCHI.md](TAMAGOTCHI.md) for the exact boundary and raw-log
+locations. Further device probing stopped.
+
+All ten Node suites passed. The Android APK built and its v3 signature verified;
+`git diff --check` passed. Build output: `build/pgql-debug.apk`, SHA-256
+`8c4990d3e16ae95583f5b15fcfc6117966aa190713db054d92e7b3bff4f2509d`.
+Build log: `build/tamagotchi-build.log`. This APK includes the pre-existing working
+tree changes to Virtual GO Plus and SessionService; they were preserved. The new
+APK was not installed, and its menu layout and new module have not been visually
+or behaviorally validated on-device.

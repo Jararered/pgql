@@ -2,7 +2,7 @@ const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('nod
 // ---- mocked Frida globals -------------------------------------------------
 const events=[],nativeCalls=[],timers=[];
 const attachments=new Map(),replacements=new Map(),presets=new Map();
-let uid=0;
+let uid=0,gameVersion='0.431.0';
 const storage=new Map(); // absolute offset -> scalar register value
 function mkPtr(base=0){
   const p={base};
@@ -25,7 +25,10 @@ function symbolId(name){if(!ids.has(name))ids.set(name,++uid);return ids.get(nam
 // libholoholo exports -> stable unique addresses
 const LIB={findExportByName:name=>mkPtr(symbolId(name))};
 const NativeFunction=function(address,ret,args){
+  // Real Frida rejects untyped variadic tails and mismatched argument counts.
+  assert(!args.includes('...')||args.indexOf('...')<args.length-1,'variadic NativeFunction needs typed arguments');
   const invoke=(...callArgs)=>{
+    assert.equal(callArgs.length,args.filter(a=>a!=='...').length,'bad argument count');
     nativeCalls.push({address,ret,callArgs});
     if(presets.has(address.base))return presets.get(address.base);
     if(ret==='pointer')return mkPtr(++uid);
@@ -48,8 +51,8 @@ const context=vm.createContext({
     revert:address=>replacements.delete(address.base),
     flush(){events.push({flush:true})}
   },
-  Memory:{allocUtf8String:()=>mkPtr(++uid),alloc:n=>mkPtr(++uid),free(){}},
-  Il2Cpp:{application:{version:'0.431.0'}},
+  Memory:{allocUtf8String:()=>mkPtr(++uid),alloc:n=>mkPtr(++uid)},
+  PgqlPackageVersion:async()=>gameVersion,
   Qol:{disable:feature=>events.push({disable:feature})},
   setTimeout:(fn)=>{timers.push(fn);return fn;},
   clearTimeout:fn=>{const i=timers.indexOf(fn);if(i>=0)timers.splice(i,1);}
@@ -83,10 +86,10 @@ const tick=()=>new Promise(setImmediate);
 
   // Version gate fails cleanly before any hook is installed.
   const gated=new Adapter(loggedCtx());
-  context.Il2Cpp.application.version='9.9.9';
+  gameVersion='9.9.9';
   await assert.rejects(()=>gated.install('virtual-go-plus'),/0\.431\.0/);
   assert.equal(attachments.size,0);assert.equal(replacements.size,0);
-  context.Il2Cpp.application.version='0.431.0';
+  gameVersion='0.431.0';
   gated.dispose();
 
   await adapter.install('virtual-go-plus');
