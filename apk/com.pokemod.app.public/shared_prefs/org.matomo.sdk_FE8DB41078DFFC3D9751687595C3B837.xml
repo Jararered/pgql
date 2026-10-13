@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<map>
+    <long name="tracker.firstvisit" value="1772055085" />
+    <boolean name="downloaded:com.pokemod.app.public:1333999" value="true" />
+    <string name="tracker.visitorid">ae088a029932448d</string>
+    <boolean name="downloaded:com.pokemod.app.public:1311999" value="true" />
+    <string name="tracker.userid"></string>
+    <boolean name="downloaded:com.pokemod.app.public:1201" value="true" />
+    <boolean name="downloaded:com.pokemod.app.public:1112" value="true" />
+    <boolean name="downloaded:com.pokemod.app.public:1211" value="true" />
+    <long name="tracker.visitcount" value="413" />
+    <long name="tracker.previousvisit" value="1791593851" />
+</map>
