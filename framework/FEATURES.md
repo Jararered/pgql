@@ -9,7 +9,8 @@ real module with the same ID replaces that slot at the next build.
 
 **Availability describes code, not device validation.** Existing modules retain
 their prior behavior and validation limits. Tamagotchi is experimental and its
-live game bindings are unavailable. The rest of the newly reserved slots are
+feeding, play and souvenir bindings target 0.431.0; automatic snapshots and
+battles remain unsupported. The rest of the newly reserved slots are
 planned. Requirements are architecture metadata, not an automatic dependency
 resolver; existing adapters have not been migrated to the new factory registry.
 
@@ -30,8 +31,8 @@ resolver; existing adapters have not been migrated to the new factory registry.
 - `core/buddy-care.js`: first consumer of these new interfaces. Game-independent
   eligibility, sequencing, receipt journal, cancellation and uncertain outcomes.
 - `adapters/game-buddy.js`: boundary between the care engine and an exact-version
-  buddy implementation. No implementation is registered until its game contract
-  is verified. No managed runtime initialization occurs while it is unbound.
+  buddy implementation. The 0.431.0 profile is in `game-buddy-profile.js`;
+  `core/buddy-policy.js` derives eligibility from server progress.
 
 Future adapters should return plain snapshots and confirmed results, own their
 thread scheduling, validate method signatures, and recheck identity/configuration
@@ -53,7 +54,7 @@ and GOPLUS.md. This table preserves the requested scope for subsequent work.
 | `virtual-go-plus` | Device emulation, auto-catch, auto-spin, reconnect in the accessory process | Existing |
 | `quest-tweaks` | Auto-claim, hidden reward presentation, individual queued encounters | Planned |
 | `magic-bag` | Per-item target quantities, protected stock, excess deletion | Planned |
-| `tamagotchi` | Feeding, souvenirs, play, snapshots and eligible buddy battles | Engine implemented; bindings pending |
+| `tamagotchi` | Feeding, souvenirs, play, snapshots and eligible buddy battles | Feed/play/souvenir bound; camera/battle pending |
 | `cooldown-tracker` | Five-action history, manual entries, inventory indicator, throw guard and previous-location return | Planned |
 | `raid-pack` | Raid attack/dodge scheduling and animation handling | Planned |
 | `tap-to-teleport` | One/two-tap map actions through GPS Joystick integration | Planned |

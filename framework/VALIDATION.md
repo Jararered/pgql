@@ -89,3 +89,21 @@ Build log: `build/tamagotchi-build.log`. This APK includes the pre-existing work
 tree changes to Virtual GO Plus and SessionService; they were preserved. The new
 APK was not installed, and its menu layout and new module have not been visually
 or behaviorally validated on-device.
+
+## Live buddy bindings — October 13, 2026
+
+Added the original exact-version 0.431.0 buddy profile for feeding, play and
+souvenirs. Manual feed/pet/snapshot calls were observed with server progress;
+new-profile preview and stale-request refusal passed, and a direct petting
+dispatch returned success with communication increasing 11 → 12. Souvenir
+claims and the eligible automatic care loop remain unvalidated; automatic
+snapshots and battles remain unsupported. See [TAMAGOTCHI.md](TAMAGOTCHI.md).
+
+An earlier diagnostic read aborted PID 25735 with `Il2CppExceptionWrapper`;
+precise cause remains unproven. The user reopened the game. Final PID 9885
+session shut down with acknowledgment and resident-agent detachment, and the
+game remained alive. Log: `build/buddy-observe-9885.jsonl`.
+
+All eleven Node suites passed, and the APK built with signature verification.
+SHA-256: `28f1e72d70aecdc49e1fbb0757638ba2a004ef3f7e4f29c4d20a7519a9f9489d`. Build log: `build/buddy-live-build.log`.
+The APK was not installed; production module-menu integration remains untested.

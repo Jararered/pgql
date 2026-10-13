@@ -1,6 +1,5 @@
 'use strict';
-// Deliberately no guessed method names, result codes, offsets, or battle RPCs.
-// Add a version-pinned factory only after validating the contract in TAMAGOTCHI.md.
+// Select the exact version profile; unsupported actions remain explicitly gated.
 globalThis.PgqlGameBuddy = class PgqlGameBuddy {
   constructor(ctx) {
     this.ctx=ctx;this.closed=false;this.backend=null;
@@ -12,7 +11,7 @@ globalThis.PgqlGameBuddy = class PgqlGameBuddy {
     if(!PgqlGameAdapters.has('buddy'))return null;
     if(!this.initializing)this.initializing=(async()=>{
       if(globalThis.PgqlLoadIl2cpp)PgqlLoadIl2cpp();
-      const version=await Il2Cpp.perform(()=>Il2Cpp.application.version,'free');
+      const version=await Il2Cpp.perform(()=>Il2Cpp.application.version,'main');
       if(this.closed)throw Error('Buddy adapter is disabled');
       const backend=PgqlGameAdapters.create('buddy',version,this.ctx);
       if(!backend||typeof backend.snapshot!=='function'||typeof backend.execute!=='function')throw Error('Invalid buddy game adapter');

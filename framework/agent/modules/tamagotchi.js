@@ -1,7 +1,7 @@
 'use strict';
 Qol.register({
   id:'tamagotchi',name:'Tamagotchi',availability:'experimental',
-  unavailableReason:'Care engine implemented; live buddy bindings await verification.',
+  unavailableReason:'Feeding, play and souvenirs bound for 0.431.0; automatic camera and battle flows await verification.',
   settings:[
     {key:'feed',label:'Feed buddy',type:'boolean',default:true},
     {key:'souvenir',label:'Open buddy souvenirs',type:'boolean',default:true},

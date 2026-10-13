@@ -103,10 +103,10 @@ scope and shared adapter boundaries. The module list scrolls independently of
 the controller log so the complete catalog fits on screen.
 
 Tamagotchi has an experimental care engine, persistent action/berry switches,
-preview, pause/resume and status controls. **Its live buddy bindings are not yet
-verified or implemented, so it performs no game interactions.** See
+preview, pause/resume and status controls. Its 0.431.0 profile binds feeding,
+play and souvenirs; automatic snapshots and battles remain unsupported. See
 [TAMAGOTCHI.md](TAMAGOTCHI.md) for the adapter contract and device-probe limits.
-`npm test` runs all ten local suites, including the feature framework and buddy
+`npm test` runs all eleven local suites, including the feature framework and buddy
 lifecycle/timeout tests.
 
 ### Encounter toggles

@@ -2,10 +2,25 @@
 
 ## Current status
 
-The care engine, module controls, adapter boundary and local tests are implemented.
-**Live buddy interactions are not implemented yet.** There is no registered buddy
-game profile, so enabling Tamagotchi reports that bindings are unverified and
-sends no buddy requests. A no-op is never counted as a successful interaction.
+The GO **0.431.0** profile implements feeding, petting and souvenir opening.
+Feeding and petting have observed server responses; the new profile's petting
+dispatch also succeeded on-device. Souvenir dispatch is bound but untested with
+an available souvenir. **Automatic snapshots and battles remain unimplemented**
+and report unsupported. A skipped action never counts as a success.
+
+Feeding uses one permitted ordinary berry per request, up to three per pass,
+only while the buddy is off the map and has an unearned daily feed heart. A
+retained Poffin expiry conservatively blocks feeding. Play stops after the daily
+play heart is earned. Souvenirs require a stable pickup timestamp, a buddy on the
+map and room in the bag. Ordinary item gifts are not opened.
+
+The profile reads the server's player-day bucket and buddy progress again before
+dispatch, checking identity, action keys, current settings and permitted food.
+Keys use acknowledged totals or pickup timestamps; changing fullness values do
+not create new keys. Unity work runs on the game thread. Promise callbacks are
+resolved through the full class hierarchy, retained until settlement and released
+even after disable. Scene services are resolved afresh without caching unpinned
+managed scene objects.
 
 The module is default-off. Its persistent switches select feeding, souvenirs,
 play, snapshots and battles, plus permitted ordinary berry types. Battle is
@@ -32,7 +47,7 @@ The timer is an eligibility polling interval, not a claimed game cooldown.
 
 ## Required game adapter contract
 
-After verification, register an original factory with
+Register additional verified profiles with
 `PgqlGameAdapters.register('buddy', exactGameVersion, ctx => backend)`.
 The game adapter reads the installed IL2CPP version before choosing the factory.
 Unsupported versions fail rather than using the closest profile.
@@ -101,5 +116,40 @@ Raw local observations are in `build/buddy-metadata*.jsonl`; these are ordinary
 native-runner observations, not REA Evidence records. Further device probing was
 stopped. The next integration step is to obtain and validate the buddy contract
 on a stable session, implement the exact-version factory, then separately test
-each interaction on-device. The current APK must not be described as providing
-working automatic buddy care.
+each interaction on-device. That foundation APK had no live buddy bindings.
+
+### October 13, 2026 follow-up
+
+Staged probing returned game service signatures and enums. A deeper diagnostic
+read on PID 25735 aborted with an uncaught `Il2CppExceptionWrapper`; its precise
+trigger remains unproven. The user reopened the game. Subsequent probing on PID
+9885 used fresh scene resolution and explicit null checks. Final shutdown was
+acknowledged, the inactive script was eternalized, and the controller detached
+while the game remained running.
+
+Coordinated manual actions were observed through service hooks:
+
+- One Razz Berry: `Feed(701, 1)`, result `Success` (1), total berries 7 → 8.
+- Petting: `Pet()`, result `Success` (1), communication 10 → 11.
+- One actual camera snapshot: `CompleteSnapshotSession` with count 1 on leaving
+  the buddy screen, then photos 10 → 11. This validates the manual flow only.
+
+The new profile and version-gated wrapper returned ready previews with the
+correct completed/ineligible actions. A stale feeding request was skipped.
+A direct new-profile petting dispatch succeeded and communication increased
+11 → 12. That diagnostic bypassed daily-heart eligibility to test the native
+binding; ordinary care skips petting once the heart is earned. No new-profile
+feeding request, souvenir claim or battle was sent. The full automatic care
+loop has not been validated with an eligible buddy.
+
+Observations: `build/buddy-observe-9885.jsonl`, earlier `build/buddy*.jsonl`, and
+`build/buddy-crash-history.log`. These native-runner observations are not REA
+Evidence records. REA confirmed the USB device
+(`ev_61a9ff2ff6dcbed8a9165650718779127e1384eb18160ebe1386c636a22806d2`)
+and installed GO version
+(`ev_ccedd7f76ed44c8ec869ad3dd9bef8afadc6edae955b2f166b99d46e3a66b115`).
+
+All eleven local suites pass. The updated APK builds and its signature verifies;
+it has not been installed. Remaining work: automatic camera navigation/capture,
+actual battle participation, eligible live feeding and souvenir tests, and the
+complete care loop.
