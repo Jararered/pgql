@@ -28,7 +28,7 @@ Output: `build/pgql-debug.apk`. Build fails with "Missing toolchain" if bootstra
 
 ## Tests
 
-All eleven suites: `npm test` (plain Node, no harness). Single suite: `node tests/<file>.test.cjs`.
+All twelve suites: `npm test` (plain Node, no harness). Single suite: `node tests/<file>.test.cjs`.
 
 Tests execute the **real `agent/**` sources** in a `vm` sandbox with mocked Frida globals — they never touch recovered Pokemod code. Native JSON parser host check (from `native/`):
 
@@ -44,7 +44,8 @@ cc -std=c11 -Wall -Wextra -Werror -fsanitize=address,undefined json_protocol.c t
 - **Virtual GO Plus also supports a companion process**: the game's accessory stack lives in `com.nianticlabs.pokemongo:pgp` (no Unity/il2cpp there). `SessionService` attaches a second runner to it on enable, loading the same bundle with `globalThis.PgqlRole='pgp'`; the main-process module is only a front that the controller mirrors. Its version gate uses the package `versionName` (`agent/core/package-version.js`), not `Il2Cpp.application.version`.
 - **Virtual GO Plus is the one native-lib adapter**: it resolves `libholoholo.so` exports by mangled name and uses a small set of **version-pinned struct offsets** (documented in `docs/GOPLUS.md`), gated to 0.431.0 with clean failure. Its raw JNIEnv access uses the published JNI/ART function-table slot numbers (a public ABI, not game offsets). Keep any future native offsets in that same contract, never in module code.
 - App is **attach-only**: launch the game fully, then Attach. No spawn/resume support in v0.1.
-- **Resident-agent detach** (`--resident-agent`): module shutdown is acknowledged, the script is eternalized, and the controller detaches — but Frida + the inactive script stay in the game until it exits. Reattaching to the same PID accumulates inactive scripts. A missing shutdown ack is a logged error, not proof resources were released. User-authorized device validation may kill/restart the Pokémon GO target when needed. Detach active runners gracefully first and preserve relevant logs before restarting; do not kill unrelated apps.
+- **Resident-agent detach** (`--resident-agent`): module shutdown is acknowledged, the script is eternalized, and the controller detaches — but Frida + the inactive script stay in the game until it exits. Reattaching to the same PID accumulates inactive scripts. A missing shutdown ack is a logged error, not proof resources were released.
+- **Device control**: the agent has full control of the connected test phone. Without asking first, it may end controller sessions, install updated `build/pgql-debug.apk` builds whenever it wants, attach probes, drive the UI over `adb`, and kill/restart the Pokémon GO target when needed. Detach active runners gracefully first and preserve relevant logs before restarting; do not kill unrelated apps.
 - `--prepare-selinux` (opt-in, default off) rewrites live system SELinux policy until reboot; detach does not revert it.
 - Keep `patches/frida-java-bridge-android17.patch` applied to a **build copy** only; npm inputs stay untouched.
 

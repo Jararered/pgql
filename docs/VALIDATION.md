@@ -155,3 +155,35 @@ the day (`build/go-plus-crash.log`). After the reconnect, only one catch request
 and no spin requests were observed. Evidence: `build/go-plus-controller.log`,
 `build/go-plus-detach.log`, `build/go-plus-settings-restart.log`,
 `build/go-plus-controller-connected.png`, `build/go-plus-settings-restored.png`.
+
+## Main menu entry validation
+
+`agent/adapters/game-main-menu.js` adds a **PGQL** row to the game's own main
+menu, directly below In-Person Event Tickets, and the settings panel opens from
+it instead of the floating button. Local: `npm test` (twelve suites) pass,
+including `tests/main-menu.test.cjs`.
+
+Device results, GO 0.431.0 / Unity 6000.3.21f1, game PID 28385. The adapter
+source was loaded by a separate validation runner beside an attached controller
+session, with a logging callback in place of the settings panel:
+
+- The live hierarchy matched the contract: `TopMenu` holds `ButtonSettings` and
+  `ButtonEvents`, each a `Button` with a `TextLabel` `HoloText`.
+- Start reported `installed:1`; the row rendered as PGQL under In-Person Event
+  Tickets (`build/main-menu-entry.png`).
+- One tap produced exactly one callback, closed the game's menu and did not open
+  the game's Settings (`build/main-menu-entry-clicked.png`).
+- Reopening the menu showed a single row (`build/main-menu-entry-reopened.png`).
+- Resident detach acknowledged shutdown, reported `crashed:false`, and the row
+  was gone on the next frame (`build/main-menu-entry-removed.png`). The game
+  kept running.
+- A first run failed its contract check (`ExecuteTasks` is static) before
+  touching the scene; the binding was corrected.
+
+`build/pgql-debug.apk`: 45642267 bytes; SHA-256
+`ca31241446613957e225db7c4f1cdc8f7229cda60b9c48f7919dcdb928a0982a`. Built and
+signature-verified but **not installed**. Not established: the row opening the
+real settings panel from the installed APK, the floating-button fallback on
+device, a menu rebuilt after a scene change, and prolonged stability. Evidence:
+`build/main-menu-metadata-probe.jsonl`, `build/main-menu-probe.jsonl`,
+`build/main-menu-build.log`.

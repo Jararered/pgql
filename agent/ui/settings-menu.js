@@ -1,4 +1,6 @@
 // Original UI, created in the injected game's Activity (no overlay permission).
+// Opened from a PGQL row in the game's own main menu; a floating button is the
+// fallback when that row cannot be added.
 Qol.register({
   id:'pgql-menu',name:'PGQL settings menu',
   enable(ctx) {
@@ -6,7 +8,7 @@ Qol.register({
     let opening=false, building=false, widgets=new Map(), restoring=true;
     const callbacks=new Map(), unique='dev.pgql.injected.S'+Process.id+'_'+Date.now();
     const actionDialogs=new Set(), actionCallbackKeys=new Set(), pendingActions=new Set();
-    let serial=0, classes=null, attempted=false, checked=false, badgeKey=null;
+    let serial=0, classes=null, attempted=false, checked=false, badgeKey=null, entry=null, fallback=false;
     function fail(error){ctx.log('Settings UI error',{error:String(error)});}
     function main(fn) {
       if(stopped)return;
@@ -170,6 +172,22 @@ Qol.register({
       const content=candidate.findViewById(16908290);if(!content)return;
       activity=Java.retain(candidate);root=Java.retain(Java.cast(content,classes.ViewGroup));
       loadPreferences();
+      if(fallback)showBadge();else addEntry();
+    }
+    function addEntry() {
+      if(entry)return;
+      try {
+        // The click arrives on the Unity thread; hop off it before using Java.
+        entry=new PgqlGameMainMenu(ctx,Qol.project.name,()=>setTimeout(()=>main(()=>open()),0));
+        entry.start().catch(error=>{
+          if(stopped)return;
+          fail(error);fallback=true;main(showBadge);
+        });
+      }catch(error){fail(error);fallback=true;showBadge();}
+    }
+    function showBadge() {
+      if(stopped || !root)return;
+      if(badgeKey)callbacks.delete(badgeKey);
       badge=Java.retain(classes.Button.$new(activity));badge.setText(classes.String.$new('PGQL '+Qol.project.version));
       badge.setAllCaps(false);badge.setTextSize(13);badge.setTextColor(classes.Color.parseColor('#ffffff'));
       badge.setBackgroundTintList(classes.ColorStateList.valueOf(classes.Color.parseColor('#176d70')));
@@ -178,7 +196,7 @@ Qol.register({
       badgeKey=String(serial);
       const params=classes.FrameParams.$new(-2,dp(44),53);params.topMargin.value=dp(56);params.rightMargin.value=dp(12);
       root.addView(badge,params);
-      ctx.log('Settings button injected',{activity:activity.getClass().getName().toString(),version:Qol.project.version});
+      ctx.log('Fallback settings button injected',{activity:activity.getClass().getName().toString(),version:Qol.project.version});
     }
     function initialize() {
       if(classes)return;
