@@ -1,8 +1,8 @@
 # Native runner
 
-`--prepare-selinux` is an explicit optional setup step. It invokes upstream `frida_selinux_patch_policy()` and changes system-wide live policy until reboot. The Android checkbox defaults off. See the main project README for the scope, fallback behavior and device findings. With this flag absent, the runner never invokes the policy-writing helper.
+`--prepare-selinux` is an explicit optional setup step. It invokes upstream `frida_selinux_patch_policy()` and changes system-wide live policy until reboot. The Android checkbox defaults off. See the [main project README](../README.md) for the scope, fallback behavior and device findings. With this flag absent, the runner never invokes the policy-writing helper.
 
-Original attach-only Frida core frontend. It does not use the copied Pokemod injector or agents. The pinned official Frida core 17.23.3 Android arm64 devkit lives in `../vendor/frida-core` (download and integrity details are managed by the framework dependency setup).
+Original attach-only Frida core frontend. It does not use the copied Pokemod injector or agents. The pinned official Frida core 17.23.3 Android arm64 devkit lives in `../vendor/frida-core` (download and integrity details are managed by the project dependency setup).
 
 Build with an existing Android NDK (parent project uses NDK 27c, arm64 API 28):
 

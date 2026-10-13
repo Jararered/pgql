@@ -1,3 +1,18 @@
+# Extracted phone data and binary artifacts
 *.so
 *.apk
 com.pokemod.app.public/
+
+# Local build inputs and outputs
+/build/
+/toolchains/
+/vendor/
+node_modules/
+.gradle/
+__pycache__/
+local.properties
+*.keystore
+
+# Generated Android package assets
+/app/src/main/assets/agent.js
+/app/src/main/jniLibs/

@@ -2,6 +2,19 @@
 
 An original rooted Android arm64 injection app and module framework. This uses the official Frida core devkit and Java bridge; it does not depend on Pokemod's binaries, agents, backend, or credentials.
 
+## Repository layout
+
+- `app/` contains the Android controller; `agent/` contains the original Frida runtime, adapters and modules.
+- `native/` contains the attach-only runner; `scripts/`, `patches/` and `tests/` support builds and local validation.
+- `docs/` contains feature guides and [validation history](docs/VALIDATION.md). [THIRD_PARTY.md](THIRD_PARTY.md) documents third-party build inputs.
+- `analysis/` contains read-only historical reverse-engineering evidence. Its recovered code is never imported, linked or packaged into PGQL.
+- `build/`, `toolchains/`, `vendor/` and `node_modules/` are ignored local artifacts and dependencies. Preserve `build/debug.keystore` for installation updates.
+
+The active project previously lived under `framework/`. Historical reports retain
+those paths: `framework/...` now maps to `...` at the repository root, and the
+former feature guides and validation history now live in `docs/`. File paths in
+the guides are relative to the repository root unless stated otherwise.
+
 ## What runs where
 
 ```mermaid
@@ -25,7 +38,7 @@ This first version is attach-only. Launch the game normally and wait for it to l
 Existing prerequisites: Python 3, a full JDK 21, Node.js/npm, and a POSIX shell. Build inputs stay under this project, not system installations.
 
 ```sh
-cd /Users/jared/Development/pgql/framework
+# Run from the repository root.
 python3 scripts/bootstrap.py
 npm ci
 python3 scripts/build.py
@@ -81,38 +94,38 @@ Optional `actions: [{id:"preview",label:"Preview",confirm:false}]` declarations 
 
 `enable` and `disable` are synchronous lifecycle callbacks in v0.1; `invoke` may return a Promise. The runtime owns each module's tracked hooks/timers/observers and releases them on disable, shutdown or a failed enable. IDs are unique. The app discovers module names/status from the agent's registry. Rebuild, reinstall and detach/reattach after editing modules. Hot reload is not implemented in v0.1. The injected **PGQL 0.1** button opens an Android settings panel in the game Activity. It displays the project name/version, module enable switches and every declared boolean setting. Configuration is stored in target-private `pgql_settings` preferences and restored on attachment. Use `ctx.config` to read current settings and `onConfigChanged(ctx, config)` for immediate updates. This panel is original Android UI; it does not yet use the Unity prefab menu that Pokemod uses.
 
-Commands are JSON objects with `type: "command"`, an `id`, and an `action` (`list`, `enable`, `disable`, `invoke`, `config`). The `config` action carries `moduleId`, `key`, and boolean `value`. Module actions also carry `moduleId`; invoke may carry `args`. Agent responses echo the `id`, `ok`, and `result`/`error`. The helper wraps Frida messages in JSONL events on stdout. See `native/README.md` for standalone runner usage and limits.
+Commands are JSON objects with `type: "command"`, an `id`, and an `action` (`list`, `enable`, `disable`, `invoke`, `config`). The `config` action carries `moduleId`, `key`, and boolean `value`. Module actions also carry `moduleId`; invoke may carry `args`. Agent responses echo the `id`, `ok`, and `result`/`error`. The helper wraps Frida messages in JSONL events on stdout. See [native/README.md](native/README.md) for standalone runner usage and limits.
 
 ## Extending into game modules
 
 The recovered original app demonstrates a separate JavaScript managed-code bridge that resolves game services from the live Unity dependency-injection context. The core injector and that bridge are different layers. The foundation includes original diagnostics/observer modules tested inside the connected game, an injected settings panel, and an experimental Mass Gift module.
 
-For friend gifting or other game UI modules, the next adapter should initialize against the managed runtime, resolve the needed service/type/method metadata, schedule Unity operations on the proper thread, and expose a small interface to modules. Keep compatibility maps outside individual modules. The connected phone's installed game version was confirmed as `0.431.0`, matching the recovered agent's map entry. Diagnostics confirmed the loaded Unity/IL2CPP/Niantic libraries. A first original game-gift adapter is now implemented, with a Unity-frame scheduler, version gate and Mass Gift queue. Its live validation status and limits are recorded in [MASS-GIFT.md](MASS-GIFT.md); native attachment instability remains unresolved. Do not copy the recovered agent's entire bootstrap merely to obtain its module API.
+For friend gifting or other game UI modules, the next adapter should initialize against the managed runtime, resolve the needed service/type/method metadata, schedule Unity operations on the proper thread, and expose a small interface to modules. Keep compatibility maps outside individual modules. The connected phone's installed game version was confirmed as `0.431.0`, matching the recovered agent's map entry. Diagnostics confirmed the loaded Unity/IL2CPP/Niantic libraries. A first original game-gift adapter is now implemented, with a Unity-frame scheduler, version gate and Mass Gift queue. Its live validation status and limits are recorded in [MASS-GIFT.md](docs/MASS-GIFT.md); native attachment instability remains unresolved. Do not copy the recovered agent's entire bootstrap merely to obtain its module API.
 
 ## Validation and boundaries
 
-Build and protocol checks are recorded in `VALIDATION.md`. Local agent tests use an explicit mock of Frida globals and exercise only our original runtime, not the recovered Pokemod code. Native syntax/parser checks and an Android cross-build do not prove live injection. Device execution is reported separately.
+Build and protocol checks are recorded in [VALIDATION.md](docs/VALIDATION.md). Local agent tests use an explicit mock of Frida globals and exercise only our original runtime, not the recovered Pokemod code. Native syntax/parser checks and an Android cross-build do not prove live injection. Device execution is reported separately.
 
 Official API references: [Frida C API](https://frida.re/docs/c-api/), [Frida core API](https://frida.re/docs/frida-core-api/), [Frida JavaScript API](https://frida.re/docs/javascript-api/), and [pinned release](https://github.com/frida/frida/releases/tag/17.23.3).
 
 ### Feature catalog and Tamagotchi
 
 The menu and controller now include all 32 requested feature slots. Planned
-features are labeled and cannot be enabled. [FEATURES.md](FEATURES.md) maps their
+features are labeled and cannot be enabled. [FEATURES.md](docs/FEATURES.md) maps their
 scope and shared adapter boundaries. The module list scrolls independently of
 the controller log so the complete catalog fits on screen.
 
 Tamagotchi has an experimental care engine, persistent action/berry switches,
 preview, pause/resume and status controls. Its 0.431.0 profile binds feeding,
 play and souvenirs; automatic snapshots and battles remain unsupported. See
-[TAMAGOTCHI.md](TAMAGOTCHI.md) for the adapter contract and device-probe limits.
+[TAMAGOTCHI.md](docs/TAMAGOTCHI.md) for the adapter contract and device-probe limits.
 `npm test` runs all eleven local suites, including the feature framework and buddy
 lifecycle/timeout tests.
 
 ### Encounter toggles
 
-**Instant Catch**, **Perfect Throw**, and **Headshot** are independent, default-off modules in the injected menu. Enable before entering an encounter and check **Feature status**. They target game 0.431.0; incompatible method contracts turn the module off. See [ENCOUNTERS.md](ENCOUNTERS.md) for behavior, cleanup, and the current runtime-validation limits.
+**Instant Catch**, **Perfect Throw**, and **Headshot** are independent, default-off modules in the injected menu. Enable before entering an encounter and check **Feature status**. They target game 0.431.0; incompatible method contracts turn the module off. See [ENCOUNTERS.md](docs/ENCOUNTERS.md) for behavior, cleanup, and the current runtime-validation limits.
 
 ### Virtual GO Plus
 
-**Virtual GO Plus** emulates a genuine GO Plus accessory inside the game: the game pairs with a fabricated device and catches Pokemon / spins Pokestops natively (no throw animation), with automatic reconnect. Three boolean toggles (`auto-catch`, `auto-spin`, `auto-reconnect`, default on) apply live; a **Feature status** action reports connection state. See [GOPLUS.md](GOPLUS.md) for behavior and the version-pinned native contract. It is the first PGQL adapter that talks to `libholoholo.so` natively; the required struct offsets are pinned to GO 0.431.0 and documented there rather than left implicit.
+**Virtual GO Plus** emulates a genuine GO Plus accessory inside the game: the game pairs with a fabricated device and catches Pokemon / spins Pokestops natively (no throw animation), with automatic reconnect. Three boolean toggles (`auto-catch`, `auto-spin`, `auto-reconnect`, default on) apply live; a **Feature status** action reports connection state. See [GOPLUS.md](docs/GOPLUS.md) for behavior and the version-pinned native contract. It is the first PGQL adapter that talks to `libholoholo.so` natively; the required struct offsets are pinned to GO 0.431.0 and documented there rather than left implicit.

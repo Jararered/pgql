@@ -130,7 +130,7 @@ offsets — and obtains its JNIEnv through libholoholo's own
   registration, settings, deferred/async installation with generation scoping
   (mirrors the encounter modules), `onConfigChanged`.
 
-No recovered Pokemod code is loaded into PGQL. See `THIRD_PARTY.md`.
+No recovered Pokemod code is loaded into PGQL. See [THIRD_PARTY.md](../THIRD_PARTY.md).
 
 ## Validation boundaries
 

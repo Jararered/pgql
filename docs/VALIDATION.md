@@ -41,7 +41,7 @@ Initial Java-menu tests stalled during script startup. Deferring initialization 
 
 This is a developer foundation with two diagnostic modules, injected settings and an original Mass Gift module. See `MASS-GIFT.md` for the current live preview validation and the untested send/open boundary. It includes a first game-gifting service adapter and Unity-frame scheduler. It does not yet supply hot reload, spawn gating, Unity prefab integration, non-boolean settings controls or an unattended daily task engine. Native method addresses/signatures and managed services need separate version-aware work before implementing game QoL behavior.
 
-Resident detach leaves an inactive script/Frida engine in the target until the game exits; reattaching can accumulate inactive scripts. Module code must register its owned resources and stop its own in-flight asynchronous operations in cleanup. A timeout/missing acknowledgement is reported as unconfirmed cleanup. The explicit policy setup has system-wide live effects until reboot, and detachment does not revert them. Details and the original-app comparison are in `../analysis/selinux-comparison.md` and the project README.
+Resident detach leaves an inactive script/Frida engine in the target until the game exits; reattaching can accumulate inactive scripts. Module code must register its owned resources and stop its own in-flight asynchronous operations in cleanup. A timeout/missing acknowledgement is reported as unconfirmed cleanup. The explicit policy setup has system-wide live effects until reboot, and detachment does not revert them. Details and the original-app comparison are in `../analysis/selinux-comparison.md` and the [project README](../README.md).
 
 The observed attach/command/shutdown cycles establish this foundation on the connected phone/game version. They do not establish prolonged stability, compatibility with other devices/game versions, or successful server-side gameplay actions.
 
@@ -107,3 +107,20 @@ game remained alive. Log: `build/buddy-observe-9885.jsonl`.
 All eleven Node suites passed, and the APK built with signature verification.
 SHA-256: `28f1e72d70aecdc49e1fbb0757638ba2a004ef3f7e4f29c4d20a7519a9f9489d`. Build log: `build/buddy-live-build.log`.
 The APK was not installed; production module-menu integration remains untested.
+
+## Repository structure cleanup — 2026-10-13
+
+Promoted the active project from `framework/` to the repository root and moved
+feature guides and this validation history into `docs/`. Commands and artifact
+paths in these guides are relative to the repository root unless stated otherwise.
+All 65 tracked historical files under `analysis/` are unchanged. Local inputs,
+build evidence and the debug signing key were preserved; pre-build outputs are
+also retained in ignored `build/pre-structure-build/`.
+
+All eleven Node suites and the native JSON parser check with address and
+undefined-behavior sanitizers passed from the new layout. The APK was rebuilt
+and its signature verified using the relocated dependencies and original key.
+Output: `build/pgql-debug.apk`, SHA-256 `65c76041d5473255da73341099e5109a5ddf614746898c2a024840e568fcd8f0`.
+Build log: `build/structure-build.log`; cleanup checks:
+`build/structure-validation.json`. No APK installation or phone operation was
+performed; these checks establish local build compatibility, not live injection.
