@@ -93,6 +93,7 @@ globalThis.PgqlGameEncounters = class PgqlGameEncounters {
         if(feature==='instant-catch')this.instantCatch();
         else if(feature==='perfect-throw')this.perfectThrow();
         else if(feature==='headshot')this.headshot();
+        else if(feature==='skip-encounter-intro')this.skipIntro();
         else throw Error('Unknown encounter feature');
         Interceptor.flush();
       }catch(error){this.dispose();throw error;}
@@ -253,6 +254,40 @@ globalThis.PgqlGameEncounters = class PgqlGameEncounters {
       this.set(values,proximity,0.475);this.set(values,awareness,0);this.set(values,frightened,false);
       this.set(object,spin,1);
     });
+  }
+  // The intro is the encounter camera's tween-in. Its two durations live on a
+  // controller that outlives encounters, so the originals are kept and restored.
+  skipIntro() {
+    const interaction=this.type('Niantic.Holoholo.Encounter.EncounterInteractionState');
+    const enter=this.method(interaction,'EnterState',0,'System.Void');
+    const stateField=this.field(interaction,['encounterState','drde','dqjd']);
+    const cameraField=this.field(interaction,['parkCameraController'],t=>t.name==='Niantic.Holoholo.Encounter.EncounterParkCameraController');
+    const tween=this.field(cameraField.type.class,['tweenDurationSeconds'],t=>t.name==='System.Single');
+    const intro=this.field(cameraField.type.class,['introDurationSeconds'],t=>t.name==='System.Single');
+    const stateType=this.type('Niantic.Holoholo.Encounter.EncounterState');
+    const special=this.field(stateType,['<IsRaidOrIncidentEncounter>k__BackingField'],t=>t.name==='System.Boolean');
+    const cameras=new Map();
+    this.restoreActions=()=>{
+      for(const entry of cameras.values()) {
+        const camera=this.object(entry.handle);
+        if(!camera.isNull()){this.set(camera,tween,entry.tween);this.set(camera,intro,entry.intro);}
+      }
+      cameras.clear();
+    };
+    this.after(enter,object=>{
+      const camera=this.get(object,cameraField);if(camera.isNull())return;
+      const key=camera.handle.toString();let entry=cameras.get(key);
+      if(!entry) {
+        if(cameras.size>=8)throw Error('Encounter camera retention limit reached');
+        entry={handle:this.pin(camera),tween:this.get(camera,tween),intro:this.get(camera,intro)};cameras.set(key,entry);
+      }
+      const state=this.unwrap(this.get(object,stateField));
+      if(!stateType.isAssignableFrom(state.class))throw Error('Unexpected encounter state class');
+      // Raid and Team GO Rocket encounters keep the game's own intro.
+      const keep=this.get(state,special)===true;
+      this.set(camera,tween,keep?entry.tween:0);this.set(camera,intro,keep?entry.intro:0);
+    });
+    this.ctx.log('Skip Encounter Intro armed for the next encounter');
   }
   headshot() {
     const ball=this.type('Niantic.Holoholo.Encounter.Pokeball');

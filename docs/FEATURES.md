@@ -58,12 +58,12 @@ and GOPLUS.md. This table preserves the requested scope for subsequent work.
 | `cooldown-tracker` | Five-action history, manual entries, inventory indicator, throw guard and previous-location return | Planned |
 | `raid-pack` | Raid attack/dodge scheduling and animation handling | Planned |
 | `tap-to-teleport` | One/two-tap map actions through GPS Joystick integration | Planned |
-| `instant-loading` | Map refresh/loading behavior while moving | Planned |
+| `instant-loading` | Shortens the game's own map refresh throttle; see [PERFORMANCE.md](PERFORMANCE.md) | Implemented (0.431.0) |
 | `transfer-on-catch` | Post-catch transfer with all requested protected categories, including accessory catches | Planned |
 | `mass-gift` | Batch send/open, friends, exact friendship, postcards and animations | Existing batch send/open; remaining scope pending |
 | `eggspresso` | Infinite-incubator selection, incubation and hatch flow | Planned |
 | `pinap-master` | Encounter berry selection, inventory check and acknowledged feeding | Planned |
-| `performance-mode` | Reversible visual-quality settings | Planned |
+| `performance-mode` | Four reversible visual reductions; see [PERFORMANCE.md](PERFORMANCE.md) | Implemented (0.431.0) |
 | `headshot` | Encounter throw targeting | Existing |
 | `pvp-metrics` | Versioned stat/ranking data, encounter and details presentation | Planned |
 | `incognito-mode` | Display-name substitution without changing account identity | Planned |
@@ -79,7 +79,7 @@ and GOPLUS.md. This table preserves the requested scope for subsequent work.
 | `encounter-iv-names` | Encounter name formatting from authoritative IVs | Planned |
 | `show-encounter-iv` | Encounter IV toast | Planned |
 | `inventory-ivs` | Inventory name presentation from IVs | Planned |
-| `skip-encounter-intro` | Encounter-ready transition and animation ownership | Planned |
+| `skip-encounter-intro` | Zeroes the encounter camera intro; see [ENCOUNTERS.md](ENCOUNTERS.md) | Implemented (0.431.0) |
 | `mock-locations-patch` | Version-specific location handling and joystick integration | Planned |
 | `spawn-booster` | Map query radius/loading; server-visible limits require verification | Planned |
 

@@ -124,4 +124,32 @@ function call(m,o,...args){return replacements.has(m.virtualAddress.id)?replacem
  ballObject.fields['<BallType>k__BackingField']=4;position.fields.position=0;attachments.get(f.launch.virtualAddress.id).onEnter([ballObject.handle]);assert.equal(position.fields.position,0);
  a.dispose();assert.equal(replacements.size,0);assert.equal(attachments.size,0);
 }
-console.log('Encounter adapter catch sequencing, throw overrides, recovery, collision targeting, cleanup and contract validation tests passed.');
+{
+ // Skip Encounter Intro zeroes the camera intro, except for raid/Rocket encounters, and restores it.
+ const f=fixture(),a=f.adapter;
+ const interaction=klass('Niantic.Holoholo.Encounter.EncounterInteractionState');f.types.set(interaction.name,interaction);
+ const enter=method(interaction,'EnterState',0,'System.Void',o=>{o.entered=(o.entered||0)+1});
+ const camera=klass('Niantic.Holoholo.Encounter.EncounterParkCameraController');
+ field(camera,'tweenDurationSeconds',{name:'System.Single'});field(camera,'introDurationSeconds',{name:'System.Single'});
+ field(interaction,'encounterState',{name:'State'});field(interaction,'parkCameraController',{name:camera.name,class:camera});
+ const stateClass=f.types.get('Niantic.Holoholo.Encounter.EncounterState');field(stateClass,'<IsRaidOrIncidentEncounter>k__BackingField',{name:'System.Boolean'});
+ a.skipIntro();
+ const park=managed({tweenDurationSeconds:0.5,introDurationSeconds:0.2}),state=managed({'<IsRaidOrIncidentEncounter>k__BackingField':false});
+ const active=managed({encounterState:state,parkCameraController:park});
+ const timings=()=>[park.fields.tweenDurationSeconds,park.fields.introDurationSeconds];
+ call(enter,active);assert.equal(active.entered,1,'the game still enters its state');assert.deepEqual(timings(),[0,0]);
+ state.fields['<IsRaidOrIncidentEncounter>k__BackingField']=true;call(enter,active);assert.deepEqual(timings(),[0.5,0.2]);
+ state.fields['<IsRaidOrIncidentEncounter>k__BackingField']=false;call(enter,active);assert.deepEqual(timings(),[0,0]);
+ call(enter,managed({encounterState:state}));assert.equal(f.calls.some(c=>/failed/.test(c[0])),false,'a missing camera is ignored');
+ a.dispose();assert.deepEqual(timings(),[0.5,0.2]);assert.equal(a.pins.size,0);assert.equal(replacements.size,0);
+ call(enter,active);assert.deepEqual(timings(),[0.5,0.2]);
+}
+{
+ // A changed camera contract installs nothing.
+ const f=fixture(),a=f.adapter;
+ const interaction=klass('Niantic.Holoholo.Encounter.EncounterInteractionState');f.types.set(interaction.name,interaction);
+ method(interaction,'EnterState',0,'System.Void');field(interaction,'encounterState',{name:'State'});
+ field(interaction,'parkCameraController',{name:'SomethingElse',class:klass('SomethingElse')});
+ assert.throws(()=>a.skipIntro(),/Unsupported encounter field/);assert.equal(replacements.size,0);
+}
+console.log('Encounter adapter catch sequencing, throw overrides, recovery, collision targeting, intro skipping, cleanup and contract validation tests passed.');

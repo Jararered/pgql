@@ -4,7 +4,7 @@
   "private": true,
   "description": "Pokemon Go QoL injected module framework",
   "scripts": {
-    "test": "node tests/runtime.test.cjs && node tests/gift-queue.test.cjs && node tests/mass-gift.test.cjs && node tests/encounter-module.test.cjs && node tests/encounter-adapter.test.cjs && node tests/go-plus-adapter.test.cjs && node tests/virtual-go-plus.test.cjs && node tests/feature-framework.test.cjs && node tests/buddy-care.test.cjs && node tests/tamagotchi.test.cjs && node tests/buddy-profile.test.cjs && node tests/main-menu.test.cjs && node tests/settings-layout.test.cjs && node tests/settings-screen.test.cjs"
+    "test": "node tests/runtime.test.cjs && node tests/gift-queue.test.cjs && node tests/mass-gift.test.cjs && node tests/encounter-module.test.cjs && node tests/encounter-adapter.test.cjs && node tests/go-plus-adapter.test.cjs && node tests/virtual-go-plus.test.cjs && node tests/feature-framework.test.cjs && node tests/buddy-care.test.cjs && node tests/tamagotchi.test.cjs && node tests/buddy-profile.test.cjs && node tests/main-menu.test.cjs && node tests/settings-layout.test.cjs && node tests/settings-screen.test.cjs && node tests/map-refresh.test.cjs && node tests/performance-mode.test.cjs"
   },
   "dependencies": {
     "buffer": "6.0.3",

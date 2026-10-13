@@ -236,3 +236,63 @@ game's GUI stack or initialized, and every cloned control gets a fresh event);
 the Android system back button is not handled by the page; the Android-dialog
 fallback and a real gift send from the native page were not exercised; behavior
 of the page across a scene change and prolonged stability are untested.
+
+## Instant Loading, Performance Mode and Skip Encounter Intro validation
+
+Three former "Planned" slots are implemented (`agent/adapters/game-map-refresh.js`,
+`agent/adapters/game-performance.js`, `skipIntro()` in
+`agent/adapters/game-encounters.js`). Local: `npm test` (sixteen suites) pass,
+including `tests/map-refresh.test.cjs`, `tests/performance-mode.test.cjs` and the
+extended `tests/encounter-adapter.test.cjs`.
+
+Discovery (one probe session, GO 0.431.0, PID 9928; log
+`build/features-discovery-probe.jsonl`):
+
+- Map refresh: live `SpaceTimeThrottle` on `MapContentHandler` was 10 s / 30 s /
+  10 m, matching `MapSettingsProto`.
+- Encounter timeline for a wild Pokémon, tap to `IntroCompleted`: 1713 ms on the
+  first entry; with the camera's tween/intro durations zeroed, 766–798 ms over
+  four later entries (scene assets were cached by then). The intro itself went
+  from 775 ms to about 63 ms. Replacing the GUI `ShowIntro` changed nothing
+  measurable, and zeroing the approach state's turn/fade timings did not shorten
+  the ~335 ms approach phase, so neither is part of the feature.
+- Performance: each reduction was applied and reverted by hand with screenshots
+  (`build/performance-baseline.png`, `build/performance-all-on.png`,
+  `build/performance-quality-low.png`, `build/performance-restored.png`).
+  Resolution scale 0.6 rendered 463x1039 instead of 771x1731. No event map theme
+  was active, so theme switching could not be verified and is not implemented.
+
+`build/pgql-debug.apk`: 45650459 bytes; SHA-256
+`079e333bae4b9f69eac2eab30364b8f48b581924cbe56eb3520864350e079799`. Installed
+and attached from the controller to the same game process:
+
+- All three appear as working rows with descriptions in the native settings
+  page; Performance Mode's four options are indented sub-toggles.
+- **Instant Loading**: enabling logged original 10/30/10 and applied 3/5/10; the
+  status dialog showed both (`build/features-instant-loading-status.png`);
+  disabling logged `Map refresh restored` with 10/30/10.
+- **Performance Mode**: with all four on, status reported each as on
+  (`build/features-performance-status.png`) and the map showed no clouds or
+  roads at reduced resolution (`build/features-performance-map.png`). Switching
+  Remove roads off and then the module off logged `Performance Mode restored`
+  and the map returned to normal (`build/features-performance-restored.png`).
+- **Skip Encounter Intro**: status `ready`; a wild encounter opened with the
+  ball and GUI ready in the first screenshot about 1.4 s after the tap and was
+  left with the run button (`build/features-skip-intro-encounter-early.png`,
+  `build/features-skip-intro-encounter.png`). The three modules were switched
+  off again afterwards; saved preferences show all three disabled.
+
+Attach reliability during this work: three consecutive probe attaches to freshly
+started, foreground game processes ended in the documented
+`libNianticLabsPlugin.so` SIGSEGV (`build/features-attach-crash.log`, PIDs 7877,
+8562, 9359). Attaching with the game in the background, as the controller does,
+succeeded for both the probe and the controller session. This is an observation
+from few samples, not an established cause.
+
+Not established: the actual map request cadence and any change in how quickly
+Pokémon appear with Instant Loading (only the throttle values were verified);
+frame rate, battery or temperature effect of Performance Mode; weather hiding
+with active rain/snow (the weather was clear); the 30-second re-assertion; Skip
+Encounter Intro in raid, Team GO Rocket, quest or AR+ encounters, and together
+with an actual catch; behavior across a settings re-download; prolonged
+stability.

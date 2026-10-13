@@ -119,12 +119,20 @@ Tamagotchi has an experimental care engine, persistent action/berry switches,
 preview, pause/resume and status controls. Its 0.431.0 profile binds feeding,
 play and souvenirs; automatic snapshots and battles remain unsupported. See
 [TAMAGOTCHI.md](docs/TAMAGOTCHI.md) for the adapter contract and device-probe limits.
-`npm test` runs all eleven local suites, including the feature framework and buddy
+`npm test` runs every local suite, including the feature framework and buddy
 lifecycle/timeout tests.
 
 ### Encounter toggles
 
 **Instant Catch**, **Perfect Throw**, and **Headshot** are independent, default-off modules in the injected menu. Enable before entering an encounter and check **Feature status**. They target game 0.431.0; incompatible method contracts turn the module off. See [ENCOUNTERS.md](docs/ENCOUNTERS.md) for behavior, cleanup, and the current runtime-validation limits.
+
+### Instant Loading, Performance Mode and Skip Encounter Intro
+
+Three default-off modules that only change the game's own live settings and put
+them back when disabled: **Instant Loading** shortens the map refresh throttle,
+**Performance Mode** offers four visual reductions as sub-toggles, and **Skip
+Encounter Intro** removes the encounter camera intro. See
+[PERFORMANCE.md](docs/PERFORMANCE.md) and [ENCOUNTERS.md](docs/ENCOUNTERS.md).
 
 ### Virtual GO Plus
 
