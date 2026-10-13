@@ -13,11 +13,15 @@ public class SessionService extends Service {
     public static final String TARGET="com.nianticlabs.pokemongo";
     // The game hosts its GO Plus accessory stack in a separate service process.
     private static final String COMPANION_TARGET=TARGET+":pgp", GOPLUS="virtual-go-plus";
+    public static final String ATTACH_GOPLUS="dev.qol.framework.ATTACH_GOPLUS";
     public static final String ATTACH="dev.qol.framework.ATTACH", STOP="dev.qol.framework.STOP", UPDATE="dev.qol.framework.UPDATE";
     private static final Object LOCK=new Object();
     private static final ArrayDeque<String> LOG=new ArrayDeque<>();
     private static String sessionState="idle";
     private static JSONArray moduleList=new JSONArray();
+    private static JSONObject goPlusStatus=new JSONObject();
+    private static boolean accessorySession;
+    private boolean accessoryOnly;
     private static volatile SessionService current;
     private final ExecutorService worker=Executors.newSingleThreadExecutor();
     private final ExecutorService companionWorker=Executors.newSingleThreadExecutor();
@@ -38,6 +42,20 @@ public class SessionService extends Service {
         SessionService service=current;
         if(service!=null) service.post(action,moduleId);
     }
+    public static boolean accessorySession() {synchronized(LOCK){return accessorySession;}}
+    public static JSONObject goPlusStatus() {synchronized(LOCK){try{return new JSONObject(goPlusStatus.toString());}catch(JSONException e){return new JSONObject();}}}
+    public static void config(String moduleId,String key,boolean value) {
+        SessionService service=current;if(service!=null)service.configure(moduleId,key,value);
+    }
+    private synchronized void configure(String moduleId,String key,boolean value) {
+        if(input==null || stopping)return;
+        try {
+            JSONObject message=new JSONObject().put("type","command").put("id",Long.toString(++commandId))
+                .put("action","config").put("moduleId",moduleId).put("key",key).put("value",value);
+            input.write(message.toString());input.newLine();input.flush();
+            if(accessoryOnly && GOPLUS.equals(moduleId))getSharedPreferences("lab",MODE_PRIVATE).edit().putBoolean("goplus."+key,value).apply();
+        }catch(Exception e){log("Configuration error: "+e.getMessage());}
+    }
     private void update() { sendBroadcast(new Intent(UPDATE).setPackage(getPackageName())); }
     private void state(String value) { synchronized(LOCK){sessionState=value;} update(); }
     private void log(String value) {
@@ -57,7 +75,9 @@ public class SessionService extends Service {
     }
     @Override public int onStartCommand(Intent intent,int flags,int startId) {
         if(intent==null || STOP.equals(intent.getAction())) { detach(); return START_NOT_STICKY; }
-        if(ATTACH.equals(intent.getAction()) && !state().equals("connecting") && !state().equals("attached")) {
+        if((ATTACH.equals(intent.getAction()) || ATTACH_GOPLUS.equals(intent.getAction())) && !state().equals("connecting") && !state().equals("attached")) {
+            accessoryOnly=ATTACH_GOPLUS.equals(intent.getAction());
+            synchronized(LOCK){accessorySession=accessoryOnly;goPlusStatus=new JSONObject();}
             stopping=false; state("connecting"); worker.execute(this::attach);
         }
         return START_NOT_STICKY;
@@ -68,6 +88,7 @@ public class SessionService extends Service {
         try {
             File script=new File(getFilesDir(),"agent.js");
             try(InputStream src=getAssets().open("agent.js");OutputStream dst=new FileOutputStream(script)) {
+                if(accessoryOnly)dst.write("globalThis.PgqlRole='pgp';\n".getBytes(StandardCharsets.UTF_8));
                 byte[] bytes=new byte[16384]; int count; while((count=src.read(bytes))!=-1) dst.write(bytes,0,count);
             }
             String executable=getApplicationInfo().nativeLibraryDir+"/libqolrunner.so";
@@ -76,7 +97,7 @@ public class SessionService extends Service {
             // The launcher may replace an old cached process. Resolve PID afterwards.
             Thread.sleep(1250);
             if(stopping || destroyed) return;
-            Process probe=new ProcessBuilder("su","-c","pidof -s "+TARGET).redirectErrorStream(true).start(); pidProbe=probe;
+            Process probe=new ProcessBuilder("su","-c","pidof -s "+quote(accessoryOnly?COMPANION_TARGET:TARGET)).redirectErrorStream(true).start(); pidProbe=probe;
             if(!probe.waitFor(20,TimeUnit.SECONDS)) {probe.destroy();throw new IOException("Root/PID check timed out");}
             StringBuilder response=new StringBuilder();
             try(BufferedReader reader=new BufferedReader(new InputStreamReader(probe.getInputStream(),StandardCharsets.UTF_8))) {
@@ -85,7 +106,7 @@ public class SessionService extends Service {
             pidProbe=null;
             if(stopping || destroyed) return;
             String pid=response.toString().trim();
-            if(probe.exitValue()!=0 || !pid.matches("[0-9]+")) throw new IOException("Root denied or game is not running. Launch the game and allow root for PGQL.");
+            if(probe.exitValue()!=0 || !pid.matches("[0-9]+")) throw new IOException(accessoryOnly?"Accessory service is not running. Open game Settings → Connected Devices and Services → Accessory Devices, then start GO Plus session.":"Root denied or game is not running. Launch the game and allow root for PGQL.");
             String shell="exec "+quote(executable)+" --pid "+pid+" --script "+quote(script.getAbsolutePath())+" --resident-agent";
             if(getSharedPreferences("lab",MODE_PRIVATE).getBoolean("prepare_selinux",false))shell+=" --prepare-selinux";
             Process process=new ProcessBuilder("su","-c",shell).start(); runner=process;
@@ -114,13 +135,33 @@ public class SessionService extends Service {
     private void handle(String line) {
         try {
             JSONObject event=new JSONObject(line); String type=event.optString("event");
-            if(type.equals("ready")) {state("attached");post("list",null);}
+            if(type.equals("ready")) {
+                state("attached");post("list",null);
+                if(accessoryOnly) {
+                    for(String key:new String[]{"auto-catch","auto-spin","auto-reconnect"})
+                        configure(GOPLUS,key,getSharedPreferences("lab",MODE_PRIVATE).getBoolean("goplus."+key,true));
+                    post("enable",GOPLUS);
+                }
+            }
             JSONObject message=event.optJSONObject("message");
             JSONObject payload=message==null?null:message.optJSONObject("payload");
             if(payload!=null && payload.optString("source").equals("qol")) {
                 JSONArray list=payload.optJSONArray("modules");
                 if(list==null && payload.optString("type").equals("response") && payload.optBoolean("ok")) list=payload.optJSONArray("result");
-                if(list!=null) synchronized(LOCK){moduleList=list;}
+                if(list!=null) synchronized(LOCK){
+                    if(accessoryOnly) {
+                        JSONArray filtered=new JSONArray();
+                        for(int i=0;i<list.length();i++) {
+                            JSONObject module=list.optJSONObject(i);
+                            if(module!=null && GOPLUS.equals(module.optString("id")))filtered.put(module);
+                        }
+                        moduleList=filtered;
+                    } else moduleList=list;
+                }
+                if(accessoryOnly && GOPLUS.equals(payload.optString("moduleId")) && payload.optString("type").equals("log")) {
+                    JSONObject details=payload.optJSONObject("details");
+                    if(details!=null && details.has("connected"))synchronized(LOCK){goPlusStatus=new JSONObject(details.toString());}
+                }
                 String change=payload.optString("type");
                 if(change.equals("enabled") || change.equals("disabled") || change.equals("config")) synchronized(LOCK) {
                     String id=payload.optString("moduleId");
@@ -131,7 +172,7 @@ public class SessionService extends Service {
                         else module.put("enabled",change.equals("enabled"));
                     }
                 }
-                if(GOPLUS.equals(payload.optString("moduleId")) && (change.equals("enabled") || change.equals("disabled") || change.equals("config"))) mirror(change,payload);
+                if(!accessoryOnly && GOPLUS.equals(payload.optString("moduleId")) && (change.equals("enabled") || change.equals("disabled") || change.equals("config"))) mirror(change,payload);
             }
         }catch(JSONException ignored){}
         log(line);
@@ -214,11 +255,21 @@ public class SessionService extends Service {
                 companionInput=new BufferedWriter(new OutputStreamWriter(process.getOutputStream(),StandardCharsets.UTF_8));
             }
             if(stopping || destroyed) {closeCompanion();return false;}
+            CountDownLatch readiness=new CountDownLatch(1);
+            java.util.concurrent.atomic.AtomicBoolean ready=new java.util.concurrent.atomic.AtomicBoolean(false);
             new Thread(()->readErrors(process),"qol-pgp-stderr").start();
             new Thread(()->{
                 try(BufferedReader reader=new BufferedReader(new InputStreamReader(process.getInputStream(),StandardCharsets.UTF_8))) {
-                    String line; while((line=reader.readLine())!=null) handleCompanion(line);
+                    String line; while((line=reader.readLine())!=null) {
+                        try {
+                            if(new JSONObject(line).optString("event").equals("ready")) {
+                                ready.set(true);readiness.countDown();
+                            }
+                        }catch(JSONException ignored){}
+                        handleCompanion(line);
+                    }
                 }catch(IOException ignored){}
+                readiness.countDown();
                 boolean lost;
                 synchronized(this) {
                     lost=companion==process;
@@ -230,8 +281,13 @@ public class SessionService extends Service {
                 if(lost && !stopping) {log("Virtual GO Plus agent left "+COMPANION_TARGET+"; disabling the module");post("disable",GOPLUS);}
             },"qol-pgp-stdout").start();
             log("Attaching Virtual GO Plus agent to "+COMPANION_TARGET+" (pid "+pid+")");
-            return true;
+            // Native startup pumps its GLib loop before creating the script.
+            // Sending early consumes commands while there is no receiver.
+            if(!readiness.await(20,TimeUnit.SECONDS) || !ready.get() || !process.isAlive())
+                throw new IOException("GO Plus agent did not become ready");
+            return !stopping && !destroyed;
         } catch(Exception e) {
+            closeCompanion();
             if(e instanceof InterruptedException)Thread.currentThread().interrupt();
             log("GO Plus companion error: "+e.getMessage());return false;
         }

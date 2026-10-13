@@ -19,8 +19,11 @@ globalThis.PgqlGameGoPlus = class PgqlGameGoPlus {
     this.pgp=null;
     this.bluetoothDriverRef=null;
     this.deviceNative=null;
-    this.args0=null;
-    this.args1=null;
+    this.connected=false;
+    this.reconnecting=false;
+    this.reconnectTimer=null;
+    this.reconnectSession=null;
+    this.counters={advertisements:0,pairings:0,catchRequests:0,spinRequests:0,disconnects:0,reconnectAttempts:0};
     ctx.cleanup(()=>this.dispose());
   }
   problem(error) {
@@ -62,6 +65,7 @@ globalThis.PgqlGameGoPlus = class PgqlGameGoPlus {
   async initialize() {
     // The sfida stack lives in the game's :pgp service process, which has no
     // Unity/il2cpp; gate on the installed package version instead.
+    if(Process.pointerSize!==8)throw Error('Virtual GO Plus requires Android arm64');
     const version=await PgqlPackageVersion();
     this.version=version;
     if(version!=='0.431.0')throw Error('Virtual GO Plus supports game 0.431.0; found '+version);
@@ -72,7 +76,9 @@ globalThis.PgqlGameGoPlus = class PgqlGameGoPlus {
     this.searchPokestop=new NativeFunction(sym('_ZN3pgp5sfida6Module14SearchPokestopERK19SfidaUpdateResponse'),'void',['pointer','pointer']);
     this.handleUpdate=new NativeFunction(sym('_ZN3pgp5sfida6Module12HandleUpdateEv'),'void',['pointer']);
     this.deviceConnectComplete=new NativeFunction(sym('_ZN3pgp5sfida6Device18ConnectionCompleteENS0_15PairingResponseENS_14BluetoothErrorE'),'void',['pointer','int','int']);
-    this.deviceDisconnect=new NativeFunction(sym('_ZN3pgp5sfida6Device10DisconnectENSt6__ndk18functionIFvbNS_14BluetoothErrorEEEE'),'void',['pointer','pointer']);
+    this.sessionStart=sym('_ZN3pgp5sfida6Module12StartSessionERKNSt6__ndk112basic_stringIcNS2_11char_traitsIcEENS2_9allocatorIcEEEESA_bSA_li');
+    this.startSession=new NativeFunction(this.sessionStart,'void',['pointer','pointer','pointer','uint8','pointer','int64','int']);
+    this.moduleDestructor=sym('_ZN3pgp5sfida6ModuleD2Ev');
     this.pgp=new PgqlPgpManager(this.lib);
     this.startScanning=sym('_ZN3pgp7android22AndroidBluetoothDriver23StartScanningWithFilterENSt6__ndk16vectorINS2_12basic_stringIcNS2_11char_traitsIcEENS2_9allocatorIcEEEENS7_IS9_EEEES9_NS2_8functionIFvNS2_10shared_ptrINS_10PeripheralEEEEEE');
     this.peripheralConnect=sym('_ZN3pgp7android17AndroidPeripheral7ConnectENSt6__ndk18functionIFvbNS_14BluetoothErrorEEEE');
@@ -81,7 +87,6 @@ globalThis.PgqlGameGoPlus = class PgqlGameGoPlus {
     this.processPokemonNearby=sym('_ZN3pgp5sfida6Module20ProcessPokemonNearbyERK19SfidaUpdateResponse');
     this.processPokestopNearby=sym('_ZN3pgp5sfida6Module21ProcessPokestopNearbyERK19SfidaUpdateResponse');
     this.processCaptureResponse=sym('_ZN3pgp5sfida6Module22ProcessCaptureResponseERK20SfidaCaptureResponse');
-    this.distanceTo=sym('_ZN4util8location8Location10DistanceToERS1_');
   }
   async install(feature) {
     this.feature=feature;
@@ -90,10 +95,10 @@ globalThis.PgqlGameGoPlus = class PgqlGameGoPlus {
     try {
       this.setupScanningHooks();
       this.setupPairingHooks();
+      this.setupReconnectHooks();
       this.setupEncounterHooks();
       this.setupStopHooks();
       this.setupCaptureHook();
-      this.setupDistanceHook();
       Interceptor.flush();
       this.ctx.log('Virtual GO Plus armed',{game:this.version});
     }catch(error){this.dispose();throw error;}
@@ -116,8 +121,9 @@ globalThis.PgqlGameGoPlus = class PgqlGameGoPlus {
         if(this.closed || this.failed)return;
         try {
           if(!this.jni || !this.bluetoothDriverRef)return;
-          this.simulator.simulateDeviceFound(this.jni,this.bluetoothDriverRef);
-          this.ctx.log('Virtual GO Plus advertised to the game');
+          if(!this.simulator.simulateDeviceFound(this.jni,this.bluetoothDriverRef))throw Error('GO Plus advertisement failed');
+          this.counters.advertisements++;
+          this.ctx.log('Virtual GO Plus advertised to the game',this.status());
         }catch(error){this.problem(error);}
       }
     });
@@ -129,94 +135,148 @@ globalThis.PgqlGameGoPlus = class PgqlGameGoPlus {
       this.originalDeviceConnect(devicePtr,callbackPtr);
     });
     this.originalPeripheralConnect=this.replace(this.peripheralConnect,'void',['pointer','pointer'],(peripheralPtr,callbackPtr)=>{
-      if(this.closed || this.failed)return ptr(0);
+      if(this.closed || this.failed || !this.deviceNative || this.deviceNative.isNull()){this.originalPeripheralConnect(peripheralPtr,callbackPtr);return;}
       try {
         if(this.deviceNative && !this.deviceNative.isNull()){
           // Mark the peripheral connected and complete pairing immediately.
           this.deviceNative.add(528).writeInt(8);
           this.deviceConnectComplete(this.deviceNative,0,0);
-          this.ctx.log('Virtual GO Plus paired');
+          this.connected=true;this.cancelReconnect();this.counters.pairings++;
+          this.ctx.log('Virtual GO Plus paired',this.status());
         }
       }catch(error){this.problem(error);}
       return ptr(0);
     });
     this.originalFinishDisconnect=this.replace(this.finishDisconnect,'void',['pointer','pointer'],(peripheralPtr,callbackPtr)=>{
-      if(this.closed || this.failed){this.originalFinishDisconnect(peripheralPtr,callbackPtr);return;}
+      if(this.closed || this.failed || this.reconnecting){this.originalFinishDisconnect(peripheralPtr,callbackPtr);return;}
       try {
-        if(this.autoReconnect){
-          // Route the disconnect teardown through the peripheral so the next
-          // scan re-pairs the virtual device automatically.
-          this.deviceDisconnect(peripheralPtr,callbackPtr);
-        }else{
-          this.originalFinishDisconnect(peripheralPtr,callbackPtr);
-        }
+        for(const timer of this.timeouts.splice(0))clearTimeout(timer);
+        this.connected=false;this.deviceNative=null;this.counters.disconnects++;
+        this.ctx.log('Virtual GO Plus disconnected',this.status());
+        // Finish the game's teardown once. Reconnect starts a fresh session
+        // on the accessory service's main thread, using owned parameter copies.
+        this.reconnecting=true;
+        try {this.originalFinishDisconnect(peripheralPtr,callbackPtr);}
+        finally {this.reconnecting=false;}
+        this.scheduleReconnect();
       }catch(error){this.problem(error);}
     });
   }
+  // libc++ std::string on the pinned arm64 build: 24 bytes, short flag in
+  // byte zero, long length at +8 and data pointer at +16. Const-reference
+  // session parameters must be owned beyond the original native call's frame.
+  copySessionString(source) {
+    const flag=source.readU8(),long=!!(flag&1);
+    const length=long?Number(source.add(8).readU64().toString()):flag>>>1;
+    if(!Number.isSafeInteger(length) || length<0 || length>4096 || (!long && length>22))
+      throw Error('Unsupported GO Plus session string layout');
+    const value=Memory.alloc(24);
+    value.writeByteArray(source.readByteArray(24));
+    let data=null;
+    if(long) {
+      data=Memory.alloc(length+1);
+      data.writeByteArray(source.add(16).readPointer().readByteArray(length));
+      data.add(length).writeU8(0);
+      value.add(16).writePointer(data);
+    }
+    return {value,data};
+  }
+  setupReconnectHooks() {
+    this.attach(this.sessionStart,{onEnter:args=>{
+      if(this.closed || this.failed)return;
+      try {
+        // These are private, in-memory copies. Never log/persist session values.
+        this.reconnectSession={module:args[0],strings:[args[1],args[2],args[4]].map(p=>this.copySessionString(p)),
+          reconnect:args[3].toInt32()!==0,number:int64(args[5].toString()),mode:args[6].toInt32()};
+      }catch(error){this.problem(error);}
+    }});
+    this.attach(this.moduleDestructor,{onEnter:args=>{
+      if(this.reconnectSession && this.reconnectSession.module.equals(args[0])) {
+        this.cancelReconnect();this.reconnectSession=null;this.connected=false;this.deviceNative=null;
+        for(const timer of this.timeouts.splice(0))clearTimeout(timer);
+      }
+    }});
+  }
+  cancelReconnect() {
+    if(this.reconnectTimer!==null)clearTimeout(this.reconnectTimer);
+    this.reconnectTimer=null;
+  }
+  scheduleReconnect(delay=1000) {
+    if(this.closed || this.failed || this.connected || !this.autoReconnect || !this.reconnectSession || this.reconnectTimer!==null)return;
+    const session=this.reconnectSession;
+    this.reconnectTimer=setTimeout(()=>{
+      this.reconnectTimer=null;
+      if(this.closed || this.failed || this.connected || !this.autoReconnect || this.reconnectSession!==session)return;
+      try {
+        Java.scheduleOnMainThread(()=>{
+          if(this.closed || this.failed || this.connected || !this.autoReconnect || this.reconnectSession!==session)return;
+          try {
+            this.counters.reconnectAttempts++;
+            this.ctx.log('Virtual GO Plus reconnect requested',this.status());
+            this.startSession(session.module,session.strings[0].value,session.strings[1].value,session.reconnect?1:0,
+              session.strings[2].value,session.number,session.mode);
+            this.scheduleReconnect(Math.min(delay*2,30000));
+          }catch(error){this.problem(error);}
+        });
+      }catch(error){this.problem(error);}
+    },delay);
+  }
   // Lightning-fast native catch when a Pokemon appears.
   setupEncounterHooks() {
+    const adapter=this;
     this.attach(this.processPokemonNearby,{
-      onEnter:args=>{if(this.closed || this.failed)return;this.args0=args[0];this.args1=args[1];},
-      onLeave:()=>{
-        if(this.closed || this.failed || !this.autoCatch)return;
+      onEnter(args){this.module=args[0];this.response=args[1];},
+      onLeave(){
+        if(adapter.closed || adapter.failed || !adapter.autoCatch)return;
         try {
-          const module=this.args0,response=this.args1;
+          const module=this.module,response=this.response;
           const spawnpoint=response.add(16).readPointer().sub(2);
           const id=response.add(40).readU64();
           const type=response.add(48).readU32();
-          const manager=module.add(16).readPointer();
-          this.pgp.reportEncounterId(manager,id);
-          this.catchPokemon(module,spawnpoint,id,type);
-          this.ctx.log('Virtual GO Plus caught',{encounterId:String(id),type});
-        }catch(error){this.problem(error);}
+          adapter.pgp.reportEncounterId(module.add(16).readPointer(),id);
+          adapter.catchPokemon(module,spawnpoint,id,type);
+          adapter.counters.catchRequests++;
+          adapter.ctx.log('Virtual GO Plus catch requested',{encounterId:String(id),type,...adapter.status()});
+        }catch(error){adapter.problem(error);}
       }
     });
   }
-  // Direct stop interaction when a Pokestop appears.
   setupStopHooks() {
+    const adapter=this;
     this.attach(this.processPokestopNearby,{
-      onEnter:args=>{if(this.closed || this.failed)return;this.args0=args[0];this.args1=args[1];},
-      onLeave:()=>{
-        if(this.closed || this.failed || !this.autoSpin)return;
+      onEnter(args){this.module=args[0];this.response=args[1];},
+      onLeave(){
+        if(adapter.closed || adapter.failed || !adapter.autoSpin)return;
         try {
-          this.searchPokestop(this.args0,this.args1);
-          this.scheduleHandleUpdate(this.args0);
-          this.ctx.log('Virtual GO Plus spun');
-        }catch(error){this.problem(error);}
+          adapter.searchPokestop(this.module,this.response);
+          adapter.scheduleHandleUpdate(this.module);
+          adapter.counters.spinRequests++;
+          adapter.ctx.log('Virtual GO Plus spin requested',adapter.status());
+        }catch(error){adapter.problem(error);}
       }
     });
   }
-  // Flush module state and keep the accessory session timestamp fresh.
   setupCaptureHook() {
+    const adapter=this;
     this.attach(this.processCaptureResponse,{
-      onEnter:args=>{if(this.closed || this.failed)return;this.args0=args[0];},
-      onLeave:()=>{
-        if(this.closed || this.failed)return;
+      onEnter(args){this.module=args[0];},
+      onLeave(){
+        if(adapter.closed || adapter.failed)return;
         try {
-          this.scheduleHandleUpdate(this.args0);
-          const manager=this.args0.add(16).readPointer();
-          if(manager && !manager.isNull())this.pgp.sendTimestamp(manager,Date.now());
-        }catch(error){this.problem(error);}
-      }
-    });
-  }
-  // Keep nearby objects within the GO Plus actionable band.
-  setupDistanceHook() {
-    this.attach(this.distanceTo,{
-      onLeave:retval=>{
-        if(this.closed || this.failed)return;
-        try {
-          if(retval.toInt32()<=20)retval.replace(20.1);
-        }catch(error){this.problem(error);}
+          adapter.scheduleHandleUpdate(this.module);
+          const manager=this.module.add(16).readPointer();
+          if(manager && !manager.isNull())adapter.pgp.sendTimestamp(manager,Date.now());
+        }catch(error){adapter.problem(error);}
       }
     });
   }
   setAutoCatch(value){this.autoCatch=!!value;}
   setAutoSpin(value){this.autoSpin=!!value;}
-  setAutoReconnect(value){this.autoReconnect=!!value;}
+  setAutoReconnect(value){this.autoReconnect=!!value;if(this.autoReconnect)this.scheduleReconnect();else this.cancelReconnect();}
   status() {
     return {
-      connected:!!(this.deviceNative && !this.deviceNative.isNull()),
+      connected:this.connected,
+      counters:{...this.counters},
       device:this.deviceNative&&!this.deviceNative.isNull()?this.deviceNative.toString():null,
       autoCatch:this.autoCatch,
       autoSpin:this.autoSpin,
@@ -226,14 +286,18 @@ globalThis.PgqlGameGoPlus = class PgqlGameGoPlus {
   dispose() {
     if(this.closed)return;
     this.closed=true;
+    this.cancelReconnect();this.reconnectSession=null;
     for(const timer of this.timeouts.splice(0))clearTimeout(timer);
     for(const undo of this.undo.reverse())try{undo();}catch(error){this.ctx.log('Virtual GO Plus cleanup failed',{error:String(error)});}
     this.undo=[];
     Interceptor.flush();
     if(this.jni){
+      // JNIEnv belongs to the current native thread, never reuse the scan
+      // thread's environment from a controller command or timer.
+      this.jni=PgqlJniHelper.getEnv(this.lib);
       this.releaseDriverRef();
       this.simulator.releaseAll(this.jni);
     }
-    this.jni=null;this.deviceNative=null;this.args0=null;this.args1=null;
+    this.jni=null;this.deviceNative=null;this.connected=false;
   }
 };

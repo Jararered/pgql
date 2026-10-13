@@ -128,4 +128,12 @@ lifecycle/timeout tests.
 
 ### Virtual GO Plus
 
+For Virtual GO Plus, use **Start GO Plus session** in PGQL. This attaches to the
+game's accessory service directly and shows the three switches in the controller.
+Start it before connecting the GO Plus icon in the game. On the first use, select
+**Pokémon GO Plus** under game Settings → Connected Devices and Services →
+Accessory Devices and complete the game's connection setup. If the accessory
+service is absent, opening that screen starts it. The controller remembers the
+catch, spin and reconnect settings. **Detach** ends the session gracefully.
+
 **Virtual GO Plus** emulates a genuine GO Plus accessory inside the game: the game pairs with a fabricated device and catches Pokemon / spins Pokestops natively (no throw animation), with automatic reconnect. Three boolean toggles (`auto-catch`, `auto-spin`, `auto-reconnect`, default on) apply live; a **Feature status** action reports connection state. See [GOPLUS.md](docs/GOPLUS.md) for behavior and the version-pinned native contract. It is the first PGQL adapter that talks to `libholoholo.so` natively; the required struct offsets are pinned to GO 0.431.0 and documented there rather than left implicit.

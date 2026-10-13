@@ -11,7 +11,7 @@ globalThis.PgqlDeviceSimulator = class PgqlDeviceSimulator {
     this.scanRecordBytes=(options.scanRecordBytes||[2,1,6,16,9,80,111,107,101,109,111,110,32,71,79,32,80,108,117,115,6,32,98,4,-59,33,0,2,1,6,2,10,-21,3,3,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]).slice();
     this.macAddress=options.macAddress||'98:B6:E9:11:E1:46';
     this.rssi=options.rssi===undefined?-51:options.rssi;
-    this.timestampNanos=options.timestampNanos===undefined?Date.now()*1000000:options.timestampNanos;
+    this.timestampNanos=options.timestampNanos===undefined?0:options.timestampNanos;
     this.globalRefs=[];
   }
   retain(jni,object) {
@@ -53,7 +53,7 @@ globalThis.PgqlDeviceSimulator = class PgqlDeviceSimulator {
     const adapter=getDefault?jni.callStaticObjectMethod(clazz,getDefault):null;
     let device=null;
     if(adapter && !adapter.isNull()) {
-      const getRemote=jni.getMethodID(jni.getObjectClass(adapter),'getRemoteDevice','(Ljava/lang/String;)Landroid/bluetooth/BluetoothDevice;');
+      const getRemote=jni.getMethodID(clazz,'getRemoteDevice','(Ljava/lang/String;)Landroid/bluetooth/BluetoothDevice;');
       const address=jni.newStringUTF(this.macAddress);
       device=getRemote?jni.callObjectMethod(adapter,getRemote,[address]):null;
       if(address)jni.deleteLocalRef(address);
@@ -86,17 +86,20 @@ globalThis.PgqlDeviceSimulator = class PgqlDeviceSimulator {
   // handed to the game are tracked here and released on the next cycle/dispose.
   simulateDeviceFound(jni,driverRef) {
     this.releaseAll(jni);
-    const callback=this.createSfidaScanCallback(jni,driverRef);
-    if(!callback)return false;
-    const record=this.createScanRecord(jni);
-    const device=record?this.createBluetoothDevice(jni):null;
-    const result=device?this.createScanResult(jni,device,record):null;
-    const callbackRef=this.retain(jni,callback);
-    const resultRef=result?this.retain(jni,result):null;
-    let ok=false;
-    if(callbackRef && resultRef)ok=this.callOnScanResult(jni,callbackRef,resultRef);
-    if(callback && !callback.isNull())jni.deleteLocalRef(callback);
-    if(result && !result.isNull())jni.deleteLocalRef(result);
-    return ok;
+    return jni.withLocalFrame(()=>{
+      const callback=this.createSfidaScanCallback(jni,driverRef);
+      if(!callback)throw Error('Cannot create Sfida scan callback');
+      const record=this.createScanRecord(jni);
+      if(!record)throw Error('Cannot create GO Plus scan record');
+      const device=this.createBluetoothDevice(jni);
+      if(!device)throw Error('Bluetooth adapter is unavailable');
+      const result=this.createScanResult(jni,device,record);
+      if(!result)throw Error('Cannot create GO Plus scan result');
+      const callbackRef=this.retain(jni,callback);
+      const resultRef=this.retain(jni,result);
+      if(!callbackRef || !resultRef || !this.callOnScanResult(jni,callbackRef,resultRef))
+        throw Error('GO Plus scan callback rejected advertisement');
+      return true;
+    });
   }
 };

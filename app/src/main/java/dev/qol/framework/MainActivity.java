@@ -14,7 +14,7 @@ import org.json.*;
 public class MainActivity extends Activity {
     private TextView status, logs;
     private LinearLayout modules;
-    private Button attach, detach, snapshot;
+    private Button attach, detach, snapshot, goPlus;
     private final BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override public void onReceive(Context context, Intent intent) { render(); }
     };
@@ -55,6 +55,13 @@ public class MainActivity extends Activity {
             startService(new Intent(this,SessionService.class).setAction(SessionService.STOP));
         });
         controls.addView(detach); page.addView(controls);
+        goPlus=button("Start GO Plus session",v -> {
+            Intent game=getPackageManager().getLaunchIntentForPackage(SessionService.TARGET);
+            if(game==null){Toast.makeText(this,"Pokémon GO is not installed",Toast.LENGTH_LONG).show();return;}
+            startForegroundService(new Intent(this,SessionService.class).setAction(SessionService.ATTACH_GOPLUS));
+            startActivity(game);
+        });
+        page.addView(goPlus);
         TextView heading=new TextView(this); heading.setText("Modules"); heading.setTextSize(20); page.addView(heading);
         modules=new LinearLayout(this); modules.setOrientation(LinearLayout.VERTICAL);
         ScrollView moduleScroll=new ScrollView(this); moduleScroll.addView(modules);
@@ -91,10 +98,19 @@ public class MainActivity extends Activity {
     private void render() {
         String state=SessionService.state(); status.setText("Session: "+state);
         boolean idle=state.equals("idle") || state.equals("error");
-        attach.setEnabled(idle); detach.setEnabled(!idle); snapshot.setEnabled(state.equals("attached"));
+        attach.setEnabled(idle); goPlus.setEnabled(idle); detach.setEnabled(!idle); snapshot.setEnabled(state.equals("attached"));
         logs.setText(SessionService.logText());
         modules.removeAllViews();
         JSONArray list=SessionService.modules();
+        if(SessionService.accessorySession()) {
+            JSONObject details=SessionService.goPlusStatus();
+            boolean active=list.length()>0 && list.optJSONObject(0).optBoolean("enabled");
+            TextView connection=new TextView(this);
+            String summary=state.equals("attached")?(!active?"Virtual GO Plus disabled":details.optBoolean("connected")?"Connected":"Ready — tap GO Plus in the game to connect"):"GO Plus session: "+state;
+            JSONObject counts=details.optJSONObject("counters");
+            if(counts!=null)summary+=" · Catch requests: "+counts.optInt("catchRequests")+" · Spin requests: "+counts.optInt("spinRequests");
+            connection.setText(summary);modules.addView(connection);
+        }
         if(list.length()==0) { TextView hint=new TextView(this); hint.setText("Open the game, then attach to load modules."); modules.addView(hint); }
         for(int i=0;i<list.length();i++) {
             JSONObject item=list.optJSONObject(i); if(item==null) continue;
@@ -106,6 +122,18 @@ public class MainActivity extends Activity {
             check.setEnabled(state.equals("attached") && !planned);
             check.setOnCheckedChangeListener((view,enabled) -> {SessionService.command(enabled?"enable":"disable",id);foregroundGame();});
             modules.addView(check);
+            if(SessionService.accessorySession() && id.equals("virtual-go-plus")) {
+                JSONArray settings=item.optJSONArray("settings");JSONObject config=item.optJSONObject("config");
+                if(settings!=null)for(int j=0;j<settings.length();j++) {
+                    JSONObject setting=settings.optJSONObject(j);if(setting==null)continue;
+                    String key=setting.optString("key");CheckBox option=new CheckBox(this);
+                    option.setText(setting.optString("label",key));
+                    option.setChecked(config==null?setting.optBoolean("default"):config.optBoolean(key));
+                    option.setEnabled(state.equals("attached"));
+                    option.setOnCheckedChangeListener((view,value)->{SessionService.config(id,key,value);foregroundGame();});
+                    modules.addView(option);
+                }
+            }
         }
     }
     private void foregroundGame(){Intent intent=getPackageManager().getLaunchIntentForPackage(SessionService.TARGET);if(intent!=null)startActivity(intent);}

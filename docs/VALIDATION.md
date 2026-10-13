@@ -124,3 +124,34 @@ Output: `build/pgql-debug.apk`, SHA-256 `65c76041d5473255da73341099e5109a5ddf614
 Build log: `build/structure-build.log`; cleanup checks:
 `build/structure-validation.json`. No APK installation or phone operation was
 performed; these checks establish local build compatibility, not live injection.
+
+## Virtual GO Plus dedicated session — October 13, 2026
+
+`build/pgql-debug.apk`: 45638171 bytes, SHA-256
+`1fdf67814998ff77564003fe9ccdbaa01eb74fc2870b3e7715975965c31310b3`; the installed
+controller APK has the same digest. All eleven Node suites and
+`git diff --check` pass.
+
+Device results, GO 0.431.0, game PID 28385 and accessory PID 28846 after a clean
+restart of both processes:
+
+- **Automatic reconnect:** a forced disconnect at 07:19:37.341 was followed by
+  a reconnect request at 07:19:38.392 and pairing at 07:19:38.848 with no tap
+  (`disconnects:1`, `reconnectAttempts:1`, `pairings:2`).
+- **Saved settings:** Auto reconnect off was persisted, survived a controller
+  force-stop/relaunch, and was applied to the next dedicated session before the
+  module was enabled; it was then restored to on.
+- **Detach:** both dedicated-session detaches acknowledged shutdown, eternalized
+  the script and reported `crashed:false`; the runner exited and both game
+  processes kept running. The session was left detached with all three settings
+  on.
+- An earlier reconnect attempt failed on a native argument type mismatch and
+  disabled the module without taking the game down; the connection flag is now
+  passed as `uint8` and covered by a regression check.
+
+Not established: prolonged stability, the one-hour accessory timeout, and
+normal main-process Attach, which crashed twice with native SIGSEGVs earlier in
+the day (`build/go-plus-crash.log`). After the reconnect, only one catch request
+and no spin requests were observed. Evidence: `build/go-plus-controller.log`,
+`build/go-plus-detach.log`, `build/go-plus-settings-restart.log`,
+`build/go-plus-controller-connected.png`, `build/go-plus-settings-restored.png`.

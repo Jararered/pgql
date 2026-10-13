@@ -37,15 +37,30 @@ globalThis.PgqlJniHelper = class PgqlJniHelper {
     return this.clearException()||!address||address.isNull()?null:address;
   }
   getObjectClass(object) { return this.fn(31,'pointer',['pointer','pointer'])(this.env,object); }
-  getMethodID(clazz,name,sig) { return this.fn(33,'pointer',['pointer','pointer','pointer','pointer'])(this.env,clazz,Memory.allocUtf8String(name),Memory.allocUtf8String(sig)); }
-  getStaticMethodID(clazz,name,sig) { return this.fn(113,'pointer',['pointer','pointer','pointer','pointer'])(this.env,clazz,Memory.allocUtf8String(name),Memory.allocUtf8String(sig)); }
-  // Variadic JNI entry points: Frida needs every passed argument typed, so the
-  // signature is built per argument count (all pointer-sized on arm64).
-  variadic(index,ret,args) { return this.fn(index,ret,['pointer','pointer','pointer',...args.map(()=>'pointer')],args.length); }
-  newObject(clazz,ctor,args=[]) { return this.variadic(28,'pointer',args)(this.env,clazz,ctor,...args); }
-  callVoidMethod(object,method,args=[]) { this.variadic(61,'void',args)(this.env,object,method,...args); }
-  callObjectMethod(object,method,args=[]) { return this.variadic(34,'pointer',args)(this.env,object,method,...args); }
-  callStaticObjectMethod(clazz,method,args=[]) { return this.variadic(114,'pointer',args)(this.env,clazz,method,...args); }
+  getMethodID(clazz,name,sig) { return this.checked(this.fn(33,'pointer',['pointer','pointer','pointer','pointer'])(this.env,clazz,Memory.allocUtf8String(name),Memory.allocUtf8String(sig))); }
+  getStaticMethodID(clazz,name,sig) { return this.checked(this.fn(113,'pointer',['pointer','pointer','pointer','pointer'])(this.env,clazz,Memory.allocUtf8String(name),Memory.allocUtf8String(sig))); }
+  // A variants consume jvalue[]: eight bytes per slot on Android arm64.
+  // This avoids relying on the native varargs ABI for jint/jlong arguments.
+  values(args) {
+    if(!args.length)return ptr(0);
+    const values=Memory.alloc(args.length*8);
+    args.forEach((value,index)=>values.add(index*8).writePointer(value));
+    return values;
+  }
+  checked(value) {
+    if(this.clearException())throw Error('Virtual GO Plus JNI call raised an exception');
+    return value;
+  }
+  withLocalFrame(callback) {
+    const result=this.fn(19,'int',['pointer','int'])(this.env,32);
+    if(result!==0) {this.clearException();throw Error('Cannot allocate GO Plus JNI local frame');}
+    try {return callback();}
+    finally {this.fn(20,'pointer',['pointer','pointer'])(this.env,ptr(0));}
+  }
+  newObject(clazz,ctor,args=[]) { return this.checked(this.fn(30,'pointer',['pointer','pointer','pointer','pointer'])(this.env,clazz,ctor,this.values(args))); }
+  callVoidMethod(object,method,args=[]) { this.checked(this.fn(63,'void',['pointer','pointer','pointer','pointer'])(this.env,object,method,this.values(args))); }
+  callObjectMethod(object,method,args=[]) { return this.checked(this.fn(36,'pointer',['pointer','pointer','pointer','pointer'])(this.env,object,method,this.values(args))); }
+  callStaticObjectMethod(clazz,method,args=[]) { return this.checked(this.fn(116,'pointer',['pointer','pointer','pointer','pointer'])(this.env,clazz,method,this.values(args))); }
   newByteArray(length) { return this.fn(176,'pointer',['pointer','int'])(this.env,length); }
   // Copy bytes from Frida memory into a fresh jbyteArray.
   setByteArrayRegion(array,bytes) {

@@ -31,7 +31,7 @@ globalThis.PgqlGoPlusModule = function(id,name) {
           session.adapter=new PgqlGameGoPlus(ctx);
           applyConfig(ctx,session.adapter);
           Promise.resolve(session.adapter.install(id)).then(()=>{
-            if(!session.closed){session.phase='ready';ctx.log(name+' ready');}
+            if(!session.closed){session.phase='ready';ctx.log(name+' ready',session.adapter.status());}
           }).catch(fail);
         } catch(error){fail(error);}
       },0);
@@ -48,12 +48,17 @@ globalThis.PgqlGoPlusModule = function(id,name) {
     },
     invoke(ctx,args={}) {
       if(args.action==='companion' && this.session.phase==='companion') {
-        this.session.companion={message:String(args.message),details:args.details||{}};
+        this.session.companion={message:String(args.message),details:{...this.session.companion?.details,...args.details}};
         return true;
       }
       if(args.action!=='status')throw Error('Unknown Virtual GO Plus action');
       const result={phase:this.session.phase,reason:this.session.reason};
-      if(this.session.companion)result.companion=this.session.companion;
+      if(this.session.companion){
+        result.companion=this.session.companion;
+        const details=this.session.companion.details;
+        for(const key of ['connected','device','counters','autoCatch','autoSpin','autoReconnect'])
+          if(details[key]!==undefined)result[key]=details[key];
+      }
       if(this.session.adapter)Object.assign(result,this.session.adapter.status());
       return result;
     }

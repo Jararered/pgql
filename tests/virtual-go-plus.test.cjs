@@ -53,8 +53,13 @@ const tick=()=>new Promise(setImmediate),runTimers=()=>{for(const fn of timers.s
  context.PgqlRole=undefined;
  q.enable(moduleId);runTimers();assert.equal(sessions.length,4);
  assert.equal((await q.invoke(moduleId,{action:'status'})).phase,'companion');
- await q.invoke(moduleId,{action:'companion',message:'Virtual GO Plus ready',details:{}});
+ await q.invoke(moduleId,{action:'companion',message:'Virtual GO Plus ready',details:{connected:false,counters:{catchRequests:0}}});
  assert.equal((await q.invoke(moduleId,{action:'status'})).companion.message,'Virtual GO Plus ready');
+ await q.invoke(moduleId,{action:'companion',message:'Virtual GO Plus paired',details:{connected:true}});
+ assert.equal((await q.invoke(moduleId,{action:'status'})).connected,true);
+ await q.invoke(moduleId,{action:'companion',message:'Scan finished',details:{}});
+ assert.equal((await q.invoke(moduleId,{action:'status'})).connected,true);
+ assert.equal((await q.invoke(moduleId,{action:'status'})).counters.catchRequests,0);
  q.disable(moduleId);
  console.log('Virtual GO Plus module settings, live config, async cancellation, failure rollback and stale-generation tests passed.');
 })().catch(e=>{console.error(e);process.exitCode=1;});
