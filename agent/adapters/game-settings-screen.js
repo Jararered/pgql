@@ -33,6 +33,7 @@ globalThis.PgqlGameSettingsScreen = class PgqlGameSettingsScreen {
     const holoText=type('Niantic.Holoholo.UI.UIWidgets.HoloText'),panel=type('Niantic.Holoholo.UI.GpuPanel');
     const canvas=type('UnityEngine.Canvas'),container=type('Zenject.DiContainer'),modal=type('Niantic.Holoholo.UI.ModalButton');
     const prompts=type('Niantic.Holoholo.UI.IUserPromptsService'),transform=type('UnityEngine.Transform');
+    const scroller=type('Niantic.Holoholo.Widget.ScrollerEvent');
     const toggled=field(toggle,'onValueChanged','UnityEngine.UI.Toggle.ToggleEvent');
     const listen=toggled.parent.methods.filter(m=>m.name==='AddListener'&&m.parameterCount===1);
     if(listen.length!==1||listen[0].parameters[0].type.name!=='UnityEngine.Events.UnityAction<System.Boolean>')throw Error('Unsupported settings toggle event');
@@ -58,7 +59,8 @@ globalThis.PgqlGameSettingsScreen = class PgqlGameSettingsScreen {
     for(const name of ['OkButton','ContinueCancelButtons'])
       if(modal.field(name).type.name!=='Niantic.Holoholo.UI.IModalButton[]')throw Error('Unsupported modal buttons');
     const events=type('Niantic.Holoholo.UI.ModalEvent');
-    this.bound={toggle,button,pgoButton,pgoText,holoText,panel,canvas,toggled,modal,prompts,
+    this.bound={toggle,button,pgoButton,pgoText,holoText,panel,canvas,toggled,modal,prompts,scroller,
+      pulled:field(scroller,'ScrollEvent','UnityEngine.Events.UnityEvent'),
       toggleAction:listen[0].parameters[0].type.class,action:type('UnityEngine.Events.UnityAction'),
       systemAction:type('System.Action'),
       clicked:field(button,'m_OnClick','UnityEngine.UI.Button.ButtonClickedEvent'),
@@ -181,8 +183,11 @@ globalThis.PgqlGameSettingsScreen = class PgqlGameSettingsScreen {
       const root=screen.method('get_transform',0).invoke();
       this.paint(container,this.find(root,'Content/Background'));
       this.label(this.find(root,'Content/Title/HeadingText'),b.pgoText,page.title);
-      this.listen(this.component(this.find(root,'Content/Btn_Back'),b.button),'m_OnClick',b.clicked,
-        this.delegate(b.action,()=>this.run(handlers.back)));
+      const back=this.delegate(b.action,()=>this.run(handlers.back));
+      this.listen(this.component(this.find(root,'Content/Btn_Back'),b.button),'m_OnClick',b.clicked,back);
+      // Pulling the list down past its top is the game's close gesture; left on
+      // the game's own listener it fails on this copy and locks scrolling.
+      this.listen(this.component(this.find(root,'Content/ScrollPanel'),b.scroller),'ScrollEvent',b.pulled,back);
       const content=this.find(root,'Content/ScrollPanel/Viewport/Content');
       const original=this.find(content,'PushNotificationWidget'),elements=this.find(original,'WidgetElements');
       const templates={row:this.find(elements,'TogglePokemonReturnPN'),group:this.find(elements,'WeeklyChallengeIndentGroup'),

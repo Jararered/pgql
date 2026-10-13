@@ -296,3 +296,39 @@ with active rain/snow (the weather was clear); the 30-second re-assertion; Skip
 Encounter Intro in raid, Team GO Rocket, quest or AR+ encounters, and together
 with an actual catch; behavior across a settings re-download; prolonged
 stability.
+
+## Shows IVs in Inventory validation and settings page scroll fix
+
+`agent/adapters/game-inventory-ivs.js` replaces the name label of each Pokémon
+inventory cell with its `Attack/Defense/HP` IVs after the game fills the cell.
+Local: `npm test` (seventeen suites) pass, including
+`tests/inventory-ivs.test.cjs`.
+
+`build/pgql-debug.apk`: 45650459 bytes; SHA-256
+`3f7d92808ba750085bcf754c2ee8658bb95ab5c7d93ca707fb7e3488073fee6f`. Installed
+and attached from the controller (GO 0.431.0, PID 14960):
+
+- A probe run of the same label change first showed IVs on all visible cells
+  (`build/inventory-ivs-probe.png`).
+- With the module enabled from the native settings page, the inventory grid
+  showed IVs instead of names, including after scrolling
+  (`build/inventory-ivs-enabled.png`, `build/inventory-ivs-scrolled.png`);
+  status reported `ready` (`build/inventory-ivs-status.png`).
+- After disabling, the inventory showed names again
+  (`build/inventory-ivs-disabled.png`). The inventory was closed at that moment,
+  so the in-place restore of visible cells reported `cells: 0` and is covered
+  only by the unit test.
+
+Settings page fix found during this work: pulling the list down past its top is
+the game's close gesture, and on the copied screen it called the game's own
+dismiss handler, which failed and left scrolling locked until the close button
+was used. The gesture now runs the page's back handler; pulling down closed the
+page and returned to the map (`build/native-settings-pull-close.png`).
+
+One more attach-time `libNianticLabsPlugin.so` crash occurred (PID 9928, probe
+attached with the game in the background, crash a few seconds after it was
+brought forward), so background attaching does not prevent it.
+
+Not established: IV labels in other screens that reuse the cell (trade, battle
+party and transfer pickers were not opened), behavior with name sorting or
+search, and in-place restore on visible cells.

@@ -8,7 +8,7 @@ function N(name,children=[],parts={}) {
   for(const child of children)child.parent=self;
   return self;
 }
-const kinds=['label','toggle','button','pgoButton','panel','canvas'];
+const kinds=['label','toggle','button','pgoButton','panel','canvas','scroller'];
 function copy(source) {
   const made=N(source.name,source.children.map(copy));
   made.active=source.active;made.controller=source.controller;
@@ -22,8 +22,8 @@ function lookup(from,target) {
 }
 const calls=fn=>({invoke:fn,overload:()=>({invoke:fn})});
 const componentKind={'Niantic.Holoholo.UI.PgoText':'label','Niantic.Holoholo.UI.UIWidgets.HoloText':'label','UnityEngine.UI.Toggle':'toggle',
-  'UnityEngine.UI.Button':'button','Niantic.Holoholo.UI.PgoButton':'pgoButton','Niantic.Holoholo.UI.GpuPanel':'panel','UnityEngine.Canvas':'canvas'};
-const eventField={toggle:'onValueChanged',button:'m_OnClick',pgoButton:'_onClick'};
+  'UnityEngine.UI.Button':'button','Niantic.Holoholo.UI.PgoButton':'pgoButton','Niantic.Holoholo.UI.GpuPanel':'panel','UnityEngine.Canvas':'canvas','Niantic.Holoholo.Widget.ScrollerEvent':'scroller'};
+const eventField={toggle:'onValueChanged',button:'m_OnClick',pgoButton:'_onClick',scroller:'ScrollEvent'};
 function part(node,kind) {
   const data=node[kind];
   if(!data)return NULL_OBJECT;
@@ -59,7 +59,7 @@ const widget=name=>N(name,[N('SettingsWidgetHeader',[N('Label',[],{label:{textKe
   N('WeeklyChallengeIndentGroup',[N('Label',[],{label:{textKey:'group'}}),N('Indent',[row('ToggleWeeklyChallengeProgress'),row('ToggleWeeklyChallengeInvitations')])]),
   row('ToggleMarketingPN')])]);
 const prefab=N('NotificationSettingsGuiV2',[N('Content',[N('Background',[],{panel:{}}),N('Title',[N('HeadingText',[],{label:{textKey:'title'}})]),
-  N('ScrollPanel',[N('Viewport',[N('Content',[widget('PushNotificationWidget'),widget('InGameNotificationWidget')])])]),
+  N('ScrollPanel',[N('Viewport',[N('Content',[widget('PushNotificationWidget'),widget('InGameNotificationWidget')])])],{scroller:{event:'game'}}),
   N('Btn_Back',[],{button:{event:'game'}})])],{controller:true,canvas:{renderMode:'Overlay',sortingOrder:0}});
 const menu=N('MainMenuGui(Clone)',[],{canvas:{renderMode:'Camera',worldCamera:'UICamera',planeDistance:100,sortingLayerID:7,sortingOrder:1010}});
 const mapScene=N('MapSceneContext');sceneRoots=[menu,mapScene];
@@ -96,7 +96,7 @@ const signatures={
 };
 for(const name of ['UnityEngine.UI.Toggle','UnityEngine.UI.Button','Niantic.Holoholo.UI.PgoButton','Niantic.Holoholo.UI.ModalButton','Niantic.Holoholo.UI.ModalEvent',
   'UnityEngine.Events.UnityAction','System.Action','Niantic.Holoholo.UI.NotificationSettingsGuiController','Niantic.Holoholo.Map.UI.MainMenuGuiController',
-  'Niantic.Holoholo.MapSceneContext'])signatures[name]=[];
+  'Niantic.Holoholo.MapSceneContext','Niantic.Holoholo.Widget.ScrollerEvent'])signatures[name]=[];
 const statics={
   Instantiate:(original,parent)=>{const made=copy(original.node);if(parent){made.parent=parent.node;parent.node.children.push(made);}else sceneRoots.push(made);return wrap(made);},
   Destroy:object=>{pending.push(object.node);},DestroyImmediate:object=>detach(object.node),
@@ -114,6 +114,7 @@ const toggleEvent={...event('UnityEngine.UI.Toggle.ToggleEvent'),
 const fields={onValueChanged:{type:{name:toggleEvent.type.name,class:toggleEvent}},
   m_OnClick:{type:{name:'UnityEngine.UI.Button.ButtonClickedEvent',class:event('UnityEngine.UI.Button.ButtonClickedEvent')}},
   _onClick:{type:{name:'Niantic.Holoholo.UI.PgoButtonClickedEvent',class:event('Niantic.Holoholo.UI.PgoButtonClickedEvent')}},
+  ScrollEvent:{type:{name:'UnityEngine.Events.UnityEvent',class:event('UnityEngine.Events.UnityEvent')}},
   textKey:{type:{name:'System.String'}},OkButton:{type:{name:'Niantic.Holoholo.UI.IModalButton[]'},value:'ok-buttons'},
   ContinueCancelButtons:{type:{name:'Niantic.Holoholo.UI.IModalButton[]'},value:'continue-cancel-buttons'},OK:{value:'OK'},Cancel:{value:'Cancel'}};
 const types=new Map();
@@ -183,7 +184,7 @@ const page={id:'main',title:'PGQL',sections:[
   assert.deepEqual([parent.toggle.isOn,feed.toggle.isOn,play.toggle.isOn],[false,true,false]);
   assert.equal(planned.toggle.enabled,false);assert.equal(parent.toggle.enabled,true);
   // No control keeps a game listener.
-  for(const control of [parent.toggle,feed.toggle,planned.toggle,lookup(built,'Content/Btn_Back').button,lookup(card,'Pgql_tamagotchi:action:run/PgoButton').pgoButton]) {
+  for(const control of [parent.toggle,feed.toggle,planned.toggle,lookup(built,'Content/Btn_Back').button,lookup(built,'Content/ScrollPanel').scroller,lookup(card,'Pgql_tamagotchi:action:run/PgoButton').pgoButton]) {
     assert.notEqual(control.event,'game');assert.equal(control.event.listeners.length,1);
   }
   const button=lookup(card,'Pgql_tamagotchi:action:run/PgoButton');
@@ -196,7 +197,9 @@ const page={id:'main',title:'PGQL',sections:[
   button.pgoButton.event.listeners[0].fn();
   lookup(content,'Pgql_section1/WidgetElements/Pgql_page:advanced/PgoButton').pgoButton.event.listeners[0].fn();
   lookup(built,'Content/Btn_Back').button.event.listeners[0].fn();
-  assert.deepEqual(events,[['toggle','tamagotchi:feed',false],['toggle','tamagotchi:play',true],['action','tamagotchi:action:run'],['link','advanced'],['back']]);
+  // Pulling the list down past its top closes the page like the back button.
+  lookup(built,'Content/ScrollPanel').scroller.event.listeners[0].fn();
+  assert.deepEqual(events,[['toggle','tamagotchi:feed',false],['toggle','tamagotchi:play',true],['action','tamagotchi:action:run'],['link','advanced'],['back'],['back']]);
   // A throwing handler is contained on the game thread.
   handlers.toggle=()=>{throw Error('boom');};
   parent.toggle.event.listeners[0].fn(true);

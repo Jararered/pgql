@@ -134,6 +134,13 @@ them back when disabled: **Instant Loading** shortens the map refresh throttle,
 Encounter Intro** removes the encounter camera intro. See
 [PERFORMANCE.md](docs/PERFORMANCE.md) and [ENCOUNTERS.md](docs/ENCOUNTERS.md).
 
+### Shows IVs in Inventory
+
+Default-off module that replaces each name in the Pokémon inventory grid with
+its `Attack/Defense/HP` IVs, read from the data the game hands to each cell.
+Eggs keep their label. Disabling puts the names back on the visible cells. It is
+display-only: nothing is renamed and nothing is sent to the server.
+
 ### Virtual GO Plus
 
 For Virtual GO Plus, use **Start GO Plus session** in PGQL. This attaches to the

@@ -78,7 +78,7 @@ and GOPLUS.md. This table preserves the requested scope for subsequent work.
 | `boss-movesets` | Available raid metadata and early notifications; timing requires verification | Planned |
 | `encounter-iv-names` | Encounter name formatting from authoritative IVs | Planned |
 | `show-encounter-iv` | Encounter IV toast | Planned |
-| `inventory-ivs` | Inventory name presentation from IVs | Planned |
+| `inventory-ivs` | Shows Attack/Defense/HP IVs in place of names in the inventory grid (`agent/adapters/game-inventory-ivs.js`) | Implemented (0.431.0) |
 | `skip-encounter-intro` | Zeroes the encounter camera intro; see [ENCOUNTERS.md](ENCOUNTERS.md) | Implemented (0.431.0) |
 | `mock-locations-patch` | Version-specific location handling and joystick integration | Planned |
 | `spawn-booster` | Map query radius/loading; server-visible limits require verification | Planned |
