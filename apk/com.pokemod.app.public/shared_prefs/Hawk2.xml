@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<map>
+    <string name="AUTH_TOKEN">java.lang.String##0V@AQLakzJH2OvTM0gbfPWWo0Yw/craCwkI7Wouro+HDRi4YAPMDC5yTmOS5LHsWgiKCGMrAsEQEK0VYs42xbIqcSpiDuVx11yc3ISzD9Cz2/7/JyHY9yBrSWdDKhlc6m9Iw8R4UjCTOyno8zfwuqRgtnONhdrivOqX41PlAMhd/NsY/ZZKiEvywEJV9UCMEirW+zM+GuDueekpW3nfI+QPcUuE7FLNa8quUvXQsnnttOQqOKpFc23WPS9+Fr/lVvo+MmKiWZ8ByGr7nsznikaPsuZtpiQyLus8c11fbH6hk6c/ogzWTXjIgVO3Ivya7pq87Ti0k8OmRs9GylP234DiZt9YtigRzyqMAbn//ms=</string>
+    <string name="SIGNALS_DEVICE_SSAID_V2">java.lang.String##0V@AQKgj38mvn4Nz/REcM51nL5O661cPv0AxuSkL0F11S3F0gyJDAhMHCvEI/Czcy4i</string>
+    <string name="GAME_VERSION">java.lang.String##0V@AQKC9n3rt73zMXpQgDTECLuQnflQC0DpXBEJHOUmKaKuSm300QtC</string>
+    <string name="SIGNALS_INSTALLATION_UUID">java.lang.String##0V@AQKdWIiBUKvWpOFnjfRZFRPrePXuRsp9anmC7X/0dRhX0guzwzt+a8aQnFbUbEGdMGiynHbTP8hi5shuUIzuhuLVlDA=</string>
+    <string name="TIER">java.lang.String##0V@AQK8fLBPqrLswYDq0TmpQ/6RAR38oWyQzE/dAxJcmy0DhQ8=</string>
+    <string name="APP_THEME">java.lang.Integer##0V@AQL4dvcV16eYUN9OUVok4zt+iVhlRCFf6VGPGatgGw==</string>
+    <string name="ENABLE_GAY_MODE_TOGGLE">java.lang.Boolean##0V@AQJoMzY11CcwocrRpBlYTIqhWA5xZZrK9AbnNiaADyFumgo=</string>
+    <string name="SIGNALS_AB_PLACEMENTS">java.lang.String##0V@AQIp+z46/9gux658rzI6K1LSPs//ZyHtTDao62lzYR0HCmo+PDwj3lWIlQqfeuaip+TZi7ZMXNB+yvDaOCDYHwEelrFImaW3DzbE0Coq2T87IGc3Sc5Jwaibtw116EFay4rjUe28YHPcbLuBlBefT66ZkRFlUuDG727imNu83dpQqyXkjWooP0YpHLC6TP2oXJTRrcjDcTcv</string>
+    <string name="REFRESH_TOKEN">java.lang.String##0V@AQIVRFWGdvNWpjSfDpNIGIlJP3XhiDlTWy4dm9e8ymVOE4NOWSqwrIipYmSZrQvR0JApIMF5bjBQRWn5EwhkAAzA+aVh484gzXB1pT9zAqJLxry6XDZXxommx8FQi2JXoMWNU/A6/jC52RVIeAY+gC8H/sO4svmg4WoIYk/kNXaTDWe+00qPvNXeivTg2I8+XHdnWHY2V5P7zvfA2gZVxUmBAaosenqRBQ3alLRAkaN0Vyg1hO24PE/FzdOsVtRGstqSG1gz1bqxIJo4ROdK0CH2UUGv7+gimCP4VAsbH5Lb0rNcDI983wbsA3yJreHPqWidKdxaNlLR6cVol4D6iqtPleA8YNzakJF189ZKkYzUDIdOFlYnuQRjnkJkDP9+</string>
+    <string name="EMAIL">java.lang.String##0V@AQIa4wiUov+X0arnTKi56/HqTUNuhqtYvYEfUfmM4CmZExCqn2fYWjbhszD78N3dqjo9</string>
+    <string name="SIGNALS_SESSION">java.lang.String##0V@AQIdSLJcJ1V58+UZOzT2evotQxIih7ahIwSKJUAk0hwxS0k8Ei0Q7eFnKvtwS8+/ckKkX7RID8TpR3g+ILFOQB+Gi/Z+c98RL3QcuOCFGnilDXQPZGZcJil20GmuPibDvBxUqf3lj3GK31Hps/0m7BKXPb4LwievibpLPFVqV5ar09Wly8VM1BdVQCTG6yRuinOk4eHaWT1u1sMcBd/Aocup+f/EIadCVMalaIU5I40zTR+ha26xBGM61TExIG3G80QnDUsbX36EKKNYDTrYGVz/z7v60fRuxm+lDBsSIPOZUPDyTfzHRd+3z2Rrr/6xctFT54TeAAyNtdxZszPasTs0dUn9ATsRP/AA4y3sr1vVZlpjePopNezmRKeQMtRF7yzsH0fZSl+/7kVw9xIK+56b2/jaeyc2w0ykNXqhkdVFLh4ag819ePdUkxR6uWljT/sV5SsEx5IFpyhJJsAZ/T+ieF3BIpaR0o+8+EGNVlUhzjVIkgifK7hNu9F6AHA7dGSxaz5LxiFgvrC9YseCyEPpu2C/Ud1bkzSrdiybTJNTgF9gN1tpNfvfC+E1RcdHqTu2F7DwopDDNmRkjm60OwuvEjNtH3EysRhbPtiRTZDGeHVO/1nSQQHvnlmL0BKvYDuaGWVNz7yTZva24mzdB+stQ4ZYYi+M65fE+DvPpY4hCkfpZmmyhznCJnu57ZoscSJVrpGb0jhFfFtrRqWbjez+rHfuWXMjqw==</string>
+    <string name="USE_ROOT">java.lang.Boolean##0V@AQJqiyFIIoRH0shb1HIcJ2vtYWa/XChCPmARPDfLl0bH+w==</string>
+    <string name="DISABLE_OOM_PROTECTION">java.lang.Boolean##0V@AQL5TPN4oJqCb/cixfEZPj12T+ErI+rAvcXCddAntwF/XpM=</string>
+    <string name="SIGNALS_INFLIGHT_ATTEMPT">java.lang.String##0V@AQJ1dMCV6gPeXZItEk2XW3kmzltT0JbQVTmiN8+UwggW/zHzdzHW1OPlqujZdnOnQTYahmN4170Ku6VMV80xJHgVSj0lhl24aA4NbG+qhrPxQnzT7mQP+yBJxSSnRNPyGSZK61L653dlW3O1m2iUZgUPATMhqYbBLTwK9oY=</string>
+    <string name="SEASON_THEME_OVERRIDE">java.lang.String##0V@AQIb2EQSaI4Jkt4YVkR3iccWBXPbs/M+SXP+Byu4Ig/W0F5y</string>
+    <string name="ROOT_SOLUTION">java.lang.String##0V@AQL8e7ntMfqAdkohFAyhg7zt/zbWezRKkPcfr/BEy+1afRpbXug=</string>
+    <string name="GAME_ARCH">java.lang.String##0V@AQKP24wz2b/Jfp4/boFLqemBmrXMvMAw1Sjcz6jmBbA7H0464A==</string>
+    <string name="FIRST_LAUNCH">java.lang.Boolean##0V@AQINpYLC9i9Y7QGREPNCXclB2XflN4mDOGt6jmfCzh7thFE=</string>
+    <string name="RECORDING_MODE_ENABLED">java.lang.Boolean##0V@AQLbf/20zQPrELENPa9k3skOLtxzruE3vDymKgZU/jyqdU8=</string>
+    <string name="DISCORD_TOKEN">java.lang.String##0V@AQLTDdenym0OBrFLj5jUa2QTlQOBX4tx2WDdJLPIKY4=</string>
+    <string name="ACCOUNT_ORDER">##1V@AQKwhZka60k/oMUsZYfhTdRy9lT36oAyJevvWv7SrIg=</string>
+</map>

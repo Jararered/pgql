@@ -1,0 +1,17 @@
+{
+  "name": "pgql",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Pokemon Go QoL injected module framework",
+  "scripts": {
+    "test": "node tests/runtime.test.cjs && node tests/gift-queue.test.cjs && node tests/mass-gift.test.cjs && node tests/encounter-module.test.cjs && node tests/encounter-adapter.test.cjs && node tests/go-plus-adapter.test.cjs && node tests/virtual-go-plus.test.cjs && node tests/feature-framework.test.cjs && node tests/buddy-care.test.cjs && node tests/tamagotchi.test.cjs && node tests/buddy-profile.test.cjs"
+  },
+  "dependencies": {
+    "buffer": "6.0.3",
+    "frida-il2cpp-bridge": "0.14.0",
+    "frida-java-bridge": "7.0.13"
+  },
+  "devDependencies": {
+    "esbuild": "0.28.2"
+  }
+}

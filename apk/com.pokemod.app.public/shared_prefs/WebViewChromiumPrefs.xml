@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<map>
+    <set name="CachedParams" />
+    <int name="lastVersionCodeUsed" value="807802513" />
+    <set name="CachedFlagsEnabled">
+        <string>WebViewMultiProfileSkipDefaultProfile</string>
+        <string>EnablePerfettoSystemTracing</string>
+        <string>WebViewProfileStoreNotTriggerStartup</string>
+        <string>WebViewReducedSeedRequestPeriod</string>
+        <string>WebViewBackgroundTracingInit</string>
+        <string>WebViewMoveWorkToProviderInit</string>
+    </set>
+    <set name="CachedFlagsDisabled">
+        <string>StartupNonBlockingWebViewConstructor</string>
+        <string>WebViewReducedSeedExpiration</string>
+        <string>WebViewStaticMethodsNotTriggerStartup</string>
+    </set>
+</map>
