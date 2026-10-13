@@ -1,6 +1,6 @@
 'use strict';
 Qol.register({
-  id:'mass-gift',name:'Mass Gift',
+  id:'mass-gift',name:'Mass Gift',description:'Send or open gifts for all friends in one batch.',
   actions:[{id:'preview',label:'Preview friends and gifts'},{id:'send',label:'Send gifts',confirm:true},{id:'open',label:'Open gifts',confirm:true},{id:'cancel',label:'Cancel batch'},{id:'status',label:'Batch status'}],
   enable(ctx) {
     if(this.retiredQueue && (this.retiredQueue.busy || this.retiredQueue.pendingOperations))throw Error('Previous gift request is still settling');

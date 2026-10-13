@@ -9,7 +9,7 @@
 // log lines back through the internal 'companion' invoke.
 globalThis.PgqlGoPlusModule = function(id,name) {
   return {
-    id,name,
+    id,name,description:'Pairs the game with a virtual GO Plus accessory.',
     settings:[
       {key:'auto-catch',label:'Auto catch Pokemon',type:'boolean',default:true},
       {key:'auto-spin',label:'Auto spin Pokestops',type:'boolean',default:true},

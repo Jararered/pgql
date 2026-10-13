@@ -187,3 +187,52 @@ real settings panel from the installed APK, the floating-button fallback on
 device, a menu rebuilt after a scene change, and prolonged stability. Evidence:
 `build/main-menu-metadata-probe.jsonl`, `build/main-menu-probe.jsonl`,
 `build/main-menu-build.log`.
+
+## Native settings pages validation
+
+The PGQL row now opens settings pages built from the game's own Notifications
+settings prefab (`agent/adapters/game-settings-screen.js`), with developer
+modules behind **Advanced Settings** and action confirmations/results in the
+game's modal dialogs. Local: `npm test` (fourteen suites) pass, including
+`tests/settings-layout.test.cjs` and `tests/settings-screen.test.cjs`.
+
+`build/pgql-debug.apk`: 45646363 bytes; SHA-256
+`b3313ed5034c56e0554e9794e757f670a32fb83e0eb823bb7cf9101abe59b88a`. Installed,
+then attached from the controller to a freshly started game (GO 0.431.0 /
+Unity 6000.3.21f1, PID 5788) that had never opened the game's Settings:
+
+- The PGQL row opened the native main page (`Native settings page shown`,
+  43 rows) with saved module states restored; no floating button was shown
+  (`build/native-settings-main.png`, `build/native-settings-main-2.png`).
+- Module rows carry descriptions, their settings render as indented sub-toggles,
+  planned features are greyed-out rows, and the page scrolls.
+- Headshot **Feature status** returned `phase: ready` in a native OK dialog
+  (`build/native-settings-status-prompt.png`).
+- Toggling Tamagotchi **Take buddy snapshots** off and on emitted both `config`
+  events and the game-private `pgql_settings` preferences followed each change.
+- Mass Gift **Send gifts** ran the read-only preview (82 friends, 32 gifts) and
+  showed a native Continue/Cancel dialog; **Cancel was chosen** and no batch
+  progress was logged (`build/native-settings-gift-prompt.png`).
+- **Advanced Settings** showed only Target diagnostics and Library load observer
+  (`build/native-settings-advanced.png`); the back button returned to the main
+  page.
+- Detaching from the controller with the page open acknowledged shutdown,
+  reported `crashed:false`, removed the page and left the game running
+  (`build/native-settings-detached.png`).
+
+Earlier in the same work, a harness run of the adapter also exercised a refresh
+of rows changed outside the page and the Continue answer of the confirm dialog
+(`build/settings-harness.jsonl`). The prefab discovery log is
+`build/settings-discovery-probe.jsonl`.
+
+Two game exits occurred during this work, both when a validation runner
+attached while the controller app was also being used on the phone: a native
+SIGSEGV (`build/settings-attach-crash.log`, PID 32546) and a system kill during
+script load (PID 3748). Single attaches to a fresh process succeeded.
+
+Not established: that the game's own notification settings are untouched was
+not checked on their screen (the copied screen is never opened through the
+game's GUI stack or initialized, and every cloned control gets a fresh event);
+the Android system back button is not handled by the page; the Android-dialog
+fallback and a real gift send from the native page were not exercised; behavior
+of the page across a scene change and prolonged stability are untested.

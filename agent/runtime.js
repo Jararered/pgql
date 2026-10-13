@@ -21,21 +21,24 @@ globalThis.Qol = (() => {
     return [...definitions.values()].map(m => ({id: m.id, name: m.name, enabled: active.has(m.id),
       category:globalThis.PgqlFeatures?.get(m.id)?.category || 'Developer',
       requires:[...(globalThis.PgqlFeatures?.get(m.id)?.requires || [])],
-      availability:m.availability || 'implemented',unavailableReason:m.unavailableReason || null,
+      availability:m.availability || 'implemented',unavailableReason:m.unavailableReason || null,description:m.description || null,
       settings:m.settings.map(s=>({...s})),actions:m.actions.map(a=>({...a})),config:{...configurations.get(m.id)}}));
   }
   function register(module) {
     if (!module || typeof module.id !== 'string' || !module.id || definitions.has(module.id)) throw new Error('Duplicate/missing module id');
     if (typeof module.enable !== 'function') throw new Error('Module requires enable');
     if(module.availability!==undefined && !['implemented','experimental','planned'].includes(module.availability))throw Error('Invalid module availability');
+    if(module.description!==undefined && (typeof module.description!=='string' || !module.description))throw Error('Module description must be a non-empty string');
     const settings=module.settings || [], config={}, keys=new Set();
     if (!Array.isArray(settings)) throw new Error('Settings must be an array');
     const schemas=settings.map(setting=>{
       if (!setting || typeof setting.key !== 'string' || !/^[a-zA-Z][a-zA-Z0-9_-]*$/.test(setting.key) || keys.has(setting.key)) throw new Error('Duplicate/invalid setting key');
       if (setting.type !== 'boolean' || typeof setting.default !== 'boolean') throw new Error('Setting requires boolean type and default');
       if (typeof setting.label !== 'string' || !setting.label) throw new Error('Setting requires label');
+      if (setting.description!==undefined && (typeof setting.description!=='string' || !setting.description)) throw new Error('Setting description must be a non-empty string');
       keys.add(setting.key); config[setting.key]=setting.default;
-      return Object.freeze({key:setting.key,label:setting.label,type:setting.type,default:setting.default});
+      return Object.freeze({key:setting.key,label:setting.label,type:setting.type,default:setting.default,
+        ...(setting.description?{description:setting.description}:{})});
     });
     const actions=module.actions || [], actionIds=new Set();
     if (!Array.isArray(actions)) throw new Error('Actions must be an array');

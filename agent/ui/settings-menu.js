@@ -1,6 +1,7 @@
 // Original UI, created in the injected game's Activity (no overlay permission).
-// Opened from a PGQL row in the game's own main menu; a floating button is the
-// fallback when that row cannot be added.
+// A PGQL row in the game's own main menu opens native settings pages built by
+// PgqlGameSettingsScreen. The Android dialog and floating button below are the
+// fallbacks for when the game's UI cannot be used.
 Qol.register({
   id:'pgql-menu',name:'PGQL settings menu',
   enable(ctx) {
@@ -9,6 +10,7 @@ Qol.register({
     const callbacks=new Map(), unique='dev.pgql.injected.S'+Process.id+'_'+Date.now();
     const actionDialogs=new Set(), actionCallbackKeys=new Set(), pendingActions=new Set();
     let serial=0, classes=null, attempted=false, checked=false, badgeKey=null, entry=null, fallback=false;
+    let screen=null, native=true, page='main';
     function fail(error){ctx.log('Settings UI error',{error:String(error)});}
     function main(fn) {
       if(stopped)return;
@@ -95,21 +97,56 @@ Qol.register({
       pendingActions.add(pendingKey);sync();
       Promise.resolve().then(()=>Qol.invoke(module.id,{action:confirmFirst?'preview':action.id,...(confirmFirst?{mode:action.id}:{})})).then(result=>{
         ctx.log('Module action result',{moduleId:module.id,action:confirmFirst?'preview':action.id,result});
-        main(()=>{
-          if(confirmFirst) {
-            const label=(action.label+' '+action.id).toLowerCase();
-            const effect=label.includes('send')?'This will attempt to send gifts to the friends in this preview. Successful sends consume inventory gifts.'
-              :label.includes('open')?'This will attempt to open incoming gifts from the friends in this preview. Successful opens add items to your bag and count toward your daily limit.'
-              :'This will run '+action.label+' for '+module.name+'.';
-            actionDialog(module.name+' — '+action.label,resultText(result)+'\n\n'+effect,()=>invokeAction(module,action,false));
-          }else actionDialog(module.name+' — '+action.label,resultText(result));
-        });
+        if(confirmFirst) {
+          const label=(action.label+' '+action.id).toLowerCase();
+          const effect=label.includes('send')?'This will attempt to send gifts to the friends in this preview. Successful sends consume inventory gifts.'
+            :label.includes('open')?'This will attempt to open incoming gifts from the friends in this preview. Successful opens add items to your bag and count toward your daily limit.'
+            :'This will run '+action.label+' for '+module.name+'.';
+          notify(module.name+' — '+action.label,resultText(result)+'\n\n'+effect,()=>invokeAction(module,action,false));
+        }else notify(module.name+' — '+action.label,resultText(result));
       }).catch(error=>{
-        fail(error);main(()=>actionDialog(module.name+' — '+action.label,'Action failed: '+String(error)));
+        fail(error);notify(module.name+' — '+action.label,'Action failed: '+String(error));
       }).finally(()=>{
         pendingActions.delete(pendingKey);main(sync);
       }).catch(fail);
     }
+    // Native pages. Game-thread callbacks hop to the agent thread before
+    // touching module state.
+    function later(fn){setTimeout(()=>{if(!stopped)try{fn();}catch(error){fail(error);}},0);}
+    function layout(){return PgqlSettingsLayout(Qol.describe().filter(module=>module.id!=='pgql-menu'));}
+    function notify(title,message,continueAction) {
+      const android=()=>main(()=>actionDialog(title,message,continueAction));
+      if(!native || !screen){android();return;}
+      screen.prompt(title,message,!!continueAction).then(accepted=>{
+        if(accepted && continueAction && !stopped)continueAction();
+      }).catch(error=>{fail(error);android();});
+    }
+    function refresh(){if(native && screen)screen.update(PgqlSettingsLayout.values(Qol.describe())).catch(fail);}
+    const handlers={
+      toggle(row,value){later(()=>{
+        try {
+          if(row.key)Qol.setConfig(row.moduleId,row.key,value);
+          else if(value)Qol.enable(row.moduleId);else Qol.disable(row.moduleId);
+        }catch(error){fail(error);refresh();notify(row.label,'Could not change this setting.\n'+String(error));}
+      });},
+      action(row){later(()=>{
+        const module=Qol.describe().find(item=>item.id===row.moduleId),action=module && module.actions.find(item=>item.id===row.actionId);
+        if(!action)return;
+        if(!module.enabled){notify(module.name,'Turn on '+module.name+' first.');return;}
+        invokeAction(module,action,action.confirm);
+      });},
+      link(row){later(()=>showPage(row.page));},
+      back(){later(()=>{if(page!=='main')showPage('main');else screen.hide().catch(fail);});}
+    };
+    function showPage(id) {
+      page=id;
+      screen.show(layout()[id],handlers).catch(error=>{
+        if(stopped)return;
+        // Keep settings reachable: use the Android panel for this session.
+        fail(error);native=false;screen.hide().catch(fail);main(()=>open());
+      });
+    }
+    function openMenu(){if(native && screen)showPage('main');else main(()=>open());}
     function open() {
       if(stopped || opening || (dialog && dialog.isShowing()))return;
       opening=true;
@@ -177,8 +214,9 @@ Qol.register({
     function addEntry() {
       if(entry)return;
       try {
-        // The click arrives on the Unity thread; hop off it before using Java.
-        entry=new PgqlGameMainMenu(ctx,Qol.project.name,()=>setTimeout(()=>main(()=>open()),0));
+        // The click arrives on the Unity thread; hop off it before acting.
+        entry=new PgqlGameMainMenu(ctx,Qol.project.name,()=>later(openMenu));
+        screen=new PgqlGameSettingsScreen(ctx,entry.game);
         entry.start().catch(error=>{
           if(stopped)return;
           fail(error);fallback=true;main(showBadge);
@@ -234,7 +272,7 @@ Qol.register({
     const unsubscribe=Qol.subscribe(change=>{
       if(stopped)return;
       if(change.moduleId==='pgql-menu' || !classes)return;
-      if(['enabled','disabled','config'].includes(change.type))main(()=>{persist();sync();});
+      if(['enabled','disabled','config'].includes(change.type)){main(()=>{persist();sync();});refresh();}
     });
     ctx.cleanup(()=>{
       unsubscribe();stopped=true;

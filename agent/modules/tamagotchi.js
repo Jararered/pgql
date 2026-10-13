@@ -1,6 +1,6 @@
 'use strict';
 Qol.register({
-  id:'tamagotchi',name:'Tamagotchi',availability:'experimental',
+  id:'tamagotchi',name:'Tamagotchi',availability:'experimental',description:'Automatic buddy care: feeding, play and souvenirs.',
   unavailableReason:'Feeding, play and souvenirs bound for 0.431.0; automatic camera and battle flows await verification.',
   settings:[
     {key:'feed',label:'Feed buddy',type:'boolean',default:true},

@@ -1,9 +1,9 @@
 'use strict';
 // Async installation is scoped to one enable generation. A late completion must
 // never resurrect a disabled module or disable a newer enable attempt.
-globalThis.PgqlEncounterModule = function(id,name) {
+globalThis.PgqlEncounterModule = function(id,name,description) {
   return {
-    id,name,actions:[{id:'status',label:'Feature status'}],
+    id,name,description,actions:[{id:'status',label:'Feature status'}],
     enable(ctx) {
       const session={phase:'initializing',reason:null,closed:false,adapter:null};
       this.session=session;

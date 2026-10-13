@@ -1,5 +1,5 @@
 Qol.register({
-  id:'library-watch',name:'Library load observer',
+  id:'library-watch',name:'Library load observer',description:'Logs native libraries as the game loads them.',
   settings:[{key:'logUnloads',label:'Log library unloads',type:'boolean',default:true}],
   enable(ctx) {
     let initialized=false;
