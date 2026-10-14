@@ -46,4 +46,15 @@ assert.equal(ids(pages.main).concat(ids(pages.advanced)).some(id=>id.startsWith(
 assert.equal(layout(Qol.describe().filter(module=>module.id==='headshot')).main.sections.some(section=>section.title==='MORE'),false);
 const values=layout.values(Qol.describe());
 assert.equal(values['instant-catch:enabled'],true);assert.equal(values['tamagotchi:play'],false);assert.equal(values['diagnostics:includeAddresses'],true);
-console.log('Settings layout categories, sub-toggles, actions, planned rows and advanced page tests passed.');
+// Text settings are value rows under their module, between toggles and actions.
+Qol.register({id:'transfer-on-catch',name:'Transfer on Catch',enable(){},invoke(){},actions:[{id:'status',label:'Status'}],
+  settings:[{key:'minIv',label:'Min. IV',type:'text',default:'100',maxLength:8,description:'Below this is transferred.'},{key:'toast',label:'Toast',type:'boolean',default:true}]});
+const transfer=layout(Qol.describe().filter(module=>module.id==='transfer-on-catch')).main.sections[0];
+assert.equal(transfer.title,'INVENTORY');
+assert.deepEqual(plain(transfer.rows.map(row=>[row.kind,row.id,row.indent])),[['toggle','transfer-on-catch:enabled',false],
+  ['value','transfer-on-catch:minIv',false],['toggle','transfer-on-catch:toast',true],['action','transfer-on-catch:action:status',false]]);
+assert.deepEqual(plain(transfer.rows[1]),{kind:'value',id:'transfer-on-catch:minIv',moduleId:'transfer-on-catch',key:'minIv',label:'Min. IV',
+  description:'Below this is transferred.',value:'100',disabled:false,indent:false});
+Qol.setConfig('transfer-on-catch','minIv','15/15/14');
+assert.equal(layout.values(Qol.describe())['transfer-on-catch:minIv'],'15/15/14');
+console.log('Settings layout categories, sub-toggles, value rows, actions, planned rows and advanced page tests passed.');

@@ -8,7 +8,7 @@
 globalThis.PgqlGameSettingsScreen = class PgqlGameSettingsScreen {
   constructor(ctx,game) {
     this.ctx=ctx;this.game=game || new PgqlGameGifts(ctx);this.closed=false;this.bound=null;
-    this.paths=new Map();this.callbacks=[];this.generation=0;
+    this.paths=new Map();this.values=new Map();this.callbacks=[];this.generation=0;
     ctx.cleanup(()=>this.close());
   }
   static get screenName(){return 'PgqlSettingsScreen';}
@@ -153,11 +153,15 @@ globalThis.PgqlGameSettingsScreen = class PgqlGameSettingsScreen {
     made.method('SetActive',1).invoke(true);
     this.paths.set(row.id,path+'/'+name);
   }
-  buttonRow(template,parent,row,handler,container) {
+  // A text setting is a button captioned with its current value.
+  static caption(row,value=row.value){return row.kind==='value'?row.label+': '+(value===''?'—':value):row.label;}
+  buttonRow(template,parent,row,handler,container,path) {
     const b=this.bound,made=b.instantiateIn.invoke(this.object(template),parent),transform=made.method('get_transform',0).invoke();
-    made.method('set_name',1).invoke(this.text('Pgql_'+row.id));
+    const name='Pgql_'+row.id;
+    made.method('set_name',1).invoke(this.text(name));
     const control=this.find(transform,'PgoButton'),background=this.find(control,'Background');
-    this.label(this.find(background,'Text'),b.holoText,row.label);
+    this.label(this.find(background,'Text'),b.holoText,PgqlGameSettingsScreen.caption(row));
+    if(row.kind==='value')this.values.set(row.id,{path:path+'/'+name+'/PgoButton/Background/Text',row});
     this.paint(container,background);
     this.listen(this.component(control,b.pgoButton),'_onClick',b.pressed,this.delegate(b.action,()=>this.run(handler,row)));
     made.method('SetActive',1).invoke(true);
@@ -198,7 +202,7 @@ globalThis.PgqlGameSettingsScreen = class PgqlGameSettingsScreen {
       const blank=b.instantiateIn.invoke(this.object(original),content),blankTransform=blank.method('get_transform',0).invoke();
       for(const child of this.children(this.find(blankTransform,'WidgetElements')))
         if(child.method('get_name',0).invoke().content!=='Background')b.destroyNow.invoke(this.object(child));
-      this.paths.clear();
+      this.paths.clear();this.values.clear();
       page.sections.forEach((section,index)=>{
         const made=b.instantiateIn.invoke(blank,content),transform=made.method('get_transform',0).invoke();
         const name='Pgql_section'+index,path='Content/ScrollPanel/Viewport/Content/'+name+'/WidgetElements';
@@ -218,7 +222,7 @@ globalThis.PgqlGameSettingsScreen = class PgqlGameSettingsScreen {
           }
           const parent=indent || card,parentPath=indent?indentPath:path;
           if(row.kind==='toggle')this.toggleRow(indent?templates.child:templates.row,parent,row,handlers,parentPath);
-          else this.buttonRow(templates.button,parent,row,row.kind==='link'?handlers.link:handlers.action,container);
+          else this.buttonRow(templates.button,parent,row,row.kind==='link'?handlers.link:row.kind==='value'?handlers.edit:handlers.action,container,parentPath);
         }
       });
       for(const leftover of [blankTransform,original,this.find(content,'InGameNotificationWidget')])b.destroyNow.invoke(this.object(leftover));
@@ -233,11 +237,11 @@ globalThis.PgqlGameSettingsScreen = class PgqlGameSettingsScreen {
   // Destroyed rows can no longer raise their events; let their native
   // callbacks go once the frame that destroys them has passed.
   release() {
-    this.paths.clear();
+    this.paths.clear();this.values.clear();
     const stale=this.callbacks.splice(0);
     if(stale.length)setTimeout(()=>{for(const key of stale)delete Il2Cpp._callbacksToKeepAlive[key];},2000);
   }
-  // handlers: toggle(row,value), action(row), link(row), back(). They are called
+  // handlers: toggle(row,value), action(row), edit(row), link(row), back(). They are called
   // on the game thread.
   async show(page,handlers) {
     await this.game.initialize();
@@ -246,7 +250,7 @@ globalThis.PgqlGameSettingsScreen = class PgqlGameSettingsScreen {
       if(this.closed)throw Error('Module disabled');
       if(generation!==this.generation)return false;
       this.bind();this.destroyScreens();this.build(page,handlers);
-      this.ctx.log('Native settings page shown',{page:page.id,rows:this.paths.size});
+      this.ctx.log('Native settings page shown',{page:page.id,rows:this.paths.size+this.values.size});
       return true;
     });
   }
@@ -255,9 +259,9 @@ globalThis.PgqlGameSettingsScreen = class PgqlGameSettingsScreen {
     ++this.generation;
     return this.game.main(()=>this.destroyScreens());
   }
-  // values: row id -> boolean, for rows changed outside the screen.
+  // values: row id -> boolean or text, for rows changed outside the screen.
   async update(values) {
-    if(!this.bound||!this.paths.size)return 0;
+    if(!this.bound||!(this.paths.size||this.values.size))return 0;
     return this.game.main(()=>{
       if(this.closed)return 0;
       const screen=this.screens()[0];if(!screen)return 0;
@@ -267,6 +271,13 @@ globalThis.PgqlGameSettingsScreen = class PgqlGameSettingsScreen {
         const row=root.method('Find',1).invoke(this.text(path));
         if(row.isNull())continue;
         this.bound.quiet.invoke(this.component(row,this.bound.toggle),values[id]);changed++;
+      }
+      for(const [id,entry] of this.values) {
+        if(typeof values[id]!=='string'||values[id]===entry.row.value)continue;
+        const text=root.method('Find',1).invoke(this.text(entry.path));
+        if(text.isNull())continue;
+        entry.row.value=values[id];
+        this.label(text,this.bound.holoText,PgqlGameSettingsScreen.caption(entry.row));changed++;
       }
       return changed;
     });
