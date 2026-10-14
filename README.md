@@ -201,6 +201,15 @@ motivation first, until the server says each one is full or the per-visit cap
 (20 by default) is reached. The gym redraws with the new motivation and a toast
 sums up the visit. See [GYM-FEEDER.md](docs/GYM-FEEDER.md).
 
+### Raid Pack
+
+Default-off module for raids. It attacks for you (the most effective charged
+move when there is energy, the fast move otherwise), dodges boss charged
+attacks, and shortens the raid intro, approach camera, boss intro and fades.
+Raid and Max Battle victories skip straight to the catch. Tapping a raid or a
+Power Spot shows the boss and its moves. Each part has its own switch. Max
+Battles can be left to you. See [RAID-PACK.md](docs/RAID-PACK.md).
+
 ### Virtual GO Plus
 
 For Virtual GO Plus, use **Start GO Plus session** in PGQL. This attaches to the
