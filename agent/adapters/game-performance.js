@@ -1,5 +1,5 @@
 'use strict';
-// Original 0.431.0 adapter. Four independent, reversible visual reductions,
+// Original adapter. Four independent, reversible visual reductions,
 // each applied to the live game through its own switches: the weather service's
 // display flag, the sky dome's cloud renderers, Unity's quality level with the
 // game's resolution scale, and the road renderers of each map tile. Names are
@@ -15,7 +15,7 @@ globalThis.PgqlGamePerformance = class PgqlGamePerformance {
   bind() {
     if(this.bound)return this.bound;
     const version=Il2Cpp.application.version;
-    if(version!=='0.431.0')throw Error('Performance Mode supports game 0.431.0; found '+version);
+    PgqlGameVersion.require(version,'Performance Mode supports');
     const type=name=>this.game.type(name);
     const plain=(klass,name,args,isStatic=false)=>{
       const matches=klass.methods.filter(m=>m.name===name&&!m.isGeneric&&m.isStatic===isStatic&&

@@ -87,7 +87,7 @@ const scene=valid=>object(null,{},{get_scene:()=>object(null,{},{IsValid:()=>val
 const menus=[object(types['Niantic.Holoholo.Map.UI.MainMenuGuiController'],{fullPokeballCanvasGroup:groupObject},{get_gameObject:()=>scene(false)}),
   object(types['Niantic.Holoholo.Map.UI.MainMenuGuiController'],{fullPokeballCanvasGroup:groupObject},{get_gameObject:()=>scene(true)})];
 
-let version='0.431.0',clock=1000000;
+let version='0.433.0',clock=1000000;
 const timers=[];
 const fakeSetTimeout=(fn,ms)=>{const timer={fn,ms,id:timers.length+1};timers.push(timer);return timer;};
 const fakeClearTimeout=timer=>{const index=timers.indexOf(timer);if(index>=0)timers.splice(index,1);};
@@ -98,6 +98,7 @@ const context=vm.createContext({setTimeout:fakeSetTimeout,clearTimeout:fakeClear
   Il2Cpp:{get application(){return {version};},Object:class {constructor(handle){return handle===NULL?NULL:objects.get(handle.id);}},string:content=>({content})},
   Interceptor:{attach:(address,callbacks)=>{const entry={address:address.name,callbacks,detached:false};attached.push(entry);return {detach:()=>{entry.detached=true;}};}}});
 vm.runInContext(read('core/cooldown-policy.js'),context);
+vm.runInContext(read('core/game-version.js'),context);
 vm.runInContext(read('adapters/game-cooldown.js'),context);
 const Cooldown=context.PgqlGameCooldown;
 const teleports=[],logs=[],cleanups=[];
@@ -117,9 +118,9 @@ const KM=1/111.195;
 
 (async()=>{
   // Version gate and strict bindings.
-  version='0.432.0';
-  await assert.rejects(new Cooldown({...ctx,cleanup:()=>{}},{store}).start(),/supports game 0\.431\.0/);
-  version='0.431.0';
+  version='0.434.0';
+  await assert.rejects(new Cooldown({...ctx,cleanup:()=>{}},{store}).start(),/supports game 0\.433\.0/);
+  version='0.433.0';
   closureType.methods.push({...closureType.methods[0]});
   await assert.rejects(new Cooldown({...ctx,cleanup:()=>{}},{store}).start(),/Unsupported location update/);
   closureType.methods.pop();

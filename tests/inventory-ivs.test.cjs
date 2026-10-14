@@ -22,7 +22,7 @@ const signatures={
 };
 const fieldTypes={nameText:'UnityEngine.UI.Text',PokemonProto:'Holoholo.Rpc.PokemonProto',individualAttack_:'System.Int32',individualDefense_:'System.Int32',
   individualStamina_:'System.Int32',isEgg_:'System.Boolean'};
-let cells=[],version='0.431.0';
+let cells=[],version='0.433.0';
 const types=new Map();
 function type(name) {
   if(!signatures[name])throw Error('Unsupported game metadata: '+name);
@@ -38,6 +38,7 @@ const context=vm.createContext({setTimeout,clearTimeout,
   Il2Cpp:{get application(){return {version};},string:content=>({content}),Object:class {constructor(handle){return byPointer.get(handle.id)||NULL_OBJECT;}}},
   Interceptor:{attach:(address,callbacks)=>{attached.set(address,callbacks);return {detach:()=>attached.delete(address)};}},
 });
+vm.runInContext(fs.readFileSync(path.join(__dirname,'../agent/core/game-version.js'),'utf8'),context);
 vm.runInContext(fs.readFileSync(path.join(__dirname,'../agent/adapters/game-inventory-ivs.js'),'utf8'),context);
 const Ivs=context.PgqlGameInventoryIvs;
 const ctx={cleanup:fn=>cleanups.push(fn),log:(message,details)=>logs.push({message,details}),hook:(address,callbacks)=>hooks.set(address,callbacks)};
@@ -45,9 +46,9 @@ const ctx={cleanup:fn=>cleanups.push(fn),log:(message,details)=>logs.push({messa
   assert.equal(Ivs.text(15,14,0),'15/14/0');
   for(const bad of [[16,0,0],[-1,0,0],[1.5,0,0],[undefined,0,0]])assert.equal(Ivs.text(...bad),null);
 
-  version='0.432.0';
-  await assert.rejects(new Ivs({...ctx,cleanup:()=>{}}).start(),/support game 0\.431\.0/);
-  version='0.431.0';assert.equal(hooks.size,0);
+  version='0.434.0';
+  await assert.rejects(new Ivs({...ctx,cleanup:()=>{}}).start(),/support game 0\.433\.0/);
+  version='0.433.0';assert.equal(hooks.size,0);
   fieldTypes.nameText='TMPro.TMP_Text';
   await assert.rejects(new Ivs({...ctx,cleanup:()=>{}}).start(),/Unsupported inventory field: nameText/);
   fieldTypes.nameText='UnityEngine.UI.Text';assert.equal(hooks.size,0,'a changed contract installs nothing');

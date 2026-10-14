@@ -107,7 +107,7 @@ const statics={
   FindObjectOfType:()=>mapSceneLoaded?wrap(mapScene):NULL_OBJECT,
   SetIsOnWithoutNotify_Settings:(toggle,value)=>{toggle.data.isOn=value;},
 };
-let mapSceneLoaded=true,version='0.431.0',serial=0;
+let mapSceneLoaded=true,version='0.433.0',serial=0;
 const event=name=>({type:{name},new:()=>{const listeners=[];return {listeners,method:()=>calls(d=>listeners.push(d))};}});
 const toggleEvent={...event('UnityEngine.UI.Toggle.ToggleEvent'),
   parent:{methods:[{name:'AddListener',parameterCount:1,parameters:[{type:{name:'UnityEngine.Events.UnityAction<System.Boolean>',class:{}}}]}]}};
@@ -131,6 +131,7 @@ const context=vm.createContext({setTimeout,clearTimeout,NULL:null,
     delegate(_type,fn){const key='d'+(++serial);this._callbacksToKeepAlive[key]=fn;return {handle:{toString:()=>key},fn};},Object:class {}},
   Interceptor:{attach:(address,callbacks)=>{attached.set(address,callbacks);return {detach:()=>attached.delete(address)};}},
 });
+vm.runInContext(fs.readFileSync(path.join(__dirname,'../agent/core/game-version.js'),'utf8'),context);
 vm.runInContext(fs.readFileSync(path.join(__dirname,'../agent/adapters/game-settings-screen.js'),'utf8'),context);
 const Screen=context.PgqlGameSettingsScreen;
 const game={type,async initialize(){},async main(fn){return fn();},handleNew:handle=>({isNull:()=>false,handle}),handleFree:pin=>freed.push(pin)};
@@ -152,9 +153,9 @@ const page={id:'main',title:'PGQL',sections:[
     link:item=>events.push(['link',item.page]),back:()=>events.push(['back']),
     edit:item=>events.push(['edit',item.id])};
   // Other game versions, a missing map and changed prefabs leave the scene alone.
-  version='0.432.0';
-  await assert.rejects(new Screen({...ctx,cleanup:()=>{}},game).show(page,handlers),/support game 0\.431\.0/);
-  version='0.431.0';mapSceneLoaded=false;
+  version='0.434.0';
+  await assert.rejects(new Screen({...ctx,cleanup:()=>{}},game).show(page,handlers),/support game 0\.433\.0/);
+  version='0.433.0';mapSceneLoaded=false;
   await assert.rejects(new Screen({...ctx,cleanup:()=>{}},game).show(page,handlers),/Load the game map/);
   mapSceneLoaded=true;assert.equal(shown().length,0);
   const tip=lookup(prefab,'Content/ScrollPanel/Viewport/Content/PushNotificationWidget/WidgetElements/TogglePokemonReturnPN/ToggleContent/Tip');

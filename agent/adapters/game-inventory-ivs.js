@@ -1,5 +1,5 @@
 'use strict';
-// Original 0.431.0 adapter. Shows each Pokemon's IVs in place of its name in
+// Original adapter. Shows each Pokemon's IVs in place of its name in
 // the inventory grid. It only rewrites the cell's own name label after the game
 // has filled it, from the Pokemon data the game passed to that cell. Names are
 // verified from live managed metadata; there are no offsets.
@@ -16,7 +16,7 @@ globalThis.PgqlGameInventoryIvs = class PgqlGameInventoryIvs {
   bind() {
     if(this.bound)return this.bound;
     const version=Il2Cpp.application.version;
-    if(version!=='0.431.0')throw Error('IVs in inventory support game 0.431.0; found '+version);
+    PgqlGameVersion.require(version,'IVs in inventory support');
     const type=name=>this.game.type(name);
     const plain=(klass,name,args,isStatic=false)=>{
       const matches=klass.methods.filter(m=>m.name===name&&!m.isGeneric&&m.isStatic===isStatic&&

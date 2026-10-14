@@ -4,7 +4,7 @@ Original implementation in `agent/core/scanner-policy.js` (rules and scan
 cache), `agent/adapters/game-shiny-scanner.js` (game access) and
 `agent/modules/shiny-scanner.js`. It reproduces the behaviour of Pokemod 13.8.0's
 feature of the same name as read from `analysis/`. No recovered code is used. The
-adapter is gated to GO 0.431.0 and checks every managed name, signature and field
+adapter is gated to GO 0.433.0 and checks every managed name, signature and field
 type before installing a hook. It has no offsets. The module is off by default and
 runs in the main game process only.
 

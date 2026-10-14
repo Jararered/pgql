@@ -1,5 +1,5 @@
 'use strict';
-// Original 0.431.0 profile, resolved from live managed metadata. No game offsets.
+// Original profile, resolved from live managed metadata. No game offsets.
 globalThis.PgqlBuddyProfile = class PgqlBuddyProfile {
   constructor(ctx) {
     this.ctx=ctx;this.closed=false;this.game=new PgqlGameGifts(ctx);
@@ -151,4 +151,4 @@ globalThis.PgqlBuddyProfile = class PgqlBuddyProfile {
   snapshot(config){return this.read(config);}
   execute(action,request){return this.read(request.config,{...request,action});}
 };
-PgqlGameAdapters.register('buddy','0.431.0',ctx=>new PgqlBuddyProfile(ctx));
+PgqlGameAdapters.register('buddy',PgqlGameVersion.supported,ctx=>new PgqlBuddyProfile(ctx));

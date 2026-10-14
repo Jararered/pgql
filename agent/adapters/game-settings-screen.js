@@ -1,5 +1,5 @@
 'use strict';
-// Original 0.431.0 adapter. Shows PGQL settings pages built from the game's own
+// Original adapter. Shows PGQL settings pages built from the game's own
 // Notifications settings prefab: its title, section cards, toggle rows, indented
 // sub-toggle groups and buttons. The copy is never opened through the game's GUI
 // stack or dependency-injected as a controller, so none of the game's own
@@ -15,7 +15,7 @@ globalThis.PgqlGameSettingsScreen = class PgqlGameSettingsScreen {
   bind() {
     if(this.bound)return this.bound;
     const version=Il2Cpp.application.version;
-    if(version!=='0.431.0')throw Error('Native settings support game 0.431.0; found '+version);
+    PgqlGameVersion.require(version,'Native settings support');
     const type=name=>this.game.type(name);
     const plain=(klass,name,args,isStatic=false)=>{
       const matches=klass.methods.filter(m=>m.name===name&&!m.isGeneric&&m.isStatic===isStatic&&

@@ -16,6 +16,7 @@ const context=vm.createContext({
  Il2Cpp:{Object:function(handle){return objects.get(handle.id)||nil},delegate:(type,fn)=>Object.assign(managed({}),{callback:fn})},
  setTimeout:fn=>fn(),Qol:{disable:()=>events.push('disabled')}
 });
+vm.runInContext(fs.readFileSync(require('node:path').join(__dirname,'../agent/core/game-version.js'),'utf8'),context);
 vm.runInContext(fs.readFileSync(require('node:path').join(__dirname,'../agent/adapters/game-encounters.js'),'utf8'),context);
 const Adapter=context.PgqlGameEncounters;
 function fixture() {
@@ -37,7 +38,7 @@ function fixture() {
  const launch=method(ball,'Launch',0,'System.Void');
  field(ball,'HitGround',{name:'System.Action',class:{}});field(ball,'HitKillZone',{name:'System.Action',class:{}});
  const state=add('Niantic.Holoholo.Encounter.EncounterState');field(state,'<RaidBallCount>k__BackingField',{name:'System.Int32'});method(state,'EncounterStateComplete',1,'System.Void',()=>{},['System.Int32']);
- field(ball,'encounterState',{name:'State',class:state});
+ field(ball,'encounterState',{name:'Zenject.LazyInject<Niantic.Holoholo.Encounter.IEncounterState>',class:state});
  const request=add('CatchPokemonProto'),ar=add('ARPlusEncounterValuesProto');
  const calculate=method(request,'CalculateSize',0,'System.Int32',o=>{o.sized=o.fields.SpinModifier;return 23});
  field(request,'SpinModifier',{name:'System.Single'});
@@ -85,7 +86,7 @@ function call(m,o,...args){return replacements.has(m.virtualAddress.id)?replacem
 {
  const f=fixture(),a=f.adapter,frames=[];a.scheduler.main=fn=>{frames.push(fn);return Promise.resolve()};
  const interaction=klass('Niantic.Holoholo.Encounter.EncounterInteractionState');f.types.set(interaction.name,interaction);
- const intro=method(interaction,'IntroCompleted',0,'System.Void');field(interaction,'encounterState',{name:'State'});
+ const intro=method(interaction,'IntroCompleted',0,'System.Void');field(interaction,'encounterState',{name:'Zenject.LazyInject<Niantic.Holoholo.Encounter.IEncounterState>'});
  const stateClass=f.types.get('Niantic.Holoholo.Encounter.EncounterState');stateClass.methods=[];let exits=0;
  const complete=method(stateClass,'EncounterStateComplete',1,'System.Void',()=>{exits++},['System.Int32']);complete.parameters[0].type.class={isEnum:false};
  const output=klass('CatchPokemonOutProto');f.types.set(output.name,output);
@@ -102,7 +103,7 @@ function call(m,o,...args){return replacements.has(m.virtualAddress.id)?replacem
 {
  const f=fixture(),a=f.adapter,ball=f.types.get('Niantic.Holoholo.Encounter.Pokeball');
  const pokemon=f.types.get('Niantic.Holoholo.Encounter.EncounterPokemon'),reticle=f.types.get('Niantic.Holoholo.Encounter.Reticle');
- field(ball,'pokemon',{class:pokemon});field(ball,'reticle',{class:reticle});field(ball,'<BallType>k__BackingField',{});
+ field(ball,'pokemon',{name:'Niantic.Holoholo.Encounter.IEncounterPokemon',class:pokemon});field(ball,'reticle',{name:'Niantic.Holoholo.Encounter.IReticle',class:reticle});field(ball,'<BallType>k__BackingField',{});
  const transform=klass('Transform'),go=klass('GameObject'),collider=klass('UnityEngine.Collider'),vector=klass('UnityEngine.Vector3'),collisionClass=klass('Collision'),pairClass=klass('Pair');
  f.types.set(collider.name,collider);f.types.set(vector.name,vector);
  const ballTransform=method(ball,'get_Transform',0,'Transform',o=>o.fields.transform);ballTransform.returnType.class=transform;
@@ -131,7 +132,7 @@ function call(m,o,...args){return replacements.has(m.virtualAddress.id)?replacem
  const enter=method(interaction,'EnterState',0,'System.Void',o=>{o.entered=(o.entered||0)+1});
  const camera=klass('Niantic.Holoholo.Encounter.EncounterParkCameraController');
  field(camera,'tweenDurationSeconds',{name:'System.Single'});field(camera,'introDurationSeconds',{name:'System.Single'});
- field(interaction,'encounterState',{name:'State'});field(interaction,'parkCameraController',{name:camera.name,class:camera});
+ field(interaction,'encounterState',{name:'Zenject.LazyInject<Niantic.Holoholo.Encounter.IEncounterState>'});field(interaction,'parkCameraController',{name:camera.name,class:camera});
  const stateClass=f.types.get('Niantic.Holoholo.Encounter.EncounterState');field(stateClass,'<IsRaidOrIncidentEncounter>k__BackingField',{name:'System.Boolean'});
  a.skipIntro();
  const park=managed({tweenDurationSeconds:0.5,introDurationSeconds:0.2}),state=managed({'<IsRaidOrIncidentEncounter>k__BackingField':false});
@@ -148,8 +149,17 @@ function call(m,o,...args){return replacements.has(m.virtualAddress.id)?replacem
  // A changed camera contract installs nothing.
  const f=fixture(),a=f.adapter;
  const interaction=klass('Niantic.Holoholo.Encounter.EncounterInteractionState');f.types.set(interaction.name,interaction);
- method(interaction,'EnterState',0,'System.Void');field(interaction,'encounterState',{name:'State'});
+ method(interaction,'EnterState',0,'System.Void');field(interaction,'encounterState',{name:'Zenject.LazyInject<Niantic.Holoholo.Encounter.IEncounterState>'});
  field(interaction,'parkCameraController',{name:'SomethingElse',class:klass('SomethingElse')});
  assert.throws(()=>a.skipIntro(),/Unsupported encounter field/);assert.equal(replacements.size,0);
+}
+{
+ // Typed fields must be unique; a second field of the same type is ambiguous.
+ const f=fixture(),a=f.adapter,lazy='Zenject.LazyInject<Niantic.Holoholo.Encounter.IEncounterState>';
+ const interaction=klass('Niantic.Holoholo.Encounter.EncounterInteractionState');
+ field(interaction,'drqd',{name:lazy});assert.equal(a.typedField(interaction,lazy).name,'drqd');
+ field(interaction,'other',{name:lazy});
+ assert.throws(()=>a.typedField(interaction,lazy),/Unsupported encounter field/);
+ assert.throws(()=>a.typedField(interaction,'Missing.Type'),/Unsupported encounter field/);
 }
 console.log('Encounter adapter catch sequencing, throw overrides, recovery, collision targeting, intro skipping, cleanup and contract validation tests passed.');

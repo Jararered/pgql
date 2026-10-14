@@ -2,7 +2,7 @@
 
 Original implementations in `agent/adapters/game-map-refresh.js`,
 `agent/adapters/game-performance.js` and their modules in `agent/modules/`. Both
-are gated to GO 0.431.0, check every managed name they use before changing
+are gated to GO 0.433.0, check every managed name they use before changing
 anything, and only use switches the game itself exposes. Because PGQL attaches
 after the game has started, they change the **live** objects and restore them on
 disable; restore runs on the next game frame.

@@ -1,5 +1,5 @@
 'use strict';
-// Original 0.431.0 adapter. Watches for caught Pokemon (the parsed catch result,
+// Original adapter. Watches for caught Pokemon (the parsed catch result,
 // and accessory catches in the action log), waits for the new Pokemon to reach
 // the bag and releases it through the game's own bag service unless
 // PgqlTransferPolicy keeps it. Names are verified from live managed metadata;
@@ -17,7 +17,7 @@ globalThis.PgqlGameTransferOnCatch = class PgqlGameTransferOnCatch {
   bind() {
     if(this.bound)return this.bound;
     const version=Il2Cpp.application.version;
-    if(version!=='0.431.0')throw Error('Transfer on Catch supports game 0.431.0; found '+version);
+    PgqlGameVersion.require(version,'Transfer on Catch supports');
     const type=name=>this.game.type(name),number=PgqlGameTransferOnCatch.number;
     const plain=(klass,name,args,returns,isStatic=false)=>{
       const matches=klass.methods.filter(m=>m.name===name&&!m.isGeneric&&m.isStatic===isStatic&&

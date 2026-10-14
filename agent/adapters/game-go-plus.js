@@ -1,7 +1,7 @@
 'use strict';
 // Original Virtual GO Plus adapter. Reproduces the recovered device-simulation
 // behavior against the live game through libholoholo.so exports only; the
-// struct offsets and mangled names are version-pinned to GO 0.431.0 and
+// struct offsets and mangled names are version-pinned to GO 0.433.0 and
 // documented in GOPLUS.md. No recovered code is loaded.
 globalThis.PgqlGameGoPlus = class PgqlGameGoPlus {
   constructor(ctx) {
@@ -68,7 +68,7 @@ globalThis.PgqlGameGoPlus = class PgqlGameGoPlus {
     if(Process.pointerSize!==8)throw Error('Virtual GO Plus requires Android arm64');
     const version=await PgqlPackageVersion();
     this.version=version;
-    if(version!=='0.431.0')throw Error('Virtual GO Plus supports game 0.431.0; found '+version);
+    PgqlGameVersion.require(version,'Virtual GO Plus supports');
     this.lib=Process.getModuleByName('libholoholo.so');
     if(!this.lib)throw Error('libholoholo.so is not loaded');
     const sym=name=>{const address=this.lib.findExportByName(name);if(!address)throw Error('Unsupported export: '+name);return address;};

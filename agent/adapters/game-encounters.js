@@ -36,6 +36,15 @@ globalThis.PgqlGameEncounters = class PgqlGameEncounters {
     if(matches.length!==1)throw Error('Unsupported encounter field: '+type.fullName+'.'+names.join('/'));
     return matches[0];
   }
+  // Obfuscated member names change between builds; these fields are the only
+  // instance fields of their declared type, so resolve them by that type.
+  typedField(type,typeName) {
+    const matches=[];
+    for(const klass of type.hierarchy({includeCurrent:true}))for(const field of klass.fields)
+      if(!field.isStatic && field.type.name===typeName)matches.push(field);
+    if(matches.length!==1)throw Error('Unsupported encounter field: '+type.fullName+' of type '+typeName);
+    return matches[0];
+  }
   protoField(type,name) {
     const fields=type.fields.filter(f=>!f.isStatic && f.name.replace(/^_|_$/g,'').toLowerCase()===name.toLowerCase());
     if(fields.length!==1)throw Error('Unsupported proto field: '+type.fullName+'.'+name+'; fields: '+type.fields.map(f=>f.name).join(','));
@@ -88,7 +97,7 @@ globalThis.PgqlGameEncounters = class PgqlGameEncounters {
     if(this.closed)return;
     await this.scheduler.main(()=>{
       if(this.closed)return;
-      if(Il2Cpp.application.version!=='0.431.0')throw Error('Encounter features require game 0.431.0; found '+Il2Cpp.application.version);
+      PgqlGameVersion.require(Il2Cpp.application.version,'Encounter features require');
       try {
         if(feature==='instant-catch')this.instantCatch();
         else if(feature==='perfect-throw')this.perfectThrow();
@@ -122,7 +131,7 @@ globalThis.PgqlGameEncounters = class PgqlGameEncounters {
   instantCatch() {
     const interaction=this.type('Niantic.Holoholo.Encounter.EncounterInteractionState');
     const intro=this.method(interaction,'IntroCompleted',0);
-    const stateField=this.field(interaction,['encounterState','drde','dqjd']);
+    const stateField=this.typedField(interaction,'Zenject.LazyInject<Niantic.Holoholo.Encounter.IEncounterState>');
     const output=this.type('CatchPokemonOutProto');
     const status=this.protoField(output,'Status');
     const parse=output.methods.filter(m=>!m.isStatic && m.parameterCount===1 && m.returnType.name==='System.Void' && /(?:ParseContext|CodedInputStream)/.test(m.parameters[0].type.name));
@@ -176,7 +185,7 @@ globalThis.PgqlGameEncounters = class PgqlGameEncounters {
     const activate=this.method(ball,'SetActive',1,'System.Void',['System.Boolean']);
     const ground=this.field(ball,['HitGround'],t=>t.name==='System.Action');
     const kill=this.field(ball,['HitKillZone'],t=>t.name==='System.Action');
-    const stateField=this.field(ball,['encounterState','drde','dqjd']);
+    const stateField=this.typedField(ball,'Zenject.LazyInject<Niantic.Holoholo.Encounter.IEncounterState>');
     const stateType=this.type('Niantic.Holoholo.Encounter.EncounterState');
     const raidCount=this.field(stateType,['<RaidBallCount>k__BackingField'],t=>t.name==='System.Int32');
     const complete=this.method(stateType,'EncounterStateComplete',1,'System.Void');
@@ -260,7 +269,7 @@ globalThis.PgqlGameEncounters = class PgqlGameEncounters {
   skipIntro() {
     const interaction=this.type('Niantic.Holoholo.Encounter.EncounterInteractionState');
     const enter=this.method(interaction,'EnterState',0,'System.Void');
-    const stateField=this.field(interaction,['encounterState','drde','dqjd']);
+    const stateField=this.typedField(interaction,'Zenject.LazyInject<Niantic.Holoholo.Encounter.IEncounterState>');
     const cameraField=this.field(interaction,['parkCameraController'],t=>t.name==='Niantic.Holoholo.Encounter.EncounterParkCameraController');
     const tween=this.field(cameraField.type.class,['tweenDurationSeconds'],t=>t.name==='System.Single');
     const intro=this.field(cameraField.type.class,['introDurationSeconds'],t=>t.name==='System.Single');
@@ -292,8 +301,8 @@ globalThis.PgqlGameEncounters = class PgqlGameEncounters {
   headshot() {
     const ball=this.type('Niantic.Holoholo.Encounter.Pokeball');
     const launch=this.method(ball,'Launch'),collision=this.method(ball,'OnCollisionEnter',1,'System.Void');
-    const pokemonField=this.field(ball,['pokemon','dreb']);
-    const reticleField=this.field(ball,['reticle','drea']);
+    const pokemonField=this.typedField(ball,'Niantic.Holoholo.Encounter.IEncounterPokemon');
+    const reticleField=this.typedField(ball,'Niantic.Holoholo.Encounter.IReticle');
     const ballType=this.field(ball,['<BallType>k__BackingField']);
     const transform=this.method(ball,'get_Transform',0);
     const reticleTransform=this.method(this.type('Niantic.Holoholo.Encounter.Reticle'),'get_Transform',0);

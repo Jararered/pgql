@@ -17,9 +17,9 @@ for(const feature of Qol.describe().filter(x=>x.availability==='planned')) {
 const row=Qol.describe().find(x=>x.id==='magic-bag');row.requires.push('mutated');
 assert.equal(Qol.describe().find(x=>x.id==='magic-bag').requires.includes('mutated'),false);
 assert.equal(Adapters.has('buddy'),false);
-Adapters.register('buddy','0.431.0',ctx=>({ctx}));
+Adapters.register('buddy','0.433.0',ctx=>({ctx}));
 assert.equal(Adapters.has('buddy'),true);
-assert.throws(()=>Adapters.create('buddy','0.432.0',{}),/No verified/);
-assert.throws(()=>Adapters.register('buddy','0.431.0',()=>{}),/Duplicate/);
-const owner={};assert.equal(Adapters.create('buddy','0.431.0',owner).ctx,owner);
+assert.throws(()=>Adapters.create('buddy','0.434.0',{}),/No verified/);
+assert.throws(()=>Adapters.register('buddy','0.433.0',()=>{}),/Duplicate/);
+const owner={};assert.equal(Adapters.create('buddy','0.433.0',owner).ctx,owner);
 console.log('All 32 feature slots, availability gates, metadata isolation and adapter version gates passed.');

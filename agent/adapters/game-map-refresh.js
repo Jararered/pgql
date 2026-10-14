@@ -1,5 +1,5 @@
 'use strict';
-// Original 0.431.0 adapter. Shortens the game's own map refresh throttle so
+// Original adapter. Shortens the game's own map refresh throttle so
 // nearby Pokemon are requested sooner; the game still makes its ordinary map
 // requests. It never forces or fabricates a request. Names are verified from
 // live managed metadata; there are no offsets.
@@ -13,7 +13,7 @@ globalThis.PgqlGameMapRefresh = class PgqlGameMapRefresh {
   bind() {
     if(this.bound)return this.bound;
     const version=Il2Cpp.application.version;
-    if(version!=='0.431.0')throw Error('Instant Loading supports game 0.431.0; found '+version);
+    PgqlGameVersion.require(version,'Instant Loading supports');
     const type=name=>this.game.type(name);
     const plain=(klass,name,args,isStatic=false)=>{
       const matches=klass.methods.filter(m=>m.name===name&&!m.isGeneric&&m.isStatic===isStatic&&

@@ -65,23 +65,24 @@ function type(name) {
       parameters:args.map(arg=>({type:{name:arg}})),invoke:statics[method]}))});
   return types.get(name);
 }
-const cleanups=[],logs=[],hooks=new Map(),attached=new Map(),freed=[];let version='0.431.0';
+const cleanups=[],logs=[],hooks=new Map(),attached=new Map(),freed=[];let version='0.433.0';
 const context=vm.createContext({setTimeout,clearTimeout,
   PgqlGameGifts:class {constructor(){this.handleNew=handle=>({isNull:()=>false,handle});this.handleTarget=pin=>({equals:other=>other===pin.handle});this.handleFree=pin=>freed.push(pin);}
     type(name){return type(name);}async initialize(){}async main(fn){return fn();}},
   Il2Cpp:{get application(){return {version};},string:content=>({content}),delegate:(_type,fn)=>({handle:{},fn}),Object:class {constructor(pointer){return wrap(pointer);}}},
   Interceptor:{attach:(address,callbacks)=>{attached.set(address,callbacks);return {detach:()=>attached.delete(address)};}},
 });
+vm.runInContext(fs.readFileSync(path.join(__dirname,'../agent/core/game-version.js'),'utf8'),context);
 vm.runInContext(fs.readFileSync(path.join(__dirname,'../agent/adapters/game-main-menu.js'),'utf8'),context);
 const Menu=context.PgqlGameMainMenu;
 const ctx={cleanup:fn=>cleanups.push(fn),log:(message,details)=>logs.push({message,details}),hook:(address,callbacks)=>hooks.set(address,callbacks)};
 const names=menu=>menu.children[0].children.map(child=>child.name);
 (async()=>{
   // Other game versions are refused before the scene is touched.
-  version='0.432.0';
-  await assert.rejects(new Menu({...ctx,cleanup:()=>{}},'PGQL',()=>{}).start(),/supports game 0\.431\.0/);
+  version='0.434.0';
+  await assert.rejects(new Menu({...ctx,cleanup:()=>{}},'PGQL',()=>{}).start(),/supports game 0\.433\.0/);
   assert.deepEqual(names(scene[0]),['ButtonSettings','ButtonNews','ButtonEvents','ButtonScanUploads']);
-  version='0.431.0';
+  version='0.433.0';
 
   let opened=0;
   const menu=new Menu(ctx,'PGQL',()=>opened++);
