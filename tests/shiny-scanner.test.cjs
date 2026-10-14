@@ -1,6 +1,6 @@
 const assert=require('node:assert/strict');
 const fs=require('node:fs'),vm=require('node:vm'),path=require('node:path');
-let serial=0,version='0.431.0';const byPointer=new Map();
+let serial=0,version='0.433.0';const byPointer=new Map();
 const NULL_OBJECT={isNull:()=>true,handle:{toString:()=>'0'}};
 function managed(values={},methods={}) {
   const id=++serial,self={handle:{id,toString:()=>String(id)},values,isNull:()=>false,method:name=>({invoke:(...args)=>methods[name](...args)})};
@@ -23,6 +23,7 @@ const sandbox={setTimeout,clearTimeout,Date,
   }};
 const context=vm.createContext(sandbox);
 vm.runInContext(read('core/scanner-policy.js'),context);
+vm.runInContext(read('core/game-version.js'),context);
 vm.runInContext(read('adapters/game-shiny-scanner.js'),context);
 const Adapter=context.PgqlGameShinyScanner;
 const settle=async()=>{for(let i=0;i<6;i++){await new Promise(resolve=>setImmediate(resolve));await new Promise(resolve=>setTimeout(resolve,0));}};
@@ -68,9 +69,9 @@ function fixture(config={}) {
 (async()=>{
   // Other game versions and changed metadata install nothing.
   const installed=[],bare={log:()=>{},cleanup:()=>{},hook:address=>installed.push(address),interval:()=>{},config:defaults};
-  version='0.432.0';
-  await assert.rejects(new Adapter(bare).start(),/supports game 0\.431\.0; found 0\.432\.0/);
-  version='0.431.0';
+  version='0.434.0';
+  await assert.rejects(new Adapter(bare).start(),/supports game 0\.433\.0; found 0\.434\.0/);
+  version='0.433.0';
   await assert.rejects(new Adapter(bare).start(),/Unsupported game metadata: Niantic\.Holoholo\.Map\.MapPokemon/);
   assert.equal(installed.length,0);
 

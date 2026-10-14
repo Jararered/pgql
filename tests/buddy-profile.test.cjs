@@ -5,7 +5,7 @@ const context=vm.createContext({
   PgqlGameGifts:class {constructor(){this.handleNew=()=>({isNull:()=>false});this.handleTarget=()=>({equals:()=>true});this.handleFree=h=>freed.push(h);}},
   Il2Cpp:{delegate:(_type,fn)=>({handle:{},fn})},
 });
-for(const file of ['core/game-adapters.js','core/buddy-policy.js','adapters/game-buddy-profile.js'])
+for(const file of ['core/game-version.js','core/game-adapters.js','core/buddy-policy.js','adapters/game-buddy-profile.js'])
   vm.runInContext(fs.readFileSync(path.join(__dirname,'../agent',file),'utf8'),context);
 const {PgqlBuddyPolicy:policy,PgqlBuddyProfile:Profile}=context;
 const state={ready:true,player:'account',buddy:'buddy',day:'20739',hearts:{1:[0,0,0],2:[0]},
@@ -26,7 +26,7 @@ assert.equal(policy({...state,day:'20740'},config).identity===snap.identity,fals
 assert.notEqual(policy({...state,berriesFed:8},config).actions.feed.key,snap.actions.feed.key);
 assert.equal(snap.actions.snapshot.supported,false);assert.equal(snap.actions.battle.supported,false);
 assert.equal(context.PgqlGameAdapters.has('buddy'),true);
-assert.throws(()=>context.PgqlGameAdapters.create('buddy','0.432.0',{}),/No verified/);
+assert.throws(()=>context.PgqlGameAdapters.create('buddy','0.434.0',{}),/No verified/);
 
 const profile=new Profile({cleanup:fn=>cleanup.push(fn)});
 const actionType={class:{}};

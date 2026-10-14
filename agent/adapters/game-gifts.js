@@ -42,7 +42,7 @@ globalThis.PgqlGameGifts = class PgqlGameGifts {
   }
   services() {
     const version=Il2Cpp.application.version;
-    if(version!=='0.431.0')throw Error('Mass Gift supports game 0.431.0; found '+version);
+    PgqlGameVersion.require(version,'Mass Gift supports');
     const object=this.type('UnityEngine.Object');
     const find=object.methods.find(m=>m.name==='FindObjectOfType'&&m.parameterCount===1&&m.parameters[0].type.name==='System.Type');
     if(!find)throw Error('Map lookup unavailable');

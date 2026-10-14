@@ -15,7 +15,7 @@ const inScene=valid=>({get_gameObject:()=>({method:()=>calls(()=>({method:()=>ca
 const handler=managed({fetchThrottle:throttle},inScene(true)),prefabHandler=managed({fetchThrottle:NULL_OBJECT},inScene(false));
 const settings=managed({MapSettings:proto}),global=managed({}, {get_Settings:()=>settings});
 const scene=managed({}, {get_Container:()=>({method:()=>calls(()=>global)})});
-let mapLoaded=true,version='0.431.0';
+let mapLoaded=true,version='0.433.0';
 const M=(name,args=[],isStatic=false,returns='System.Void')=>[name,args,isStatic,returns];
 const signatures={
   'Niantic.Holoholo.Map.MapContentHandler':[],'Niantic.Holoholo.MapSceneContext':[],'Holoholo.Rpc.GlobalSettingsProto':[],
@@ -46,6 +46,7 @@ const context=vm.createContext({setTimeout,clearTimeout,
   Il2Cpp:{get application(){return {version};},Object:class {constructor(handle){return byPointer.get(handle.id);}}},
   Interceptor:{attach:(address,callbacks)=>{attached.set(address,callbacks);return {detach:()=>attached.delete(address)};}},
 });
+vm.runInContext(fs.readFileSync(path.join(__dirname,'../agent/core/game-version.js'),'utf8'),context);
 vm.runInContext(fs.readFileSync(path.join(__dirname,'../agent/adapters/game-map-refresh.js'),'utf8'),context);
 const Refresh=context.PgqlGameMapRefresh;
 const ctx={cleanup:fn=>cleanups.push(fn),log:(message,details)=>logs.push({message,details}),hook:(address,callbacks)=>hooks.set(address,callbacks)};
@@ -54,9 +55,9 @@ const timers=()=>[throttleValues.minIntervalS,throttleValues.maxIntervalS,thrott
 const settingsTimers=()=>[proto.values.GetMapObjectsMinRefreshSeconds,proto.values.GetMapObjectsMaxRefreshSeconds,proto.values.GetMapObjectsMinDistanceMeters];
 (async()=>{
   // Other versions and a missing map change nothing.
-  version='0.432.0';
-  await assert.rejects(new Refresh({...ctx,cleanup:()=>{}}).start(),/supports game 0\.431\.0/);
-  version='0.431.0';mapLoaded=false;
+  version='0.434.0';
+  await assert.rejects(new Refresh({...ctx,cleanup:()=>{}}).start(),/supports game 0\.433\.0/);
+  version='0.433.0';mapLoaded=false;
   await assert.rejects(new Refresh({...ctx,cleanup:()=>{}}).start(),/Load the game map/);
   mapLoaded=true;assert.deepEqual(timers(),[10,30,10]);assert.deepEqual(settingsTimers(),[10,30,10]);
   assert.equal(hooks.size,0);

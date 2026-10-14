@@ -3,7 +3,7 @@ const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('nod
 const events=[],nativeCalls=[],timers=[],mainJobs=[];
 const bytesByAddress=new Map();
 const attachments=new Map(),replacements=new Map(),presets=new Map();
-let uid=0,gameVersion='0.431.0';
+let uid=0,gameVersion='0.433.0';
 const storage=new Map(); // absolute offset -> scalar register value
 function mkPtr(base=0){
   const p={base};
@@ -65,7 +65,7 @@ const context=vm.createContext({
   clearTimeout:fn=>{const i=timers.indexOf(fn);if(i>=0)timers.splice(i,1);}
 });
 const base=path.join(__dirname,'../agent');
-for(const file of ['core/jni-helper.js','core/device-simulator.js','core/pgp-manager.js','adapters/game-go-plus.js'])
+for(const file of ['core/game-version.js','core/jni-helper.js','core/device-simulator.js','core/pgp-manager.js','adapters/game-go-plus.js'])
   vm.runInContext(fs.readFileSync(path.join(base,file),'utf8'),context);
 const Adapter=context.PgqlGameGoPlus;
 // JNIEnv for the "main" thread: env.readPointer() must yield the function table.
@@ -94,9 +94,9 @@ const tick=()=>new Promise(setImmediate);
   // Version gate fails cleanly before any hook is installed.
   const gated=new Adapter(loggedCtx());
   gameVersion='9.9.9';
-  await assert.rejects(()=>gated.install('virtual-go-plus'),/0\.431\.0/);
+  await assert.rejects(()=>gated.install('virtual-go-plus'),/0\.433\.0/);
   assert.equal(attachments.size,0);assert.equal(replacements.size,0);
-  gameVersion='0.431.0';
+  gameVersion='0.433.0';
   gated.dispose();
 
   await adapter.install('virtual-go-plus');

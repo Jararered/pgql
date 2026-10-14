@@ -1,5 +1,5 @@
 'use strict';
-// Original 0.431.0 adapter. Sends the game's own encounter request for each
+// Original adapter. Sends the game's own encounter request for each
 // nearby map Pokemon, one at a time, reads the result proto the game stores on
 // that map Pokemon and hands a plain snapshot to PgqlScannerPolicy. Matches are
 // shown as a game toast and an Android notification; scanned Pokemon are
@@ -36,7 +36,7 @@ globalThis.PgqlGameShinyScanner = class PgqlGameShinyScanner {
   bind() {
     if(this.bound)return this.bound;
     const version=Il2Cpp.application.version;
-    if(version!=='0.431.0')throw Error('Shiny Scanner supports game 0.431.0; found '+version);
+    PgqlGameVersion.require(version,'Shiny Scanner supports');
     const type=name=>this.game.type(name),number=PgqlGameShinyScanner.number;
     const plain=(klass,name,args,returns,isStatic=false)=>{
       const matches=klass.methods.filter(m=>m.name===name&&!m.isGeneric&&m.isStatic===isStatic&&

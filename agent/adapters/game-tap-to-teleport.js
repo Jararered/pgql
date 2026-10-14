@@ -1,5 +1,5 @@
 'use strict';
-// Original 0.431.0 adapter. A second ground tap within 500 ms asks GPS Joystick
+// Original adapter. A second ground tap within 500 ms asks GPS Joystick
 // (through the controller) to jump to the tapped spot. The game's own map
 // controller converts the tap's screen point to a location, and the tap still
 // reaches the game. Optionally, Nearby menu icons and the stamp "See in map"
@@ -16,7 +16,7 @@ globalThis.PgqlGameTapToTeleport = class PgqlGameTapToTeleport {
   bind() {
     if(this.bound)return this.bound;
     const version=Il2Cpp.application.version;
-    if(version!=='0.431.0')throw Error('Tap to Teleport supports game 0.431.0; found '+version);
+    PgqlGameVersion.require(version,'Tap to Teleport supports');
     const type=name=>this.game.type(name);
     const plain=(klass,name,args,returns,isStatic=false)=>{
       const matches=klass.methods.filter(m=>m.name===name&&!m.isGeneric&&m.isStatic===isStatic&&
