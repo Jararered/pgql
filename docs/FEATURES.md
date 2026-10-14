@@ -16,7 +16,7 @@ resolver; existing adapters have not been migrated to the new factory registry.
 
 ## Shared layers
 
-- `runtime.js`: lifecycle, cleanup, boolean configuration, persistence through the
+- `runtime.js`: lifecycle, cleanup, boolean and validated text configuration, persistence through the
   settings menu, actions and availability enforcement. Existing IDs and protocol
   commands remain compatible.
 - `core/feature-catalog.js`: complete feature inventory and adapter boundaries.
@@ -59,7 +59,7 @@ and GOPLUS.md. This table preserves the requested scope for subsequent work.
 | `raid-pack` | Raid attack/dodge scheduling and animation handling | Planned |
 | `tap-to-teleport` | One/two-tap map actions through GPS Joystick integration | Planned |
 | `instant-loading` | Shortens the game's own map refresh throttle; see [PERFORMANCE.md](PERFORMANCE.md) | Implemented (0.431.0) |
-| `transfer-on-catch` | Post-catch transfer with all requested protected categories, including accessory catches | Planned |
+| `transfer-on-catch` | Post-catch transfer with keep rules, toast and per-encounter bypass, including main-process accessory catches; see [TRANSFER-ON-CATCH.md](TRANSFER-ON-CATCH.md). PvP rank rule pending `pvp-metrics` | Implemented (0.431.0) |
 | `mass-gift` | Batch send/open, friends, exact friendship, postcards and animations | Existing batch send/open; remaining scope pending |
 | `eggspresso` | Infinite-incubator selection, incubation and hatch flow | Planned |
 | `pinap-master` | Encounter berry selection, inventory check and acknowledged feeding | Planned |
@@ -84,9 +84,12 @@ and GOPLUS.md. This table preserves the requested scope for subsequent work.
 | `spawn-booster` | Map query radius/loading; server-visible limits require verification | Planned |
 
 New configuration types (quantities, item maps, coordinates, thresholds) need
-schema validation, persistence and UI controls together. The current settings
-API deliberately remains boolean-only; do not encode quantities as switches or
-silently accept arbitrary values through `config`.
+schema validation, persistence and UI controls together. The settings API has
+two types: `boolean`, and `text` (a bounded string with a module-supplied
+validator, added for Transfer on Catch's minimum IV and ignore list). Give every
+text setting a `validate` that rejects anything the module cannot use; do not
+encode quantities as switches or silently accept arbitrary values through
+`config`.
 
 ## Adding the next implementation
 

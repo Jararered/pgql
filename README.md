@@ -92,9 +92,9 @@ Qol.register({
 
 Optional `actions: [{id:"preview",label:"Preview",confirm:false}]` declarations generate buttons in the injected panel. An action calls `invoke(ctx, {action: id})`; confirmed actions call `preview` first, show counts, then wait for Continue.
 
-`enable` and `disable` are synchronous lifecycle callbacks in v0.1; `invoke` may return a Promise. The runtime owns each module's tracked hooks/timers/observers and releases them on disable, shutdown or a failed enable. IDs are unique. The app discovers module names/status from the agent's registry. Rebuild, reinstall and detach/reattach after editing modules. Hot reload is not implemented in v0.1. A **PGQL** row in the game's own main menu, below Settings and In-Person Event Tickets, opens native-looking settings pages: `agent/adapters/game-settings-screen.js` builds them from the game's own Notifications settings prefab (section cards, toggle rows with descriptions, indented sub-toggles, buttons) and shows confirmations and results in the game's modal dialogs. Developer modules sit behind an **Advanced Settings** page; `agent/core/settings-layout.js` owns that split. If the game's UI cannot be used the original Android panel opens instead. `agent/adapters/game-main-menu.js` adds the row by cloning the game's Settings row (0.431.0 only); if that fails the floating **PGQL 0.1** button is injected instead. It displays the project name/version, module enable switches and every declared boolean setting. Configuration is stored in target-private `pgql_settings` preferences and restored on attachment. Use `ctx.config` to read current settings and `onConfigChanged(ctx, config)` for immediate updates. Modules and settings may declare a `description` string, shown as the grey text under their row.
+`enable` and `disable` are synchronous lifecycle callbacks in v0.1; `invoke` may return a Promise. The runtime owns each module's tracked hooks/timers/observers and releases them on disable, shutdown or a failed enable. IDs are unique. The app discovers module names/status from the agent's registry. Rebuild, reinstall and detach/reattach after editing modules. Hot reload is not implemented in v0.1. A **PGQL** row in the game's own main menu, below Settings and In-Person Event Tickets, opens native-looking settings pages: `agent/adapters/game-settings-screen.js` builds them from the game's own Notifications settings prefab (section cards, toggle rows with descriptions, indented sub-toggles, buttons) and shows confirmations and results in the game's modal dialogs. Developer modules sit behind an **Advanced Settings** page; `agent/core/settings-layout.js` owns that split. If the game's UI cannot be used the original Android panel opens instead. `agent/adapters/game-main-menu.js` adds the row by cloning the game's Settings row (0.431.0 only); if that fails the floating **PGQL 0.1** button is injected instead. It displays the project name/version, module enable switches and every declared setting. Settings are `boolean` switches or bounded `text` values (`type:'text'` with `maxLength` and an optional `validate` that throws); a text setting is a button showing its value that opens an input dialog. Configuration is stored in target-private `pgql_settings` preferences and restored on attachment. Use `ctx.config` to read current settings and `onConfigChanged(ctx, config)` for immediate updates. Modules and settings may declare a `description` string, shown as the grey text under their row.
 
-Commands are JSON objects with `type: "command"`, an `id`, and an `action` (`list`, `enable`, `disable`, `invoke`, `config`). The `config` action carries `moduleId`, `key`, and boolean `value`. Module actions also carry `moduleId`; invoke may carry `args`. Agent responses echo the `id`, `ok`, and `result`/`error`. The helper wraps Frida messages in JSONL events on stdout. See [native/README.md](native/README.md) for standalone runner usage and limits.
+Commands are JSON objects with `type: "command"`, an `id`, and an `action` (`list`, `enable`, `disable`, `invoke`, `config`). The `config` action carries `moduleId`, `key`, and a `value` matching the setting's type (boolean, or a string for text settings). Module actions also carry `moduleId`; invoke may carry `args`. Agent responses echo the `id`, `ok`, and `result`/`error`. The helper wraps Frida messages in JSONL events on stdout. See [native/README.md](native/README.md) for standalone runner usage and limits.
 
 ## Extending into game modules
 
@@ -140,6 +140,15 @@ Default-off module that replaces each name in the Pokémon inventory grid with
 its `Attack/Defense/HP` IVs, read from the data the game hands to each cell.
 Eggs keep their label. Disabling puts the names back on the visible cells. It is
 display-only: nothing is renamed and nothing is sent to the server.
+
+### Transfer on Catch
+
+Default-off module that transfers a Pokémon right after it is caught, by hand or
+by a GO Plus, unless a keep rule protects it: minimum IV, XXS/XXL, an ignore
+list, and built-in protection for 100%/0% IV, shiny, shadow, background,
+legendary and non-wild Pokémon. A game toast reports each result, and the info
+button on the encounter's ball selector skips the transfer for that encounter.
+**Transfers are permanent.** See [TRANSFER-ON-CATCH.md](docs/TRANSFER-ON-CATCH.md).
 
 ### Virtual GO Plus
 

@@ -3,6 +3,8 @@
 // Developer modules live on the Advanced Settings page; everything else is
 // grouped by catalog category on the main page. Sub-toggles are indented under
 // their module; action buttons span the card, as the game's own buttons do.
+// Text settings are 'value' rows: a card-wide button that shows the value and
+// edits it.
 globalThis.PgqlSettingsLayout = function(modules) {
   const advanced='Developer';
   function rows(module) {
@@ -10,8 +12,11 @@ globalThis.PgqlSettingsLayout = function(modules) {
       return [{kind:'toggle',id:module.id+':enabled',moduleId:module.id,label:module.name,description:'Planned',value:false,disabled:true,indent:false}];
     const list=[{kind:'toggle',id:module.id+':enabled',moduleId:module.id,label:module.name,
       description:module.description || module.unavailableReason || null,value:module.enabled,disabled:false,indent:false}];
-    for(const setting of module.settings)list.push({kind:'toggle',id:module.id+':'+setting.key,moduleId:module.id,key:setting.key,
-      label:setting.label,description:setting.description || null,value:module.config[setting.key],disabled:false,indent:true});
+    for(const setting of module.settings) {
+      const text=setting.type==='text';
+      list.push({kind:text?'value':'toggle',id:module.id+':'+setting.key,moduleId:module.id,key:setting.key,
+        label:setting.label,description:setting.description || null,value:module.config[setting.key],disabled:false,indent:!text});
+    }
     for(const action of module.actions)list.push({kind:'action',id:module.id+':action:'+action.id,moduleId:module.id,
       actionId:action.id,label:action.label,indent:false});
     return list;
@@ -30,7 +35,7 @@ globalThis.PgqlSettingsLayout = function(modules) {
   return {main:{id:'main',title:'PGQL',sections:main},
     advanced:{id:'advanced',title:'Advanced Settings',sections:[{title:'DEVELOPER',rows:developer.flatMap(rows)}]}};
 };
-// Current toggle values by row id, for refreshing an open screen.
+// Current setting values by row id, for refreshing an open screen.
 globalThis.PgqlSettingsLayout.values = function(modules) {
   const values={};
   for(const module of modules) {

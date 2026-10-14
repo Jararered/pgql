@@ -142,13 +142,15 @@ const page={id:'main',title:'PGQL',sections:[
     {kind:'toggle',id:'tamagotchi:enabled',moduleId:'tamagotchi',label:'Tamagotchi',description:'Automatic buddy care.',value:false,disabled:false,indent:false},
     {kind:'toggle',id:'tamagotchi:feed',moduleId:'tamagotchi',key:'feed',label:'Feed buddy',description:null,value:true,disabled:false,indent:true},
     {kind:'toggle',id:'tamagotchi:play',moduleId:'tamagotchi',key:'play',label:'Play with buddy',description:'Quick play.',value:false,disabled:false,indent:true},
+    {kind:'value',id:'tamagotchi:snack',moduleId:'tamagotchi',key:'snack',label:'Snack',description:null,value:'berry',disabled:false,indent:false},
     {kind:'action',id:'tamagotchi:action:run',moduleId:'tamagotchi',actionId:'run',label:'Run care',indent:false},
     {kind:'toggle',id:'magic-bag:enabled',moduleId:'magic-bag',label:'Magic Bag',description:'Planned',value:false,disabled:true,indent:false}]},
   {title:'MORE',rows:[{kind:'link',id:'page:advanced',page:'advanced',label:'Advanced Settings',indent:false}]}]};
 (async()=>{
   const events=[];
   const handlers={toggle:(item,value)=>events.push(['toggle',item.id,value]),action:item=>events.push(['action',item.id]),
-    link:item=>events.push(['link',item.page]),back:()=>events.push(['back'])};
+    link:item=>events.push(['link',item.page]),back:()=>events.push(['back']),
+    edit:item=>events.push(['edit',item.id])};
   // Other game versions, a missing map and changed prefabs leave the scene alone.
   version='0.432.0';
   await assert.rejects(new Screen({...ctx,cleanup:()=>{}},game).show(page,handlers),/support game 0\.431\.0/);
@@ -173,11 +175,15 @@ const page={id:'main',title:'PGQL',sections:[
   assert.deepEqual(content.children.map(c=>c.name),['Pgql_section0','Pgql_section1'],'only PGQL sections remain');
   assert.equal(lookup(content,'Pgql_section0/SettingsWidgetHeader/Label').label.text,'BUDDY');
   const card=lookup(content,'Pgql_section0/WidgetElements');
-  assert.deepEqual(card.children.map(c=>c.name),['Background','Pgql_tamagotchi:enabled','Pgql_group0','Pgql_tamagotchi:action:run','Pgql_magic-bag:enabled']);
+  assert.deepEqual(card.children.map(c=>c.name),['Background','Pgql_tamagotchi:enabled','Pgql_group0','Pgql_tamagotchi:snack','Pgql_tamagotchi:action:run','Pgql_magic-bag:enabled']);
   const group=card.children[2];
   assert.equal(group.children[0].active,false,'the group caption is hidden');
   assert.deepEqual(group.children[1].children.map(c=>c.name),['Pgql_tamagotchi:feed','Pgql_tamagotchi:play'],'sub-toggles replace the game rows');
-  const parent=card.children[1],feed=group.children[1].children[0],play=group.children[1].children[1],planned=card.children[4];
+  // A text setting is a button showing its value; pressing it asks to edit.
+  const snack=lookup(card,'Pgql_tamagotchi:snack/PgoButton');
+  assert.equal(lookup(snack,'Background/Text').label.text,'Snack: berry');
+  snack.pgoButton.event.listeners[0].fn();assert.deepEqual(events.splice(0),[['edit','tamagotchi:snack']]);
+  const parent=card.children[1],feed=group.children[1].children[0],play=group.children[1].children[1],planned=card.children[5];
   assert.equal(lookup(parent,'ToggleContent/Toggle/Label').label.text,'Tamagotchi');
   assert.deepEqual(lookup(parent,'ToggleContent/Tip').label,{textKey:'',text:'Automatic buddy care.'});
   assert.equal(lookup(feed,'ToggleContent/Tip').active,false);assert.equal(lookup(play,'ToggleContent/Tip').active,true);
@@ -206,7 +212,10 @@ const page={id:'main',title:'PGQL',sections:[
   assert.match(logs.at(-1).details.error,/boom/);
 
   // Changes made elsewhere are reflected without raising toggle events.
-  assert.equal(await screen.update({'tamagotchi:enabled':true,'tamagotchi:feed':false,'unknown:row':true,'tamagotchi:play':'yes'}),2);
+  assert.equal(await screen.update({'tamagotchi:enabled':true,'tamagotchi:feed':false,'unknown:row':true,'tamagotchi:play':'yes','tamagotchi:snack':true}),2);
+  assert.equal(await screen.update({'tamagotchi:snack':'poffin'}),1);assert.equal(lookup(snack,'Background/Text').label.text,'Snack: poffin');
+  assert.equal(await screen.update({'tamagotchi:snack':'poffin'}),0,'unchanged text is left alone');
+  assert.equal(await screen.update({'tamagotchi:snack':''}),1);assert.equal(lookup(snack,'Background/Text').label.text,'Snack: —');
   assert.deepEqual([parent.toggle.isOn,feed.toggle.isOn,play.toggle.isOn],[true,false,false]);
 
   // Showing another page replaces the screen and releases the old callbacks.

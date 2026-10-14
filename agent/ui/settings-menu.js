@@ -41,7 +41,9 @@ Qol.register({
         for(const module of Qol.describe()) {
           const enabled=widgets.get(module.id+':enabled');if(enabled)enabled.setChecked(module.enabled);
           for(const setting of module.settings) {
-            const widget=widgets.get(module.id+':'+setting.key);if(widget)widget.setChecked(module.config[setting.key]);
+            const widget=widgets.get(module.id+':'+setting.key);if(!widget)continue;
+            if(setting.type==='text')widget.setText(classes.String.$new(setting.label+': '+module.config[setting.key]));
+            else widget.setChecked(module.config[setting.key]);
           }
           for(const action of module.actions) {
             const widget=widgets.get(module.id+':action:'+action.id);
@@ -82,6 +84,40 @@ Qol.register({
       builder.setTitle(classes.String.$new(title));builder.setMessage(classes.String.$new(message));
       builder.setPositiveButton(classes.String.$new(continueAction?'Continue':'Close'),continueAction?ownedListener('DialogClick',continueAction):null);
       if(continueAction)builder.setNegativeButton(classes.String.$new('Cancel'),null);
+      const shown=Java.retain(builder.create());actionDialogs.add(shown);
+      shown.setOnDismissListener(ownedListener('Dismiss',()=>{
+        actionDialogs.delete(shown);
+        for(const key of keys){callbacks.delete(key);actionCallbackKeys.delete(key);}
+        shown.$dispose();
+      }));
+      shown.show();
+    }
+    // Text settings are edited in a small Android input dialog over the game.
+    function editDialog(module,setting) {
+      if(stopped)return;
+      const keys=[];
+      function ownedListener(kind,callback) {
+        const instance=listener(kind,callback),key=String(serial);
+        keys.push(key);actionCallbackKeys.add(key);return instance;
+      }
+      const input=classes.EditText.$new(activity);
+      // EditText narrows setText; use the TextView overload.
+      Java.cast(input,classes.TextView).setText(classes.String.$new(Qol.describe().find(item=>item.id===module.id).config[setting.key]));
+      // Plain text without suggestions, so the keyboard does not rewrite values.
+      input.setInputType(0x80001);input.setSingleLine(true);input.setSelectAllOnFocus(true);input.setFilters(Java.array('android.text.InputFilter',[classes.LengthFilter.$new(setting.maxLength)]));
+      const frame=classes.LinearLayout.$new(activity);frame.setPadding(dp(20),dp(4),dp(20),0);
+      frame.addView(input,classes.LinearParams.$new(-1,-2));
+      const builder=classes.Builder.$new(activity);
+      builder.setTitle(classes.String.$new(setting.label));
+      if(setting.description)builder.setMessage(classes.String.$new(setting.description));
+      builder.setView(frame);
+      builder.setPositiveButton(classes.String.$new('Save'),ownedListener('DialogClick',()=>{
+        // Editable only exposes toString through CharSequence.
+        const value=String(Java.cast(input.getText(),classes.CharSequence).toString()).trim();
+        try{Qol.setConfig(module.id,setting.key,value);}
+        catch(error){fail(error);notify(setting.label,'Value not saved.\n'+String(error.message || error));}
+      }));
+      builder.setNegativeButton(classes.String.$new('Cancel'),null);
       const shown=Java.retain(builder.create());actionDialogs.add(shown);
       shown.setOnDismissListener(ownedListener('Dismiss',()=>{
         actionDialogs.delete(shown);
@@ -135,6 +171,10 @@ Qol.register({
         if(!module.enabled){notify(module.name,'Turn on '+module.name+' first.');return;}
         invokeAction(module,action,action.confirm);
       });},
+      edit(row){later(()=>{
+        const module=Qol.describe().find(item=>item.id===row.moduleId),setting=module && module.settings.find(item=>item.key===row.key);
+        if(setting)main(()=>editDialog(module,setting));
+      });},
       link(row){later(()=>showPage(row.page));},
       back(){later(()=>{if(page!=='main')showPage('main');else screen.hide().catch(fail);});}
     };
@@ -171,7 +211,11 @@ Qol.register({
           const enabled=row('Enabled',module.enabled,value=>value?Qol.enable(module.id):Qol.disable(module.id));
           widgets.set(module.id+':enabled',enabled);content.addView(enabled);
           for(const setting of module.settings) {
-            const control=row(setting.label,module.config[setting.key],value=>Qol.setConfig(module.id,setting.key,value));
+            let control;
+            if(setting.type==='text') {
+              control=classes.Button.$new(activity);control.setText(classes.String.$new(setting.label+': '+module.config[setting.key]));control.setAllCaps(false);
+              control.setOnClickListener(listener('Click',()=>editDialog(module,setting)));
+            }else control=row(setting.label,module.config[setting.key],value=>Qol.setConfig(module.id,setting.key,value));
             widgets.set(module.id+':'+setting.key,control);content.addView(control);
           }
           for(const action of module.actions) {
@@ -197,7 +241,7 @@ Qol.register({
       for(const module of Qol.describe()) {
         if(module.id==='pgql-menu')continue;
         const stored=saved[module.id];if(!stored)continue;
-        for(const setting of module.settings)if(typeof stored.config?.[setting.key]==='boolean') {
+        for(const setting of module.settings)if(typeof stored.config?.[setting.key]===(setting.type==='text'?'string':'boolean')) {
           try{Qol.setConfig(module.id,setting.key,stored.config[setting.key]);}catch(error){fail(error);}
         }
         try{if(stored.enabled===true)Qol.enable(module.id);else if(stored.enabled===false)Qol.disable(module.id);}catch(error){fail(error);}
@@ -244,7 +288,7 @@ Qol.register({
       const DialogClick=Java.registerClass({name:unique+'DialogClick',implements:[Java.use('android.content.DialogInterface$OnClickListener')],fields:{key:'java.lang.String'},methods:{onClick(dialog,which){const fn=callbacks.get(this.key.value.toString());if(fn)try{fn();}catch(error){fail(error);}}}});
       const Dismiss=Java.registerClass({name:unique+'Dismiss',implements:[Java.use('android.content.DialogInterface$OnDismissListener')],fields:{key:'java.lang.String'},methods:{onDismiss(dialog){const fn=callbacks.get(this.key.value.toString());if(fn)try{fn();}catch(error){fail(error);}}}});
       classes={Checked,Click,DialogClick,Dismiss};
-      for(const [key,name] of Object.entries({String:'java.lang.String',TextView:'android.widget.TextView',View:'android.view.View',ViewGroup:'android.view.ViewGroup',Button:'android.widget.Button',Switch:'android.widget.Switch',LinearLayout:'android.widget.LinearLayout',LinearParams:'android.widget.LinearLayout$LayoutParams',FrameParams:'android.widget.FrameLayout$LayoutParams',ScrollView:'android.widget.ScrollView',Builder:'android.app.AlertDialog$Builder',Color:'android.graphics.Color',ColorStateList:'android.content.res.ColorStateList'}))classes[key]=Java.use(name);
+      for(const [key,name] of Object.entries({String:'java.lang.String',TextView:'android.widget.TextView',View:'android.view.View',ViewGroup:'android.view.ViewGroup',Button:'android.widget.Button',Switch:'android.widget.Switch',LinearLayout:'android.widget.LinearLayout',LinearParams:'android.widget.LinearLayout$LayoutParams',FrameParams:'android.widget.FrameLayout$LayoutParams',ScrollView:'android.widget.ScrollView',Builder:'android.app.AlertDialog$Builder',EditText:'android.widget.EditText',CharSequence:'java.lang.CharSequence',LengthFilter:'android.text.InputFilter$LengthFilter',Color:'android.graphics.Color',ColorStateList:'android.content.res.ColorStateList'}))classes[key]=Java.use(name);
     }
     function findActivity() {
       if(stopped || attempted)return;

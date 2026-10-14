@@ -332,3 +332,79 @@ brought forward), so background attaching does not prevent it.
 Not established: IV labels in other screens that reuse the cell (trade, battle
 party and transfer pickers were not opened), behavior with name sorting or
 search, and in-place restore on visible cells.
+
+## Transfer on Catch validation and text settings
+
+`agent/adapters/game-transfer-on-catch.js` releases a just-caught Pokémon through
+the game's bag service unless `agent/core/transfer-policy.js` keeps it; see
+[TRANSFER-ON-CATCH.md](TRANSFER-ON-CATCH.md). The runtime gained a `text` setting
+type for its minimum IV and ignore list. Local: `npm test` (nineteen suites)
+pass, including `tests/transfer-policy.test.cjs` and
+`tests/transfer-on-catch.test.cjs`.
+
+Discovery (one probe session, GO 0.431.0, PID 29227; log
+`build/transfer-discovery-probe.jsonl`), read-only apart from one test toast:
+
+- Names and signatures for the catch result, `IPokemonBag`, `PokemonProto`,
+  Pokémon settings, the origin detail, the toast service, the accessory action
+  log handler and the item selector were read from live metadata.
+- The adapter's own contract check bound every part, and its snapshot plus the
+  policy were run over the 561 Pokémon already in the bag without releasing
+  anything: 170 would be transferred with default settings; the rest were kept
+  as non-wild (233), special ball (55), shiny (32), 100%-IV preference (26),
+  background (21), legendary/mythical (9), shadow (3), ignore list (2) and 0% IV
+  (1).
+- A two-line toast with the green background rendered
+  (`build/transfer-toast-probe.png`).
+
+`build/pgql-debug.apk`: 45658651 bytes; SHA-256
+`6bef0dca80f3d4c60132b160e3073b7c9be1279e5b9fcecab6f88871783d1a94`. Installed
+and attached from the controller to a freshly started game (PID 3281). Three
+builds were attached to that process in turn while fixing the settings dialog;
+logs are `build/transfer-on-catch-session-1.log` to `-3.log`.
+
+- The module appears under INVENTORY with its description, five indented
+  switches, two value buttons and a status button
+  (`build/transfer-settings-rows.png`). It logged
+  `Transfer on Catch ready {toast, accessory, bypass: true}`, and its enabled
+  state and settings were restored on each re-attach.
+- **Transfer**: with Headshot, Perfect Throw, Instant Catch and Skip Encounter
+  Intro also on, a wild Electrike (13/5/15) was caught and released; the toast
+  read `Successful Capture! [Transferred] +1 XL Candy`
+  (`build/transfer-catch-1.png`). On that first build the release answer could
+  not be read (`RpcPromise` inherits its callbacks); this was fixed afterwards.
+- **Text setting**: tapping `MIN. IV: 100` opened the input dialog; `abc` was
+  rejected with `Invalid IV…` in a game prompt and nothing was stored; `1` was
+  saved and the button changed to `MIN. IV: 1` in place
+  (`build/transfer-min-iv-saved.png`). It was set back to `100` afterwards and
+  the saved preferences show `"minIv":"100"`.
+- **Kept by preference**: with Min. IV 1, a wild Blitzle (9/3/9) was kept with
+  `[Meets Preference, Not Transferred]` (`build/transfer-kept-1.png`).
+- **Kept by protection**: a wild shiny Electrike (14/6/15) was kept with
+  `[Not Transferred]`, reason `shiny` (`build/transfer-bypass-kept.png`).
+- **Bypass**: in that encounter the ball selector's info button closed the
+  selector and showed `Transfer On Catch was disabled for this encounter.`
+  instead of the info panel (`build/transfer-bypass-slider.png`,
+  `build/transfer-bypass-toast.png`).
+- **Status** showed the counts and the last decision
+  (`build/transfer-on-catch-status.png`).
+
+Two defects found on the device and fixed: the input dialog could not set or
+read its text through `EditText` (it now uses the `TextView`/`CharSequence`
+members and turns keyboard suggestions off), and value buttons overflowed the
+indented group (they now span the card).
+
+The module was switched off again at the end; saved preferences show it
+disabled with default settings. The game process survived the probe, three
+attaches and the catches without a crash.
+
+Not established: a release answer read on the final build (the one live
+transfer ran on the first build, where the answer could not be read; the fix is
+covered by the unit test only, and that Electrike was not looked up in the bag
+afterwards); the bypass keeping a Pokémon that no other rule protects (the
+bypassed catch happened to be shiny, so the shiny rule answered first); accessory
+catches (the trigger bound, but no GO Plus catch reached the action log during
+the session); shadow, background, XXS/XXL, special-ball and ignore-list catches
+on live encounters (covered by the dry run over the bag and the unit tests); the
+600-frame give-up; incense and lure catches, which are kept if the game reports
+those origins; the Android fallback dialog's text controls; and prolonged use.

@@ -1,7 +1,7 @@
 'use strict';
 // Own module runtime. Concatenated into one script; never imports recovered code.
 globalThis.Qol = (() => {
-  const definitions = new Map(), active = new Map(), configurations = new Map(), subscribers = new Set();
+  const definitions = new Map(), active = new Map(), configurations = new Map(), subscribers = new Set(), validators = new Map();
   const project = Object.freeze({name:'PGQL',fullName:'Pokemon Go QoL',version:'0.1'});
   let accepting=true;
   function event(type, detail) { send({source: 'qol', type, ...detail}); }
@@ -29,16 +29,22 @@ globalThis.Qol = (() => {
     if (typeof module.enable !== 'function') throw new Error('Module requires enable');
     if(module.availability!==undefined && !['implemented','experimental','planned'].includes(module.availability))throw Error('Invalid module availability');
     if(module.description!==undefined && (typeof module.description!=='string' || !module.description))throw Error('Module description must be a non-empty string');
-    const settings=module.settings || [], config={}, keys=new Set();
+    const settings=module.settings || [], config={}, keys=new Set(), checks={};
     if (!Array.isArray(settings)) throw new Error('Settings must be an array');
     const schemas=settings.map(setting=>{
       if (!setting || typeof setting.key !== 'string' || !/^[a-zA-Z][a-zA-Z0-9_-]*$/.test(setting.key) || keys.has(setting.key)) throw new Error('Duplicate/invalid setting key');
-      if (setting.type !== 'boolean' || typeof setting.default !== 'boolean') throw new Error('Setting requires boolean type and default');
+      const text=setting.type==='text';
+      if (text) {
+        // Free text is bounded and may carry a validator that throws on bad input.
+        if (typeof setting.default !== 'string' || !Number.isInteger(setting.maxLength) || setting.maxLength<1 || setting.default.length>setting.maxLength) throw new Error('Text setting requires string default within maxLength');
+        if (setting.validate!==undefined && typeof setting.validate!=='function') throw new Error('Setting validate must be a function');
+        if (setting.validate) { setting.validate(setting.default); checks[setting.key]=setting.validate; }
+      } else if (setting.type !== 'boolean' || typeof setting.default !== 'boolean') throw new Error('Setting requires boolean type and default');
       if (typeof setting.label !== 'string' || !setting.label) throw new Error('Setting requires label');
       if (setting.description!==undefined && (typeof setting.description!=='string' || !setting.description)) throw new Error('Setting description must be a non-empty string');
       keys.add(setting.key); config[setting.key]=setting.default;
       return Object.freeze({key:setting.key,label:setting.label,type:setting.type,default:setting.default,
-        ...(setting.description?{description:setting.description}:{})});
+        ...(text?{maxLength:setting.maxLength}:{}),...(setting.description?{description:setting.description}:{})});
     });
     const actions=module.actions || [], actionIds=new Set();
     if (!Array.isArray(actions)) throw new Error('Actions must be an array');
@@ -51,7 +57,7 @@ globalThis.Qol = (() => {
     });
     if(actionSchemas.length && typeof module.invoke!=='function') throw new Error('Actions require module invoke');
     definitions.set(module.id, {...module,settings:schemas,actions:actionSchemas});
-    configurations.set(module.id,Object.freeze(config));
+    configurations.set(module.id,Object.freeze(config));validators.set(module.id,checks);
     changed('registered',{moduleId:module.id});
   }
   function setConfig(id,key,value) {
@@ -60,7 +66,11 @@ globalThis.Qol = (() => {
     if (!module) throw new Error('Unknown module: '+id);
     const setting=module.settings.find(s=>s.key===key);
     if (!setting) throw new Error('Unknown setting: '+key);
-    if (typeof value !== 'boolean') throw new Error('Setting value must be boolean');
+    if (setting.type==='text') {
+      if (typeof value !== 'string' || value.length>setting.maxLength) throw new Error('Setting value must be text of at most '+setting.maxLength+' characters');
+      const check=validators.get(id)[key];
+      if (check) check(value);
+    } else if (typeof value !== 'boolean') throw new Error('Setting value must be boolean');
     const previous=configurations.get(id);
     if (previous[key]===value) return {...previous};
     const config=Object.freeze({...previous,[key]:value});

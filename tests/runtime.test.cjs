@@ -73,6 +73,29 @@ async function command(action,moduleId,fields={}) {
   assert.throws(()=>context.Qol.setConfig('configured','flag',true),/rejected config/);
   assert.equal(context.Qol.describe().find(m=>m.id==='configured').config.flag,false);
   assert(changes.some(c=>c.type==='registered'&&c.moduleId==='configured'));
+  // Text settings: bounded strings with an optional validator, alongside booleans.
+  for (const source of [
+    `Qol.register({id:'bad-text',enable(){},settings:[{key:'note',label:'Note',type:'text',default:'x'}]})`,
+    `Qol.register({id:'bad-text',enable(){},settings:[{key:'note',label:'Note',type:'text',default:5,maxLength:4}]})`,
+    `Qol.register({id:'bad-text',enable(){},settings:[{key:'note',label:'Note',type:'text',default:'toolong',maxLength:4}]})`,
+    `Qol.register({id:'bad-text',enable(){},settings:[{key:'note',label:'Note',type:'text',default:'x',maxLength:4,validate:'no'}]})`,
+    `Qol.register({id:'bad-text',enable(){},settings:[{key:'note',label:'Note',type:'text',default:'x',maxLength:4,validate(){throw Error('bad default')}}]})`,
+    `Qol.register({id:'bad-text',enable(){},settings:[{key:'note',label:'Note',type:'number',default:1}]})`
+  ]) assert.throws(()=>vm.runInContext(source,context));
+  assert.equal(context.Qol.describe().some(m=>m.id==='bad-text'),false);
+  vm.runInContext(`Qol.register({id:'texted',enable(){},settings:[{key:'level',label:'Level',type:'text',default:'10',maxLength:3,validate(value){if(!/^\\d*$/.test(value))throw Error('digits only')}},{key:'flag',label:'Flag',type:'boolean',default:false}]})`,context);
+  const texted=()=>context.Qol.describe().find(m=>m.id==='texted');
+  assert.deepEqual({...texted().settings[0]},{key:'level',label:'Level',type:'text',default:'10',maxLength:3});
+  assert.equal(texted().config.level,'10');
+  assert.throws(()=>context.Qol.setConfig('texted','level',42),/must be text/);
+  assert.throws(()=>context.Qol.setConfig('texted','level','1234'),/at most 3/);
+  assert.throws(()=>context.Qol.setConfig('texted','level','abc'),/digits only/);
+  assert.throws(()=>context.Qol.setConfig('texted','flag','yes'),/boolean/);
+  assert.equal(texted().config.level,'10');
+  assert.equal(context.Qol.setConfig('texted','level','').level,'');
+  response=await command('config','texted',{key:'level',value:'77'});
+  assert.equal(response.ok,true);assert.equal(response.result.level,'77');
+  assert(changes.some(c=>c.type==='config'&&c.moduleId==='texted'&&c.value==='77'));
   await command('enable','library-watch');
   context.Qol.setConfig('library-watch','logUnloads',false);
   observer.onRemoved({name:'quiet.so'});
