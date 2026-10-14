@@ -56,7 +56,7 @@ and GOPLUS.md. This table preserves the requested scope for subsequent work.
 | `magic-bag` | Per-item target quantities, protected stock, excess deletion | Planned |
 | `tamagotchi` | Feeding, souvenirs, play, snapshots and eligible buddy battles | Feed/play/souvenir bound; camera/battle pending |
 | `cooldown-tracker` | Last cooldown action (catch, spin, gym, GO Plus, manual) with four previous records, throw guard with toast, main-menu Poké Ball tint, "Cooldown is over" modal and Rocket Teleport to the origin for Shadows; see [COOLDOWN-TRACKER.md](COOLDOWN-TRACKER.md) | Implemented (0.433.0) |
-| `raid-pack` | Raid attack/dodge scheduling and animation handling | Planned |
+| `raid-pack` | Auto-attack by type effectiveness, auto-dodge of boss charged attacks, raid transition and result skips, Max Battle result skip and a boss moveset toast on raids and Power Spots; see [RAID-PACK.md](RAID-PACK.md) | Implemented (0.433.0); battles not yet seen live |
 | `tap-to-teleport` | Double tap the map, a Nearby icon or a stamp's See in Map to move there through GPS Joystick, with an optional mock-location bypass; see [TAP-TO-TELEPORT.md](TAP-TO-TELEPORT.md) | Implemented (0.433.0) |
 | `instant-loading` | Shortens the game's own map refresh throttle; see [PERFORMANCE.md](PERFORMANCE.md) | Implemented (0.433.0) |
 | `transfer-on-catch` | Post-catch transfer with keep rules, toast and per-encounter bypass, including main-process accessory catches; see [TRANSFER-ON-CATCH.md](TRANSFER-ON-CATCH.md). PvP rank rule pending `pvp-metrics` | Implemented (0.433.0) |
@@ -76,7 +76,7 @@ and GOPLUS.md. This table preserves the requested scope for subsequent work.
 | `speed-mode` | Dialog/animation handling, quantity shortcuts, Kecleon and Zygarde cells | Planned |
 | `block-non-shiny-encounters` | Authoritative shiny check before encounter dismissal | Planned |
 | `instant-spin` | Tap-triggered PokéStop spin and result handling | Planned |
-| `boss-movesets` | Available raid metadata and early notifications; timing requires verification | Planned |
+| `boss-movesets` | Available raid metadata and early notifications; timing requires verification. The on-tap moveset toast is part of `raid-pack` | Planned |
 | `encounter-iv-names` | Encounter name formatting from authoritative IVs | Planned |
 | `show-encounter-iv` | Encounter IV toast | Planned |
 | `inventory-ivs` | Shows Attack/Defense/HP IVs in place of names in the inventory grid (`agent/adapters/game-inventory-ivs.js`) | Implemented (0.433.0) |

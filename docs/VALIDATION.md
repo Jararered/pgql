@@ -687,6 +687,61 @@ Not established on a device: rival, neutral and out-of-range skips, the
 per-defender refusals, "too fast" back-off, the empty-bag path, leaving
 mid-visit, and prolonged use.
 
+## Raid Pack validation — October 14, 2026
+
+Final APK `build/pgql-debug.apk`: 45,711,899 bytes, SHA-256
+`e9a9ecbad67c2e139a9b07177a2e35b3ba051aeb730c416ee788a657b0077062`. Its
+`agent.js` (SHA-256 `6bfbae43…7d49f60`) is byte-identical to the bundle used in
+the live session. All thirty-one suites and the native JSON host check pass
+(`build/raid-pack-tests.log`). Summary: `build/raid-pack-validation.json`.
+
+Discovery (probe sessions on GO 0.433.0, each on a freshly started game;
+`build/raid-pack-metadata*.json`, `build/raid-probe-{1,2,3}.jsonl`):
+
+- Every class Pokemod's Raid Pack names exists. However,
+  `BattleDirector.NewTurn` / `ProcessBattleUpdate` and
+  `RaidBattleVNextState.PlayRaidBattleMusic` are obfuscated, and the approach
+  camera coroutine's progress field is one of three unnamed floats. The adapter
+  uses public members instead: `BattleDirector.get_CurrentState`,
+  `TrySubmitPlayerAction`, `BattleState.CurrentTurnSyncInfo`, actor and Pokémon
+  states, `BattleTurnAction`, `AnimationDefinition.duration`, and the named
+  sequencer and `RaidState` timings (contract in
+  [RAID-PACK.md](RAID-PACK.md)).
+- On the game thread, the generic
+  `IGameMasterData.MaybeGetByKey<MoveSettingsProto>(Enum)` (implemented by
+  `GameMasterData`), inflated at runtime, returned Wrap (13): −33 energy,
+  damage window 2150–2800 ms. `Get_TypeEffectiveness(Water, Fire, None)` = 1.6
+  and the reverse = 0.625. `I18n.PokemonMoveName(13)` = "Wrap" and
+  `PokemonName(150)` = "Mewtwo".
+- The first broad probe enumerated every method of every class on the agent
+  thread and did not finish. Its runner was killed and the game restarted. The
+  later probes look up named types only.
+
+Live session (the real bundle attached to a backgrounded, freshly started game,
+then driven over the command pipe; `build/raid-pack-session-2.jsonl`):
+
+- All ten parts bound: skips, results, maxResults, battle, dodge, manual,
+  movesets, stations, toast and names. The first attempt
+  (`build/raid-pack-session-1.jsonl`) showed that nested types (`Outer.Inner`)
+  are not found by the shared top-level lookup. The adapter now resolves them
+  through the declaring type.
+- Opening the nearby raid gym (still an egg) ran the approach camera skip once.
+  The definition-class check confirmed the argument register. No moveset toast
+  was shown for the egg.
+- Shutting down restored the shortened timings on the game thread ("Raid Pack
+  timings restored"). The runner detached without a crash.
+
+Session hygiene: the controller session was detached from its UI first, and the
+game was force-stopped before each probe and session. The first probe runner
+was blocked by its metadata walk and was killed. The others shut down with their
+scripts eternalized (resident-agent mode), and each was followed by a game
+restart. No attach crashed the game.
+
+Not established on a device: raid battles (auto-attack, charged move choice,
+dodge timing, manual tap pause), the raid intro and result skips, Max Battles,
+the moveset toast on a hatched raid or Power Spot, and prolonged use. No raid
+was available when this was written.
+
 ## One-button Start, early attach and attach lag
 
 The controller's **Launch game** and **Attach** buttons became one **Start**:
