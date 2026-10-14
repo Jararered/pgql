@@ -641,3 +641,48 @@ stopped and the game restarted before probing.
 
 Not established on a device: re-feeding after a breakout, the raid/Rocket skip,
 the out-of-stock path, the picker's cycling fallback, and prolonged use.
+
+## Gym Feeder validation — October 14, 2026
+
+Final APK `build/pgql-debug.apk`: 45,695,515 bytes, SHA-256
+`489d2de99b4bcf23cd770e622d52d027f4a0e6b33708d0ac35a521bde92bfb40`. Its
+`agent.js` (SHA-256 `fc795454…5d16818`) is byte-identical to the bundle used in
+the live session. All twenty-eight suites and the native JSON host check pass.
+Summary: `build/gym-feeder-validation.json`.
+
+Discovery (three probe sessions on one game process, GO 0.433.0;
+`build/gym-probe-meta.json`, `build/gym-probe-{1,2,3}.jsonl`):
+`IItemBag.UseItemOnGymDefender(Item, UInt64, String)` is implemented by
+`Niantic.Holoholo.Internal.ItemBagImpl`, and the game's own feed dialog called it with a
+Razz (701), the defender's `PokemonProto.Id` and the gym id
+`3a95…cb21e2f.16`. The answer was `Success` with +30 stardust and +50 XP and
+the updated `GymStatusAndDefenders`. The result enum has `Unset`, `Success` and
+twelve `Error…` names (`ErrorPokemonFull=5`, `ErrorTooFast=9`,
+`ErrorTooFrequent=10`, …). The defenders' `PokemonProto.deployedFortId_` is
+empty here, so the gym id comes from `MapGym.get_Id()` (`AbstractMapPlace`).
+Leaving a gym fires `GymState.ExitState`; entering fires `EnterState`, then
+the gym data, then `HandleOpenComplete`. Returning from a defender's details
+fires `HandleOpenComplete` again. A probe-driven call with the same arguments
+also returned `Success` (Snorlax 0 → 0.15 motivation). A second Razz right away
+was accepted with a smaller gain (+0.06), so there is no fixed per-feed
+cooldown. A direct call does not redraw the gym screen on its own.
+
+Live session (the real bundle attached to a backgrounded, freshly started game,
+then driven over the command pipe; `build/gym-feeder-session-1.jsonl`):
+
+- Bound with the screen refresh and the toast. The cap was set to 6 for the run.
+- Opening the in-range Valor gym (player team Red, six defenders at about zero
+  motivation) started a visit. Six Razz Berries were fed, one per defender, all
+  `Success`; the visit ended at the cap with +180 stardust and +300 XP. The
+  toast appeared, and the gym redrew at once with higher CP (for example
+  Rhyperior 664 → 955, Slaking 1005 → 1448; `build/gym-feeder-after-visit.png`).
+
+Session hygiene: the controller session (main and GO Plus runners) was detached
+from its UI before probing and the game restarted. After two of the probe
+shutdowns the runner kept running and was stopped with SIGINT; the game was not
+affected, and no attach crashed. The cap was put back to 20, the test runner
+shut down, and the controller attached again with Gym Feeder enabled.
+
+Not established on a device: rival, neutral and out-of-range skips, the
+per-defender refusals, "too fast" back-off, the empty-bag path, leaving
+mid-visit, and prolonged use.

@@ -191,6 +191,14 @@ button opposite the ⓘ in the encounter's berry list opens the game's dialog to
 pick Pinap, Razz, Nanab, Golden Razz, Silver Pinap or Off.
 See [PINAP-MASTER.md](docs/PINAP-MASTER.md).
 
+### Gym Feeder
+
+Default-off module that feeds your chosen berry (Razz by default) when you open
+a gym of your team in range. Every defender gets a berry in turn, lowest
+motivation first, until the server says each one is full or the per-visit cap
+(20 by default) is reached. The gym redraws with the new motivation and a toast
+sums up the visit. See [GYM-FEEDER.md](docs/GYM-FEEDER.md).
+
 ### Virtual GO Plus
 
 For Virtual GO Plus, use **Start GO Plus session** in PGQL. This attaches to the

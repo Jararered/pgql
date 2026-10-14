@@ -28,7 +28,7 @@ Output: `build/pgql-debug.apk`. Build fails with "Missing toolchain" if bootstra
 
 ## Tests
 
-All twenty-six suites: `npm test` (plain Node, no harness). Single suite: `node tests/<file>.test.cjs`.
+All twenty-eight suites: `npm test` (plain Node, no harness). Single suite: `node tests/<file>.test.cjs`.
 
 Tests execute the **real `agent/**` sources** in a `vm` sandbox with mocked Frida globals — they never touch recovered Pokemod code. Native JSON parser host check (from `native/`):
 
@@ -54,4 +54,4 @@ cc -std=c11 -Wall -Wextra -Werror -fsanitize=address,undefined json_protocol.c t
 
 ## Canonical docs
 
-`README.md` (architecture + how to add a module), `docs/VALIDATION.md` (device results/APK digests), `docs/MASS-GIFT.md`, `docs/ENCOUNTERS.md`, `docs/TRANSFER-ON-CATCH.md`, `docs/SHINY-SCANNER.md`, `docs/TAP-TO-TELEPORT.md`, `docs/COOLDOWN-TRACKER.md` and `docs/PINAP-MASTER.md` (module behavior + live-validation limits). Local tests passing ≠ live injection proof; device sessions are reported separately in `docs/VALIDATION.md` and the `build/` artifacts.
+`README.md` (architecture + how to add a module), `docs/VALIDATION.md` (device results/APK digests), `docs/MASS-GIFT.md`, `docs/ENCOUNTERS.md`, `docs/TRANSFER-ON-CATCH.md`, `docs/SHINY-SCANNER.md`, `docs/TAP-TO-TELEPORT.md`, `docs/COOLDOWN-TRACKER.md`, `docs/PINAP-MASTER.md` and `docs/GYM-FEEDER.md` (module behavior + live-validation limits). Local tests passing ≠ live injection proof; device sessions are reported separately in `docs/VALIDATION.md` and the `build/` artifacts.
