@@ -15,6 +15,8 @@ public class SessionService extends Service {
     private static final String COMPANION_TARGET=TARGET+":pgp", GOPLUS="virtual-go-plus";
     public static final String ATTACH_GOPLUS="dev.qol.framework.ATTACH_GOPLUS";
     public static final String ATTACH="dev.qol.framework.ATTACH", STOP="dev.qol.framework.STOP", UPDATE="dev.qol.framework.UPDATE";
+    // GPS Joystick's public service action; it reads float "lat"/"lng" extras.
+    private static final String TELEPORT="dev.qol.framework.TELEPORT", JOYSTICK_TELEPORT="theappninjas.gpsjoystick.TELEPORT";
     private static final Object LOCK=new Object();
     private static final ArrayDeque<String> LOG=new ArrayDeque<>();
     private static String sessionState="idle";
@@ -25,6 +27,7 @@ public class SessionService extends Service {
     private static volatile SessionService current;
     private final ExecutorService worker=Executors.newSingleThreadExecutor();
     private final ExecutorService companionWorker=Executors.newSingleThreadExecutor();
+    private final ExecutorService teleporter=Executors.newSingleThreadExecutor();
     private volatile Process runner, pidProbe, companion;
     private BufferedWriter companionInput;
     // Guarded by this: whether the :pgp agent's module is believed active, and
@@ -76,6 +79,15 @@ public class SessionService extends Service {
     }
     @Override public int onStartCommand(Intent intent,int flags,int startId) {
         if(intent==null || STOP.equals(intent.getAction())) { detach(); return START_NOT_STICKY; }
+        if(TELEPORT.equals(intent.getAction())) {
+            double latitude=intent.getDoubleExtra("latitude",Double.NaN),longitude=intent.getDoubleExtra("longitude",Double.NaN);
+            teleporter.execute(()->{
+                teleport(latitude,longitude);
+                // An alert tapped with no session must not leave the service running.
+                if(state().equals("idle") || state().equals("error"))stopSelf(startId);
+            });
+            return START_NOT_STICKY;
+        }
         if((ATTACH.equals(intent.getAction()) || ATTACH_GOPLUS.equals(intent.getAction())) && !state().equals("connecting") && !state().equals("attached")) {
             accessoryOnly=ATTACH_GOPLUS.equals(intent.getAction());
             synchronized(LOCK){accessorySession=accessoryOnly;goPlusStatus=new JSONObject();}
@@ -95,18 +107,61 @@ public class SessionService extends Service {
             .setStyle(new Notification.BigTextStyle().bigText(text)).setAutoCancel(true);
         int id;
         synchronized(this){alertId=(alertId+1)%50;id=100+alertId;}
-        Intent target=new Intent(this,MainActivity.class);
+        PendingIntent target=PendingIntent.getActivity(this,id,new Intent(this,MainActivity.class),PendingIntent.FLAG_IMMUTABLE|PendingIntent.FLAG_UPDATE_CURRENT);
         if(details!=null && details.has("latitude") && details.has("longitude")) {
             double latitude=details.optDouble("latitude"),longitude=details.optDouble("longitude");
-            if(!Double.isNaN(latitude) && !Double.isNaN(longitude)) {
+            if(validPlace(latitude,longitude)) {
+                // Tapping teleports there with GPS Joystick; the action still offers any map app.
                 String place=String.format(java.util.Locale.ROOT,"%.6f,%.6f",latitude,longitude);
                 builder.setSubText(place);
-                target=Intent.createChooser(new Intent(Intent.ACTION_VIEW,android.net.Uri.parse("geo:"+place+"?q="+place)),"Open location");
+                target=PendingIntent.getService(this,id,new Intent(this,SessionService.class).setAction(TELEPORT)
+                    .putExtra("latitude",latitude).putExtra("longitude",longitude),PendingIntent.FLAG_IMMUTABLE|PendingIntent.FLAG_UPDATE_CURRENT);
+                Intent map=Intent.createChooser(new Intent(Intent.ACTION_VIEW,android.net.Uri.parse("geo:"+place+"?q="+place)),"Open location");
+                builder.addAction(new Notification.Action.Builder(null,"Open map",
+                    PendingIntent.getActivity(this,id,map,PendingIntent.FLAG_IMMUTABLE|PendingIntent.FLAG_UPDATE_CURRENT)).build());
             }
         }
-        builder.setContentIntent(PendingIntent.getActivity(this,id,target,PendingIntent.FLAG_IMMUTABLE|PendingIntent.FLAG_UPDATE_CURRENT));
+        builder.setContentIntent(target);
         try{getSystemService(NotificationManager.class).notify(id,builder.build());}
         catch(SecurityException e){log("Alert notification blocked: "+e.getMessage());}
+    }
+    private static boolean validPlace(double latitude,double longitude) {
+        return !Double.isNaN(latitude) && !Double.isNaN(longitude) && !Double.isInfinite(latitude) && !Double.isInfinite(longitude)
+            && Math.abs(latitude)<=90 && Math.abs(longitude)<=180 && !(latitude==0 && longitude==0);
+    }
+    // Moves GPS Joystick's spoofed location. Its exported service is started
+    // explicitly; Android refuses that while GPS Joystick is not running, so
+    // root am starts it instead. A cold start begins at GPS Joystick's saved
+    // location and drops the target, so the jump is repeated once it runs.
+    private void teleport(double latitude,double longitude) {
+        if(!validPlace(latitude,longitude)){log("Teleport ignored: invalid location");return;}
+        String place=String.format(java.util.Locale.ROOT,"%.6f,%.6f",latitude,longitude);
+        Intent intent=new Intent(JOYSTICK_TELEPORT).putExtra("lat",(float)latitude).putExtra("lng",(float)longitude);
+        if(startJoystick(intent,place))return;
+        String command=String.format(java.util.Locale.ROOT,"am start-foreground-service -a %s --ef lat %.6f --ef lng %.6f",JOYSTICK_TELEPORT,(float)latitude,(float)longitude);
+        try {
+            Process process=new ProcessBuilder("su","-c",command).redirectErrorStream(true).start();
+            StringBuilder output=new StringBuilder();
+            try(BufferedReader reader=new BufferedReader(new InputStreamReader(process.getInputStream(),StandardCharsets.UTF_8))) {
+                String line; while((line=reader.readLine())!=null) output.append(line).append(' ');
+            }
+            if(!process.waitFor(10,TimeUnit.SECONDS))process.destroy();
+            log("Teleport "+place+" via root am: "+output.toString().trim());
+            Thread.sleep(2000);
+            if(!startJoystick(intent,place))log("Teleport repeat failed; GPS Joystick may still be at its saved location");
+        }catch(InterruptedException e){Thread.currentThread().interrupt();}
+        catch(Exception e){log("Teleport failed: "+e.getMessage());}
+    }
+    private boolean startJoystick(Intent intent,String place) {
+        try {
+            java.util.List<android.content.pm.ResolveInfo> found=getPackageManager().queryIntentServices(intent,0);
+            if(found.isEmpty()){log("Teleport: GPS Joystick is not installed or not visible");return false;}
+            android.content.pm.ServiceInfo info=found.get(0).serviceInfo;
+            ComponentName component=new ComponentName(info.packageName,info.name);
+            if(startService(new Intent(intent).setComponent(component))==null)return false;
+            log("Teleport "+place+" via "+component.flattenToShortString());
+            return true;
+        }catch(RuntimeException e){log("Teleport service start refused: "+e.getMessage());return false;}
     }
     private static String quote(String value) { return "'"+value.replace("'","'\\''")+"'"; }
     private void attach() {
@@ -190,6 +245,10 @@ public class SessionService extends Service {
                 }
                 String change=payload.optString("type");
                 if(change.equals("notify"))alert(payload);
+                if(change.equals("teleport")) {
+                    double latitude=payload.optDouble("latitude"),longitude=payload.optDouble("longitude");
+                    teleporter.execute(()->teleport(latitude,longitude));
+                }
                 if(change.equals("enabled") || change.equals("disabled") || change.equals("config")) synchronized(LOCK) {
                     String id=payload.optString("moduleId");
                     for(int i=0;i<moduleList.length();i++) {
@@ -369,7 +428,7 @@ public class SessionService extends Service {
         Process probe=pidProbe;if(probe!=null)probe.destroy();
         synchronized(this){if(input!=null)try{input.close();}catch(IOException ignored){}input=null;}
         closeCompanion();
-        worker.shutdown(); companionWorker.shutdown(); if(current==this)current=null;
+        worker.shutdown(); companionWorker.shutdown(); teleporter.shutdown(); if(current==this)current=null;
         super.onDestroy();
     }
     @Override public IBinder onBind(Intent intent){return null;}

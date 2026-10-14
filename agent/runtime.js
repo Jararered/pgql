@@ -100,6 +100,7 @@ globalThis.Qol = (() => {
     if (!module) throw new Error('Unknown module: '+id);
     if(module.availability==='planned')throw Error(module.unavailableReason || 'Feature is not implemented');
     const cleanups = [];
+    let lastTeleport=0;
     const ctx = {
       get config() { return configurations.get(id); },
       log: (message, details={}) => event('log', {moduleId:id, message, details}),
@@ -111,6 +112,17 @@ globalThis.Qol = (() => {
         if (Number.isFinite(details.latitude) && Number.isFinite(details.longitude) && Math.abs(details.latitude)<=90 && Math.abs(details.longitude)<=180)
           Object.assign(place,{latitude:details.latitude,longitude:details.longitude});
         event('notify', {moduleId:id, title, text, details:place});
+      },
+      // Asks the controller to move GPS Joystick's spoofed location. At most one
+      // jump per 250 ms; returns whether the request was sent.
+      teleport: (latitude, longitude) => {
+        if (!Number.isFinite(latitude) || !Number.isFinite(longitude) || Math.abs(latitude)>90 || Math.abs(longitude)>180 || (latitude===0 && longitude===0))
+          throw new Error('Teleport needs a valid latitude and longitude');
+        const now=Date.now();
+        if (now-lastTeleport<250) return false;
+        lastTeleport=now;
+        event('teleport', {moduleId:id, latitude, longitude});
+        return true;
       },
       cleanup: fn => { cleanups.push(fn); return fn; },
       hook: (address, callbacks) => {
