@@ -6,7 +6,7 @@ Enable **Mass Gift**, then choose **Preview friends and gifts**. **Send gifts** 
 
 The opening confirmation fetches paginated friend details and counts incoming gifts without opening them. The first implementation operates on the friend list returned by the game, deduplicates IDs and handles one action at a time. Sending advances available inventory only after success and reuses a still-available gift after a skipped friend. Opening prepares paginated friend details before reading incoming gifts. Daily opening limits, full bags, exhausted gifts and unknown results stop the batch. Requests have bounded waiting; uncertain outcomes are never automatically retried, and a timed-out request blocks another batch until it settles. The module does not create/delete postcards, remove friends or attach stickers.
 
-Compatibility is gated to game version **0.431.0**. Metadata signatures and the three live services were observed on the connected phone. An original scheduler hooks `UnityEngine.UnitySynchronizationContext.ExecuteTasks` and drains work on the game thread; this avoids the bridge's default thread scheduler, which did not reach the callback in earlier tests. Types and method signatures are resolved at runtime; there are no copied native game offsets.
+Compatibility is gated to game version **0.433.0**. Metadata signatures and the three live services were observed on the connected phone. An original scheduler hooks `UnityEngine.UnitySynchronizationContext.ExecuteTasks` and drains work on the game thread; this avoids the bridge's default thread scheduler, which did not reach the callback in earlier tests. Types and method signatures are resolved at runtime; there are no copied native game offsets.
 
 ## Validation boundary
 

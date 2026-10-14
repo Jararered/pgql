@@ -4,7 +4,7 @@ Original implementation in `agent/core/transfer-policy.js` (rules),
 `agent/adapters/game-transfer-on-catch.js` (game access) and
 `agent/modules/transfer-on-catch.js`. It reproduces the behaviour of Pokemod
 13.8.0's feature of the same name as read from `analysis/`; no recovered code is
-used. The adapter is gated to GO 0.431.0, checks every managed name and signature
+used. The adapter is gated to GO 0.433.0, checks every managed name and signature
 it uses before installing a hook, and has no offsets. The module is default-off
 and runs in the main game process only.
 

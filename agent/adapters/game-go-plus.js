@@ -1,7 +1,7 @@
 'use strict';
 // Original Virtual GO Plus adapter. Reproduces the recovered device-simulation
 // behavior against the live game through libholoholo.so exports only; the
-// struct offsets and mangled names are version-pinned to GO 0.431.0 and
+// struct offsets and mangled names are version-pinned to GO 0.433.0 and
 // documented in GOPLUS.md. No recovered code is loaded.
 globalThis.PgqlGameGoPlus = class PgqlGameGoPlus {
   constructor(ctx) {

@@ -547,3 +547,51 @@ Not established on the device:
 - turning `nearbyMenu`/`hideMock` off live;
 - whether the server reacts to the jumps;
 - prolonged use.
+
+## Pokémon GO 0.433.0 upgrade — October 14, 2026
+
+The phone auto-updated Pokémon GO to **0.433.0** (Unity 6000.3.22f1). Every
+adapter was gated to 0.431.0, so the in-game PGQL row fell back to the floating
+button and every game module refused to start. The gate is now one constant,
+`agent/core/game-version.js`, set to 0.433.0. Each adapter was re-checked on
+the new build rather than just ungated.
+
+Final APK `build/pgql-debug.apk`: 45,683,227 bytes, SHA-256
+`0821b06c1ea942403b22d286f9d552940bfbbbe55d4c6fc0db14868862fbb384`. All local
+suites and the native JSON host check pass. The live sessions below ran on the
+two preceding builds, which differ only in the encounter fix and a comment.
+
+**Managed (il2cpp) adapters** — the real bundle was attached to a backgrounded,
+freshly started game and each module enabled over the runner's command pipe
+(`build/433-session-1.jsonl`, `build/433-session-2.jsonl`):
+
+| Module | 0.433.0 result |
+|---|---|
+| Main menu row + native settings pages | Bound; PGQL row and settings rendered (`build/433-main-menu.png`, `build/433-settings.png`) |
+| Instant Loading, Performance Mode, IVs in Inventory | Bound, ready |
+| Transfer on Catch, Shiny Scanner, Tap to Teleport, Cooldown Tracker | Bound, ready |
+| Tamagotchi (buddy profile) | Bound; a care pass fed the buddy 3 times |
+| Mass Gift | Enabled; no batch was run |
+| Instant Catch, Perfect Throw, Headshot, Skip Encounter Intro | **Failed** first: the obfuscated encounter-state, Pokemon and reticle field names were renamed. Now bound by unique declared type; all four ready on the next build |
+
+A live encounter with the four encounter modules on opened without errors. One
+throw caught the Pokémon, Instant Catch closed the encounter, and Cooldown
+Tracker recorded the catch (`build/433-encounter.png`,
+`build/433-after-throw.png`). Transfer on Catch was switched off first. The
+field layout came from a throwaway metadata probe (`build/433-probe.jsonl`).
+
+**Virtual GO Plus** — all 17 `libholoholo.so` exports exist in 0.433.0. Every
+function that touches the pinned offsets is identical to 0.431.0 apart from
+addresses (`build/go-plus-433-offsets.txt`; see GOPLUS.md). A dedicated
+controller GO Plus session armed on 0.433.0, advertised, paired on the first
+connect tap, and dispatched 1 catch and 7 spin requests within about 12 s. It
+then detached with the shutdown acknowledged; both game processes stayed alive
+(`build/433-goplus-logcat.log`).
+
+Session hygiene: the enables used for testing were persisted to the game's PGQL
+settings. They were turned back off afterwards, so the saved set is again Library
+watch, Mass Gift and Tamagotchi. No attach crashed during this upgrade.
+
+Not established on 0.433.0: Mass Gift send/open, Shiny Scanner alerts, Tap to
+Teleport jumps, Transfer on Catch transfers, Performance Mode visual effects,
+GO Plus reconnect, and prolonged use.

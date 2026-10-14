@@ -2,7 +2,7 @@
 
 ## Current status
 
-The GO **0.431.0** profile implements feeding, petting and souvenir opening.
+The GO **0.433.0** profile implements feeding, petting and souvenir opening.
 Feeding and petting have observed server responses; the new profile's petting
 dispatch also succeeded on-device. Souvenir dispatch is bound but untested with
 an available souvenir. **Automatic snapshots and battles remain unimplemented**
