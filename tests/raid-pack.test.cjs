@@ -7,6 +7,9 @@ function managed(values={},methods={},klass='Managed') {
   byPointer.set(id,self);return self;
 }
 const fieldOf=key=>({bind:object=>({get value(){return object.values[key];},set value(v){object.values[key]=v;}})});
+// Enum-typed fields: like the bridge, they take an Il2Cpp.ValueType, never a plain number.
+const enumFieldOf=key=>({type:{name:'Enum:'+key},bind:object=>({get value(){return object.values[key];},set value(v){
+  if(typeof v==='number' || !v || !v.cell)throw Error('expected a pointer');object.values[key]=v.cell.int;}})});
 const methodOf=(name,fn)=>({virtualAddress:name,bind:object=>({invoke:(...args)=>fn(object,...args)})});
 const disabled=[];
 const read=file=>fs.readFileSync(path.join(__dirname,'../agent',file),'utf8');
@@ -14,7 +17,9 @@ const lookup=class {constructor(handle){return (handle&&byPointer.get(handle.id)
 const sandbox={setTimeout,clearTimeout,Promise,Date:{now:()=>clock},Number,
   Qol:{disable:id=>disabled.push(id)},ptr:value=>({ptr:value}),
   Interceptor:{attach:(address,callbacks)=>{sandbox.frames.push(callbacks);return {detach(){}};}},frames:[],
-  Il2Cpp:{get application(){return {version};},string:content=>({content,isNull:()=>false}),Object:lookup},
+  Memory:{alloc:()=>({int:0,writeS32(v){this.int=v;}})},
+  Il2Cpp:{get application(){return {version};},string:content=>({content,isNull:()=>false}),Object:lookup,
+    ValueType:class {constructor(cell,type){this.cell=cell;this.type=type;}}},
   PgqlGameGifts:class {
     constructor(){this.freed=0;this.held=0;}
     type(name){throw Error('Unsupported game metadata: '+name);}
@@ -86,10 +91,10 @@ function fixture(config={},options={}) {
       pokemonId:fieldOf('id'),pokedexId:fieldOf('pokedex'),display:fieldOf('display'),moves:fieldOf('moves'),breadMode:fieldOf('bread'),
       move:fieldOf('move'),moveType:fieldOf('type'),moveTurns:fieldOf('turns'),moveEnergy:fieldOf('energy'),
       actionType:fieldOf('type'),actionVariety:fieldOf('variety'),actionMove:fieldOf('move'),actionTurn:fieldOf('turn'),actionSerial:fieldOf('serial'),
-      event:make('event'),eventKind:fieldOf('type'),setAttack:methodOf('setAttack',(o,a)=>{o.values.attack=a;}),
-      attack:make('attack'),attackVariety:fieldOf('variety'),attackMove:fieldOf('move'),attackType:fieldOf('type'),attackTarget:fieldOf('target'),
+      event:make('event'),eventKind:enumFieldOf('type'),setAttack:methodOf('setAttack',(o,a)=>{o.values.attack=a;}),
+      attack:make('attack'),attackVariety:enumFieldOf('variety'),attackMove:enumFieldOf('move'),attackType:enumFieldOf('type'),attackTarget:fieldOf('target'),
       master:'IGameMasterData',statuses:{ACCEPTED:1,BUFFERED_BY_INPUT_BLOCK:6,REJECTED_BY_SERVER:2},types:{attack:4,fast:1,charge:2,charge2:3}},
-    dodge:{setDodge:methodOf('setDodge',(o,d)=>{o.values.dodge=d;}),dodge:make('dodge'),direction:fieldOf('direction'),right:2,dodgeKind:5},
+    dodge:{setDodge:methodOf('setDodge',(o,d)=>{o.values.dodge=d;}),dodge:make('dodge'),direction:enumFieldOf('direction'),right:2,dodgeKind:5},
     manual:{swap:methodOf('swap',()=>null),ability:methodOf('ability',()=>null),item:methodOf('item',()=>null)},
     movesets:{tap:methodOf('gymTap',()=>null),fortData:accessor('fort'),raidInfo:fieldOf('raidInfo'),raidPokemon:fieldOf('raidPokemon'),
       id:fieldOf('pokemonId_'),move1:fieldOf('move1_'),move2:fieldOf('move2_'),display:fieldOf('pokemonDisplay_'),form:fieldOf('Form')},

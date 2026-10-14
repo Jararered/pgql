@@ -94,10 +94,23 @@ Nested types are resolved through their declaring type.
 - Five consecutive failed battle steps stop automation for that battle only.
   The next battle starts fresh.
 
+## Fixes from the first live raid
+
+The first real raid (a shadow Gible, October 14, 2026) showed every battle step
+failing with `expected a pointer`. frida-il2cpp-bridge writes enum-typed fields
+(`BattleEventProto.Type`, `Attack.AttackType`/`Move`/`Type`, `Dodge.Direction`)
+as value types, so writing a plain number throws. Submitting now builds an
+`Il2Cpp.ValueType` for each enum field (`PgqlGameRaidPack.setEnum`), and the
+test mocks reject plain numbers for those fields.
+
+Shadow raids use the same battle state as other raids and are covered. Their
+Enrage phase (Purified Gems) is not automated.
+
 ## Validation
 
 See the Raid Pack section of [VALIDATION.md](VALIDATION.md). On a device, every
-part binds and the approach camera skip and timing restore were seen. Raid
-battles (attack, dodge, manual pause, result skip), Max Battles, the raid
-intro, the moveset toast on a hatched raid or Power Spot, and prolonged use
-have not been seen on a device yet.
+part binds, and the approach camera skip and timing restore were seen. In the
+shadow Gible raid the boss moveset toast and the raid result skip worked. Auto-attack
+failed there (see above) and the fix has not yet been seen in a raid. Auto-attack
+and dodging after the fix, the manual pause, Max Battles, the raid intro, the
+Power Spot toast and prolonged use have not been seen on a device yet.

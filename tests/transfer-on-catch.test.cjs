@@ -161,7 +161,7 @@ function fixture(config={},{slider=false}={}) {
     PgqlGameTransferOnCatch:class {constructor(){this.failed=false;}async start(){return true;}report(){return 'Transferred: 0\nKept: 0';}}});
   for(const file of ['runtime.js','core/feature-catalog.js','core/transfer-policy.js','modules/transfer-on-catch.js','modules/zz-feature-catalog.js'])vm.runInContext(read(file),moduleContext);
   const q=moduleContext.Qol,described=()=>q.describe().find(module=>module.id==='transfer-on-catch');
-  assert.equal(q.describe().length,33,'the module takes the reserved catalog slot');
+  assert.equal(q.describe().length,34,'the module takes the reserved catalog slot');
   assert.equal(described().availability,'implemented');assert.equal(described().category,'Inventory');
   assert.deepEqual(JSON.parse(JSON.stringify(described().config)),defaults);
   assert(described().settings.every(setting=>setting.description));

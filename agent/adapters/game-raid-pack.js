@@ -16,6 +16,11 @@ globalThis.PgqlGameRaidPack = class PgqlGameRaidPack {
     this.stats={battles:0,fast:0,charged:0,dodges:0,rejected:0,manual:0,intros:0,approaches:0,results:0,maxResults:0,movesets:0,last:null};
     ctx.cleanup(()=>this.close());
   }
+  // Enum fields are value types to the bridge: a plain number cannot be written to them.
+  static setEnum(field,object,value) {
+    const cell=Memory.alloc(8);cell.writeS32(value);
+    field.bind(object).value=new Il2Cpp.ValueType(cell,field.type);
+  }
   static number(value){return typeof value==='number'?value:typeof value==='object'&&value!==null&&value.field?value.field('value__').value:Number(value);}
   static get pollMs(){return 50;}
   static get victory(){return 2;}
@@ -499,18 +504,18 @@ globalThis.PgqlGameRaidPack = class PgqlGameRaidPack {
     }
   }
   submit(battle,director,decision,turn) {
-    const b=this.bound.battle,event=b.event.new();
+    const b=this.bound.battle,event=b.event.new(),set=PgqlGameRaidPack.setEnum;
     if(decision.kind==='dodge') {
       const d=this.bound.dodge,dodge=d.dodge.new();
-      d.direction.bind(dodge).value=d.right;
-      b.eventKind.bind(event).value=d.dodgeKind;
+      set(d.direction,dodge,d.right);
+      set(b.eventKind,event,d.dodgeKind);
       d.setDodge.bind(event).invoke(dodge);
     }else {
       const attack=b.attack.new(),move=decision.move;
-      b.attackVariety.bind(attack).value=decision.kind==='fast'?b.types.fast:(move.slot===b.types.charge2?b.types.charge2:b.types.charge);
-      b.attackMove.bind(attack).value=move.move;b.attackType.bind(attack).value=move.type;
+      set(b.attackVariety,attack,decision.kind==='fast'?b.types.fast:(move.slot===b.types.charge2?b.types.charge2:b.types.charge));
+      set(b.attackMove,attack,move.move);set(b.attackType,attack,move.type);
       if(decision.kind==='charged'&&battle.boss.id)b.attackTarget.bind(attack).value=Il2Cpp.string(battle.boss.id);
-      b.eventKind.bind(event).value=b.types.attack;
+      set(b.eventKind,event,b.types.attack);
       b.setAttack.bind(event).invoke(attack);
     }
     const request=b.submit.bind(director).invoke(event,false);

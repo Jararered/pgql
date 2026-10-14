@@ -687,6 +687,75 @@ Not established on a device: rival, neutral and out-of-range skips, the
 per-defender refusals, "too fast" back-off, the empty-bag path, leaving
 mid-visit, and prolonged use.
 
+## Auto Gym Battle validation and Raid Pack fix — October 14, 2026
+
+Final APK `build/pgql-debug.apk`: 45,720,091 bytes, SHA-256
+`238bbae06886179b2d847c0d7f977b9b572137161004766335d8477de355e08d`. Its
+`agent.js` (SHA-256 `891041be7a164db3e451826921ce98978d0966ffcb1710cfa0894055f363a1ac`)
+was attached in the last session. All thirty-three suites and the native JSON host check pass
+(`build/auto-gym-tests.log`).
+
+Discovery (probes on GO 0.433.0; `build/auto-gym-metadata.json`,
+`build/auto-gym-probe-{1,2}.jsonl`, `build/auto-gym-session-{2,3}.jsonl`):
+
+- Gym battles do not use the VNext battle director that raids use.
+  `Gym.GymBattleState` (subclass of `Gym.BattleState`) runs the legacy
+  client-driven system. Its frame service
+  `BattleFrameObservableService` exposes `TryOrQueueAttack`,
+  `TryOrQueueSpecialAttack(move3)`, `TryDodge` and `TrySwap(PokemonProto)`.
+  The planned shared VNext layer was therefore not built; the gym adapter is
+  separate and Raid Pack was left as it was, apart from the fix below.
+- In a live battle, frames showed the roster, the active index, the swap flag,
+  and enemy actions with start time, duration and damage window.
+  `BattleTimingService.TimeUntilAttackLands` counted down from about 1.1 s
+  through 0 for each enemy attack.
+- Between defenders the frame stays at status 2 for about 19.5 s with the
+  server clock frozen. The screen shows "Next up" with a counting-down Battle
+  button: `Gym.Battle.GymBattleContinueGuiController`, whose public
+  `ContinueToNextBattle()` is what the button calls.
+
+Live battles against the Instinct gym "Lest We Forget" (player Valor):
+
+1. Controller session, first build (`build/auto-gym-controller-logcat.log`):
+   the rival gate read gym team 3 and player team 2. The battle was won with
+   136 fast and 22 charged attacks, 0 dodges and 24 refusals. Three swaps:
+   - Ho-Oh → Solgaleo against Dragonite (1.98×);
+   - Ho-Oh → Typhlosion against Wailord (1.62×);
+   - Typhlosion → Reshiram against Magnezone (1.85×).
+2. Probe session (`build/auto-gym-session-2.jsonl`,
+   `build/auto-gym-shots/`): 71 fast and 14 charged attacks, 3 swaps, 12
+   refusals. The defenders used only fast attacks, so no dodge was attempted.
+3. Countdown build (`build/auto-gym-session-4.jsonl`): every part bound,
+   including `countdown`. Five "Next up" countdowns were skipped (6
+   defenders). 52 fast and 5 charged attacks, 1 swap (Solgaleo → Reshiram
+   against Magnezone, 1.85×), 16 refusals.
+
+After these battles the gym fell to neutral and an egg appeared, so the
+refusal breakdown build (per-kind counts and a refusal log) was attached and
+bound but not battled.
+
+Raid Pack, shadow Gible raid (`build/auto-gym-probe-2.jsonl`,
+`build/raid-live-*.png`, `build/raid-pack-moveset-toast-live.png`):
+
+- The moveset toast showed "Gible · Take Down / Body Slam" on the raid, and the
+  raid result screen was skipped after the win.
+- Auto-attack failed on every step with `expected a pointer` and stopped after
+  five. The cause was plain numbers written to enum fields; it is fixed and
+  covered by the test (see [RAID-PACK.md](RAID-PACK.md)). The fix has not yet
+  been seen in a raid. The raid was won with manual taps. Background taps
+  continued past the end of the raid, and the outcome of its catch encounter
+  is unknown.
+
+Session hygiene: one runner at a time; the controller session was detached
+from its UI before each probe, and the game was force-stopped before each
+attach. Every probe runner shut down with its script eternalized. One probe
+session ended when the game was restarted from the controller. The controller
+session was restarted at the end and restored the saved modules.
+
+Not established on a device: an Auto Gym Battle dodge, the manual-tap pause, a
+friendly-gym skip, what each refusal was, and Raid Pack auto-attack and dodging
+after the enum fix.
+
 ## Raid Pack validation — October 14, 2026
 
 Final APK `build/pgql-debug.apk`: 45,711,899 bytes, SHA-256
