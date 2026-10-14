@@ -81,8 +81,10 @@ its service, silently.
 
 ## Limits
 
-- Teleporting is instant; there is no walk mode, and nothing checks cooldowns
-  or distance. Large jumps can trigger the game's travel limits.
+- Teleporting is instant; there is no walk mode, and teleports themselves never
+  check cooldowns or distance. Large jumps can trigger the game's travel limits;
+  enable [Cooldown Tracker](COOLDOWN-TRACKER.md) to hold back throws until the
+  cooldown has passed.
 - Only native (JNI) mock checks are hidden. Java code calling `isMock()` directly
   is not covered.
 - The double-tap window is fixed at 500 ms. Pokemod's single-tap option is not

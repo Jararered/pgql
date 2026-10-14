@@ -172,6 +172,16 @@ mock-location flag from the game. The controller sends GPS Joystick's own
 `TELEPORT` intent. Start GPS Joystick's spoofing first.
 See [TAP-TO-TELEPORT.md](docs/TAP-TO-TELEPORT.md).
 
+### Cooldown Tracker
+
+Default-off module that remembers where and when you last caught, spun, used a
+gym or had a GO Plus action, and works out the travel cooldown from your current
+location. While it runs, Poké Ball drags are cut off with a toast showing the
+time left, and the main-menu Poké Ball turns orange. **Rocket Teleport** jumps to
+the cooldown origin for a Shadow encounter and back afterwards. Show Cooldown,
+Manual Save and Teleport to Origin are buttons on its settings card.
+See [COOLDOWN-TRACKER.md](docs/COOLDOWN-TRACKER.md).
+
 ### Virtual GO Plus
 
 For Virtual GO Plus, use **Start GO Plus session** in PGQL. This attaches to the

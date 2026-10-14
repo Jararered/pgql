@@ -55,7 +55,7 @@ and GOPLUS.md. This table preserves the requested scope for subsequent work.
 | `quest-tweaks` | Auto-claim, hidden reward presentation, individual queued encounters | Planned |
 | `magic-bag` | Per-item target quantities, protected stock, excess deletion | Planned |
 | `tamagotchi` | Feeding, souvenirs, play, snapshots and eligible buddy battles | Feed/play/souvenir bound; camera/battle pending |
-| `cooldown-tracker` | Five-action history, manual entries, inventory indicator, throw guard and previous-location return | Planned |
+| `cooldown-tracker` | Last cooldown action (catch, spin, gym, GO Plus, manual) with four previous records, throw guard with toast, main-menu Poké Ball tint, "Cooldown is over" modal and Rocket Teleport to the origin for Shadows; see [COOLDOWN-TRACKER.md](COOLDOWN-TRACKER.md) | Implemented (0.431.0) |
 | `raid-pack` | Raid attack/dodge scheduling and animation handling | Planned |
 | `tap-to-teleport` | Double tap the map, a Nearby icon or a stamp's See in Map to move there through GPS Joystick, with an optional mock-location bypass; see [TAP-TO-TELEPORT.md](TAP-TO-TELEPORT.md) | Implemented (0.431.0) |
 | `instant-loading` | Shortens the game's own map refresh throttle; see [PERFORMANCE.md](PERFORMANCE.md) | Implemented (0.431.0) |
