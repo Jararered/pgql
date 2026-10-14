@@ -7,7 +7,6 @@ Qol.register({
     {key:'quality',label:'Lower render quality',description:'Lowest quality level at reduced resolution.',type:'boolean',default:true},
     {key:'roads',label:'Remove roads',description:'Stops drawing roads on the map.',type:'boolean',default:false}
   ],
-  actions:[{id:'status',label:'Feature status'}],
   enable(ctx) {
     if(globalThis.PgqlRole==='pgp')throw Error('Performance Mode requires the main game process');
     const session={phase:'initializing',reason:null,closed:false,adapter:null,state:null};

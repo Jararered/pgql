@@ -24,7 +24,7 @@ game would not send itself. Pokemod's rate-limit reset through fabricated battle
 challenges is deliberately not implemented. More frequent map requests are still
 more than the stock client makes and are not risk-free for the account.
 
-**Feature status** shows the game's values and the applied ones.
+The module status records the game's values and the applied ones.
 
 ## Performance Mode (`performance-mode`)
 
@@ -40,7 +40,7 @@ that when switched off or when the module is disabled:
 
 Weather and clouds are re-asserted every 30 seconds in case the game turns them
 back on. A reduction that cannot find its target (for example no sky dome) is
-reported as unavailable in **Feature status** without blocking the others.
+reported as unavailable in the module status without blocking the others.
 
 Not implemented: switching off event or seasonal map themes (no such theme was
 active to verify against), sky effects other than clouds, and any frame-rate

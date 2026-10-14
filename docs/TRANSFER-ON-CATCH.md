@@ -69,7 +69,7 @@ Anything else is transferred (toast `[Transferred]`).
 | Ignore List | `132,201,352,570,999` | Text. Pokédex numbers never transferred (Ditto, Unown, Kecleon, Zorua, Gimmighoul by default). |
 
 Settings are read when each decision is made, so changes apply to the next catch.
-**Feature status** shows counts, the last decision and any unavailable part.
+The module status records counts, the last decision and any unavailable part.
 
 ## Disabling it for one encounter
 

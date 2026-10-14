@@ -15,7 +15,6 @@ globalThis.PgqlGoPlusModule = function(id,name) {
       {key:'auto-spin',label:'Auto spin Pokestops',type:'boolean',default:true},
       {key:'auto-reconnect',label:'Auto reconnect device',type:'boolean',default:true}
     ],
-    actions:[{id:'status',label:'Feature status'}],
     enable(ctx) {
       const session={phase:'initializing',reason:null,closed:false,adapter:null,companion:null};
       this.session=session;

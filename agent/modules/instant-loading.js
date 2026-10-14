@@ -1,7 +1,6 @@
 'use strict';
 Qol.register({
   id:'instant-loading',name:'Instant Loading',description:'Refreshes nearby Pokémon on the map much sooner.',
-  actions:[{id:'status',label:'Feature status'}],
   enable(ctx) {
     if(globalThis.PgqlRole==='pgp')throw Error('Instant Loading requires the main game process');
     const session={phase:'initializing',reason:null,closed:false,adapter:null};

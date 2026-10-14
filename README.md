@@ -124,7 +124,7 @@ lifecycle/timeout tests.
 
 ### Encounter toggles
 
-**Instant Catch**, **Perfect Throw**, and **Headshot** are independent, default-off modules in the injected menu. Enable before entering an encounter and check **Feature status**. They target game 0.431.0; incompatible method contracts turn the module off. See [ENCOUNTERS.md](docs/ENCOUNTERS.md) for behavior, cleanup, and the current runtime-validation limits.
+**Instant Catch**, **Perfect Throw**, and **Headshot** are independent, default-off modules in the injected menu. Enable before entering an encounter. They target game 0.431.0; incompatible method contracts turn the module off. See [ENCOUNTERS.md](docs/ENCOUNTERS.md) for behavior, cleanup, and the current runtime-validation limits.
 
 ### Instant Loading, Performance Mode and Skip Encounter Intro
 
@@ -160,4 +160,4 @@ Accessory Devices and complete the game's connection setup. If the accessory
 service is absent, opening that screen starts it. The controller remembers the
 catch, spin and reconnect settings. **Detach** ends the session gracefully.
 
-**Virtual GO Plus** emulates a genuine GO Plus accessory inside the game: the game pairs with a fabricated device and catches Pokemon / spins Pokestops natively (no throw animation), with automatic reconnect. Three boolean toggles (`auto-catch`, `auto-spin`, `auto-reconnect`, default on) apply live; a **Feature status** action reports connection state. See [GOPLUS.md](docs/GOPLUS.md) for behavior and the version-pinned native contract. It is the first PGQL adapter that talks to `libholoholo.so` natively; the required struct offsets are pinned to GO 0.431.0 and documented there rather than left implicit.
+**Virtual GO Plus** emulates a genuine GO Plus accessory inside the game: the game pairs with a fabricated device and catches Pokemon / spins Pokestops natively (no throw animation), with automatic reconnect. Three boolean toggles (`auto-catch`, `auto-spin`, `auto-reconnect`, default on) apply live. See [GOPLUS.md](docs/GOPLUS.md) for behavior and the version-pinned native contract. It is the first PGQL adapter that talks to `libholoholo.so` natively; the required struct offsets are pinned to GO 0.431.0 and documented there rather than left implicit.

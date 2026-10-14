@@ -14,7 +14,6 @@ Qol.register({
     {key:'ignoreList',label:'Ignore List',type:'text',default:'132,201,352,570,999',maxLength:400,validate:value=>{PgqlTransferPolicy.parseIgnoreList(value);},
       description:'Pokédex numbers that are never transferred, separated by commas.'}
   ],
-  actions:[{id:'status',label:'Feature status'}],
   enable(ctx) {
     if(globalThis.PgqlRole==='pgp')throw Error('Transfer on Catch requires the main game process');
     const session={phase:'initializing',reason:null,closed:false,adapter:null};

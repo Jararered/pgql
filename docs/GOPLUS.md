@@ -34,7 +34,7 @@ defaulting to **on**:
 | `auto-spin` | on | On `Module::ProcessPokestopNearby`, calls `Module::SearchPokestop` directly and flushes the sfida module state. |
 | `auto-reconnect` | on | Completes native disconnect teardown, then restarts the captured accessory session on its main thread. Retries back off from 1 to 30 seconds until paired; switching off cancels retries. |
 
-A **Feature status** action reports `phase` (`initializing`/`ready`/`failed`),
+The module's status (not shown in the menu) reports `phase` (`initializing`/`ready`/`failed`),
 connection state, request counters, and the three toggles. Request counters
 measure dispatched native requests; they do not claim server-confirmed catches
 or item awards. The main-process status retains the companion snapshot across
@@ -59,7 +59,7 @@ halves:
 
 The controller mirrors the front's `enabled`/`disabled`/`config` events to the
 companion, relays the companion's log lines back (shown under `companion` in
-**Feature status**), and disables the front if the companion disables itself,
+the module status), and disables the front if the companion disables itself,
 its runner exits, or `:pgp` is not running. Companion log lines are prefixed
 `GO Plus:` in the session log. The companion uses `--resident-agent` detach
 like the main session.

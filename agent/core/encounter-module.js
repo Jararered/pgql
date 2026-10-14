@@ -3,7 +3,7 @@
 // never resurrect a disabled module or disable a newer enable attempt.
 globalThis.PgqlEncounterModule = function(id,name,description) {
   return {
-    id,name,description,actions:[{id:'status',label:'Feature status'}],
+    id,name,description,
     enable(ctx) {
       const session={phase:'initializing',reason:null,closed:false,adapter:null};
       this.session=session;

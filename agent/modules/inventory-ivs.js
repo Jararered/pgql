@@ -1,7 +1,6 @@
 'use strict';
 Qol.register({
   id:'inventory-ivs',name:'Shows IVs in Inventory',description:'Replaces Pokémon names in your inventory with their Attack/Defense/HP IVs.',
-  actions:[{id:'status',label:'Feature status'}],
   enable(ctx) {
     if(globalThis.PgqlRole==='pgp')throw Error('IVs in inventory require the main game process');
     const session={phase:'initializing',reason:null,closed:false,adapter:null};

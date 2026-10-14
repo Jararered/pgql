@@ -21,7 +21,7 @@ const tick=()=>new Promise(setImmediate),runTimers=()=>{for(const fn of timers.s
  const module=q.describe()[0];
  assert.equal(module.name,'Virtual GO Plus');
  assert.equal(JSON.stringify(module.settings.map(s=>[String(s.key),Boolean(s.default)])),JSON.stringify([['auto-catch',true],['auto-spin',true],['auto-reconnect',true]]));
- assert.equal(JSON.stringify(module.actions.map(a=>String(a.id))),JSON.stringify(['status']));
+ assert.equal(module.actions.length,0);
  assert(!module.enabled);
  // Enable applies default settings to the adapter before install resolves.
  q.enable(moduleId);runTimers();assert.equal(sessions.length,1);
