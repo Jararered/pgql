@@ -5,7 +5,7 @@ access), `agent/adapters/mock-location.js` (mock flag), `agent/modules/tap-to-te
 and `teleport()` in `SessionService`. It reproduces the behaviour of Pokemod
 13.8.0's Tap to Teleport, recovered under `analysis/`; no recovered code is used.
 
-Requirements: game 0.431.0, root, and [GPS Joystick](https://gpsjoystick.theappninjas.com/)
+Requirements: game 0.433.0, root, and [GPS Joystick](https://gpsjoystick.theappninjas.com/)
 (`com.theappninjas.fakegpsjoystick`, validated with 5.3.3) set as the mock
 location app. **Start GPS Joystick's spoofing before using the module** (see
 "Cold start" below).

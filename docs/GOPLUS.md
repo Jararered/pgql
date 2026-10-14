@@ -91,15 +91,28 @@ How the session works while enabled:
    integer-register distance override was removed; it did not establish the
    native return ABI and is unnecessary for virtual device discovery.
 
-## Native contract (pinned to game 0.431.0)
+## Native contract (pinned to game 0.433.0)
 
-The adapter is gated to GO **0.431.0** (installed package `versionName` via
+The adapter is gated to GO **0.433.0** (installed package `versionName` via
 the Java bridge, `agent/core/package-version.js`; the `:pgp` process has no
 Unity/il2cpp) and fails cleanly on any other build — no anti-version bricking. All
 symbols are resolved by mangled name from `libholoholo.so` at runtime; missing
 exports disable the module. The struct field offsets below are
-version-pinned to 0.431.0, match the recovered agent, and are documented here so
-a game update can be reviewed against them before re-enabling.
+version-pinned to 0.433.0, originally matched the recovered 0.431.0 agent, and are
+documented here so a game update can be reviewed against them before re-enabling.
+
+**0.433.0 re-verification (October 14, 2026).** The game's arm64
+`libholoholo.so` from 0.433.0 was compared with the 0.431.0 copy
+(`build/go-plus-libholoholo.so`). All 17 mangled exports above are present in
+both. The functions that read or write the pinned fields
+(`ProcessPokemonNearby`, `ProcessPokestopNearby`, `HandleUpdate`,
+`CatchPokemon`, `SearchPokestop`, `StartSession`, `Device::Connect`,
+`ConnectionComplete`, `FinishDeviceDisconnect`, `AndroidPeripheral::Connect`,
+`StartScanningWithFilter`, `GetEnv`) are instruction-for-instruction identical
+once branch targets and ADRP page addresses are normalized, so every offset in
+the table is unchanged. `PgpManagerAndroid` message builders and `~Module`
+differ only in literal/stack layout, not in the fields PGQL uses. The
+comparison is in `build/go-plus-433-offsets.txt`.
 
 Exports resolved (mangled, abbreviated):
 
@@ -119,7 +132,7 @@ Exports resolved (mangled, abbreviated):
 - `_ZN3pgp5sfida6Module12StartSessionERK…basic_string…ESA_bSA_li`
 - `_ZN3pgp5sfida6ModuleD2Ev` (module lifetime invalidation)
 
-Struct layout used on 0.431.0:
+Struct layout used on 0.433.0:
 
 | Object | Offset | Field |
 |---|---|---|
@@ -206,8 +219,9 @@ No recovered Pokemod code is loaded into PGQL. See [THIRD_PARTY.md](../THIRD_PAR
   holds two inactive resident scripts until the game exits.
 - These are short sessions, not prolonged stability or one-hour timeout tests.
   See `VALIDATION.md` and the local `build/go-plus-*.log/jsonl/png` evidence.
-- Known limits: version-locked to 0.431.0; struct offsets are documented but
-  not independently re-derived; a mismatched build disables the module cleanly.
+- Known limits: version-locked to 0.433.0; struct offsets were carried over by
+  binary comparison with 0.431.0, not re-derived from scratch; a mismatched
+  build disables the module cleanly.
 - Explicitly **not** included: the recovered agent's mock-location bypass
   (`isFromMockProvider` → false) and its anti-version "zero memcpy" brick. The
   former belongs to location spoofing, the latter conflicts with PGQL's clean

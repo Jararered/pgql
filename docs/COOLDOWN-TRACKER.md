@@ -5,7 +5,7 @@ Original implementation in `agent/core/cooldown-policy.js` (rules),
 `agent/modules/cooldown-tracker.js`. It reproduces the behaviour of Pokemod
 13.8.0's Cooldown Tracker, recovered under `analysis/`; no recovered code is used.
 
-Requirements: game 0.431.0, main game process. Rocket Teleport and Teleport to
+Requirements: game 0.433.0, main game process. Rocket Teleport and Teleport to
 Origin go through `ctx.teleport`, so they need GPS Joystick as described in
 [TAP-TO-TELEPORT.md](TAP-TO-TELEPORT.md).
 
@@ -78,7 +78,7 @@ The time left is `record time + cooldown − now`, and is never negative.
 
 ## How it works
 
-Everything below is version-gated to 0.431.0 and checked up front. Required
+Everything below is version-gated to 0.433.0 and checked up front. Required
 parts fail the module; optional parts are listed in Show Cooldown when missing.
 
 1. **Location** (required). `Niantic.Platform.Ditto.Device.DeviceManager` has
