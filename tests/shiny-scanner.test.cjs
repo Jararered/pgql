@@ -24,6 +24,7 @@ const sandbox={setTimeout,clearTimeout,Date,
 const context=vm.createContext(sandbox);
 vm.runInContext(read('core/scanner-policy.js'),context);
 vm.runInContext(read('core/game-version.js'),context);
+vm.runInContext(read('adapters/game-toast.js'),context);
 vm.runInContext(read('adapters/game-shiny-scanner.js'),context);
 const Adapter=context.PgqlGameShinyScanner;
 const settle=async()=>{for(let i=0;i<6;i++){await new Promise(resolve=>setImmediate(resolve));await new Promise(resolve=>setTimeout(resolve,0));}};

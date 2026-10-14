@@ -6,7 +6,8 @@ Qol.register({
     {key:'ball',label:'Ball',type:'text',default:'poke',maxLength:8,validate:value=>{PgqlCatchPolicy.parse(value);},
       description:'poke, great or ultra. Follows the last ball you pick in an encounter; the cheapest ball you have is used when it runs out.'},
     {key:'holdToOpen',label:'Hold to Open',type:'boolean',default:true,description:'Press and hold a Pokémon to open the normal encounter.'},
-    {key:'showToast',label:'Show Toast',type:'boolean',default:true,description:'Shows the result of each catch.'}
+    {key:'showToast',label:'Show Toast',type:'boolean',default:true,description:'Shows the result of each catch.'},
+    {key:'showHalo',label:'Show Halo',type:'boolean',default:true,description:'Shows a pulsing ring around a Pokémon while it is being caught.'}
   ],
   enable(ctx) {
     if(globalThis.PgqlRole==='pgp')throw Error('Tap to Catch requires the main game process');

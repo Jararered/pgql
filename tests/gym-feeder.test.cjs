@@ -26,7 +26,7 @@ const sandbox={setTimeout,clearTimeout,Promise,Date:{now:()=>clock},
     handleFree(){this.freed++;}
   }};
 const context=vm.createContext(sandbox);
-for(const file of ['core/berry-policy.js','core/gym-feed-policy.js','core/game-version.js','adapters/game-gym-feeder.js'])vm.runInContext(read(file),context);
+for(const file of ['core/berry-policy.js','core/gym-feed-policy.js','core/game-version.js','adapters/game-toast.js','adapters/game-gym-feeder.js'])vm.runInContext(read(file),context);
 const Adapter=context.PgqlGameGymFeeder;
 const settle=async()=>{for(let i=0;i<6;i++)await new Promise(resolve=>setTimeout(resolve,0));};
 const results=new Map([[1,'Success'],[3,'ErrorNotInRange'],[5,'ErrorPokemonFull'],[9,'ErrorTooFast']]);

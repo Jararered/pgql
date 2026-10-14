@@ -119,7 +119,7 @@ globalThis.PgqlGameShinyScanner = class PgqlGameShinyScanner {
         const nullable=params.field(name).type.class;
         field(nullable,'hasValue','System.Boolean');nullable.field('value');
       }
-      return {service,params};
+      return {service,params,top:PgqlGameToast.bind(type,params,this.ctx.log)};
     });
     optional('model',()=>{
       const holo=type('Niantic.Holoholo.Assets.Character.HoloCharacter');
@@ -357,7 +357,7 @@ globalThis.PgqlGameShinyScanner = class PgqlGameShinyScanner {
     if(!service||!this.bound.toast||this.limits.toast)return;
     try {
       const b=this.bound.toast,params=b.params.alloc();
-      params.method('.ctor',0).invoke();
+      params.method('.ctor',0).invoke();PgqlGameToast.place(b.top,params);
       params.field('AutoDismiss').value=true;params.field('DismissOnClick').value=true;
       const seconds=params.field('DisplaySecondsOverride').value;seconds.field('value').value=4;seconds.field('hasValue').value=true;
       const background=params.field('BackgroundColor').value,color=background.field('value').value;

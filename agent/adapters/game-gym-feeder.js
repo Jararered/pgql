@@ -93,7 +93,7 @@ globalThis.PgqlGameGymFeeder = class PgqlGameGymFeeder {
         if(options.field(name).type.name!==expected)throw Error('Unsupported toast field: '+name);
       const nullable=options.field('DisplaySecondsOverride').type.class;
       nullable.field('hasValue');nullable.field('value');
-      return {service,params:options};
+      return {service,params:options,top:PgqlGameToast.bind(type,options,this.ctx.log)};
     });
     this.bound=bound;
     return bound;
@@ -214,7 +214,7 @@ globalThis.PgqlGameGymFeeder = class PgqlGameGymFeeder {
     if(!this.bound.toast||this.limits.toast||!this.ctx.config.showToast)return;
     this.game.main(()=>{
       const t=this.bound.toast,service=this.service(t.service),params=t.params.alloc();
-      params.method('.ctor',0).invoke();
+      params.method('.ctor',0).invoke();PgqlGameToast.place(t.top,params);
       params.field('AutoDismiss').value=true;params.field('DismissOnClick').value=true;
       const seconds=params.field('DisplaySecondsOverride').value;seconds.field('value').value=3;seconds.field('hasValue').value=true;
       const shown=service.class.methods.find(m=>m.name==='OneLine'&&!m.isStatic&&m.parameterCount===2&&

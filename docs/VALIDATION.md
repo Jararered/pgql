@@ -961,3 +961,54 @@ Not established on a device:
 - prolonged use.
 
 Tap to Catch is left disabled.
+
+## Top toasts and Tap to Catch halo — October 14, 2026
+
+Final APK `build/pgql-debug.apk`, SHA-256
+`24b8d5aaf96d2b9f7050828cb4bf5b71d1db45c9350331c48e8dca8c7524214c`; its
+`agent.js` has SHA-256 `aaebade1…0e372cef`. All thirty-six Node suites and the
+Python check pass.
+
+Setup. The controller session was stopped with the `STOP` intent after logcat
+was saved to `build/toast-halo-pre-restart-logcat.log`. Each session then
+force-stopped and relaunched the game and attached the bundle over the command
+pipe (`build/tap-session.sh`). Probe modules appended to the bundle, kept outside
+the repository, dumped metadata and showed test toasts. Logs are
+`build/toast-halo-session*.log` and `build/toast-probe*.log`.
+
+Toast metadata (0.433.0). `ToastParams` has `Single PivotY` (default 0.5),
+`Nullable<Single> VerticalScreenPosition`, `Nullable<ToastZone> ZoneOverride`
+and the fields the modules already set. `Screen.safeArea` reports the whole
+render surface (771×1731), with no status-bar inset.
+
+Toast results:
+
+- `OneLine` follows both `PivotY` and `VerticalScreenPosition`. `TwoLine`, which
+  Transfer on Catch and Raid Pack use, ignores `VerticalScreenPosition` and
+  follows `PivotY`. PGQL therefore sets `PivotY`.
+- `PivotY` 0.86, 0.90 and 0.93 all place the toast fully below the status bar
+  (`build/probe-b*.png`). 0.90 is used.
+- With the module code, Tap to Catch's own toast "Caught with your Poké Ball"
+  showed at the top (`build/s7-seq3.png`). Transfer on Catch's toast arrives at
+  the same moment and replaces it, so Transfer on Catch was disabled for that
+  catch and turned back on afterwards.
+
+Halo results:
+
+- Each wild spawn's `normalRippleFx` is a `Ripple` GameObject. It holds one
+  `ParticleSystem` (local space, loop, 5 s lifetime, a single particle) drawn
+  with `Mobile/Particles/Alpha Blended`. That shader has no colour property.
+- The first build only changed `startColor`. Its ring scaled up, but kept the
+  old colour, because the live particle keeps its colour. Emitting a new
+  particle gave a ring that started too small to see during a catch of about
+  1 s.
+- The final build clears the ripple and holds it with `Simulate(1.5, false, true)`.
+  During a tap catch of a Stantler, a bright blue ring showed around it
+  (`build/s7-seq1.png`, compared with `build/s7-map.png`). The catch succeeded,
+  and no halo errors were logged.
+
+Not established on a device: the restore after a breakout or miss, a disable
+while a halo is up, and photobomb spawns. These are covered by tests only.
+
+The game was left running with no runner attached. The last runner acknowledged
+shutdown but did not exit, so it was terminated.

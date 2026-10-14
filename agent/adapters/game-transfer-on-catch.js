@@ -76,7 +76,7 @@ globalThis.PgqlGameTransferOnCatch = class PgqlGameTransferOnCatch {
         field(nullable,'hasValue','System.Boolean');nullable.field('value');
       }
       for(const channel of ['r','g','b','a'])field(type('UnityEngine.Color'),channel,'System.Single');
-      return {service,params};
+      return {service,params,top:PgqlGameToast.bind(type,params,this.ctx.log)};
     });
     optional('accessory',()=>{
       const entry=type('Holoholo.Rpc.ActionLogEntry'),log=type('Holoholo.Rpc.CatchPokemonLogEntry');
@@ -131,7 +131,7 @@ globalThis.PgqlGameTransferOnCatch = class PgqlGameTransferOnCatch {
     if(!service||this.limits.toast)return;
     try {
       const b=this.bound.toast,params=b.params.alloc();
-      params.method('.ctor',0).invoke();
+      params.method('.ctor',0).invoke();PgqlGameToast.place(b.top,params);
       params.field('AutoDismiss').value=true;params.field('DismissOnClick').value=true;
       const seconds=params.field('DisplaySecondsOverride').value;seconds.field('value').value=3;seconds.field('hasValue').value=true;
       const background=params.field('BackgroundColor').value,color=background.field('value').value;

@@ -114,7 +114,7 @@ globalThis.PgqlGameCooldown = class PgqlGameCooldown {
         const nullable=options.field(name).type.class;
         field(nullable,'hasValue','System.Boolean');nullable.field('value');
       }
-      return {service,params:options};
+      return {service,params:options,top:PgqlGameToast.bind(type,options,this.ctx.log)};
     });
     optional('indicator',()=>{
       const menu=type('Niantic.Holoholo.Map.UI.MainMenuGuiController'),group=type('UnityEngine.CanvasGroup'),image=type('UnityEngine.UI.Image'),graphic=type('UnityEngine.UI.Graphic');
@@ -235,7 +235,7 @@ globalThis.PgqlGameCooldown = class PgqlGameCooldown {
       const service=this.service(b.toast.service);
       if(!service)return;
       const params=b.toast.params.alloc();
-      params.method('.ctor',0).invoke();
+      params.method('.ctor',0).invoke();PgqlGameToast.place(b.toast.top,params);
       params.field('AutoDismiss').value=true;params.field('DismissOnClick').value=true;
       const seconds=params.field('DisplaySecondsOverride').value;seconds.field('value').value=2;seconds.field('hasValue').value=true;
       const background=params.field('BackgroundColor').value,color=background.field('value').value;
