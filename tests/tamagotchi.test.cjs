@@ -4,7 +4,7 @@ function setup() {
   const timers=new Map();let serial=0,probes=0;
   const context=vm.createContext({send:()=>{},setTimeout,clearTimeout,
     setInterval:fn=>{const id=++serial;timers.set(id,fn);return id;},clearInterval:id=>timers.delete(id),
-    Il2Cpp:{perform:async fn=>{probes++;return fn();},application:{version:'0.431.0'}}});
+    Il2Cpp:{perform:async fn=>{probes++;return fn();},application:{version:'0.433.0'}}});
   for(const file of ['runtime.js','core/automation.js','core/buddy-care.js','core/game-adapters.js','adapters/game-buddy.js','modules/tamagotchi.js'])
     vm.runInContext(fs.readFileSync(path.join(__dirname,'../agent',file),'utf8'),context);
   return {context,timers,get probes(){return probes;}};
@@ -22,7 +22,7 @@ const defer=()=>{let resolve;const promise=new Promise(done=>resolve=done);retur
 
   let writes=0,cleanup=0;
   const entered=defer(),settle=defer();
-  Adapters.register('buddy','0.431.0',ctx=>{
+  Adapters.register('buddy','0.433.0',ctx=>{
     ctx.cleanup(()=>cleanup++);
     return {snapshot:async()=>({ready:true,identity:'private-account/buddy/day',actions:{play:{supported:true,eligible:true,key:'one'}}}),
       execute:async(action,request)=>{assert.equal(action,'play');assert.equal(request.identity,'private-account/buddy/day');writes++;entered.resolve();return settle.promise;}};

@@ -2,7 +2,7 @@
 // Original GO Plus status bridge: reports device XP/timestamps/encounter IDs
 // back to the game's native PgpManagerAndroid so the virtual session behaves
 // like a connected accessory. Exports are resolved from libholoholo.so and
-// gated to GO 0.431.0 by the adapter.
+// gated to the supported GO build by the adapter.
 globalThis.PgqlPgpManager = class PgqlPgpManager {
   constructor(libholoholo) {
     const xp=libholoholo.findExportByName('_ZN3pgp7android17PgpManagerAndroid19SendXpGainedMessageEi');

@@ -1,5 +1,5 @@
 'use strict';
-// Original 0.431.0 adapter for the Cooldown Tracker. Follows the player's
+// Original adapter for the Cooldown Tracker. Follows the player's
 // location, records the last cooldown action (catch, spin, gym, GO Plus or a
 // manual save) and holds back Poké Ball drags while a cooldown is running.
 // PgqlCooldownPolicy owns the rules. Names are verified from live managed
@@ -14,7 +14,7 @@ globalThis.PgqlGameCooldown = class PgqlGameCooldown {
     this.modalTimer=null;this.saveTimer=null;this.lastToast=0;this.blocked=0;this.indicator={group:null,tinted:false,original:null};
     ctx.cleanup(()=>this.close());
   }
-  static get version(){return '0.431.0';}
+  static get version(){return PgqlGameVersion.supported;}
   static number(value){return typeof value==='number'?value:value.field('value__').value;}
   // The game's own SharedPreferences, so the record survives reattach and restarts.
   static preferences() {
@@ -31,7 +31,7 @@ globalThis.PgqlGameCooldown = class PgqlGameCooldown {
   bind() {
     if(this.bound)return this.bound;
     const version=Il2Cpp.application.version;
-    if(version!==PgqlGameCooldown.version)throw Error('Cooldown Tracker supports game 0.431.0; found '+version);
+    PgqlGameVersion.require(version,'Cooldown Tracker supports');
     const type=name=>this.game.type(name);
     const proto=name=>{try{return type('Holoholo.Rpc.'+name);}catch(_){return type(name);}};
     const args=m=>m.parameters.map(p=>p.type.name).join('|');

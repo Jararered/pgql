@@ -88,7 +88,7 @@ globalThis.PgqlGameEncounters = class PgqlGameEncounters {
     if(this.closed)return;
     await this.scheduler.main(()=>{
       if(this.closed)return;
-      if(Il2Cpp.application.version!=='0.431.0')throw Error('Encounter features require game 0.431.0; found '+Il2Cpp.application.version);
+      PgqlGameVersion.require(Il2Cpp.application.version,'Encounter features require');
       try {
         if(feature==='instant-catch')this.instantCatch();
         else if(feature==='perfect-throw')this.perfectThrow();

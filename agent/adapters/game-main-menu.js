@@ -1,5 +1,5 @@
 'use strict';
-// Original 0.431.0 adapter. Adds one row to the game's own main menu, beside
+// Original adapter. Adds one row to the game's own main menu, beside
 // Settings and In-Person Event Tickets, by cloning the Settings row. Object and
 // member names are verified from live managed metadata; there are no offsets.
 globalThis.PgqlGameMainMenu = class PgqlGameMainMenu {
@@ -12,7 +12,7 @@ globalThis.PgqlGameMainMenu = class PgqlGameMainMenu {
   static get entryName(){return 'PgqlMenuButton';}
   bind() {
     const version=Il2Cpp.application.version;
-    if(version!=='0.431.0')throw Error('Main menu entry supports game 0.431.0; found '+version);
+    PgqlGameVersion.require(version,'Main menu entry supports');
     const type=name=>this.game.type(name);
     const one=(name,klass,predicate)=>{
       const matches=klass.methods.filter(predicate);

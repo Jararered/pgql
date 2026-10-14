@@ -68,7 +68,7 @@ globalThis.PgqlGameGoPlus = class PgqlGameGoPlus {
     if(Process.pointerSize!==8)throw Error('Virtual GO Plus requires Android arm64');
     const version=await PgqlPackageVersion();
     this.version=version;
-    if(version!=='0.431.0')throw Error('Virtual GO Plus supports game 0.431.0; found '+version);
+    PgqlGameVersion.require(version,'Virtual GO Plus supports');
     this.lib=Process.getModuleByName('libholoholo.so');
     if(!this.lib)throw Error('libholoholo.so is not loaded');
     const sym=name=>{const address=this.lib.findExportByName(name);if(!address)throw Error('Unsupported export: '+name);return address;};

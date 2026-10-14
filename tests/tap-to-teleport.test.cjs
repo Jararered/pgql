@@ -74,7 +74,7 @@ const action=name=>object(types['System.Action'],{},{Invoke:()=>backs.push(name)
 const subcategory=object(types['Niantic.Holoholo.Collections.StampSubcategoryGuiController'],{backButtonAction:action('subcategory')});
 const found={'Niantic.Holoholo.MapSceneContext':scene,[N+'NearbyPokemonGuiController']:nearbyGui,'Niantic.Holoholo.Collections.StampSubcategoryGuiController':subcategory};
 
-let version='0.431.0',clock=1000;
+let version='0.433.0',clock=1000;
 const hooks=new Map(),replaced=new Map(),reverted=[];
 class ValueType {
   constructor(handle,type){this.handle=handle;this.type=type;this.values={};}
@@ -86,6 +86,7 @@ const context=vm.createContext({setTimeout,clearTimeout,Date:{now:()=>clock},
   Memory:{alloc:()=>pointer()},
   Interceptor:{replace:(address,wrapped)=>replaced.set(address.name,wrapped),revert:address=>{reverted.push(address.name);replaced.delete(address.name);},flush:()=>{}},
 });
+vm.runInContext(read('core/game-version.js'),context);
 vm.runInContext(read('adapters/game-tap-to-teleport.js'),context);
 const Teleport=context.PgqlGameTapToTeleport;
 const teleports=[],logs=[],cleanups=[];
@@ -97,9 +98,9 @@ const press=(method,self)=>replaced.get(method).fn.call(self);
 
 (async()=>{
   // Version gate and strict bindings.
-  version='0.432.0';
-  await assert.rejects(new Teleport({...ctx,cleanup:()=>{}}).start(),/supports game 0\.431\.0/);
-  version='0.431.0';
+  version='0.434.0';
+  await assert.rejects(new Teleport({...ctx,cleanup:()=>{}}).start(),/supports game 0\.433\.0/);
+  version='0.433.0';
   const onTap=types['Niantic.Holoholo.Map.GroundTapHandler'].methods[0];
   onTap.parameters=[{type:{name:'System.Object'}}];
   await assert.rejects(new Teleport({...ctx,cleanup:()=>{}}).start(),/Unsupported teleport method: OnTap/);

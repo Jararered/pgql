@@ -16,6 +16,7 @@ const context=vm.createContext({
  Il2Cpp:{Object:function(handle){return objects.get(handle.id)||nil},delegate:(type,fn)=>Object.assign(managed({}),{callback:fn})},
  setTimeout:fn=>fn(),Qol:{disable:()=>events.push('disabled')}
 });
+vm.runInContext(fs.readFileSync(require('node:path').join(__dirname,'../agent/core/game-version.js'),'utf8'),context);
 vm.runInContext(fs.readFileSync(require('node:path').join(__dirname,'../agent/adapters/game-encounters.js'),'utf8'),context);
 const Adapter=context.PgqlGameEncounters;
 function fixture() {

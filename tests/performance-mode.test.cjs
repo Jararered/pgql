@@ -20,7 +20,7 @@ const tiles=[tile(),tile()],prefabTile=managed({roadMeshRenderer:renderer(true),
 const quality={level:0,names:['Ultra High','High','Standard']},renderState={scale:1};
 const renderService=managed(renderState,{get_CurrentResolutionScale:()=>renderState.scale,ApplyResolutionScale:v=>{renderState.scale=v;}});
 const scene=managed({}, {get_Container:()=>({method:()=>calls(()=>renderService)})});
-let version='0.431.0',skyLoaded=true;
+let version='0.433.0',skyLoaded=true;
 const M=(name,args=[],isStatic=false)=>[name,args,isStatic];
 const signatures={
   'Niantic.Holoholo.Map.WeatherService':[M('get_DisplayWeatherEffects'),M('set_DisplayWeatherEffects',['System.Boolean'])],
@@ -57,6 +57,7 @@ const context=vm.createContext({setTimeout,clearTimeout,
   Il2Cpp:{get application(){return {version};},Object:class {constructor(handle){return byPointer.get(handle.id);}}},
   Interceptor:{attach:(address,callbacks)=>{attached.set(address,callbacks);return {detach:()=>attached.delete(address)};}},
 });
+vm.runInContext(fs.readFileSync(path.join(__dirname,'../agent/core/game-version.js'),'utf8'),context);
 vm.runInContext(fs.readFileSync(path.join(__dirname,'../agent/adapters/game-performance.js'),'utf8'),context);
 const Performance=context.PgqlGamePerformance;
 const ctx={cleanup:fn=>cleanups.push(fn),log:(message,details)=>logs.push({message,details})};
@@ -64,9 +65,9 @@ const plain=value=>JSON.parse(JSON.stringify(value));
 const cloudStates=()=>clouds.map(cloud=>cloud.state.enabled);
 const roadStates=()=>tiles.map(t=>[t.values.roadMeshRenderer.state.enabled,t.values.roadOutlinesMeshRenderer.state.enabled]);
 (async()=>{
-  version='0.432.0';
-  await assert.rejects(new Performance({...ctx,cleanup:()=>{}}).apply({weather:true}),/supports game 0\.431\.0/);
-  version='0.431.0';assert.equal(weatherState.display,true);
+  version='0.434.0';
+  await assert.rejects(new Performance({...ctx,cleanup:()=>{}}).apply({weather:true}),/supports game 0\.433\.0/);
+  version='0.433.0';assert.equal(weatherState.display,true);
 
   const mode=new Performance(ctx);
   assert.deepEqual(plain(await mode.apply({weather:true,sky:true,quality:true,roads:false})),{weather:'on',sky:'on',quality:'on',roads:'off'});
