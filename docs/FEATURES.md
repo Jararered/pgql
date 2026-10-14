@@ -50,7 +50,7 @@ and GOPLUS.md. This table preserves the requested scope for subsequent work.
 
 | Feature ID | Requested behavior / next adapter work | State |
 | --- | --- | --- |
-| `shiny-scanner` | Map markers for shinies, high/zero IV, sizes, Ditto and daily-incense rare spawns; notifications, coordinates and teleport | Planned |
+| `shiny-scanner` | Encounter-request scan of nearby wild, lure, incense, route, photobomb and station spawns; toast and Android alerts with coordinates, shiny/Ditto/size redraw and ripple tint; see [SHINY-SCANNER.md](SHINY-SCANNER.md). Teleport pending `tap-to-teleport` | Implemented (0.431.0) |
 | `virtual-go-plus` | Device emulation, auto-catch, auto-spin, reconnect in the accessory process | Existing |
 | `quest-tweaks` | Auto-claim, hidden reward presentation, individual queued encounters | Planned |
 | `magic-bag` | Per-item target quantities, protected stock, excess deletion | Planned |

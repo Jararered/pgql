@@ -408,3 +408,75 @@ the session); shadow, background, XXS/XXL, special-ball and ignore-list catches
 on live encounters (covered by the dry run over the bag and the unit tests); the
 600-frame give-up; incense and lure catches, which are kept if the game reports
 those origins; the Android fallback dialog's text controls; and prolonged use.
+
+## Shiny Scanner validation
+
+Implemented as `agent/core/scanner-policy.js`, `agent/adapters/game-shiny-scanner.js`
+and `agent/modules/shiny-scanner.js`, plus `ctx.notify` in the runtime and an
+alert channel in `SessionService`; see [SHINY-SCANNER.md](SHINY-SCANNER.md).
+Local: `npm test` (twenty-one suites) passes, including the new
+`tests/scanner-policy.test.cjs`, `tests/shiny-scanner.test.cjs` and the
+notification case in `tests/runtime.test.cjs`.
+
+Discovery (one probe session, GO 0.431.0, PID 10588; log
+`build/shiny-discovery-probe.jsonl`):
+
+- All six spawn classes share `MapPokemon.SendEncounterRequest()` →
+  `Promise<PokemonEncounterResponse>`, `get_Location()` (`Niantic.LatLng`) and
+  `get_HoloCharacter()`. `PokemonEncounterResponse` has no Pokémon, and
+  `get_Pokemon()` still has zero IVs after the answer; the result sits in one
+  obfuscated field per class whose type is the encounter result proto.
+- One live request on a wild Murkrow 40 m away returned `EncounterSuccess`,
+  9/14/12, CPM 0.612, size M.
+- On that Murkrow, `LoadPokemon(198, clone with Shiny=true, true, LOAD_ALWAYS,
+  M, false)` completed, `set_IsShiny`, `TryShowShinySparkles` and
+  `set_ScaleFactor(1.5)` ran, and `ParticleSystem.set_startColor` tinted its
+  ripple red (`build/shiny-probe-model.png`). The scale and the red ring are
+  visible; whether the shiny colouring rendered could not be told from the
+  screenshot.
+- `IPlayerProximityService.DistanceM`, `IPlayerService.get_PlayerId/MaxPokemon`
+  and `IPokemonBag.get_Count` resolve from the map container (bag 555/625).
+
+`build/pgql-debug.apk`: 45670939 bytes; SHA-256
+`cbfe401b14fb12452b96fbc32646757a1d1b59985b7014bc8e68732da6ad3317`. Installed
+and attached from the controller (logs `build/shiny-scanner-session-1.log` for
+the first build, `build/shiny-scanner-session-2.log` for this one):
+
+- `Shiny Scanner ready` with all six spawn kinds and all optional parts bound
+  (toast, model, ripple, names).
+- Wild spawns were scanned one by one and read correctly, e.g. Murkrow 9/14/12
+  again, Cacnea 8/13/4, Duskull 13/13/6.
+- The in-game settings page shows every row with its description
+  (`build/shiny-scanner-settings.png`); Minimum IV was set to 50 through its
+  dialog. After the module was switched off and on (fresh cache), four alerts
+  fired with names from the game: `69% Ponyta`, `71% Duskull`, `78% Murkrow`,
+  `56% Cacnea`. Lower-IV spawns produced no alert.
+- Four Android notifications were posted on the `alerts` channel with
+  coordinates (`build/shiny-scanner-notifications.png`); tapping one opened the
+  `geo:` chooser offering Maps and GPS JoyStick
+  (`build/shiny-scanner-geo-chooser.png`). It was dismissed without choosing.
+- A scanned Murkrow shows the green "scanned" ripple on the map
+  (`build/shiny-scanner-map.png`).
+- Minimum IV was set back to 100 and the module switched off; `disabled` was
+  logged with no cleanup error.
+
+Defect found on the device and fixed: the first build bound the abstract
+`II18n.PokemonName` and calling it raised an access violation (caught; alerts
+would have shown `#198`). It now calls the resolved service's implementation;
+the second build logged no name error and showed localised names.
+
+Attach reliability during this work: of six attaches (two probe, four
+controller), four ended in the documented `libNianticLabsPlugin.so + 0x254328`
+SIGSEGV about a second after attaching (`build/shiny-probe-crash-1.log`,
+`build/shiny-attach-crash.log`, `build/shiny-attach-crash-2.log`), including
+one with the game already in the background for 8 s. Attaching after the game
+had been in the background for about 10 s, and the controller attach after the
+game had sat on the map for 60 s, succeeded.
+
+Not established: a toast on screen (alerts were logged with Show Toast on, but
+no screenshot caught one); shiny, shundo, Ditto, legendary, badge, background
+and XXL/XXS results on live spawns; the module's own shiny/Ditto/size redraw (only
+the probe exercised the calls); lure, incense, route, photobomb and station
+spawns (their contracts bound but none were scanned); the far-spawn retry,
+hundo pause and storage-full pause on the device (unit tests only); the 15 s
+timeout; how the server treats repeated scan requests; and prolonged use.

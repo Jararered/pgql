@@ -66,6 +66,7 @@ public class SessionService extends Service {
         super.onCreate(); current=this;
         NotificationManager manager=getSystemService(NotificationManager.class);
         manager.createNotificationChannel(new NotificationChannel("session","Development session",NotificationManager.IMPORTANCE_LOW));
+        manager.createNotificationChannel(new NotificationChannel("alerts","Module alerts",NotificationManager.IMPORTANCE_HIGH));
         PendingIntent open=PendingIntent.getActivity(this,0,new Intent(this,MainActivity.class),PendingIntent.FLAG_IMMUTABLE);
         PendingIntent stop=PendingIntent.getService(this,1,new Intent(this,SessionService.class).setAction(STOP),PendingIntent.FLAG_IMMUTABLE);
         Notification notification=new Notification.Builder(this,"session").setSmallIcon(android.R.drawable.ic_menu_info_details)
@@ -81,6 +82,31 @@ public class SessionService extends Service {
             stopping=false; state("connecting"); worker.execute(this::attach);
         }
         return START_NOT_STICKY;
+    }
+    // A module alert (ctx.notify). Tapping one with coordinates offers any
+    // installed map or GPS app for them; ids rotate so recent alerts stay listed.
+    private int alertId=0;
+    private void alert(JSONObject payload) {
+        String title=payload.optString("title"),text=payload.optString("text");
+        if(title.isEmpty() || text.isEmpty())return;
+        JSONObject details=payload.optJSONObject("details");
+        Notification.Builder builder=new Notification.Builder(this,"alerts").setSmallIcon(android.R.drawable.star_on)
+            .setContentTitle(title.length()>80?title.substring(0,80):title).setContentText(text.length()>200?text.substring(0,200):text)
+            .setStyle(new Notification.BigTextStyle().bigText(text)).setAutoCancel(true);
+        int id;
+        synchronized(this){alertId=(alertId+1)%50;id=100+alertId;}
+        Intent target=new Intent(this,MainActivity.class);
+        if(details!=null && details.has("latitude") && details.has("longitude")) {
+            double latitude=details.optDouble("latitude"),longitude=details.optDouble("longitude");
+            if(!Double.isNaN(latitude) && !Double.isNaN(longitude)) {
+                String place=String.format(java.util.Locale.ROOT,"%.6f,%.6f",latitude,longitude);
+                builder.setSubText(place);
+                target=Intent.createChooser(new Intent(Intent.ACTION_VIEW,android.net.Uri.parse("geo:"+place+"?q="+place)),"Open location");
+            }
+        }
+        builder.setContentIntent(PendingIntent.getActivity(this,id,target,PendingIntent.FLAG_IMMUTABLE|PendingIntent.FLAG_UPDATE_CURRENT));
+        try{getSystemService(NotificationManager.class).notify(id,builder.build());}
+        catch(SecurityException e){log("Alert notification blocked: "+e.getMessage());}
     }
     private static String quote(String value) { return "'"+value.replace("'","'\\''")+"'"; }
     private void attach() {
@@ -163,6 +189,7 @@ public class SessionService extends Service {
                     if(details!=null && details.has("connected"))synchronized(LOCK){goPlusStatus=new JSONObject(details.toString());}
                 }
                 String change=payload.optString("type");
+                if(change.equals("notify"))alert(payload);
                 if(change.equals("enabled") || change.equals("disabled") || change.equals("config")) synchronized(LOCK) {
                     String id=payload.optString("moduleId");
                     for(int i=0;i<moduleList.length();i++) {
