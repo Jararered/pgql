@@ -117,6 +117,18 @@ async function command(action,moduleId,fields={}) {
   assert(disposals.includes('hook')&&disposals.includes('timer'));
   response=await command('list');assert.equal(response.result.find(x=>x.id==='broken').enabled,false);
   response=await command('invoke','library-watch');assert.equal(response.ok,false);
+  // Notifications are bounded and carry only valid coordinates.
+  vm.runInContext(`globalThis.notifyCtx=null;Qol.register({id:'notifier',name:'Notifier',enable(ctx){notifyCtx=ctx}})`,context);
+  await command('enable','notifier');
+  const notify=context.notifyCtx.notify;
+  notify('Shiny Scanner','A shiny is nearby!',{latitude:51.5,longitude:-0.12,extra:'dropped'});
+  notify('Scanner','No place',{latitude:Infinity,longitude:0});
+  notify('Scanner','Out of range',{latitude:91,longitude:0});
+  const notices=events.filter(e=>e.type==='notify');
+  assert.deepEqual(notices.map(e=>[e.moduleId,e.title,e.text,{...e.details}]),[
+    ['notifier','Shiny Scanner','A shiny is nearby!',{latitude:51.5,longitude:-0.12}],['notifier','Scanner','No place',{}],['notifier','Scanner','Out of range',{}]]);
+  for(const [title,text] of [['','x'],['x'.repeat(81),'x'],['x',''],['x','y'.repeat(201)],[5,'x']])assert.throws(()=>notify(title,text),/Notification/);
+  await command('disable','notifier');
   await command('enable','library-watch');
   response=await command('shutdown');assert.equal(response.result.stopped,true);
   assert(events.some(e=>e.type==='shutdown-complete'&&e.modules.every(m=>!m.enabled)));

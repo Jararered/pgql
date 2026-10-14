@@ -79,6 +79,8 @@ Qol.register({
     // ctx.observeModules(callbacks) tracks a module observer.
     // ctx.interval(callback, milliseconds) tracks a timer.
     // ctx.cleanup(fn) tracks another synchronous cleanup action.
+    // ctx.notify(title, text, {latitude, longitude}) posts an Android notification
+    // from the controller (title ≤ 80, text ≤ 200 characters).
   },
   invoke(ctx, args) {
     ctx.log('Action requested', args);
@@ -149,6 +151,17 @@ list, and built-in protection for 100%/0% IV, shiny, shadow, background,
 legendary and non-wild Pokémon. A game toast reports each result, and the info
 button on the encounter's ball selector skips the transfer for that encounter.
 **Transfers are permanent.** See [TRANSFER-ON-CATCH.md](docs/TRANSFER-ON-CATCH.md).
+
+### Shiny Scanner
+
+Default-off module that sends the game's own encounter request for each nearby
+spawn within 100 m (wild, lure, incense, route, photobomb, station) and alerts
+on shinies, a minimum IV, 0% IV, hidden Dittos, legendaries, medal-size Rattata
+and Magikarp, background cards and XXL/XXS. Alerts appear as a game toast and as
+an Android notification from the controller whose tap opens the coordinates in a
+map or GPS app. Scanned spawns are redrawn on the map (shiny model, Ditto,
+size) with a tinted ripple. **Each scan is a server-visible encounter request.**
+See [SHINY-SCANNER.md](docs/SHINY-SCANNER.md).
 
 ### Virtual GO Plus
 

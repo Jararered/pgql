@@ -103,6 +103,15 @@ globalThis.Qol = (() => {
     const ctx = {
       get config() { return configurations.get(id); },
       log: (message, details={}) => event('log', {moduleId:id, message, details}),
+      // A user-facing alert the controller shows as an Android notification.
+      notify: (title, text, details={}) => {
+        if (typeof title!=='string' || !title || title.length>80) throw new Error('Notification title must be 1-80 characters');
+        if (typeof text!=='string' || !text || text.length>200) throw new Error('Notification text must be 1-200 characters');
+        const place={};
+        if (Number.isFinite(details.latitude) && Number.isFinite(details.longitude) && Math.abs(details.latitude)<=90 && Math.abs(details.longitude)<=180)
+          Object.assign(place,{latitude:details.latitude,longitude:details.longitude});
+        event('notify', {moduleId:id, title, text, details:place});
+      },
       cleanup: fn => { cleanups.push(fn); return fn; },
       hook: (address, callbacks) => {
         const listener = Interceptor.attach(address, callbacks);

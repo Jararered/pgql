@@ -28,7 +28,7 @@ Output: `build/pgql-debug.apk`. Build fails with "Missing toolchain" if bootstra
 
 ## Tests
 
-All nineteen suites: `npm test` (plain Node, no harness). Single suite: `node tests/<file>.test.cjs`.
+All twenty-one suites: `npm test` (plain Node, no harness). Single suite: `node tests/<file>.test.cjs`.
 
 Tests execute the **real `agent/**` sources** in a `vm` sandbox with mocked Frida globals — they never touch recovered Pokemod code. Native JSON parser host check (from `native/`):
 
@@ -38,7 +38,7 @@ cc -std=c11 -Wall -Wextra -Werror -fsanitize=address,undefined json_protocol.c t
 
 ## Architecture facts that change how you work
 
-- `agent/runtime.js` defines the `Qol` runtime (`Qol.register()` module API, settings that are `boolean` or validated bounded `text`, `ctx.hook/interval/observeModules/cleanup`). New module = file in `agent/modules/`; game logic lives in `agent/core/`; version-specific hooks in `agent/adapters/`.
+- `agent/runtime.js` defines the `Qol` runtime (`Qol.register()` module API, settings that are `boolean` or validated bounded `text`, `ctx.hook/interval/observeModules/cleanup/notify`; `notify` events become Android notifications in `SessionService`). New module = file in `agent/modules/`; game logic lives in `agent/core/`; version-specific hooks in `agent/adapters/`.
 - Both il2cpp game adapters are **gated to Pokémon GO 0.431.0** (`Il2Cpp.application.version` check, throws otherwise) and resolve managed types/methods at runtime — there are no copied native game offsets. Ambiguous bindings fail rather than guess.
 - **Dedicated GO Plus session**: `Start GO Plus session` in the controller attaches only to `com.nianticlabs.pokemongo:pgp`, applies controller-private persisted settings and enables the module after the runner reports ready. This is the preferred mode for this feature because main-process native attachment is unstable on the connected build. The controller displays connection/request counters and the three boolean settings.
 - **Virtual GO Plus also supports a companion process**: the game's accessory stack lives in `com.nianticlabs.pokemongo:pgp` (no Unity/il2cpp there). `SessionService` attaches a second runner to it on enable, loading the same bundle with `globalThis.PgqlRole='pgp'`; the main-process module is only a front that the controller mirrors. Its version gate uses the package `versionName` (`agent/core/package-version.js`), not `Il2Cpp.application.version`.
@@ -53,4 +53,4 @@ cc -std=c11 -Wall -Wextra -Werror -fsanitize=address,undefined json_protocol.c t
 
 ## Canonical docs
 
-`README.md` (architecture + how to add a module), `docs/VALIDATION.md` (device results/APK digests), `docs/MASS-GIFT.md`, `docs/ENCOUNTERS.md` and `docs/TRANSFER-ON-CATCH.md` (module behavior + live-validation limits). Local tests passing ≠ live injection proof; device sessions are reported separately in `docs/VALIDATION.md` and the `build/` artifacts.
+`README.md` (architecture + how to add a module), `docs/VALIDATION.md` (device results/APK digests), `docs/MASS-GIFT.md`, `docs/ENCOUNTERS.md`, `docs/TRANSFER-ON-CATCH.md` and `docs/SHINY-SCANNER.md` (module behavior + live-validation limits). Local tests passing ≠ live injection proof; device sessions are reported separately in `docs/VALIDATION.md` and the `build/` artifacts.
