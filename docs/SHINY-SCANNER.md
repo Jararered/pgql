@@ -72,8 +72,9 @@ encounter request per scanned Pokémon, the same request a tap on the map sends.
      green for the rest.
    - **Android Notification**: the module calls `ctx.notify`. The controller
      posts it on the high-importance **Module alerts** channel with the
-     coordinates as subtext. Tapping it opens a `geo:` chooser, so any installed
-     map or GPS joystick app can take the location.
+     coordinates as subtext. Tapping it teleports there with GPS Joystick (see
+     [TAP-TO-TELEPORT.md](TAP-TO-TELEPORT.md)); its **Open map** action opens a
+     `geo:` chooser for any installed map app.
 6. **Redraw.** Every scanned spawn's ripple (`normalRippleFx`/`rippleFx`, where
    the kind has one) is tinted: red for 100% IV, gold for shiny, green for
    scanned. With **Update Map Models** on:
@@ -104,8 +105,8 @@ and station spawns, toasts, model updates, ripple tint and Pokémon names.
   so a spawn could not be initialised twice. PGQL only observes `Initialize`.
 - The original set `Shiny` on the game's own display proto. PGQL uses a clone.
 - The original sent alerts to its companion app with a teleport action. PGQL
-  posts an Android notification with a `geo:` link instead; `tap-to-teleport` is
-  still planned.
+  posts an Android notification from its controller; tapping it teleports with
+  GPS Joystick, like the original.
 - Localised alert text: alerts are English; only Pokémon names come from the game.
 
 ## Validation limits

@@ -28,7 +28,7 @@ Output: `build/pgql-debug.apk`. Build fails with "Missing toolchain" if bootstra
 
 ## Tests
 
-All twenty-one suites: `npm test` (plain Node, no harness). Single suite: `node tests/<file>.test.cjs`.
+All twenty-two suites: `npm test` (plain Node, no harness). Single suite: `node tests/<file>.test.cjs`.
 
 Tests execute the **real `agent/**` sources** in a `vm` sandbox with mocked Frida globals — they never touch recovered Pokemod code. Native JSON parser host check (from `native/`):
 
@@ -44,6 +44,7 @@ cc -std=c11 -Wall -Wextra -Werror -fsanitize=address,undefined json_protocol.c t
 - **Virtual GO Plus also supports a companion process**: the game's accessory stack lives in `com.nianticlabs.pokemongo:pgp` (no Unity/il2cpp there). `SessionService` attaches a second runner to it on enable, loading the same bundle with `globalThis.PgqlRole='pgp'`; the main-process module is only a front that the controller mirrors. Its version gate uses the package `versionName` (`agent/core/package-version.js`), not `Il2Cpp.application.version`.
 - **Virtual GO Plus is the one native-lib adapter**: it resolves `libholoholo.so` exports by mangled name and uses a small set of **version-pinned struct offsets** (documented in `docs/GOPLUS.md`), gated to 0.431.0 with clean failure. Its raw JNIEnv access uses the published JNI/ART function-table slot numbers (a public ABI, not game offsets). Keep any future native offsets in that same contract, never in module code.
 - **In-game UI is cloned from the game's own prefabs**: `agent/adapters/game-main-menu.js` adds the PGQL row to the main menu and `agent/adapters/game-settings-screen.js` builds the settings pages from the Notifications settings prefab and shows prompts through the game's modal service. Both are gated to 0.431.0 with an up-front contract check; `agent/core/settings-layout.js` decides what goes on the main page versus Advanced Settings (category `Developer`). Give new modules and settings a `description`; it becomes the grey text under the row. The Android dialog/floating button in `agent/ui/settings-menu.js` are fallbacks only.
+- **Teleport goes through the controller**: `ctx.teleport` sends a `teleport` event and `SessionService` starts GPS Joystick's exported `theappninjas.gpsjoystick.TELEPORT` service (float `lat`/`lng`), falling back to root `am start-foreground-service`. Alert notifications with coordinates use the same path. Nothing in the game process sends Intents.
 - Attaching a second runner to a game process that is already attached (or being attached from the controller) has crashed the game; use one runner at a time and restart the game for a clean process when in doubt. Probe attaches to a foreground game crashed three times in a row with the documented `libNianticLabsPlugin.so` SIGSEGV, while attaching with the game in the background (as the controller app does) succeeded; it later also crashed once after a background attach, so treat the crash as intermittent either way.
 - App is **attach-only**: launch the game fully, then Attach. No spawn/resume support in v0.1.
 - **Resident-agent detach** (`--resident-agent`): module shutdown is acknowledged, the script is eternalized, and the controller detaches — but Frida + the inactive script stay in the game until it exits. Reattaching to the same PID accumulates inactive scripts. A missing shutdown ack is a logged error, not proof resources were released.
@@ -53,4 +54,4 @@ cc -std=c11 -Wall -Wextra -Werror -fsanitize=address,undefined json_protocol.c t
 
 ## Canonical docs
 
-`README.md` (architecture + how to add a module), `docs/VALIDATION.md` (device results/APK digests), `docs/MASS-GIFT.md`, `docs/ENCOUNTERS.md`, `docs/TRANSFER-ON-CATCH.md` and `docs/SHINY-SCANNER.md` (module behavior + live-validation limits). Local tests passing ≠ live injection proof; device sessions are reported separately in `docs/VALIDATION.md` and the `build/` artifacts.
+`README.md` (architecture + how to add a module), `docs/VALIDATION.md` (device results/APK digests), `docs/MASS-GIFT.md`, `docs/ENCOUNTERS.md`, `docs/TRANSFER-ON-CATCH.md`, `docs/SHINY-SCANNER.md` and `docs/TAP-TO-TELEPORT.md` (module behavior + live-validation limits). Local tests passing ≠ live injection proof; device sessions are reported separately in `docs/VALIDATION.md` and the `build/` artifacts.

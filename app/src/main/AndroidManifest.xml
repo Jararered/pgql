@@ -2,7 +2,7 @@
   <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
   <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
   <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-  <queries><package android:name="com.nianticlabs.pokemongo" /></queries>
+  <queries><package android:name="com.nianticlabs.pokemongo" /><intent><action android:name="theappninjas.gpsjoystick.TELEPORT" /></intent></queries>
   <application android:label="PGQL" android:theme="@android:style/Theme.Material.Light.NoActionBar" android:allowBackup="false" android:extractNativeLibs="true">
     <activity android:name=".MainActivity" android:exported="true">
       <intent-filter><action android:name="android.intent.action.MAIN" /><category android:name="android.intent.category.LAUNCHER" /></intent-filter>

@@ -480,3 +480,70 @@ the probe exercised the calls); lure, incense, route, photobomb and station
 spawns (their contracts bound but none were scanned); the far-spawn retry,
 hundo pause and storage-full pause on the device (unit tests only); the 15 s
 timeout; how the server treats repeated scan requests; and prolonged use.
+
+## Tap to Teleport validation
+
+Original implementation: `agent/adapters/game-tap-to-teleport.js`,
+`agent/adapters/mock-location.js`, `agent/modules/tap-to-teleport.js`,
+`ctx.teleport` in the runtime and `teleport()` plus alert taps in
+`SessionService`; see [TAP-TO-TELEPORT.md](TAP-TO-TELEPORT.md). Local:
+`npm test` (twenty-two suites) passes, including the new
+`tests/tap-to-teleport.test.cjs`.
+
+Discovery (three read-only probe sessions, GO 0.431.0; logs
+`build/teleport-discovery-probe.jsonl`, `-2.jsonl`, `-3.jsonl`):
+
+- `GroundTapHandler.OnTap(Object, EventArgs)`. In Pokemod's agent it was a
+  single tap-event argument. The `TapGesture` sender holds `startPosition`
+  (`Vector2`), and the handler keeps one `IMapController` field, which has
+  `GetGroundLocation(Vector2, LatLng&)`.
+- The Nearby icons, `IMapEntityService.GetMapPoi`, `IPlace.get_Location`,
+  `PokemonFortProto.Latitude/Longitude` and
+  `NearbyPokemonGuiController.DismissWithPermissions` match Pokemod's use.
+  The stamp controllers live in `Niantic.Holoholo.Collections`; the detail page
+  keeps its location in one obfuscated `LatLng` field, and `backButtonAction` is
+  on `GuiController`.
+- GPS Joystick 5.3.3 exports `.service.OverlayService` for
+  `theappninjas.gpsjoystick.TELEPORT` with no permission.
+
+Device session (GO 0.431.0, PID 22730; APK 45675035 bytes, SHA-256
+`4b353ad9badc252f476d5b7aad12884099b22e9523ad019e419d5e6ce7a3da26`; logs
+`build/teleport-session-2.log`, summary `build/teleport-validation.json`):
+
+- Enabling the module logged `Mock location hidden` (2 checks) and
+  `Tap to Teleport ready` with the Nearby and stamp parts bound.
+- **Double tap with GPS Joystick stopped:**
+  - The explicit `startService` was refused ("app is in background").
+  - The root `am start-foreground-service` fallback started GPS Joystick at its
+    saved location and brought its main screen, with an ad, to the front.
+  - The repeat 2 s later moved the mock location to the tapped
+    38.900837,-76.997702. Before this repeat was added, a cold start stayed at
+    GPS Joystick's saved location in New York.
+- **Double tap with GPS Joystick running:** the jump went straight to
+  `OverlayService`. The game stayed in front and the mock location became
+  38.901235,-76.997861 (`build/teleport-after.png`).
+- **Single tap:** no teleport.
+- **Nearby Pokémon at a stop:** jumped to 38.900345,-76.998057 and the menu closed
+  (`build/teleport-nearby.png`, `build/teleport-nearby-after.png`).
+- The game showed no mock-location warning during the session.
+
+Attach reliability:
+- The first probe attach ended in the documented `libNianticLabsPlugin.so`
+  SIGSEGV (`build/teleport-probe-crash-1.log`).
+- A controller attach to the same PID after three probe sessions crashed the same
+  way (`build/teleport-attach-crash-1.log`).
+- One controller attach to a fresh game crashed in ART's GC root walk
+  (`VisitShadowFrame` on `HeapTaskDaemon`, `build/teleport-attach-crash-2.log`).
+  This was before Tap to Teleport was enabled, with the saved module set loading.
+- The next attach was stable.
+
+The final APK only differs by the Shiny Scanner setting description; it was not
+reinstalled for a second session.
+
+Not established on the device:
+- the raid, showcase, Power Spot and stamp teleports (bound, not tapped);
+- tapping a real module alert (the same `TELEPORT` service action was started
+  directly and moved the location);
+- turning `nearbyMenu`/`hideMock` off live;
+- whether the server reacts to the jumps;
+- prolonged use.

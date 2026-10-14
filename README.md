@@ -158,10 +158,19 @@ Default-off module that sends the game's own encounter request for each nearby
 spawn within 100 m (wild, lure, incense, route, photobomb, station) and alerts
 on shinies, a minimum IV, 0% IV, hidden Dittos, legendaries, medal-size Rattata
 and Magikarp, background cards and XXL/XXS. Alerts appear as a game toast and as
-an Android notification from the controller whose tap opens the coordinates in a
-map or GPS app. Scanned spawns are redrawn on the map (shiny model, Ditto,
+an Android notification from the controller whose tap teleports there with GPS
+Joystick (or opens a map app from its action). Scanned spawns are redrawn on the map (shiny model, Ditto,
 size) with a tinted ripple. **Each scan is a server-visible encounter request.**
 See [SHINY-SCANNER.md](docs/SHINY-SCANNER.md).
+
+### Tap to Teleport
+
+Default-off module: double tap the map and GPS Joystick moves you to the tapped
+spot. Tapping a Pokémon, raid, showcase or Power Spot in the Nearby menu, or See
+in Map on a stamp, also teleports there, and the module can hide the
+mock-location flag from the game. The controller sends GPS Joystick's own
+`TELEPORT` intent. Start GPS Joystick's spoofing first.
+See [TAP-TO-TELEPORT.md](docs/TAP-TO-TELEPORT.md).
 
 ### Virtual GO Plus
 

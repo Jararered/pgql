@@ -50,14 +50,14 @@ and GOPLUS.md. This table preserves the requested scope for subsequent work.
 
 | Feature ID | Requested behavior / next adapter work | State |
 | --- | --- | --- |
-| `shiny-scanner` | Encounter-request scan of nearby wild, lure, incense, route, photobomb and station spawns; toast and Android alerts with coordinates, shiny/Ditto/size redraw and ripple tint; see [SHINY-SCANNER.md](SHINY-SCANNER.md). Teleport pending `tap-to-teleport` | Implemented (0.431.0) |
+| `shiny-scanner` | Encounter-request scan of nearby wild, lure, incense, route, photobomb and station spawns; toast and Android alerts with coordinates, shiny/Ditto/size redraw and ripple tint; see [SHINY-SCANNER.md](SHINY-SCANNER.md); tapping an alert teleports there with GPS Joystick | Implemented (0.431.0) |
 | `virtual-go-plus` | Device emulation, auto-catch, auto-spin, reconnect in the accessory process | Existing |
 | `quest-tweaks` | Auto-claim, hidden reward presentation, individual queued encounters | Planned |
 | `magic-bag` | Per-item target quantities, protected stock, excess deletion | Planned |
 | `tamagotchi` | Feeding, souvenirs, play, snapshots and eligible buddy battles | Feed/play/souvenir bound; camera/battle pending |
 | `cooldown-tracker` | Five-action history, manual entries, inventory indicator, throw guard and previous-location return | Planned |
 | `raid-pack` | Raid attack/dodge scheduling and animation handling | Planned |
-| `tap-to-teleport` | One/two-tap map actions through GPS Joystick integration | Planned |
+| `tap-to-teleport` | Double tap the map, a Nearby icon or a stamp's See in Map to move there through GPS Joystick, with an optional mock-location bypass; see [TAP-TO-TELEPORT.md](TAP-TO-TELEPORT.md) | Implemented (0.431.0) |
 | `instant-loading` | Shortens the game's own map refresh throttle; see [PERFORMANCE.md](PERFORMANCE.md) | Implemented (0.431.0) |
 | `transfer-on-catch` | Post-catch transfer with keep rules, toast and per-encounter bypass, including main-process accessory catches; see [TRANSFER-ON-CATCH.md](TRANSFER-ON-CATCH.md). PvP rank rule pending `pvp-metrics` | Implemented (0.431.0) |
 | `mass-gift` | Batch send/open, friends, exact friendship, postcards and animations | Existing batch send/open; remaining scope pending |
