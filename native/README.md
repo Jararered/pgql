@@ -4,6 +4,10 @@
 
 Original attach-only Frida core frontend. It does not use the copied Pokemod injector or agents. The pinned official Frida core 17.23.3 Android arm64 devkit lives in `../vendor/frida-core` (download and integrity details are managed by the project dependency setup).
 
+The build applies the **names-v1** hiding profile before linking. `scripts/prepare-frida.py` verifies the official archive's SHA-256 and renames complete, equal-length library and worker-thread strings in `build/frida-core-names/libfrida-core.a`. Vendor files stay unchanged. Both main-game and GO Plus runners use this build copy, so the names change before injection rather than after JavaScript starts. Agent filenames use `pgql-worker`, QuickJS uses `pgql-js-job`, and GLib workers use `pwork`/`pcomm`; the agent thread/program name is `pgqlx`. The manifest `build/frida-core-names/names.json` records replacements and digests. A changed devkit or unexpected string count fails the build for review.
+
+This masks known names; it does not hide instrumentation memory, hooks, direct syscalls, SELinux labels, protocol identifiers, or exported symbols. In particular `frida_agent_main` stays intact to preserve ELF symbol lookup. Upstream Frida's own resource cloaking remains enabled. No runtime `/proc` filtering, game detection hooks, or recovered Pokemod code is added. See [the investigation and validation limits](../docs/FRIDA-HIDING.md).
+
 Build with an existing Android NDK (parent project uses NDK 27c, arm64 API 28):
 
 ```sh
@@ -38,7 +42,7 @@ If the shutdown acknowledgement times out, the runner reports cleanup as unconfi
 
 Stdout emits one JSON object per line:
 
-- `{"event":"ready","pid":1234}` after script loading.
+- `{"event":"ready","pid":1234,"frida_hiding":"names-v1"}` after script loading.
 - `{"event":"message","message":{...}}` carrying Frida's own script message, optionally `data_base64` for binary data.
 - `{"event":"detached","reason":N,"crashed":false}` with the Frida 17.23.3 detach-reason enum value.
 - `{"event":"error","stage":"attach","message":"..."}` for failures.

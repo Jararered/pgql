@@ -736,3 +736,41 @@ summary `build/start-validation.json`.
 
 Not established: the old flow's frame-time baseline, and whether the crash rate
 differs from attaching on the map (earlier notes recorded 4 of 6 and 3 of 3).
+
+## Attach-time Frida names (2026-10-14)
+
+Implemented the checksum-bound `names-v1` devkit build copy and changed the
+Java bridge's generated DEX prefix in its build copy. PokeMod's packaged
+injector was inspected read-only: its native engine uses Floyd names and
+lacks the corresponding stock Frida literals. This establishes static
+renaming evidence, not equivalence to all of PokeMod's hiding behavior.
+The REA target identity was confirmed; its native string/decompiler query
+timed out after 300 s. Bounded filesystem literal evidence is retained in
+`build/pokemod-frida-names-evidence.json`. Details: `docs/FRIDA-HIDING.md`.
+
+Local: all 29 Node suites and four Python hiding checks passed through
+`npm test`; the native JSON parser passed with address/undefined-behavior
+sanitizers. The signed APK built and verified. Vendor and npm inputs were
+left untouched.
+
+Final APK: 45,703,707 bytes, SHA-256
+`26ba61b4af1c6cc7661c1c19b501381fb3741eb0562eebff42bcbc107e74b11e`.
+Installed on the connected Pixel 9a, Android 17 / GO 0.433.0 after gracefully
+detaching the existing main and companion runners. The normal controller
+Start flow restarted the game; the main process PID 30169 and GO Plus
+companion PID 30512 both reported `ready` with `frida_hiding:"names-v1"`.
+Saved modules restored and the companion reported Virtual GO Plus ready.
+
+External root inspection of both processes confirmed
+`/memfd:pgql-worker-64.so` mappings and `pwork`/`pcomm` threads. Main-process
+proxy DEX mappings used `cache/pgql*.dex`. The captured maps had no `frida`
+names, and the task-name snapshots contained none of `gmain`, `gdbus`,
+`gum-js-loop`, `frida` or `pool-frida`. These snapshots prove the observed
+names changed; they do not prove absence of other fingerprints. Evidence:
+`build/frida-hiding-validation.json`, `build/frida-hiding-device.log`,
+`build/frida-hiding-tests.log`, `build/frida-hiding-build.log`, and
+`build/frida-core-names/names.json`. The final session was left attached.
+
+Not established: long-term stability, a change in the intermittent Niantic
+plugin crash rate, or complete detection resistance. Exported entry points,
+Frida protocol names and SELinux labels remain upstream.

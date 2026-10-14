@@ -29,6 +29,8 @@ flowchart LR
 
 The phone runs the whole session. No desktop controller or frida-server is required. The app resolves the already-running `com.nianticlabs.pokemongo` PID through root, launches the packaged native helper through `su`, and loads your bundled agent. Standard Frida injects its own agent into the target; the runner then manages script/session lifecycle.
 
+The runner applies an attach-time **names-v1** hiding profile: injected library and worker-thread names are masked in a checksum-verified build copy of the official devkit. This covers both the main game and GO Plus processes. It reduces name-based fingerprints; instrumentation and exported entry points remain detectable. See [Frida hiding](docs/FRIDA-HIDING.md) for the PokeMod reference findings, scope and validation.
+
 The app uses **resident-agent detach**: it requests module shutdown, waits for an acknowledgement, pins the now-inactive script, then detaches the controller. Tracked module resources are released and the menu is removed from the Activity, but Frida's engine, Java bridge internals and the inactive script remain in the game until that process exits. This avoids an observed native crash after full agent unloading on the connected phone. The native CLI supports both modes; `--resident-agent` selects this behavior. A missing shutdown acknowledgement is logged as an error and must not be treated as proof that resources were released. Reattaching loads a new script; repeatedly attaching can accumulate inactive script instances until the game process restarts. v0.1 has no resident-script reuse/hot-reload yet.
 
 This version is attach-only (no spawn). **Start** restarts the game and attaches while it is still loading; modules wait for the game themselves.

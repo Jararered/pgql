@@ -12,6 +12,13 @@ shutil.copytree(root/'node_modules/frida-java-bridge',bridge,dirs_exist_ok=True)
 # Pinned upstream PR #400 / commit 41746885: temporary ART plugin setup
 # workaround for live Android 17 VMs. Keep npm inputs unchanged/reproducible.
 subprocess.run(['patch','--batch','-p1','-i',str(root/'patches/frida-java-bridge-android17.patch')],cwd=bridge,check=True)
+# Generated Java proxy DEX files are another visible name in /proc/PID/maps.
+# Patch the pinned build copy only, before the bridge creates any proxies.
+classFactory=bridge/'lib/class-factory.js'
+classSource=classFactory.read_text()
+dexPrefix="      prefix: 'frida',"
+if classSource.count(dexPrefix)!=1:raise SystemExit('Pinned Java DEX prefix changed; review hiding patch.')
+classFactory.write_text(classSource.replace(dexPrefix,"      prefix: 'pgql',",1))
 # Avoid JNI initialization while Frida is still loading its script. The bridge
 # already initializes lazily through its available getter; disable its eager probe.
 javaIndex=bridge/'index.js'

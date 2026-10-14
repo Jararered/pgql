@@ -307,6 +307,7 @@ public class SessionService extends Service {
             if(type.equals("ready")) {
                 readyAt=System.currentTimeMillis();
                 log("Agent ready "+(readyAt-attemptStarted)+" ms after "+(accessoryOnly?"attach":"restart"));
+                if(event.optString("frida_hiding").equals("names-v1")) log("Frida attach names masked (names-v1)");
                 detail("");state("attached");post("list",null);
                 if(accessoryOnly) {
                     for(String key:new String[]{"auto-catch","auto-spin","auto-reconnect"})

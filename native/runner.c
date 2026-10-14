@@ -142,7 +142,7 @@ int main(int argc,char **argv) {
   if(!script){error_event("create-script",error->message);goto fail;}
   g_signal_connect(script,"message",G_CALLBACK(on_message),NULL);
   frida_script_load_sync(script,NULL,&error);if(error){error_event("load-script",error->message);goto fail;}loaded=TRUE;
-  g_mutex_lock(&output_lock);fprintf(stdout,"{\"event\":\"ready\",\"pid\":%u",pid);finish_event();
+  g_mutex_lock(&output_lock);fprintf(stdout,"{\"event\":\"ready\",\"pid\":%u,\"frida_hiding\":\"names-v1\"",pid);finish_event();
   if(!stop_requested&&!detached)g_main_loop_run(loop);
   goto cleanup;
 fail:
