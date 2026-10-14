@@ -133,7 +133,7 @@ globalThis.PgqlGamePinapMaster = class PgqlGamePinapMaster {
   problem(error) {
     if(this.closed||this.failed)return;
     this.failed=true;this.ctx.log('Pinap Master failed; disabling',{error:String(error)});
-    setTimeout(()=>{if(!this.closed)Qol.disable('pinap-master');},0);
+    setTimeout(()=>{if(!this.closed)Qol.disable('pinap-master',{failed:true});},0);
   }
   // Runs on the game thread inside the getter's listener whenever the
   // encounter reports no active berry.
@@ -392,6 +392,7 @@ globalThis.PgqlGamePinapMaster = class PgqlGamePinapMaster {
   }
   async start() {
     await this.game.initialize();
+    await this.game.metadata(()=>this.bind());
     return this.game.main(()=>{
       if(this.closed)throw Error('Module disabled');
       const b=this.bind(),self=this;

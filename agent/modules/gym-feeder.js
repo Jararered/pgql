@@ -18,7 +18,7 @@ Qol.register({
       if(session.closed || this.session!==session)return;
       session.reason=String(error);session.phase='failed';
       ctx.log('Gym Feeder unavailable',{error:session.reason});
-      Qol.disable('gym-feeder');
+      Qol.disable('gym-feeder',{failed:true});
     };
     const timer=setTimeout(()=>{
       if(session.closed)return;

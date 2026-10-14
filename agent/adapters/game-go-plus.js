@@ -30,7 +30,7 @@ globalThis.PgqlGameGoPlus = class PgqlGameGoPlus {
     if(this.closed || this.failed)return;
     this.failed=true;
     this.ctx.log('Virtual GO Plus hook failed; disabling feature',{error:String(error)});
-    setTimeout(()=>{if(!this.closed)Qol.disable(this.feature);},0);
+    setTimeout(()=>{if(!this.closed)Qol.disable(this.feature,{failed:true});},0);
   }
   attach(address,callbacks) {
     const listener=Interceptor.attach(address,callbacks);

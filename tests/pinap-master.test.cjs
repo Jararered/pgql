@@ -19,7 +19,7 @@ const sandbox={setTimeout,clearTimeout,Date,
   PgqlGameGifts:class {
     type(name){throw Error('Unsupported game metadata: '+name);}
     async initialize(){}
-    async main(fn){return fn();}
+    async main(fn){return fn();}async metadata(fn){return fn();}
     method(object,name){return {invoke:(...args)=>object.methods[name](...args)};}
     handleNew(handle){return {isNull:()=>false,handle};}
     handleFree(){}

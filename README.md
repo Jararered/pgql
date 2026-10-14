@@ -31,7 +31,7 @@ The phone runs the whole session. No desktop controller or frida-server is requi
 
 The app uses **resident-agent detach**: it requests module shutdown, waits for an acknowledgement, pins the now-inactive script, then detaches the controller. Tracked module resources are released and the menu is removed from the Activity, but Frida's engine, Java bridge internals and the inactive script remain in the game until that process exits. This avoids an observed native crash after full agent unloading on the connected phone. The native CLI supports both modes; `--resident-agent` selects this behavior. A missing shutdown acknowledgement is logged as an error and must not be treated as proof that resources were released. Reattaching loads a new script; repeatedly attaching can accumulate inactive script instances until the game process restarts. v0.1 has no resident-script reuse/hot-reload yet.
 
-This first version is attach-only. Launch the game normally and wait for it to load before attaching. Spawn/resume support and a game-specific managed-code adapter can be added separately.
+This version is attach-only (no spawn). **Start** restarts the game and attaches while it is still loading; modules wait for the game themselves.
 
 ## Build on this Mac
 
@@ -58,7 +58,7 @@ adb install -r build/pgql-debug.apk
 adb shell am start -n dev.qol.framework/.MainActivity
 ```
 
-In PGQL, select **Launch game**, let it load, return to PGQL, then select **Attach**. Approve the phone's root-manager request for PGQL. Attach brings the game back to the foreground so Android's cached-process freezer does not block injection. Module commands also foreground it so the script can process them. Look for the `agent-ready` message and diagnostics showing the target PID/architecture. **Run diagnostics** asks the enabled module for a fresh snapshot. Enable **Library load observer** to observe subsequently loaded/unloaded native libraries. Disable it to detach its observer. **Detach** closes the input pipe and ends the instrumentation session; the notification provides the same action.
+In PGQL, select **Start** and approve the phone's root-manager request for PGQL. Start force-stops Pokémon GO, launches it, and attaches as soon as `libil2cpp.so` is loaded (during the loading screen); the status line shows each step. If the attach crashes the game, PGQL relaunches it and tries again, up to three attempts, and copies the crash lines into the session log. Saved modules are switched back on once the map has loaded, one at a time. Module commands foreground the game so the script can process them. Look for the `agent-ready` message and diagnostics showing the target PID/architecture. **Run diagnostics** asks the enabled module for a fresh snapshot. Enable **Library load observer** to observe subsequently loaded/unloaded native libraries. Disable it to detach its observer. **Detach** closes the input pipe and ends the instrumentation session; the notification provides the same action.
 
 An attach failure appears in the log with its native stage and error. Native Frida compatibility with this phone/game build must be tested on the connected device. Root alone does not establish that a particular game version accepts attachment.
 

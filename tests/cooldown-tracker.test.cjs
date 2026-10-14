@@ -94,7 +94,7 @@ const fakeClearTimeout=timer=>{const index=timers.indexOf(timer);if(index>=0)tim
 const runTimers=(predicate=()=>true)=>{for(const timer of timers.filter(predicate)){fakeClearTimeout(timer);timer.fn();}};
 const hooks=new Map(),attached=[];
 const context=vm.createContext({setTimeout:fakeSetTimeout,clearTimeout:fakeClearTimeout,Date:{now:()=>clock},NULL,JSON,
-  PgqlGameGifts:class {type(name){if(!types[name])throw Error('Unsupported game metadata: '+name);return types[name];}async initialize(){}async main(fn){return fn();}},
+  PgqlGameGifts:class {type(name){if(!types[name])throw Error('Unsupported game metadata: '+name);return types[name];}async initialize(){}async main(fn){return fn();}async metadata(fn){return fn();}},
   Il2Cpp:{get application(){return {version};},Object:class {constructor(handle){return handle===NULL?NULL:objects.get(handle.id);}},string:content=>({content})},
   Interceptor:{attach:(address,callbacks)=>{const entry={address:address.name,callbacks,detached:false};attached.push(entry);return {detach:()=>{entry.detached=true;}};}}});
 vm.runInContext(read('core/cooldown-policy.js'),context);

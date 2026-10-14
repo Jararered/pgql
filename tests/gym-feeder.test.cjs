@@ -18,7 +18,7 @@ const sandbox={setTimeout,clearTimeout,Promise,Date:{now:()=>clock},
     constructor(){this.freed=0;this.held=0;}
     type(name){throw Error('Unsupported game metadata: '+name);}
     async initialize(){}
-    async main(fn){return fn();}
+    async main(fn){return fn();}async metadata(fn){return fn();}
     method(object,name){return {invoke:(...args)=>object.methods[name](...args)};}
     array(list){return list.items;}
     promise(managed,convert){return new Promise((resolve,reject)=>managed.values.answer={resolve:output=>{try{resolve(convert(output));}catch(e){reject(e);}},reject});}

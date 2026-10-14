@@ -686,3 +686,53 @@ shut down, and the controller attached again with Gym Feeder enabled.
 Not established on a device: rival, neutral and out-of-range skips, the
 per-defender refusals, "too fast" back-off, the empty-bag path, leaving
 mid-visit, and prolonged use.
+
+## One-button Start, early attach and attach lag
+
+The controller's **Launch game** and **Attach** buttons became one **Start**:
+`SessionService` root-force-stops the game, launches it, waits until
+`libil2cpp.so` is mapped in the new process (the loading screen), waits 1.5 s
+and attaches. A game that dies before, or within 30 s of, the agent's `ready` is
+relaunched, up to three attempts; the tombstone's signal and top frames are
+copied into the session log. On the agent side, every adapter now shares one
+`ExecuteTasks` hook and type cache with a ~6 ms per-frame budget, binds
+metadata on the agent thread (`game.metadata`), waits for `il2cpp_init` itself,
+and `pgql-menu` re-enables saved modules only once the map scene exists, one
+every 300 ms. Modules that turn themselves off after an error no longer change
+the saved settings. Local: `npm test` (twenty-nine suites, new
+`tests/game-scheduler.test.cjs`) passes.
+
+`build/pgql-debug.apk`: 45699611 bytes; SHA-256
+`32aeca29386043cfe30907f2714ac1b6c0305cf9abb8b9b61f6bc6dba1a62955`. GO 0.433.0,
+Pixel 9a (Android 17), 15 saved modules enabled. Logs: `build/start-run-*.log`,
+summary `build/start-validation.json`.
+
+- 16 Start sessions (game closed, or running after a Detach): 15 reached the map
+  with saved modules restored, 15–16 s after the tap; the agent was ready
+  3.8–4.9 s after the restart. 6 of 21 attempts crashed; retries recovered two
+  sessions and one session crashed three times and stopped with an error.
+- Every crash was the known `libNianticLabsPlugin.so` SIGSEGV (`SEGV_ACCERR`
+  into an `anon:libwebview reservation` page, same caller frames), 1–2 s after
+  injection. A script containing only one `send()` crashes the same way
+  (18 trials: 1/6 at +1.5 s, 5/6 at +0 s, 6/6 at +7 s), so it is a reaction to
+  the injection itself, not to anything the agent does, and attach timing does
+  not avoid it. The rate varied a lot between batches.
+- Lag: game-thread jobs over 16 ms are now logged. In runs 11–16, module startup
+  produced 35 such jobs (median 24 ms, max 66 ms, Instant Loading), each in its
+  own frame, spread over ~5 s. Before this change all of them, plus every
+  module's metadata binding and the encounter modules' full class scans, ran
+  in the same frame; that baseline was not measured. Tamagotchi's buddy-care
+  passes take 18–47 ms per frame while running.
+- Saved preferences were unchanged after runs 11–16. Before the final fix, a
+  Gym Feeder start failure was saved as "off" by a later save; failed modules
+  now stay saved as on until the user changes them.
+- Detach during "Waiting for the game to load" left the session idle with no
+  runner. The GO Plus session button attached and armed Virtual GO Plus.
+- Gym Feeder and the Pinap Master button each once failed with Frida's
+  `unable to intercept function … please file a bug` (run 10). It also occurred
+  in an older probe log (`build/gym-probe-3.jsonl`), so it predates this change.
+- Detaching from a game that is in the background hung (no shutdown ack from
+  the frozen process); force-stopping the game ended the runners.
+
+Not established: the old flow's frame-time baseline, and whether the crash rate
+differs from attaching on the map (earlier notes recorded 4 of 6 and 3 of 3).

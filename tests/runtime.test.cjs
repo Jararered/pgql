@@ -129,6 +129,13 @@ async function command(action,moduleId,fields={}) {
     ['notifier','Shiny Scanner','A shiny is nearby!',{latitude:51.5,longitude:-0.12}],['notifier','Scanner','No place',{}],['notifier','Scanner','Out of range',{}]]);
   for(const [title,text] of [['','x'],['x'.repeat(81),'x'],['x',''],['x','y'.repeat(201)],[5,'x']])assert.throws(()=>notify(title,text),/Notification/);
   await command('disable','notifier');
+  // A module that turns itself off after an error is marked failed; user disables and enable throws are told apart.
+  vm.runInContext(`Qol.register({id:'flaky',enable(){}});Qol.register({id:'crashy',enable(){throw Error('no game');}});`,context);
+  context.Qol.enable('flaky');context.Qol.disable('flaky',{failed:true});
+  context.Qol.enable('flaky');context.Qol.disable('flaky');
+  assert.throws(()=>context.Qol.enable('crashy'),/no game/);
+  assert.deepEqual(events.filter(e=>e.type==='disabled'&&['flaky','crashy'].includes(e.moduleId)).map(e=>[e.moduleId,e.failed===true]),
+    [['flaky',true],['flaky',false],['crashy',true]]);
   await command('enable','library-watch');
   response=await command('shutdown');assert.equal(response.result.stopped,true);
   assert(events.some(e=>e.type==='shutdown-complete'&&e.modules.every(m=>!m.enabled)));

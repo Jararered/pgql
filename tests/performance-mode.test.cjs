@@ -53,7 +53,7 @@ function type(name) {
 }
 const cleanups=[],logs=[],attached=new Map();
 const context=vm.createContext({setTimeout,clearTimeout,
-  PgqlGameGifts:class {type(name){return type(name);}async initialize(){}async main(fn){return fn();}},
+  PgqlGameGifts:class {type(name){return type(name);}async initialize(){}async main(fn){return fn();}async metadata(fn){return fn();}},
   Il2Cpp:{get application(){return {version};},Object:class {constructor(handle){return byPointer.get(handle.id);}}},
   Interceptor:{attach:(address,callbacks)=>{attached.set(address,callbacks);return {detach:()=>attached.delete(address)};}},
 });

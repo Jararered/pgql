@@ -108,7 +108,7 @@ globalThis.PgqlGameGymFeeder = class PgqlGameGymFeeder {
   problem(error) {
     if(this.closed||this.failed)return;
     this.failed=true;this.ctx.log('Gym Feeder failed; disabling',{error:String(error)});
-    setTimeout(()=>{if(!this.closed)Qol.disable('gym-feeder');},0);
+    setTimeout(()=>{if(!this.closed)Qol.disable('gym-feeder',{failed:true});},0);
   }
   count(table,key){table[key]=(table[key]||0)+1;}
   // Defenders of a GymState or of a feed answer, as {key, id, motivation}.
@@ -228,6 +228,7 @@ globalThis.PgqlGameGymFeeder = class PgqlGameGymFeeder {
   }
   async start() {
     await this.game.initialize();
+    await this.game.metadata(()=>this.bind());
     return this.game.main(()=>{
       if(this.closed)throw Error('Module disabled');
       const b=this.bind(),self=this;

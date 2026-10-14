@@ -39,7 +39,7 @@ globalThis.PgqlGoPlusModule = function(id,name) {
         if(session.closed || this.session!==session)return;
         session.reason=String(error);session.phase='failed';
         ctx.log(name+' unavailable',{error:session.reason});
-        Qol.disable(id);
+        Qol.disable(id,{failed:true});
       };
     },
     onConfigChanged(ctx,config) {

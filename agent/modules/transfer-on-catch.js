@@ -23,7 +23,7 @@ Qol.register({
       if(session.closed || this.session!==session)return;
       session.reason=String(error);session.phase='failed';
       ctx.log('Transfer on Catch unavailable',{error:session.reason});
-      Qol.disable('transfer-on-catch');
+      Qol.disable('transfer-on-catch',{failed:true});
     };
     const timer=setTimeout(()=>{
       if(session.closed)return;

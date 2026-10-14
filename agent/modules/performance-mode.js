@@ -16,7 +16,7 @@ Qol.register({
       if(session.closed || this.session!==session)return;
       session.reason=String(error);session.phase='failed';
       ctx.log('Performance Mode unavailable',{error:session.reason});
-      Qol.disable('performance-mode');
+      Qol.disable('performance-mode',{failed:true});
     };
     session.apply=()=>Promise.resolve(session.adapter.apply(ctx.config)).then(state=>{
       if(session.closed)return;

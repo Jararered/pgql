@@ -17,7 +17,7 @@ Qol.register({
       if(session.closed || this.session!==session)return;
       session.reason=String(error);session.phase='failed';
       ctx.log('Tap to Teleport unavailable',{error:session.reason});
-      Qol.disable('tap-to-teleport');
+      Qol.disable('tap-to-teleport',{failed:true});
     };
     const timer=setTimeout(()=>{
       if(session.closed)return;

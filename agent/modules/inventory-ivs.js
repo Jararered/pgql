@@ -10,7 +10,7 @@ Qol.register({
       if(session.closed || this.session!==session)return;
       session.reason=String(error);session.phase='failed';
       ctx.log('IVs in inventory unavailable',{error:session.reason});
-      Qol.disable('inventory-ivs');
+      Qol.disable('inventory-ivs',{failed:true});
     };
     const timer=setTimeout(()=>{
       if(session.closed)return;

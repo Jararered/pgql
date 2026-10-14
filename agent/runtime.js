@@ -81,7 +81,9 @@ globalThis.Qol = (() => {
     changed('config',{moduleId:id,key,value,config:{...config}});
     return {...config};
   }
-  function disable(id) {
+  // failed:true marks a module that turned itself off after an error, so
+  // listeners can tell it from a user choice (saved settings keep it on).
+  function disable(id, {failed=false}={}) {
     const state = active.get(id);
     if (!state) return;
     active.delete(id);
@@ -91,7 +93,7 @@ globalThis.Qol = (() => {
     for (const cleanup of state.cleanups.reverse()) {
       try { cleanup(); } catch(e) { event('error', {moduleId:id, message:String(e)}); }
     }
-    changed('disabled', {moduleId:id});
+    changed('disabled', {moduleId:id, ...(failed?{failed:true}:{})});
   }
   function enable(id) {
     if (!accepting) throw new Error('Runtime is stopped');
@@ -137,7 +139,7 @@ globalThis.Qol = (() => {
     };
     active.set(id,{module,ctx,cleanups});
     try { module.enable(ctx); changed('enabled',{moduleId:id}); }
-    catch(e) { disable(id); throw e; }
+    catch(e) { disable(id,{failed:true}); throw e; }
   }
   async function invoke(id,args={}) {
     if (!accepting) throw new Error('Runtime is stopped');

@@ -81,7 +81,7 @@ class ValueType {
   field(name){const values=this.values;return {get value(){return values[name];},set value(v){values[name]=v;}};}
 }
 const context=vm.createContext({setTimeout,clearTimeout,Date:{now:()=>clock},
-  PgqlGameGifts:class {type(name){if(!types[name])throw Error('Unsupported game metadata: '+name);return types[name];}async initialize(){}async main(fn){return fn();}},
+  PgqlGameGifts:class {type(name){if(!types[name])throw Error('Unsupported game metadata: '+name);return types[name];}async initialize(){}async main(fn){return fn();}async metadata(fn){return fn();}},
   Il2Cpp:{get application(){return {version};},Object:class {constructor(handle){return objects.get(handle.id);}},ValueType,reference:out=>({out})},
   Memory:{alloc:()=>pointer()},
   Interceptor:{replace:(address,wrapped)=>replaced.set(address.name,wrapped),revert:address=>{reverted.push(address.name);replaced.delete(address.name);},flush:()=>{}},

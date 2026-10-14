@@ -138,6 +138,7 @@ globalThis.PgqlGamePerformance = class PgqlGamePerformance {
   // Applies the wanted set of reductions; safe to call repeatedly.
   async apply(config) {
     await this.game.initialize();
+    await this.game.metadata(()=>this.bind());
     return this.game.main(()=>{
       if(this.closed)throw Error('Module disabled');
       this.bind();

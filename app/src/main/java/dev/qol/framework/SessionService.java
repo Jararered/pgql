@@ -20,6 +20,7 @@ public class SessionService extends Service {
     private static final Object LOCK=new Object();
     private static final ArrayDeque<String> LOG=new ArrayDeque<>();
     private static String sessionState="idle";
+    private static String sessionDetail="";
     private static JSONArray moduleList=new JSONArray();
     private static JSONObject goPlusStatus=new JSONObject();
     private static boolean accessorySession;
@@ -38,6 +39,7 @@ public class SessionService extends Service {
     private BufferedWriter input;
     private long commandId=0;
     public static String state() { synchronized(LOCK){return sessionState;} }
+    public static String detail() { synchronized(LOCK){return sessionDetail;} }
     public static JSONArray modules() { synchronized(LOCK){ try{return new JSONArray(moduleList.toString());}catch(JSONException e){return new JSONArray();} } }
     public static String logText() { synchronized(LOCK){StringBuilder out=new StringBuilder();for(String line:LOG) out.append(line).append('\n'); return out.toString();} }
     public static void clearLog() { synchronized(LOCK){LOG.clear();} }
@@ -61,6 +63,7 @@ public class SessionService extends Service {
     }
     private void update() { sendBroadcast(new Intent(UPDATE).setPackage(getPackageName())); }
     private void state(String value) { synchronized(LOCK){sessionState=value;} update(); }
+    private void detail(String value) { synchronized(LOCK){sessionDetail=value;} update(); }
     private void log(String value) {
         android.util.Log.i("QolLab",value);
         synchronized(LOCK){if(LOG.size()>=300) LOG.removeFirst();LOG.addLast(value.length()>8192?value.substring(0,8192):value);} update();
@@ -88,7 +91,7 @@ public class SessionService extends Service {
             });
             return START_NOT_STICKY;
         }
-        if((ATTACH.equals(intent.getAction()) || ATTACH_GOPLUS.equals(intent.getAction())) && !state().equals("connecting") && !state().equals("attached")) {
+        if((ATTACH.equals(intent.getAction()) || ATTACH_GOPLUS.equals(intent.getAction())) && !state().equals("connecting") && !state().equals("attached") && !state().equals("detaching")) {
             accessoryOnly=ATTACH_GOPLUS.equals(intent.getAction());
             synchronized(LOCK){accessorySession=accessoryOnly;goPlusStatus=new JSONObject();}
             stopping=false; state("connecting"); worker.execute(this::attach);
@@ -164,48 +167,132 @@ public class SessionService extends Service {
         }catch(RuntimeException e){log("Teleport service start refused: "+e.getMessage());return false;}
     }
     private static String quote(String value) { return "'"+value.replace("'","'\\''")+"'"; }
+    // Start: a clean game process every time (no resident agents from earlier
+    // sessions), attached as soon as libil2cpp.so is mapped, which is during the
+    // loading screen. The agent itself waits for il2cpp_init and the map scene.
+    private static final int MAX_ATTEMPTS=3;
+    private static final long ATTACH_GRACE_MS=1500, CRASH_WINDOW_MS=30000;
+    private enum Outcome {DONE,CRASHED,FAILED}
+    private volatile long attemptStarted, readyAt;
+    private volatile boolean targetDied;
     private void attach() {
         boolean failed=false;
         try {
             File script=new File(getFilesDir(),"agent.js");
-            try(InputStream src=getAssets().open("agent.js");OutputStream dst=new FileOutputStream(script)) {
-                if(accessoryOnly)dst.write("globalThis.PgqlRole='pgp';\n".getBytes(StandardCharsets.UTF_8));
-                byte[] bytes=new byte[16384]; int count; while((count=src.read(bytes))!=-1) dst.write(bytes,0,count);
-            }
+            writeAgent(getAssets().open("agent.js"),script,accessoryOnly);
             String executable=getApplicationInfo().nativeLibraryDir+"/libqolrunner.so";
             if(!new File(executable).isFile()) throw new IOException("Native runner missing; build arm64 APK first");
-            log("Checking root and locating the running game…");
-            // The launcher may replace an old cached process. Resolve PID afterwards.
-            Thread.sleep(1250);
-            if(stopping || destroyed) return;
-            Process probe=new ProcessBuilder("su","-c","pidof -s "+quote(accessoryOnly?COMPANION_TARGET:TARGET)).redirectErrorStream(true).start(); pidProbe=probe;
-            if(!probe.waitFor(20,TimeUnit.SECONDS)) {probe.destroy();throw new IOException("Root/PID check timed out");}
-            StringBuilder response=new StringBuilder();
-            try(BufferedReader reader=new BufferedReader(new InputStreamReader(probe.getInputStream(),StandardCharsets.UTF_8))) {
-                String line; while((line=reader.readLine())!=null) response.append(line);
+            if(accessoryOnly) {
+                attemptStarted=System.currentTimeMillis();
+                detail("Locating the accessory service…");
+                // The launcher may replace an old cached process. Resolve PID afterwards.
+                Thread.sleep(1250);
+                String pid=rootOutput("pidof -s "+quote(COMPANION_TARGET),20);
+                if(stopping || destroyed) return;
+                if(pid==null || !pid.matches("[0-9]+")) throw new IOException("Accessory service is not running. Open game Settings → Connected Devices and Services → Accessory Devices, then start GO Plus session.");
+                failed=runRunner(executable,script,pid)!=Outcome.DONE;
+                return;
             }
-            pidProbe=null;
-            if(stopping || destroyed) return;
-            String pid=response.toString().trim();
-            if(probe.exitValue()!=0 || !pid.matches("[0-9]+")) throw new IOException(accessoryOnly?"Accessory service is not running. Open game Settings → Connected Devices and Services → Accessory Devices, then start GO Plus session.":"Root denied or game is not running. Launch the game and allow root for PGQL.");
-            String shell="exec "+quote(executable)+" --pid "+pid+" --script "+quote(script.getAbsolutePath())+" --resident-agent";
-            if(getSharedPreferences("lab",MODE_PRIVATE).getBoolean("prepare_selinux",false))shell+=" --prepare-selinux";
-            Process process=new ProcessBuilder("su","-c",shell).start(); runner=process;
-            synchronized(this){input=new BufferedWriter(new OutputStreamWriter(process.getOutputStream(),StandardCharsets.UTF_8));}
-            if(stopping || destroyed) {synchronized(this){input.close();input=null;}}
-            Thread errors=new Thread(()->readErrors(process),"qol-stderr"); errors.start();
-            try(BufferedReader reader=new BufferedReader(new InputStreamReader(process.getInputStream(),StandardCharsets.UTF_8))) {
-                String line; while((line=reader.readLine())!=null) handle(line);
+            Intent launch=getPackageManager().getLaunchIntentForPackage(TARGET);
+            if(launch==null || launch.getComponent()==null) throw new IOException("Pokémon GO is not installed");
+            String component=launch.getComponent().flattenToShortString();
+            for(int attempt=1;;attempt++) {
+                Outcome outcome=launchAndAttach(executable,script,component,attempt);
+                if(outcome==Outcome.CRASHED && attempt<MAX_ATTEMPTS && !stopping && !destroyed) {
+                    log("Attach crashed the game; relaunching (attempt "+(attempt+1)+" of "+MAX_ATTEMPTS+")");
+                    continue;
+                }
+                if(outcome==Outcome.CRASHED && !stopping) log("Attach crashed the game "+MAX_ATTEMPTS+" times; giving up. Tap Start to try again.");
+                failed=outcome!=Outcome.DONE && !stopping;
+                return;
             }
-            int exit=process.waitFor();
-            if(exit!=0 && !stopping){failed=true; log("Runner exited with code "+exit);}
         } catch(Exception e) {if(!stopping){failed=true;log("Session error: "+e.getMessage());}}
         finally {
             synchronized(this){if(input!=null)try{input.close();}catch(IOException ignored){} input=null;}
             Process process=runner; runner=null; if(process!=null && process.isAlive()) process.destroy();
             closeCompanion();
             synchronized(LOCK){moduleList=new JSONArray();}
-            state(failed?"error":"idle"); stopSelf();
+            detail(""); state(failed?"error":"idle"); stopSelf();
+        }
+    }
+    private Outcome launchAndAttach(String executable,File script,String component,int attempt) throws IOException,InterruptedException {
+        attemptStarted=System.currentTimeMillis();
+        String suffix=attempt>1?" (attempt "+attempt+"/"+MAX_ATTEMPTS+")":"";
+        state("connecting");detail("Restarting the game…"+suffix);
+        log("Restarting "+TARGET+suffix);
+        rootOutput("am force-stop "+quote(TARGET)+" && am start -n "+quote(component)+" >/dev/null",20);
+        if(stopping || destroyed) return Outcome.DONE;
+        detail("Waiting for the game to load…"+suffix);
+        String pid=rootOutput("i=0; while [ $i -lt 225 ]; do p=$(pidof -s "+quote(TARGET)+"); "
+            +"if [ -n \"$p\" ] && grep -q libil2cpp.so /proc/$p/maps 2>/dev/null; then echo $p; exit 0; fi; i=$((i+1)); sleep 0.2; done; exit 1",60);
+        if(stopping || destroyed) return Outcome.DONE;
+        if(pid==null || !pid.matches("[0-9]+")) throw new IOException("Root denied or the game did not start. Allow root for PGQL and try again.");
+        log("Game started (pid "+pid+"); libil2cpp.so loaded after "+(System.currentTimeMillis()-attemptStarted)+" ms");
+        Thread.sleep(ATTACH_GRACE_MS);
+        if(stopping || destroyed) return Outcome.DONE;
+        detail("Attaching (pid "+pid+")…"+suffix);
+        return runRunner(executable,script,pid);
+    }
+    // Runs one runner to completion. CRASHED means the game died before or soon
+    // after the agent became ready, which is the attach-time crash worth retrying.
+    private Outcome runRunner(String executable,File script,String pid) throws IOException,InterruptedException {
+        readyAt=0;targetDied=false;
+        String shell=(accessoryOnly?"":"[ \"$(pidof -s "+quote(TARGET)+")\" = "+pid+" ] || { echo '{\"event\":\"error\",\"stage\":\"target\",\"message\":\"Game restarted before attach\"}'; exit 4; }; ")
+            +"exec "+quote(executable)+" --pid "+pid+" --script "+quote(script.getAbsolutePath())+" --resident-agent";
+        if(getSharedPreferences("lab",MODE_PRIVATE).getBoolean("prepare_selinux",false))shell+=" --prepare-selinux";
+        Process process=new ProcessBuilder("su","-c",shell).start(); runner=process;
+        synchronized(this){input=new BufferedWriter(new OutputStreamWriter(process.getOutputStream(),StandardCharsets.UTF_8));}
+        if(stopping || destroyed) {synchronized(this){input.close();input=null;}}
+        Thread errors=new Thread(()->readErrors(process),"qol-stderr"); errors.start();
+        try(BufferedReader reader=new BufferedReader(new InputStreamReader(process.getInputStream(),StandardCharsets.UTF_8))) {
+            String line; while((line=reader.readLine())!=null) handle(line);
+        }
+        int exit=process.waitFor();
+        synchronized(this){if(input!=null)try{input.close();}catch(IOException ignored){} input=null;}
+        runner=null;
+        synchronized(LOCK){moduleList=new JSONArray();}
+        closeCompanion();
+        if(stopping || destroyed || exit==0) return Outcome.DONE;
+        log("Runner exited with code "+exit);
+        long ready=readyAt;
+        boolean early=ready==0 || System.currentTimeMillis()-ready<CRASH_WINDOW_MS;
+        if(!accessoryOnly && early && (targetDied || "gone".equals(rootOutput("[ -d /proc/"+pid+" ] || echo gone",10)))) {crashEvidence(pid);return Outcome.CRASHED;}
+        return Outcome.FAILED;
+    }
+    // Copies the signal and top frames of the lost game process's tombstone into
+    // the session log; tombstoned writes it a few seconds after the process dies.
+    private void crashEvidence(String pid) {
+        try {
+            String lines=rootOutput("for i in 1 2 3 4 5 6 7 8 9 10; do "
+                +"f=$(grep -l '^pid: "+pid+",' $(ls -t /data/tombstones/ | grep -v pb | head -3 | sed 's#^#/data/tombstones/#') 2>/dev/null | head -1); "
+                +"[ -n \"$f\" ] && break; sleep 1; done; "
+                +"[ -n \"$f\" ] && { echo $f; grep -m1 '^pid:' $f; grep -m1 '^signal' $f; grep -m1 'Process uptime' $f; grep -m3 -E '^ +#0[0-2] ' $f | sed -E 's/ *\\(BuildId.*//; s#/data/app/[^ ]*/##'; }",20);
+            log(lines==null || lines.isEmpty()?"Crash (pid "+pid+"): no tombstone found":"Crash (pid "+pid+"):\n"+lines);
+        }catch(InterruptedException e){Thread.currentThread().interrupt();}
+        catch(Exception ignored){}
+    }
+    // Runs a root shell command and returns its trimmed stdout, or null when it
+    // fails. Detach interrupts it.
+    private String rootOutput(String command,int seconds) throws IOException,InterruptedException {
+        Process probe=new ProcessBuilder("su","-c",command).redirectErrorStream(false).start(); pidProbe=probe;
+        try {
+            StringBuilder response=new StringBuilder();
+            Thread drain=new Thread(()->{
+                try(BufferedReader reader=new BufferedReader(new InputStreamReader(probe.getInputStream(),StandardCharsets.UTF_8))) {
+                    String line; while((line=reader.readLine())!=null) synchronized(response){if(response.length()>0)response.append('\n');response.append(line);}
+                }catch(IOException ignored){}
+            },"qol-root");
+            drain.start();
+            if(!probe.waitFor(seconds,TimeUnit.SECONDS)) {probe.destroy();if(stopping||destroyed)return null;throw new IOException("Root command timed out");}
+            drain.join(1000);
+            if(probe.exitValue()!=0) return null;
+            synchronized(response){return response.toString().trim();}
+        } finally { if(pidProbe==probe) pidProbe=null; }
+    }
+    private static void writeAgent(InputStream source,File target,boolean pgp) throws IOException {
+        try(InputStream src=source;OutputStream dst=new FileOutputStream(target)) {
+            if(pgp)dst.write("globalThis.PgqlRole='pgp';\n".getBytes(StandardCharsets.UTF_8));
+            byte[] bytes=new byte[16384]; int count; while((count=src.read(bytes))!=-1) dst.write(bytes,0,count);
         }
     }
     private void readErrors(Process process) {
@@ -216,8 +303,11 @@ public class SessionService extends Service {
     private void handle(String line) {
         try {
             JSONObject event=new JSONObject(line); String type=event.optString("event");
+            if(type.equals("detached") && (event.optInt("reason")==3 || event.optBoolean("crashed"))) targetDied=true;
             if(type.equals("ready")) {
-                state("attached");post("list",null);
+                readyAt=System.currentTimeMillis();
+                log("Agent ready "+(readyAt-attemptStarted)+" ms after "+(accessoryOnly?"attach":"restart"));
+                detail("");state("attached");post("list",null);
                 if(accessoryOnly) {
                     for(String key:new String[]{"auto-catch","auto-spin","auto-reconnect"})
                         configure(GOPLUS,key,getSharedPreferences("lab",MODE_PRIVATE).getBoolean("goplus."+key,true));
@@ -320,19 +410,10 @@ public class SessionService extends Service {
         if(existing!=null && existing.isAlive()) return true;
         if(stopping || destroyed) return false;
         try {
-            Process probe=new ProcessBuilder("su","-c","pidof -s "+quote(COMPANION_TARGET)).redirectErrorStream(true).start();
-            if(!probe.waitFor(20,TimeUnit.SECONDS)) {probe.destroy();throw new IOException("PID check timed out");}
-            StringBuilder response=new StringBuilder();
-            try(BufferedReader reader=new BufferedReader(new InputStreamReader(probe.getInputStream(),StandardCharsets.UTF_8))) {
-                String line; while((line=reader.readLine())!=null) response.append(line);
-            }
-            String pid=response.toString().trim();
-            if(probe.exitValue()!=0 || !pid.matches("[0-9]+")) {log("Virtual GO Plus unavailable: "+COMPANION_TARGET+" is not running");return false;}
+            String pid=companionPid();
+            if(pid==null || !pid.matches("[0-9]+")) {log("Virtual GO Plus unavailable: "+COMPANION_TARGET+" is not running");return false;}
             File script=new File(getFilesDir(),"agent-pgp.js");
-            try(InputStream src=new FileInputStream(new File(getFilesDir(),"agent.js"));OutputStream dst=new FileOutputStream(script)) {
-                dst.write("globalThis.PgqlRole='pgp';\n".getBytes(StandardCharsets.UTF_8));
-                byte[] bytes=new byte[16384]; int count; while((count=src.read(bytes))!=-1) dst.write(bytes,0,count);
-            }
+            writeAgent(new FileInputStream(new File(getFilesDir(),"agent.js")),script,true);
             String executable=getApplicationInfo().nativeLibraryDir+"/libqolrunner.so";
             String shell="exec "+quote(executable)+" --pid "+pid+" --script "+quote(script.getAbsolutePath())+" --resident-agent";
             Process process=new ProcessBuilder("su","-c",shell).start();
@@ -377,6 +458,17 @@ public class SessionService extends Service {
             if(e instanceof InterruptedException)Thread.currentThread().interrupt();
             log("GO Plus companion error: "+e.getMessage());return false;
         }
+    }
+    // Separate from rootOutput: it runs on companionWorker while the main
+    // worker's probe may be in flight, and pidProbe tracks only one process.
+    private static String companionPid() throws IOException,InterruptedException {
+        Process probe=new ProcessBuilder("su","-c","pidof -s "+quote(COMPANION_TARGET)).redirectErrorStream(true).start();
+        if(!probe.waitFor(20,TimeUnit.SECONDS)) {probe.destroy();throw new IOException("PID check timed out");}
+        StringBuilder response=new StringBuilder();
+        try(BufferedReader reader=new BufferedReader(new InputStreamReader(probe.getInputStream(),StandardCharsets.UTF_8))) {
+            String line; while((line=reader.readLine())!=null) response.append(line);
+        }
+        return probe.exitValue()==0?response.toString().trim():null;
     }
     private void handleCompanion(String line) {
         try {

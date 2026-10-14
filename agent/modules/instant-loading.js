@@ -10,7 +10,7 @@ Qol.register({
       if(session.closed || this.session!==session)return;
       session.reason=String(error);session.phase='failed';
       ctx.log('Instant Loading unavailable',{error:session.reason});
-      Qol.disable('instant-loading');
+      Qol.disable('instant-loading',{failed:true});
     };
     const timer=setTimeout(()=>{
       if(session.closed)return;

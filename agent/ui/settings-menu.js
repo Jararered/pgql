@@ -6,7 +6,7 @@ Qol.register({
   id:'pgql-menu',name:'PGQL settings menu',
   enable(ctx) {
     let stopped=false, activity=null, root=null, badge=null, dialog=null, prefs=null;
-    let opening=false, building=false, widgets=new Map(), restoring=true;
+    let opening=false, building=false, widgets=new Map(), restoring=true, pendingRestore=new Set(), keepSaved=new Set();
     const callbacks=new Map(), unique='dev.pgql.injected.S'+Process.id+'_'+Date.now();
     const actionDialogs=new Set(), actionCallbackKeys=new Set(), pendingActions=new Set();
     let serial=0, classes=null, attempted=false, checked=false, badgeKey=null, entry=null, fallback=false;
@@ -31,7 +31,10 @@ Qol.register({
     function persist() {
       if(restoring || !prefs)return;
       const config={};
-      for(const module of Qol.describe())if(module.id!=='pgql-menu')config[module.id]={enabled:module.enabled,config:module.config};
+      // Saved modules still waiting for the map, or that turned themselves off
+      // after an error, stay saved as enabled until the user changes them.
+      for(const module of Qol.describe())if(module.id!=='pgql-menu')
+        config[module.id]={enabled:module.enabled || pendingRestore.has(module.id) || keepSaved.has(module.id),config:module.config};
       prefs.edit().putString('modules',classes.String.$new(JSON.stringify(config))).apply();
     }
     function sync() {
@@ -162,7 +165,7 @@ Qol.register({
       toggle(row,value){later(()=>{
         try {
           if(row.key)Qol.setConfig(row.moduleId,row.key,value);
-          else if(value)Qol.enable(row.moduleId);else Qol.disable(row.moduleId);
+          else {keepSaved.delete(row.moduleId);if(value)Qol.enable(row.moduleId);else Qol.disable(row.moduleId);}
         }catch(error){fail(error);refresh();notify(row.label,'Could not change this setting.\n'+String(error));}
       });},
       action(row){later(()=>{
@@ -208,7 +211,7 @@ Qol.register({
             continue;
           }
           if(module.availability==='experimental')content.addView(text(module.unavailableReason || 'Experimental',14));
-          const enabled=row('Enabled',module.enabled,value=>value?Qol.enable(module.id):Qol.disable(module.id));
+          const enabled=row('Enabled',module.enabled,value=>{keepSaved.delete(module.id);if(value)Qol.enable(module.id);else Qol.disable(module.id);});
           widgets.set(module.id+':enabled',enabled);content.addView(enabled);
           for(const setting of module.settings) {
             let control;
@@ -244,9 +247,28 @@ Qol.register({
         for(const setting of module.settings)if(typeof stored.config?.[setting.key]===(setting.type==='text'?'string':'boolean')) {
           try{Qol.setConfig(module.id,setting.key,stored.config[setting.key]);}catch(error){fail(error);}
         }
-        try{if(stored.enabled===true)Qol.enable(module.id);else if(stored.enabled===false)Qol.disable(module.id);}catch(error){fail(error);}
+        if(stored.enabled===true)pendingRestore.add(module.id);
+        else if(stored.enabled===false)try{Qol.disable(module.id);}catch(error){fail(error);}
       }
+      // The session may attach during the loading screen. Enable saved modules
+      // once the map exists, one at a time, so their startup work does not land
+      // in the same frames.
+      const restore=()=>{
+        if(stopped)return;
+        const [id]=pendingRestore;
+        if(id===undefined){ctx.log('Saved modules restored');return;}
+        pendingRestore.delete(id);
+        try{Qol.enable(id);}catch(error){fail(error);}
+        setTimeout(restore,300);
+      };
       restoring=false;
+      if(!pendingRestore.size)return;
+      const gate=new PgqlGameGifts(ctx);
+      ctx.log('Waiting for the map before restoring saved modules',{modules:pendingRestore.size});
+      gate.mapReady().then(()=>{ctx.log('Map ready',{sinceLoadMs:Date.now()-PgqlGameGifts.loadedAt});restore();},error=>{
+        if(stopped)return;
+        fail(error);restore();
+      });
     }
     function install(candidate) {
       if(stopped)return;
@@ -315,8 +337,11 @@ Qol.register({
     }
     const unsubscribe=Qol.subscribe(change=>{
       if(stopped)return;
-      if(change.moduleId==='pgql-menu' || !classes)return;
-      if(['enabled','disabled','config'].includes(change.type)){main(()=>{persist();sync();});refresh();}
+      if(change.moduleId==='pgql-menu')return;
+      if(change.type==='disabled' && change.failed)keepSaved.add(change.moduleId);
+      else if(change.type==='enabled' || change.type==='disabled')keepSaved.delete(change.moduleId);
+      if(!classes)return;
+      if(['enabled','disabled','config'].includes(change.type)){main(()=>{if(!change.failed)persist();sync();});refresh();}
     });
     ctx.cleanup(()=>{
       unsubscribe();stopped=true;

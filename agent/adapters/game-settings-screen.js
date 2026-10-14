@@ -246,6 +246,7 @@ globalThis.PgqlGameSettingsScreen = class PgqlGameSettingsScreen {
   async show(page,handlers) {
     await this.game.initialize();
     const generation=++this.generation;
+    await this.game.metadata(()=>this.bind());
     return this.game.main(()=>{
       if(this.closed)throw Error('Module disabled');
       if(generation!==this.generation)return false;

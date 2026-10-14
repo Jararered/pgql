@@ -38,16 +38,10 @@ public class MainActivity extends Activity {
         policy.setOnCheckedChangeListener((view,checked)->getSharedPreferences("lab",MODE_PRIVATE).edit().putBoolean("prepare_selinux",checked).apply());
         page.addView(policy);
         LinearLayout controls=new LinearLayout(this);
-        Button launch=button("Launch game", v -> {
-            Intent intent=getPackageManager().getLaunchIntentForPackage(SessionService.TARGET);
-            if(intent==null) Toast.makeText(this,"Pokémon GO is not installed",Toast.LENGTH_LONG).show(); else startActivity(intent);
-        }); controls.addView(launch);
-        attach=button("Attach",v -> {
-            Intent game=getPackageManager().getLaunchIntentForPackage(SessionService.TARGET);
-            if(game==null) {Toast.makeText(this,"Pokémon GO is not installed",Toast.LENGTH_LONG).show();return;}
-            Intent intent=new Intent(this,SessionService.class).setAction(SessionService.ATTACH);
-            startForegroundService(intent);
-            startActivity(game);
+        // Restarts the game and attaches while it loads; the service launches it.
+        attach=button("Start",v -> {
+            if(getPackageManager().getLaunchIntentForPackage(SessionService.TARGET)==null) {Toast.makeText(this,"Pokémon GO is not installed",Toast.LENGTH_LONG).show();return;}
+            startForegroundService(new Intent(this,SessionService.class).setAction(SessionService.ATTACH));
         }); controls.addView(attach);
         detach=button("Detach",v -> {
             Intent game=getPackageManager().getLaunchIntentForPackage(SessionService.TARGET);
@@ -96,7 +90,8 @@ public class MainActivity extends Activity {
     }
     @Override protected void onStop() { unregisterReceiver(receiver); super.onStop(); }
     private void render() {
-        String state=SessionService.state(); status.setText("Session: "+state);
+        String state=SessionService.state(),detail=SessionService.detail();
+        status.setText("Session: "+state+(detail.isEmpty()?"":" · "+detail));
         boolean idle=state.equals("idle") || state.equals("error");
         attach.setEnabled(idle); goPlus.setEnabled(idle); detach.setEnabled(!idle); snapshot.setEnabled(state.equals("attached"));
         logs.setText(SessionService.logText());
@@ -111,7 +106,7 @@ public class MainActivity extends Activity {
             if(counts!=null)summary+=" · Catch requests: "+counts.optInt("catchRequests")+" · Spin requests: "+counts.optInt("spinRequests");
             connection.setText(summary);modules.addView(connection);
         }
-        if(list.length()==0) { TextView hint=new TextView(this); hint.setText("Open the game, then attach to load modules."); modules.addView(hint); }
+        if(list.length()==0) { TextView hint=new TextView(this); hint.setText("Tap Start to launch the game and load modules."); modules.addView(hint); }
         for(int i=0;i<list.length();i++) {
             JSONObject item=list.optJSONObject(i); if(item==null) continue;
             String id=item.optString("id"); CheckBox check=new CheckBox(this);

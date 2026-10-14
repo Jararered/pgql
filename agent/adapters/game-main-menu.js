@@ -97,10 +97,10 @@ globalThis.PgqlGameMainMenu = class PgqlGameMainMenu {
     }catch(error){this.ctx.log('Main menu entry click failed',{error:String(error)});}
   }
   async start() {
-    await this.game.initialize();
+    // Metadata binding runs on the agent thread; only scene work uses a frame.
+    const bound=await this.game.metadata(()=>this.bind());
     return this.game.main(()=>{
       if(this.closed)throw Error('Module disabled');
-      const bound=this.bind();
       // The click event only references the delegate while a row exists; pin it
       // so one delegate survives the game rebuilding its menu.
       const delegate=Il2Cpp.delegate(bound.action,()=>this.clicked());

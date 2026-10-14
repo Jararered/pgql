@@ -134,7 +134,7 @@ const context=vm.createContext({setTimeout,clearTimeout,NULL:null,
 vm.runInContext(fs.readFileSync(path.join(__dirname,'../agent/core/game-version.js'),'utf8'),context);
 vm.runInContext(fs.readFileSync(path.join(__dirname,'../agent/adapters/game-settings-screen.js'),'utf8'),context);
 const Screen=context.PgqlGameSettingsScreen;
-const game={type,async initialize(){},async main(fn){return fn();},handleNew:handle=>({isNull:()=>false,handle}),handleFree:pin=>freed.push(pin)};
+const game={type,async initialize(){},async main(fn){return fn();},async metadata(fn){return fn();},handleNew:handle=>({isNull:()=>false,handle}),handleFree:pin=>freed.push(pin)};
 const ctx={cleanup:fn=>cleanups.push(fn),log:(message,details)=>logs.push({message,details})};
 const flush=()=>{for(const node of pending.splice(0))detach(node);};
 const shown=()=>sceneRoots.filter(n=>n.controller);

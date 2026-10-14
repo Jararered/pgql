@@ -16,7 +16,7 @@ Qol.register({
       if(session.closed || this.session!==session)return;
       session.reason=String(error);session.phase='failed';
       ctx.log('Pinap Master unavailable',{error:session.reason});
-      Qol.disable('pinap-master');
+      Qol.disable('pinap-master',{failed:true});
     };
     const timer=setTimeout(()=>{
       if(session.closed)return;

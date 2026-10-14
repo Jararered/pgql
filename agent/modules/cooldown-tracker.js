@@ -21,7 +21,7 @@ Qol.register({
       if(session.closed || this.session!==session)return;
       session.reason=String(error);session.phase='failed';
       ctx.log('Cooldown Tracker unavailable',{error:session.reason});
-      Qol.disable('cooldown-tracker');
+      Qol.disable('cooldown-tracker',{failed:true});
     };
     const timer=setTimeout(()=>{
       if(session.closed)return;

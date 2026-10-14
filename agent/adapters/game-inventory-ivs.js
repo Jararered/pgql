@@ -57,6 +57,7 @@ globalThis.PgqlGameInventoryIvs = class PgqlGameInventoryIvs {
   }
   async start() {
     await this.game.initialize();
+    await this.game.metadata(()=>this.bind());
     return this.game.main(()=>{
       if(this.closed)throw Error('Module disabled');
       const b=this.bind(),self=this;

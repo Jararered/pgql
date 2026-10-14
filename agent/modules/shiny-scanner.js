@@ -25,7 +25,7 @@ Qol.register({
       if(session.closed || this.session!==session)return;
       session.reason=String(error);session.phase='failed';
       ctx.log('Shiny Scanner unavailable',{error:session.reason});
-      Qol.disable('shiny-scanner');
+      Qol.disable('shiny-scanner',{failed:true});
     };
     const timer=setTimeout(()=>{
       if(session.closed)return;

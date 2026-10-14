@@ -13,8 +13,7 @@ globalThis.PgqlGameEncounters = class PgqlGameEncounters {
   }
   type(name) {
     if(name.includes('.'))return this.scheduler.type(name);
-    const matches=[];
-    for(const assembly of Il2Cpp.domain.assemblies)for(const type of assembly.image.classes)if(type.name===name)matches.push(type);
+    const matches=this.scheduler.named(name);
     if(matches.length!==1)throw Error('Expected one managed class: '+name);
     return matches[0];
   }
@@ -71,7 +70,7 @@ globalThis.PgqlGameEncounters = class PgqlGameEncounters {
   problem(error) {
     if(this.closed || this.failed)return;
     this.failed=true;this.ctx.log('Encounter hook failed; disabling feature',{error:String(error)});
-    setTimeout(()=>{if(!this.closed)Qol.disable(this.feature);},0);
+    setTimeout(()=>{if(!this.closed)Qol.disable(this.feature,{failed:true});},0);
   }
   replace(method,callback) {
     const wrapped=method.wrap(function(...args){return callback(this,args,()=>method.bind(this).invoke(...args));});
@@ -94,6 +93,9 @@ globalThis.PgqlGameEncounters = class PgqlGameEncounters {
   async install(feature) {
     this.feature=feature;
     await (PgqlGameEncounters.pendingRestore || Promise.resolve());
+    if(this.closed)return;
+    // Build the shared short-name class index on the agent thread, not in a frame.
+    await this.scheduler.metadata(()=>this.scheduler.named(''));
     if(this.closed)return;
     await this.scheduler.main(()=>{
       if(this.closed)return;
