@@ -5,18 +5,28 @@
 // throw modules, without opening the encounter scene. Holding the Pokémon opens
 // the normal encounter. PgqlCatchPolicy owns the rules. Names are verified from
 // live managed metadata; there are no offsets. Hold-to-open, ball memory, map
-// removal and toasts are optional parts: if one cannot be bound the catch still works.
+// removal, toasts and the halo are optional parts: if one cannot be bound the catch
+// still works. The halo is the Pokémon's own ground ripple (as Shiny Scanner tints
+// it), turned on, tinted and pulsed while the catch runs, then put back.
 globalThis.PgqlGameTapToCatch = class PgqlGameTapToCatch {
   constructor(ctx,{select,modules}={}) {
     this.ctx=ctx;this.game=new PgqlGameGifts(ctx);this.closed=false;this.bound=null;this.failed=false;this.limits={};
     this.select=select || (key=>Qol.setConfig('tap-to-catch','ball',key));
     this.modules=modules || (()=>Qol.describe());
     this.stats={taps:0,caught:0,fled:0,escaped:0,missed:0,errors:0,berries:0,blocked:0,empty:0,opened:0,last:null};
-    this.pending=new Map();this.implementations=new Map();this.hold=null;this.holdOpening=false;this.undo=[];this.callbacks=[];
+    this.pending=new Map();this.implementations=new Map();this.ripples=new Map();this.pulse=null;this.hold=null;this.holdOpening=false;this.undo=[];this.callbacks=[];
     ctx.cleanup(()=>this.close());
   }
   static get holdMs(){return 800;}
   static get timeoutMs(){return 15000;}
+  static get haloColor(){return [0.35,0.8,1,1];}
+  static get haloMs(){return 120;}
+  static get haloHoldSeconds(){return 1.5;}
+  // Halo scale factor at a time in ms: a pulse between ×1.35 and ×1.65.
+  static haloPulse(now) {
+    const wave=(Math.sin(now/1000*2*Math.PI*1.25)+1)/2;
+    return 1.35+0.3*wave;
+  }
   static number(value){return typeof value==='number'?value:value.field('value__').value;}
   // Enum fields are value types to the bridge: a plain number cannot be written to them.
   static setEnum(field,object,value) {
@@ -87,7 +97,7 @@ globalThis.PgqlGameTapToCatch = class PgqlGameTapToCatch {
       ar:{klass:ar,ctor:plain(ar,'.ctor',[],'System.Void'),proximity:proto('Proximity'),awareness:proto('Awareness'),frightened:proto('PokemonFrightened')},
       status:statuses[0],names,bag,
       scene:type('Niantic.Holoholo.MapSceneContext'),findOne:plain(object,'FindObjectOfType',['System.Type'],null,true),
-      remove:null,memory:null,hold:null,toast:null};
+      remove:null,memory:null,hold:null,toast:null,halo:null};
     for(const f of [bound.ar.proximity,bound.ar.awareness])if(!['System.Single','System.Double'].includes(f.type.name))throw Error('Unsupported AR+ field: '+f.name);
     if(bound.ar.frightened.type.name!=='System.Boolean')throw Error('Unsupported AR+ field: PokemonFrightened');
     const optional=(name,build)=>{
@@ -119,7 +129,20 @@ globalThis.PgqlGameTapToCatch = class PgqlGameTapToCatch {
         if(options.field(name).type.name!==expected)throw Error('Unsupported toast field: '+name);
       const nullable=options.field('DisplaySecondsOverride').type.class;
       nullable.field('hasValue');nullable.field('value');
-      return {service,params:options};
+      return {service,params:options,top:PgqlGameToast.bind(type,options,this.ctx.log)};
+    });
+    optional('halo',()=>{
+      const particles=type('UnityEngine.ParticleSystem'),color=type('UnityEngine.Color'),vector=type('UnityEngine.Vector3');
+      const gameObject=type('UnityEngine.GameObject'),transform=type('UnityEngine.Transform');
+      plain(particles,'get_startColor',[],'UnityEngine.Color');plain(particles,'set_startColor',['UnityEngine.Color'],'System.Void');
+      plain(particles,'Clear',['System.Boolean'],'System.Void');plain(particles,'Play',['System.Boolean'],'System.Void');
+      plain(particles,'Simulate',['System.Single','System.Boolean','System.Boolean'],'System.Void');
+      plain(gameObject,'SetActive',['System.Boolean'],'System.Void');plain(gameObject,'get_activeSelf',[],'System.Boolean');
+      plain(gameObject,'get_transform',[],'UnityEngine.Transform');
+      plain(transform,'get_localScale',[],'UnityEngine.Vector3');plain(transform,'set_localScale',['UnityEngine.Vector3'],'System.Void');
+      for(const channel of ['r','g','b','a'])if(color.field(channel).type.name!=='System.Single')throw Error('Unsupported color field: '+channel);
+      for(const axis of ['x','y','z'])if(vector.field(axis).type.name!=='System.Single')throw Error('Unsupported vector field: '+axis);
+      return {particles,color,vector};
     });
     this.bound=bound;
     return bound;
@@ -196,12 +219,13 @@ globalThis.PgqlGameTapToCatch = class PgqlGameTapToCatch {
     if(!PgqlCatchPolicy.pickBall({preferred:this.ctx.config.ball,counts:this.counts(bag)}).ball) {
       this.stats.empty++;this.notify('You have no Poké Balls');return;
     }
-    const tap={id,raw,pokemon:this.pin(pokemon),handler:null,done:false,timer:null};
+    const tap={id,raw,pokemon:this.pin(pokemon),handler:null,done:false,timer:null,halo:null,removed:false};
     if(b.remove && !this.limits.remove) {
       const handler=b.remove.handler.bind(explore).value;
       if(!handler.isNull())tap.handler=this.pin(handler);
     }
     this.pending.set(id,tap);
+    this.showHalo(tap,pokemon);
     tap.timer=setTimeout(()=>{
       if(tap.done)return;
       this.stats.errors++;this.ctx.log('Tap to Catch: no answer from the game');
@@ -288,21 +312,109 @@ globalThis.PgqlGameTapToCatch = class PgqlGameTapToCatch {
     try {
       if(tap.handler)r.register.bind(this.object(tap.handler)).invoke(tap.raw);
       const pokemon=this.object(tap.pokemon);
-      if(!pokemon.isNull())this.own(pokemon,r.destroy).invoke();
+      if(!pokemon.isNull()){this.own(pokemon,r.destroy).invoke();tap.removed=true;}
     }catch(error){this.limits.remove=String(error.message || error);this.ctx.log('Tap to Catch: map removal unavailable',{error:String(error)});}
   }
   end(tap) {
     if(tap.done)return;
     tap.done=true;clearTimeout(tap.timer);
     if(this.pending.get(tap.id)===tap)this.pending.delete(tap.id);
+    if(tap.halo&&!this.closed)this.hideHalo(tap);
+    if(this.pulse&&![...this.pending.values()].some(other=>other.halo)){clearInterval(this.pulse);this.pulse=null;}
     this.free(tap.pokemon);this.free(tap.handler);
+  }
+  // The spawn's ground ripple: normalRippleFx (wild, lure, incense) or rippleFx
+  // (photobomb). Route and station spawns have none and get no halo.
+  ripple(klass) {
+    const key=klass.type.name;
+    if(this.ripples.has(key))return this.ripples.get(key);
+    let found=null;
+    for(const owner of klass.hierarchy?klass.hierarchy({includeCurrent:true}):[klass]) {
+      const matches=owner.fields.filter(f=>!f.isStatic&&['normalRippleFx','rippleFx'].includes(f.name)&&
+        ['UnityEngine.GameObject','UnityEngine.ParticleSystem'].includes(f.type.name));
+      if(matches.length){found=matches.find(f=>f.name==='normalRippleFx') || matches[0];break;}
+    }
+    this.ripples.set(key,found);
+    if(!found)this.ctx.log('Tap to Catch: no halo for this spawn',{pokemon:key});
+    return found;
+  }
+  // Game thread. Saves the ripple's state, then turns it on, tinted and enlarged.
+  showHalo(tap,pokemon) {
+    const h=this.bound.halo;
+    if(!h||this.limits.halo||!this.ctx.config.showHalo)return;
+    try {
+      const field=this.ripple(pokemon.class);
+      if(!field)return;
+      const value=field.bind(pokemon).value;
+      if(value.isNull())return;
+      const direct=field.type.name==='UnityEngine.ParticleSystem';
+      const particles=direct?value:value.method('GetComponent',1).overload('System.Type').invoke(h.particles.type.object);
+      if(particles.isNull())return;
+      const holder=direct?particles.method('get_gameObject',0).invoke():value,transform=holder.method('get_transform',0).invoke();
+      const color=particles.method('get_startColor',0).invoke(),scale=transform.method('get_localScale',0).invoke();
+      const saved={active:!!holder.method('get_activeSelf',0).invoke(),color:['r','g','b','a'].map(c=>color.field(c).value),
+        scale:['x','y','z'].map(a=>scale.field(a).value)};
+      tap.halo={particles:this.pin(particles),holder:this.pin(holder),transform:this.pin(transform),saved};
+      holder.method('SetActive',1).invoke(true);
+      this.tintHalo(tap.halo,PgqlGameTapToCatch.haloColor,true);
+      this.scaleHalo(tap.halo,PgqlGameTapToCatch.haloPulse(Date.now()));
+      if(!this.pulse)this.pulse=setInterval(()=>this.pulseHalos(),PgqlGameTapToCatch.haloMs);
+    }catch(error){this.haloProblem(error);this.releaseHalo(tap);}
+  }
+  // The ripple is one ring particle that grows over 5 s: a new start colour only
+  // shows on the next one. The halo restarts it in the halo colour and holds it,
+  // paused, at haloHoldSeconds into its life; the restore restarts it as it was.
+  tintHalo(halo,rgba,hold) {
+    const color=this.bound.halo.color.alloc(),particles=this.object(halo.particles);
+    ['r','g','b','a'].forEach((channel,i)=>{color.field(channel).value=rgba[i];});
+    particles.method('set_startColor',1).invoke(color.unbox());
+    particles.method('Clear',1).overload('System.Boolean').invoke(false);
+    if(hold)particles.method('Simulate',3).overload('System.Single','System.Boolean','System.Boolean').invoke(PgqlGameTapToCatch.haloHoldSeconds,false,true);
+    else particles.method('Play',1).overload('System.Boolean').invoke(false);
+  }
+  // Local simulation space: scaling the ripple's transform scales the live ring.
+  scaleHalo(halo,factor) {
+    const vector=this.bound.halo.vector.alloc();
+    ['x','y','z'].forEach((axis,i)=>{vector.field(axis).value=halo.saved.scale[i]*factor;});
+    this.object(halo.transform).method('set_localScale',1).invoke(vector.unbox());
+  }
+  pulseHalos() {
+    const live=[...this.pending.values()].filter(tap=>tap.halo);
+    if(this.closed||!live.length){clearInterval(this.pulse);this.pulse=null;return;}
+    this.game.main(()=>{
+      const factor=PgqlGameTapToCatch.haloPulse(Date.now());
+      for(const tap of live)if(!tap.done&&tap.halo)
+        try{this.scaleHalo(tap.halo,factor);}catch(error){this.haloProblem(error);this.releaseHalo(tap);}
+    },'Tap to Catch halo').catch(()=>{});
+  }
+  // Game thread. A Pokémon removed from the map took its ripple with it.
+  hideHalo(tap) {
+    const halo=tap.halo;
+    if(!halo)return;
+    try {
+      if(!tap.removed) {
+        this.scaleHalo(halo,1);this.tintHalo(halo,halo.saved.color,false);
+        this.object(halo.holder).method('SetActive',1).invoke(halo.saved.active);
+      }
+    }catch(error){this.ctx.log('Tap to Catch: halo restore failed',{error:String(error)});}
+    this.releaseHalo(tap);
+  }
+  releaseHalo(tap) {
+    const halo=tap.halo;
+    if(!halo)return;
+    tap.halo=null;
+    for(const handle of [halo.particles,halo.holder,halo.transform])this.free(handle);
+  }
+  haloProblem(error) {
+    if(this.limits.halo)return;
+    this.limits.halo=String(error.message || error);this.ctx.log('Tap to Catch: halo unavailable',{error:String(error)});
   }
   notify(text) {
     const t=this.bound&&this.bound.toast;
     if(!t||this.limits.toast||!this.ctx.config.showToast)return;
     try {
       const service=this.service(t.service),params=t.params.alloc();
-      params.method('.ctor',0).invoke();
+      params.method('.ctor',0).invoke();PgqlGameToast.place(t.top,params);
       params.field('AutoDismiss').value=true;params.field('DismissOnClick').value=true;
       const seconds=params.field('DisplaySecondsOverride').value;seconds.field('value').value=2;seconds.field('hasValue').value=true;
       const shown=service.class.methods.find(m=>m.name==='OneLine'&&!m.isStatic&&m.parameterCount===2&&
@@ -396,7 +508,7 @@ globalThis.PgqlGameTapToCatch = class PgqlGameTapToCatch {
         this.ctx.hook(b.hold.ended.virtualAddress,{onEnter:guard(args=>self.holdEnded(new Il2Cpp.Object(args[0]))),onLeave:guard(()=>self.holdFinished())});
       }
       Interceptor.flush();
-      this.ctx.log('Tap to Catch ready',{ball:this.ctx.config.ball,hold:!!b.hold,memory:!!b.memory,remove:!!b.remove,toast:!!b.toast});
+      this.ctx.log('Tap to Catch ready',{ball:this.ctx.config.ball,hold:!!b.hold,memory:!!b.memory,remove:!!b.remove,toast:!!b.toast,halo:!!b.halo});
       return true;
     });
   }
@@ -408,7 +520,7 @@ globalThis.PgqlGameTapToCatch = class PgqlGameTapToCatch {
     if(s.empty)lines.push('Out of balls: '+s.empty);
     if(s.opened)lines.push('Opened by holding: '+s.opened);
     if(s.last)lines.push('Last: '+s.last.ball+(s.last.excellent?', Excellent curveball':s.last.ring?', inside the ring':'')+(s.last.outcome?' ('+s.last.outcome+')':''));
-    for(const [name,label] of [['hold','Hold to open'],['memory','Ball memory'],['remove','Map removal'],['toast','Toasts']])
+    for(const [name,label] of [['hold','Hold to open'],['memory','Ball memory'],['remove','Map removal'],['toast','Toasts'],['halo','Halo']])
       if(this.limits[name])lines.push(label+' unavailable: '+this.limits[name]);
     return lines.join('\n');
   }
@@ -418,7 +530,24 @@ globalThis.PgqlGameTapToCatch = class PgqlGameTapToCatch {
     for(const undo of this.undo.splice(0).reverse())try{undo();}catch(error){this.ctx.log('Tap to Catch cleanup failed',{error:String(error)});}
     if(this.bound)Interceptor.flush();
     this.cancelHold();
+    if(this.pulse){clearInterval(this.pulse);this.pulse=null;}
+    const halos=[...this.pending.values()].filter(tap=>tap.halo);
     for(const tap of [...this.pending.values()])this.end(tap);
+    if(halos.length)this.restoreLater(halos);
     // Keep the replaced callback referenced for any call already in flight.
+  }
+  // The halos are put back on the next game frame; the frame scheduler is already closed.
+  restoreLater(taps) {
+    let done=false,listener=null,timer=null;
+    const finish=run=>{
+      if(done)return;
+      done=true;clearTimeout(timer);if(listener)listener.detach();
+      for(const tap of taps)if(run)this.hideHalo(tap);else this.releaseHalo(tap);
+    };
+    try {
+      const frame=this.game.type('UnityEngine.UnitySynchronizationContext').method('ExecuteTasks',0).virtualAddress;
+      listener=Interceptor.attach(frame,{onLeave:()=>finish(true)});
+      timer=setTimeout(()=>finish(false),5000);
+    }catch(error){this.ctx.log('Tap to Catch: halo restore failed',{error:String(error)});finish(false);}
   }
 };

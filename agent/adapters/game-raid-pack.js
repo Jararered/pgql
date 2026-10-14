@@ -183,7 +183,7 @@ globalThis.PgqlGameRaidPack = class PgqlGameRaidPack {
           field(params,name,expected);
         const nullable=params.field('DisplaySecondsOverride').type.class;
         field(nullable,'hasValue','System.Boolean');nullable.field('value');
-        return {service,params};
+        return {service,params,top:PgqlGameToast.bind(type,params,this.ctx.log)};
       });
       optional('names',()=>{
         const i18n=type('Niantic.Holoholo.Internationalization.II18n');
@@ -354,7 +354,7 @@ globalThis.PgqlGameRaidPack = class PgqlGameRaidPack {
     if(!t||this.limits.toast)return;
     try {
       const service=this.service(t.service),params=t.params.alloc();
-      params.method('.ctor',0).invoke();
+      params.method('.ctor',0).invoke();PgqlGameToast.place(t.top,params);
       params.field('AutoDismiss').value=true;params.field('DismissOnClick').value=true;
       const seconds=params.field('DisplaySecondsOverride').value;seconds.field('value').value=5;seconds.field('hasValue').value=true;
       this.implementation(service,'TwoLine',['System.String',t.params.type.name]).invoke(Il2Cpp.string(text),params);

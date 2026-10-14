@@ -28,7 +28,7 @@ Output: `build/pgql-debug.apk`. Build fails with "Missing toolchain" if bootstra
 
 ## Tests
 
-All thirty-five suites: `npm test` (plain Node, no harness). Single suite: `node tests/<file>.test.cjs`.
+All thirty-six suites: `npm test` (plain Node, no harness). Single suite: `node tests/<file>.test.cjs`.
 
 Tests execute the **real `agent/**` sources** in a `vm` sandbox with mocked Frida globals — they never touch recovered Pokemod code. Native JSON parser host check (from `native/`):
 

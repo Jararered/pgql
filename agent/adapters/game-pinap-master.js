@@ -119,7 +119,7 @@ globalThis.PgqlGamePinapMaster = class PgqlGamePinapMaster {
       const nullable=options.field('DisplaySecondsOverride').type.class;
       nullable.field('hasValue');nullable.field('value');
       if(!bound.picker)throw Error('Toast needs the map scene lookup from the picker');
-      return {service,params:options};
+      return {service,params:options,top:PgqlGameToast.bind(type,options,this.ctx.log)};
     });
     this.bound=bound;
     return bound;
@@ -295,7 +295,7 @@ globalThis.PgqlGamePinapMaster = class PgqlGamePinapMaster {
     if(!this.bound.toast||this.limits.toast||!this.ctx.config.showToast)return;
     try {
       const t=this.bound.toast,service=this.services().toast,params=t.params.alloc();
-      params.method('.ctor',0).invoke();
+      params.method('.ctor',0).invoke();PgqlGameToast.place(t.top,params);
       params.field('AutoDismiss').value=true;params.field('DismissOnClick').value=true;
       const seconds=params.field('DisplaySecondsOverride').value;seconds.field('value').value=2;seconds.field('hasValue').value=true;
       const shown=service.class.methods.find(m=>m.name==='OneLine'&&!m.isStatic&&m.parameterCount===2&&

@@ -39,11 +39,20 @@ Requirements: game 0.433.0, main game process. Default off.
 - **Hold to open.** Press and hold a Pokémon for 0.8 s to open the normal
   encounter, for example to use a Master Ball. Unlike Pokemod, there is no pink
   tint while holding.
+- **Halo.** While a tapped catch runs, the Pokémon's own ground ripple becomes
+  a light blue ring held at its grown size, pulsing between ×1.35 and ×1.65.
+  The ripple is one particle that grows over 5 s, so the halo restarts it in the
+  new colour and holds it 1.5 s into its life. After a breakout or a miss, its
+  colour, size and visibility are put back. A caught or fled Pokémon is removed
+  with its ripple. Route and station spawns have no ripple, so they get no halo.
 - **Settings.**
   - **Ball** (default `poke`): `poke`, `great` or `ultra`. It updates by itself
     from encounters.
   - **Hold to Open** (default on).
-  - **Show Toast** (default on): the result of each catch.
+  - **Show Toast** (default on): the result of each catch. Like every PGQL
+    toast, it shows at the top of the screen. When Transfer on Catch is on, its
+    toast arrives at the same moment and replaces this one.
+  - **Show Halo** (default on): the halo described above.
 
 The status action reports the ball, taps by outcome, berries fed, the last throw
 and any unavailable part. Each result in the session log includes the server's
@@ -61,7 +70,8 @@ award list (`scores.activities` and `scores.xp`).
 | Map removal | The explore state's only `MapContentHandler` field: `RegisterPokemonCaughtOrFled(UInt64)`, `MapPokemon.Destroy()` |
 | Ball memory | Listener on `EncounterInteractionState.SelectPokeball(Item)` |
 | Hold | Listeners on `TouchScript.Gestures.TapGesture.touchBegan`/`touchEnded`. The gesture's GameObject must carry a `MapPokemon`. The open goes through `IMapExploreState`. |
-| Toast | `IToastService.OneLine` with `ToastParams`, as Pinap Master uses it |
+| Toast | `IToastService.OneLine` with `ToastParams`, as Pinap Master uses it; `PivotY` places it at the top (`PgqlGameToast`) |
+| Halo | The spawn's `normalRippleFx` (wild, lure, incense) or `rippleFx` (photobomb) `GameObject` → `ParticleSystem`: `get/set_startColor`, `Clear(Boolean)`, `Simulate(Single, Boolean, Boolean)`, `Play(Boolean)`; `GameObject.get_activeSelf`/`SetActive`/`get_transform`; `Transform.get/set_localScale` |
 
 Map spawns are subclasses of `MapPokemon`. Its methods are therefore resolved on
 the tapped object's own class. Calling the base declaration directly raised an
@@ -71,13 +81,14 @@ access violation on the device.
 
 - Unsupported game version or changed core metadata: the module turns itself off
   and installs nothing.
-- If hold-to-open, ball memory, map removal or toasts cannot be bound, only that
+- If hold-to-open, ball memory, map removal, toasts or the halo cannot be bound, only that
   part is unavailable, and the status says which. Without hold-to-open, turn the
   module off to open encounters.
 - An error while handling a tap is logged, and the normal encounter opens
   instead. A request that gets no answer within 15 s is dropped, so the spawn
   can be tapped again.
 - Disabling restores `PokemonSelected`. Answers that arrive later are ignored.
+  Halos still up are put back on the next game frame.
 
 ## Differences from Pokemod
 
@@ -88,6 +99,7 @@ access violation on the device.
 - Pokemod skips non-shiny Pokémon when Block Non-Shiny is on. PGQL has no such
   module yet.
 - No hold tint, haptics, candy or stardust reward bubbles, and no Tap to Spin.
+  The catch halo is PGQL's own.
 
 ## Validation
 

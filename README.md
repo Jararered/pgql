@@ -106,6 +106,10 @@ The recovered original app demonstrates a separate JavaScript managed-code bridg
 
 For friend gifting or other game UI modules, the next adapter should initialize against the managed runtime, resolve the needed service/type/method metadata, schedule Unity operations on the proper thread, and expose a small interface to modules. Keep compatibility maps outside individual modules. The connected phone's installed game version was confirmed as `0.431.0`, matching the recovered agent's map entry. Diagnostics confirmed the loaded Unity/IL2CPP/Niantic libraries. A first original game-gift adapter is now implemented, with a Unity-frame scheduler, version gate and Mass Gift queue. Its live validation status and limits are recorded in [MASS-GIFT.md](docs/MASS-GIFT.md); native attachment instability remains unresolved. Do not copy the recovered agent's entire bootstrap merely to obtain its module API.
 
+Game toasts from PGQL modules show at the top of the screen, below the status
+bar, rather than in the middle: `agent/adapters/game-toast.js` sets the game's
+own `ToastParams.PivotY` for every module toast.
+
 ## Validation and boundaries
 
 Build and protocol checks are recorded in [VALIDATION.md](docs/VALIDATION.md). Local agent tests use an explicit mock of Frida globals and exercise only our original runtime, not the recovered Pokemod code. Native syntax/parser checks and an Android cross-build do not prove live injection. Device execution is reported separately.
@@ -200,7 +204,8 @@ encounter: the game's own encounter request, then the Pinap Master berry when
 that module is on, then `MapPokemon.TryCapture` with the last ordinary ball you
 picked in an encounter (cheapest ball in stock when it runs out). The throw
 mirrors Perfect Throw (Excellent curveball) and Headshot (inside the ring).
-Holding the Pokémon opens the normal encounter.
+Holding the Pokémon opens the normal encounter. While a catch runs, the
+Pokémon's ground ring turns into a pulsing blue halo.
 See [TAP-TO-CATCH.md](docs/TAP-TO-CATCH.md).
 
 ### Gym Feeder

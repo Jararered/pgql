@@ -13,7 +13,7 @@ const methodOf=fn=>({bind:object=>({invoke:(...args)=>fn(object,...args)})});
 const attached=[],replaced=new Map(),reverted=[];
 const read=file=>fs.readFileSync(path.join(__dirname,'../agent',file),'utf8');
 const lookup=class {constructor(handle){return byPointer.get(handle.id)||NULL_OBJECT;}};
-const sandbox={setTimeout,clearTimeout,Date,
+const sandbox={setTimeout,clearTimeout,setInterval,clearInterval,Date,Math,
   Qol:{disable:()=>{}},
   Memory:{alloc:()=>({writeS32(v){this.s32=v;}})},
   Il2Cpp:{get application(){return {version};},string:content=>({content}),Object:lookup,
@@ -31,12 +31,12 @@ const sandbox={setTimeout,clearTimeout,Date,
     handleFree(){}
   }};
 const context=vm.createContext(sandbox);
-for(const file of ['core/catch-policy.js','core/berry-policy.js','core/game-version.js','adapters/game-tap-to-catch.js'])vm.runInContext(read(file),context);
+for(const file of ['core/catch-policy.js','core/berry-policy.js','core/game-version.js','adapters/game-toast.js','adapters/game-tap-to-catch.js'])vm.runInContext(read(file),context);
 const Adapter=context.PgqlGameTapToCatch;
 
 function fixture({config={},modules={}}={}) {
   const logs=[],hooks=new Map(),cleanups=[],selected=[],toasts=[],requests=[],used=[],captures=[],opened=[],registered=[],destroyed=[];
-  const state={config:{ball:'great',holdToOpen:true,showToast:true,...config}};
+  const state={config:{ball:'great',holdToOpen:true,showToast:true,showHalo:true,...config}};
   const ctx={get config(){return state.config;},log:(message,details)=>logs.push({message,details}),cleanup:fn=>cleanups.push(fn),
     hook:(address,callbacks)=>hooks.set(address,callbacks)};
   const enabled={...modules};
@@ -222,5 +222,54 @@ function klassWith(){return {isValueType:false,alloc:()=>managed()};}
   t.cleanups.forEach(fn=>fn());
   assert(reverted.includes('selected'));assert.equal(t.adapter.pending.size,0);
   t.answer('encounter',managed());assert.equal(t.captures.length,0);
-  console.log('Tap to Catch version gate, ball choice, berry, throw bonuses, results, cooldown, ball memory, hold-to-open and cleanup tests passed.');
+  // The halo: the spawn's ripple is turned on, tinted and enlarged while the
+  // catch runs, and put back after a breakout. A caught Pokémon took it along.
+  const valueType=()=>{const v={};return {values:v,field:name=>({get value(){return v[name];},set value(x){v[name]=x;}}),unbox:()=>({...v})};};
+  const haloFixture=(config={})=>{
+    const f=fixture({config});
+    const ripple={active:false,colors:[],scales:[],state:'playing'};
+    const transform=managed({},{get_localScale:()=>({field:a=>({value:{x:1,y:1,z:1}[a]})}),set_localScale:v=>ripple.scales.push(v)});
+    const particles=managed({},{get_startColor:()=>({field:c=>({value:{r:1,g:1,b:1,a:0.5}[c]})}),set_startColor:v=>ripple.colors.push(v),Clear:()=>{ripple.state='cleared';},
+      Simulate:(seconds,children,restart)=>{ripple.state='held '+seconds+' '+restart;},Play:()=>{ripple.state='playing';}});
+    const holder=managed({},{GetComponent:()=>particles,get_transform:()=>transform,get_activeSelf:()=>ripple.active,SetActive:v=>{ripple.active=v;}});
+    const field={name:'normalRippleFx',isStatic:false,type:{name:'UnityEngine.GameObject'},bind:()=>({value:holder})};
+    f.adapter.bound.halo={particles:{type:{object:'ParticleSystem'}},color:{alloc:valueType},vector:{alloc:valueType}};
+    const spawn=(eid,fields=[field])=>{const p=f.pokemon(eid);p.class={type:{name:'WildMapPokemon'+fields.length},fields};return p;};
+    return {...f,ripple,spawn};
+  };
+  let h=haloFixture();await h.adapter.start();
+  const ringed=h.spawn(30);h.tap(ringed);
+  assert.equal(h.ripple.active,true);
+  assert.deepEqual([h.ripple.colors[0].r,h.ripple.colors[0].g,h.ripple.colors[0].b],[0.35,0.8,1]);
+  assert.equal(h.ripple.state,'held 1.5 true','the ring restarts in the new colour and is held grown');
+  assert(h.ripple.scales[0].x>1.3,'enlarged');
+  await new Promise(resolve=>setTimeout(resolve,Adapter.haloMs*2+20));
+  assert(h.ripple.scales.length>1,'pulses while pending');assert.equal(h.ripple.colors.length,1);
+  h.answer('encounter',managed());h.answer('capture',h.output(2));
+  assert.equal(h.ripple.active,false,'restored after a breakout');
+  assert.equal(h.ripple.state,'playing');
+  assert.deepEqual(h.ripple.colors.at(-1),{r:1,g:1,b:1,a:0.5});assert.deepEqual(h.ripple.scales.at(-1),{x:1,y:1,z:1});
+  assert.equal(h.adapter.pulse,null);
+  // Caught: the Pokémon is destroyed with its ripple, so nothing is written back.
+  h.tap(ringed);const painted=h.ripple.colors.length;
+  h.answer('encounter',managed());h.answer('capture',h.output(1));
+  assert.equal(h.ripple.colors.length,painted);assert.equal(h.ripple.active,true);
+  // No ripple on this spawn kind: no halo, logged once, the catch goes on.
+  const plainSpawn=h.spawn(31,[]);h.tap(plainSpawn);h.tap(h.spawn(32,[]));
+  assert.equal(h.logs.filter(l=>l.message==='Tap to Catch: no halo for this spawn').length,1);
+  assert.equal(h.adapter.limits.halo,undefined);assert.equal(h.adapter.pending.size,2);
+  // Show Halo off.
+  h=haloFixture({showHalo:false});await h.adapter.start();
+  h.tap(h.spawn(33));assert.equal(h.ripple.active,false);assert.equal(h.ripple.colors.length,0);
+  // A halo problem only turns the halo off.
+  h=haloFixture();await h.adapter.start();
+  h.adapter.bound.halo.color={alloc:()=>{throw Error('no color');}};
+  h.tap(h.spawn(34));assert.equal(h.adapter.limits.halo,'no color');assert.equal(h.requests.length,1);
+  assert.match(h.adapter.report(),/Halo unavailable: no color/);
+  // Disabling with a halo up releases it without touching the scene off the game thread.
+  h=haloFixture();await h.adapter.start();
+  h.tap(h.spawn(35));const writes=h.ripple.colors.length;
+  h.cleanups.forEach(fn=>fn());
+  assert.equal(h.adapter.pending.size,0);assert.equal(h.adapter.pulse,null);assert.equal(h.ripple.colors.length,writes);
+  console.log('Tap to Catch version gate, ball choice, berry, throw bonuses, results, cooldown, ball memory, hold-to-open, halo and cleanup tests passed.');
 })().catch(error=>{console.error(error);process.exitCode=1;});
