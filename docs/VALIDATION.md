@@ -898,3 +898,66 @@ names changed; they do not prove absence of other fingerprints. Evidence:
 Not established: long-term stability, a change in the intermittent Niantic
 plugin crash rate, or complete detection resistance. Exported entry points,
 Frida protocol names and SELinux labels remain upstream.
+
+## Tap to Catch validation — October 14, 2026
+
+Final APK `build/pgql-debug.apk`: 45,724,187 bytes, SHA-256
+`527d2a508d93813ea7c5faa3bf1d3ec7241505f925aa9367417b98f2dcfe3a29`. Its
+`agent.js` (SHA-256 `ac584779…fee72ceb`) is byte-identical to the bundle used in
+live session 4. All thirty-five Node suites and the Python check pass. Summary:
+`build/tap-to-catch-validation.json`.
+
+Setup. The controller's main and companion runners from the earlier session were
+stopped with the `STOP` intent, after saving logcat to
+`build/tap-to-catch-pre-restart-logcat.log`. For each session the game was
+force-stopped and relaunched, then the real bundle was attached over the
+command pipe to the backgrounded game (`build/tap-session.sh`,
+`build/tap-restart.sh`). The game restored its saved PGQL modules, including
+Perfect Throw, Headshot, Instant Catch, Pinap Master (Pinap), Cooldown Tracker
+and Transfer on Catch (min IV 90).
+
+Results:
+
+- Every session bound all parts: hold, memory, remove and toast.
+- **Sessions 1–2 found a bug.** Calling `get_EncounterId` through the
+  `MapPokemon` base declaration raised an access violation. The fallback worked:
+  the normal encounter opened, and Pinap Master fed it. The fix resolves
+  `MapPokemon` methods on the tapped object's own class.
+- **Session 3.**
+  - **Cacnea.** A tap fed a Pinap, then threw an Ultra Ball (the ball the game
+    had pre-selected, remembered in session 1) as an Excellent curveball.
+    - Result: `CatchSuccess`.
+    - Cooldown Tracker recorded the catch, and Transfer on Catch transferred the
+      Pokémon.
+    - The Cacnea disappeared from the map (`build/tap-to-catch-after-tap-3.png`).
+  - **Hold to open.** A 1.3 s press on a Fletchling opened its normal
+    encounter (`build/tap-to-catch-hold.png`).
+  - **Ball memory.** Picking a Great Ball there saved `ball=great`.
+  - **Headshot only.** With Perfect Throw off, a tap on the Fletchling threw a
+    Great Ball inside the ring with no curve. Result: `CatchSuccess`.
+    Perfect Throw was then turned back on.
+- **Session 4.**
+  - `ball=great` was restored from saved settings.
+  - **Stantler.** Pinap fed, then a Great Ball as an Excellent curveball.
+    - The server's awards: activities `[1, 12, 13, 9, 32]` with XP
+      `[100, 1000, 20, 50, 300]`. These include Excellent (12) and Curveball
+      (13). The game showed +1,470 XP (`build/tap-to-catch-toast-1.png`).
+    - The status action read `Last: Great Ball, Excellent curveball (caught)`.
+  - Disabling logged no errors.
+  - The runner acknowledged shutdown but did not exit, so it was terminated.
+    The game kept running.
+
+Session 3 also logged `unable to intercept function` for three hooks of other
+modules: Auto Gym Battle, Gym Feeder, and the Pinap Master button. The error did
+not recur in session 4 with the same hooks, so it looks intermittent and was
+not investigated further.
+
+Not established on a device:
+- the out-of-stock fallback and the empty bag;
+- flee, breakout and miss handling;
+- the cooldown block;
+- a tap after disabling;
+- Tap to Catch's own toast (Transfer on Catch's toast was visible instead);
+- prolonged use.
+
+Tap to Catch is left disabled.

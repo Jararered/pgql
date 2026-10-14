@@ -63,6 +63,7 @@ and GOPLUS.md. This table preserves the requested scope for subsequent work.
 | `mass-gift` | Batch send/open, friends, exact friendship, postcards and animations | Existing batch send/open; remaining scope pending |
 | `eggspresso` | Infinite-incubator selection, incubation and hatch flow | Planned |
 | `pinap-master` | Automatic berry feeding in wild encounters (raid/Rocket skipped) with stock check, server confirmation and an in-encounter berry picker; see [PINAP-MASTER.md](PINAP-MASTER.md) | Implemented (0.433.0) |
+| `tap-to-catch` | Catch a tapped map Pokémon without opening the encounter, with the last-used ball, the Pinap Master berry and the Perfect Throw/Headshot bonuses; hold to open normally; see [TAP-TO-CATCH.md](TAP-TO-CATCH.md) | Implemented (0.433.0) |
 | `gym-feeder` | Feeds the chosen berry to every defender of an in-range gym of your team, round-robin until the server refuses or the per-visit cap, with live screen refresh and a summary toast; see [GYM-FEEDER.md](GYM-FEEDER.md) | Implemented (0.433.0) |
 | `auto-gym-battle` | Battles gyms of other teams: most effective attacks, charged-attack dodges, swaps to a better type matchup once per defender and the next-defender countdown skip; see [AUTO-GYM-BATTLE.md](AUTO-GYM-BATTLE.md) | Implemented (0.433.0) |
 | `performance-mode` | Four reversible visual reductions; see [PERFORMANCE.md](PERFORMANCE.md) | Implemented (0.433.0) |
