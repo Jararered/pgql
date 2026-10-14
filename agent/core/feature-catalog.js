@@ -16,6 +16,7 @@ globalThis.PgqlFeatures = (() => {
     ['eggspresso','Eggspresso','Inventory',['eggs','items']],
     ['pinap-master','Pinap Master','Encounters',['encounters','items']],
     ['gym-feeder','Gym Feeder','Battle',['gyms','items']],
+    ['auto-gym-battle','Auto Gym Battle','Battle',['gyms','battle']],
     ['performance-mode','Performance Mode','System',['rendering']],
     ['headshot','Headshot','Encounters',['encounters']],
     ['pvp-metrics','PVP Metrics','Pokemon',['pokemon','encounters','pvp-data']],

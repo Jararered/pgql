@@ -56,7 +56,7 @@ and GOPLUS.md. This table preserves the requested scope for subsequent work.
 | `magic-bag` | Per-item target quantities, protected stock, excess deletion | Planned |
 | `tamagotchi` | Feeding, souvenirs, play, snapshots and eligible buddy battles | Feed/play/souvenir bound; camera/battle pending |
 | `cooldown-tracker` | Last cooldown action (catch, spin, gym, GO Plus, manual) with four previous records, throw guard with toast, main-menu Poké Ball tint, "Cooldown is over" modal and Rocket Teleport to the origin for Shadows; see [COOLDOWN-TRACKER.md](COOLDOWN-TRACKER.md) | Implemented (0.433.0) |
-| `raid-pack` | Auto-attack by type effectiveness, auto-dodge of boss charged attacks, raid transition and result skips, Max Battle result skip and a boss moveset toast on raids and Power Spots; see [RAID-PACK.md](RAID-PACK.md) | Implemented (0.433.0); battles not yet seen live |
+| `raid-pack` | Auto-attack by type effectiveness, auto-dodge of boss charged attacks, raid transition and result skips, Max Battle result skip and a boss moveset toast on raids and Power Spots; see [RAID-PACK.md](RAID-PACK.md) | Implemented (0.433.0); auto-attack fix not yet seen live |
 | `tap-to-teleport` | Double tap the map, a Nearby icon or a stamp's See in Map to move there through GPS Joystick, with an optional mock-location bypass; see [TAP-TO-TELEPORT.md](TAP-TO-TELEPORT.md) | Implemented (0.433.0) |
 | `instant-loading` | Shortens the game's own map refresh throttle; see [PERFORMANCE.md](PERFORMANCE.md) | Implemented (0.433.0) |
 | `transfer-on-catch` | Post-catch transfer with keep rules, toast and per-encounter bypass, including main-process accessory catches; see [TRANSFER-ON-CATCH.md](TRANSFER-ON-CATCH.md). PvP rank rule pending `pvp-metrics` | Implemented (0.433.0) |
@@ -64,6 +64,7 @@ and GOPLUS.md. This table preserves the requested scope for subsequent work.
 | `eggspresso` | Infinite-incubator selection, incubation and hatch flow | Planned |
 | `pinap-master` | Automatic berry feeding in wild encounters (raid/Rocket skipped) with stock check, server confirmation and an in-encounter berry picker; see [PINAP-MASTER.md](PINAP-MASTER.md) | Implemented (0.433.0) |
 | `gym-feeder` | Feeds the chosen berry to every defender of an in-range gym of your team, round-robin until the server refuses or the per-visit cap, with live screen refresh and a summary toast; see [GYM-FEEDER.md](GYM-FEEDER.md) | Implemented (0.433.0) |
+| `auto-gym-battle` | Battles gyms of other teams: most effective attacks, charged-attack dodges, swaps to a better type matchup once per defender and the next-defender countdown skip; see [AUTO-GYM-BATTLE.md](AUTO-GYM-BATTLE.md) | Implemented (0.433.0) |
 | `performance-mode` | Four reversible visual reductions; see [PERFORMANCE.md](PERFORMANCE.md) | Implemented (0.433.0) |
 | `headshot` | Encounter throw targeting | Existing |
 | `pvp-metrics` | Versioned stat/ranking data, encounter and details presentation | Planned |

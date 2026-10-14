@@ -210,6 +210,14 @@ Raid and Max Battle victories skip straight to the catch. Tapping a raid or a
 Power Spot shows the boss and its moves. Each part has its own switch. Max
 Battles can be left to you. See [RAID-PACK.md](docs/RAID-PACK.md).
 
+### Auto Gym Battle
+
+Default-off module for battles against gyms of another team; friendly and
+neutral gyms are left alone. It attacks with the most effective moves, dodges
+the defender's charged attacks, and swaps to a party Pokémon with a clearly
+better type matchup (once per defender). Each part has its own switch. See
+[AUTO-GYM-BATTLE.md](docs/AUTO-GYM-BATTLE.md).
+
 ### Virtual GO Plus
 
 For Virtual GO Plus, use **Start GO Plus session** in PGQL. This attaches to the
