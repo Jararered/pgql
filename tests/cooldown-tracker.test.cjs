@@ -264,7 +264,7 @@ const KM=1/111.195;
       report(){return 'Cooldown: Ready';}manualSave(){this.history.current={trigger:'manual',label:null,lat:1.5,lon:2.25,ts:1};return this.history.current;}}});
   for(const file of ['runtime.js','core/feature-catalog.js','core/cooldown-policy.js','modules/cooldown-tracker.js','modules/zz-feature-catalog.js'])vm.runInContext(read(file),moduleContext);
   const q=moduleContext.Qol,described=()=>q.describe().find(module=>module.id==='cooldown-tracker');
-  assert.equal(q.describe().length,32,'the module takes the reserved catalog slot');
+  assert.equal(q.describe().length,33,'the module takes the reserved catalog slot');
   assert.equal(described().availability,'implemented');assert.equal(described().category,'Map');
   assert.deepEqual(JSON.parse(JSON.stringify(described().config)),{preventThrows:true,rocketTp:true});
   assert.deepEqual(described().actions.map(a=>a.id).join(),'show,save,return');
