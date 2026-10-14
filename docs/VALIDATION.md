@@ -595,3 +595,49 @@ watch, Mass Gift and Tamagotchi. No attach crashed during this upgrade.
 Not established on 0.433.0: Mass Gift send/open, Shiny Scanner alerts, Tap to
 Teleport jumps, Transfer on Catch transfers, Performance Mode visual effects,
 GO Plus reconnect, and prolonged use.
+
+## Pinap Master validation — October 14, 2026
+
+Final APK `build/pgql-debug.apk`: 45,691,419 bytes, SHA-256
+`2ae6f755a2d87bb57bf8503600f13a93e30e056715b148d82795a49be865a19b`. Its
+`agent.js` (SHA-256 `80732196…755182d`) is byte-identical to the bundle used in
+the second live session. All twenty-six suites and the native JSON host check
+pass. Summary: `build/pinap-master-validation.json`.
+
+Discovery (two probe sessions, GO 0.433.0; `build/pinap-probe-details.json`,
+`build/pinap-probe2-dump.json`): `EncounterInteractionState` exposes
+`get/set_ActiveBerry`, `get_CanUseBerry`, `SelectBerry` and a typed `IItemBag`
+field. `IItemBag.UseItemForEncounter(Item, IMapPokemon)` exists, and the berry
+selector's ⓘ button sits in `TopInfo`, anchored top-right at (−60.35, 40.35). A
+live call showed that `SelectBerry(Pinap)` only puts the berry in hand. The
+game's own tap-to-feed set `ActiveBerry`, cleared `CanUseBerry` and used one
+Pinap; that is the state the module reproduces.
+
+Live sessions (the real bundle attached to a backgrounded, freshly started game,
+then driven over the command pipe; `build/pinap-session-1.saved.jsonl`,
+`build/pinap-session-2.jsonl`):
+
+- Bound with button, picker and confirmation. Entering a wild Blitzle fed a
+  Pinap at once. The server confirmed it, the bag went 66 → 65, and the game
+  showed its berry badge (`build/pinap-fed.png`).
+- The button appeared opposite the ⓘ (`build/pinap-slider-button.png`). The
+  first build still showed the ⓘ icon because the list fills after `Initialize`;
+  the final build repaints on `HandleOpenComplete` (Razz icon,
+  `build/pinap-slider3.png`).
+- The picker opened as the game's dialog (`build/pinap-picker.png`). Choosing
+  Razz saved the setting and showed `Razz Berry selected`
+  (`build/pinap-picked.png`). The choice survived a game restart and reattach.
+  The next wild encounter (Electrike) got a Razz (17 → 16).
+- A spawn the server already had a Pinap on was not fed again.
+- Disabling logged no errors. The next encounter had no button and no feed
+  (`build/pinap-disabled-slider.png`).
+
+Session hygiene: the game restored its saved PGQL settings on foreground, which
+include Perfect Throw, Headshot, Instant Catch and others. Those three were
+turned off for one throw and back on afterwards. Pinap Master is left enabled
+with Pinap selected. Both throws caught the Pokémon (2 catches). No attach
+crashed. Before probing, three runners were attached (an old command-line session and a controller main + GO Plus session); they were
+stopped and the game restarted before probing.
+
+Not established on a device: re-feeding after a breakout, the raid/Rocket skip,
+the out-of-stock path, the picker's cycling fallback, and prolonged use.

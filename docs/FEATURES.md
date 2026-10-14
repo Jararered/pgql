@@ -62,7 +62,7 @@ and GOPLUS.md. This table preserves the requested scope for subsequent work.
 | `transfer-on-catch` | Post-catch transfer with keep rules, toast and per-encounter bypass, including main-process accessory catches; see [TRANSFER-ON-CATCH.md](TRANSFER-ON-CATCH.md). PvP rank rule pending `pvp-metrics` | Implemented (0.433.0) |
 | `mass-gift` | Batch send/open, friends, exact friendship, postcards and animations | Existing batch send/open; remaining scope pending |
 | `eggspresso` | Infinite-incubator selection, incubation and hatch flow | Planned |
-| `pinap-master` | Encounter berry selection, inventory check and acknowledged feeding | Planned |
+| `pinap-master` | Automatic berry feeding in wild encounters (raid/Rocket skipped) with stock check, server confirmation and an in-encounter berry picker; see [PINAP-MASTER.md](PINAP-MASTER.md) | Implemented (0.433.0) |
 | `performance-mode` | Four reversible visual reductions; see [PERFORMANCE.md](PERFORMANCE.md) | Implemented (0.433.0) |
 | `headshot` | Encounter throw targeting | Existing |
 | `pvp-metrics` | Versioned stat/ranking data, encounter and details presentation | Planned |

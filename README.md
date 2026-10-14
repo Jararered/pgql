@@ -182,6 +182,15 @@ the cooldown origin for a Shadow encounter and back afterwards. Show Cooldown,
 Manual Save and Teleport to Origin are buttons on its settings card.
 See [COOLDOWN-TRACKER.md](docs/COOLDOWN-TRACKER.md).
 
+### Pinap Master
+
+Default-off module that feeds your chosen berry (Pinap by default) in wild
+encounters whenever no berry is active, again after every throw, through the
+game's own item bag. Raid and Team GO Rocket encounters are skipped. A berry
+button opposite the ⓘ in the encounter's berry list opens the game's dialog to
+pick Pinap, Razz, Nanab, Golden Razz, Silver Pinap or Off.
+See [PINAP-MASTER.md](docs/PINAP-MASTER.md).
+
 ### Virtual GO Plus
 
 For Virtual GO Plus, use **Start GO Plus session** in PGQL. This attaches to the
