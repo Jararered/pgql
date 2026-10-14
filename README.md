@@ -193,6 +193,16 @@ button opposite the ⓘ in the encounter's berry list opens the game's dialog to
 pick Pinap, Razz, Nanab, Golden Razz, Silver Pinap or Off.
 See [PINAP-MASTER.md](docs/PINAP-MASTER.md).
 
+### Tap to Catch
+
+Default-off module. Tapping a Pokémon on the map catches it without opening the
+encounter: the game's own encounter request, then the Pinap Master berry when
+that module is on, then `MapPokemon.TryCapture` with the last ordinary ball you
+picked in an encounter (cheapest ball in stock when it runs out). The throw
+mirrors Perfect Throw (Excellent curveball) and Headshot (inside the ring).
+Holding the Pokémon opens the normal encounter.
+See [TAP-TO-CATCH.md](docs/TAP-TO-CATCH.md).
+
 ### Gym Feeder
 
 Default-off module that feeds your chosen berry (Razz by default) when you open

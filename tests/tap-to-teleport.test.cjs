@@ -223,7 +223,7 @@ const press=(method,self)=>replaced.get(method).fn.call(self);
     PgqlMockLocationBypass:class {constructor(){this.active=false;}start(){if(mockFails)throw Error('no JNI');this.active=true;mockStates.push('start');}stop(){this.active=false;mockStates.push('stop');}}});
   for(const file of ['runtime.js','core/feature-catalog.js','modules/tap-to-teleport.js','modules/zz-feature-catalog.js'])vm.runInContext(read(file),moduleContext);
   const q=moduleContext.Qol,described=()=>q.describe().find(module=>module.id==='tap-to-teleport');
-  assert.equal(q.describe().length,34,'the module takes the reserved catalog slot');
+  assert.equal(q.describe().length,35,'the module takes the reserved catalog slot');
   assert.equal(described().availability,'implemented');assert.equal(described().category,'Map');
   assert.deepEqual(JSON.parse(JSON.stringify(described().config)),{nearbyMenu:true,hideMock:true});
   assert(described().settings.every(setting=>setting.description));

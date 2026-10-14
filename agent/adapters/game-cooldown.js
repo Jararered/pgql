@@ -146,6 +146,12 @@ globalThis.PgqlGameCooldown = class PgqlGameCooldown {
     return found.isNull()?null:found;
   }
   remaining(){return PgqlCooldownPolicy.remaining(this.history.current,this.position,Date.now());}
+  // Tap to Catch asks before a map catch: same rule and toast as a dragged ball.
+  blockThrow() {
+    if(this.closed||this.failed||!this.ctx.config.preventThrows||this.remaining()<=0)return false;
+    this.blocked++;this.toast(PgqlCooldownPolicy.toast(this.history.current,this.position,Date.now()));
+    return true;
+  }
   // Records a cooldown action at the player's current location.
   record(trigger,label) {
     if(!this.position){this.ctx.log('Cooldown not saved: player location unknown',{trigger});return null;}
@@ -349,6 +355,7 @@ globalThis.PgqlGameCooldown = class PgqlGameCooldown {
         })});
       }
       if(b.goPlus)this.ctx.hook(b.goPlus.activities.virtualAddress,{onLeave:guard(result=>{if(result.toInt32()&1)self.record('pgp',null);})});
+      PgqlGameCooldown.current=this;
       this.ctx.log('Cooldown Tracker ready',{spin:!!b.spin,gym:!!b.gym,goPlus:!!b.goPlus,toast:!!b.toast,indicator:!!b.indicator,modal:!!b.modal});
       return true;
     });
@@ -372,6 +379,7 @@ globalThis.PgqlGameCooldown = class PgqlGameCooldown {
   close() {
     if(this.closed)return;
     this.closed=true;this.cancelModal();
+    if(PgqlGameCooldown.current===this)PgqlGameCooldown.current=null;
     if(this.saveTimer){clearTimeout(this.saveTimer);this.saveTimer=null;
       Promise.resolve(this.store.save(JSON.stringify(this.history))).catch(error=>this.ctx.log('Cooldown save failed',{error:String(error)}));}
     // The tint is undone on the next game frame; the frame scheduler is already closed.
