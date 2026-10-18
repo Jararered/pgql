@@ -30,23 +30,7 @@ globalThis.PgqlGameRaidPack = class PgqlGameRaidPack {
     if(this.bound)return this.bound;
     PgqlGameVersion.require(Il2Cpp.application.version,'Raid Pack supports');
     const type=name=>this.type(name);
-    const args=m=>m.parameters.map(p=>p.type.name).join('|');
-    const plain=(klass,name,params,returns,isStatic=false)=>{
-      const matches=klass.methods.filter(m=>m.name===name&&!m.isGeneric&&m.isStatic===isStatic&&args(m)===params.join('|'));
-      if(matches.length!==1||(returns&&matches[0].returnType.name!==returns))throw Error('Unsupported Raid Pack method: '+klass.type.name+'.'+name);
-      return matches[0];
-    };
-    const field=(klass,name,typeName)=>{
-      const found=[...klass.hierarchy({includeCurrent:true})].map(k=>k.fields.find(f=>f.name===name)).find(Boolean);
-      if(!found||found.isStatic||found.type.name!==typeName)throw Error('Unsupported Raid Pack field: '+klass.type.name+'.'+name);
-      return found;
-    };
-    // Obfuscated member names change between builds; bind the only field of a type.
-    const typed=(klass,typeName)=>{
-      const matches=klass.fields.filter(f=>!f.isStatic&&f.type.name===typeName);
-      if(matches.length!==1)throw Error('Unsupported Raid Pack field: '+klass.type.name+' of type '+typeName);
-      return matches[0];
-    };
+    const {args,method:plain,inheritedField:field,fieldOfType:typed}=PgqlBinding.create('Raid Pack');
     const bound={frame:plain(type('UnityEngine.UnitySynchronizationContext'),'ExecuteTasks',[],'System.Void',true).virtualAddress,skips:null,results:null,maxResults:null,battle:null,dodge:null,manual:null,movesets:null,stations:null,toast:null,names:null,
       scene:type('Niantic.Holoholo.MapSceneContext'),
       findOne:plain(type('UnityEngine.Object'),'FindObjectOfType',['System.Type'],'UnityEngine.Object',true)};

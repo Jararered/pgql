@@ -31,7 +31,7 @@ const sandbox={setTimeout,clearTimeout,setInterval,clearInterval,Date,Math,
     handleFree(){}
   }};
 const context=vm.createContext(sandbox);
-for(const file of ['core/catch-policy.js','core/berry-policy.js','core/game-version.js','adapters/game-toast.js','adapters/game-tap-to-catch.js'])vm.runInContext(read(file),context);
+for(const file of ['core/catch-policy.js','core/berry-policy.js','core/game-version.js','core/metadata-binding.js','adapters/game-toast.js','adapters/game-tap-to-catch.js'])vm.runInContext(read(file),context);
 const Adapter=context.PgqlGameTapToCatch;
 
 function fixture({config={},modules={}}={}) {

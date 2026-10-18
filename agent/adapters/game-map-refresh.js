@@ -15,17 +15,7 @@ globalThis.PgqlGameMapRefresh = class PgqlGameMapRefresh {
     const version=Il2Cpp.application.version;
     PgqlGameVersion.require(version,'Instant Loading supports');
     const type=name=>this.game.type(name);
-    const plain=(klass,name,args,isStatic=false)=>{
-      const matches=klass.methods.filter(m=>m.name===name&&!m.isGeneric&&m.isStatic===isStatic&&
-        m.parameters.map(p=>p.type.name).join('|')===args.join('|'));
-      if(matches.length!==1)throw Error('Unsupported map refresh method: '+name);
-      return matches[0];
-    };
-    const field=(klass,name,expected)=>{
-      const found=klass.field(name);
-      if(found.type.name!==expected)throw Error('Unsupported map refresh field: '+name);
-      return found;
-    };
+    const {method:plain,field}=PgqlBinding.create('map refresh');
     const handler=type('Niantic.Holoholo.Map.MapContentHandler'),throttle=type('Niantic.Holoholo.SpaceTimeThrottle');
     const settings=type('Holoholo.Rpc.GlobalSettingsProto'),map=type('Holoholo.Rpc.MapSettingsProto');
     field(handler,'fetchThrottle','Niantic.Holoholo.SpaceTimeThrottle');field(settings,'MapSettings','Holoholo.Rpc.MapSettingsProto');
@@ -39,9 +29,9 @@ globalThis.PgqlGameMapRefresh = class PgqlGameMapRefresh {
       proto:{min:field(map,'GetMapObjectsMinRefreshSeconds','System.Single'),max:field(map,'GetMapObjectsMaxRefreshSeconds','System.Single'),
         distance:field(map,'GetMapObjectsMinDistanceMeters','System.Single')},
       merge:plain(map,'MergeFrom',['Niantic.Protobuf.CodedInputStream']),
-      frame:plain(type('UnityEngine.UnitySynchronizationContext'),'ExecuteTasks',[],true).virtualAddress,
-      findAll:plain(type('UnityEngine.Resources'),'FindObjectsOfTypeAll',['System.Type'],true),
-      findOne:plain(type('UnityEngine.Object'),'FindObjectOfType',['System.Type'],true)};
+      frame:plain(type('UnityEngine.UnitySynchronizationContext'),'ExecuteTasks',[],null,true).virtualAddress,
+      findAll:plain(type('UnityEngine.Resources'),'FindObjectsOfTypeAll',['System.Type'],null,true),
+      findOne:plain(type('UnityEngine.Object'),'FindObjectOfType',['System.Type'],null,true)};
     return this.bound;
   }
   // The live throttle the map uses, and the settings it was configured from.

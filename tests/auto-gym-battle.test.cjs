@@ -26,7 +26,7 @@ const sandbox={setTimeout,clearTimeout,Promise,Date:{now:()=>clock},Number,
     handleFree(){this.freed++;}
   }};
 const context=vm.createContext(sandbox);
-for(const file of ['core/gym-battle-policy.js','core/game-version.js','adapters/game-gym-battle.js'])vm.runInContext(read(file),context);
+for(const file of ['core/gym-battle-policy.js','core/game-version.js','core/metadata-binding.js','adapters/game-gym-battle.js'])vm.runInContext(read(file),context);
 const Adapter=context.PgqlGameGymBattle;
 const settle=async()=>{for(let i=0;i<6;i++)await new Promise(resolve=>setTimeout(resolve,0));};
 

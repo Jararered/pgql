@@ -27,6 +27,7 @@ const sandbox={setTimeout,clearTimeout,Date,
 const context=vm.createContext(sandbox);
 vm.runInContext(read('core/berry-policy.js'),context);
 vm.runInContext(read('core/game-version.js'),context);
+vm.runInContext(read('core/metadata-binding.js'),context);
 vm.runInContext(read('adapters/game-toast.js'),context);
 vm.runInContext(read('adapters/game-pinap-master.js'),context);
 const Adapter=context.PgqlGamePinapMaster;

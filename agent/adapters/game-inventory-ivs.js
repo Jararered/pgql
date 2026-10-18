@@ -18,17 +18,7 @@ globalThis.PgqlGameInventoryIvs = class PgqlGameInventoryIvs {
     const version=Il2Cpp.application.version;
     PgqlGameVersion.require(version,'IVs in inventory support');
     const type=name=>this.game.type(name);
-    const plain=(klass,name,args,isStatic=false)=>{
-      const matches=klass.methods.filter(m=>m.name===name&&!m.isGeneric&&m.isStatic===isStatic&&
-        m.parameters.map(p=>p.type.name).join('|')===args.join('|'));
-      if(matches.length!==1)throw Error('Unsupported inventory method: '+name);
-      return matches[0];
-    };
-    const field=(klass,name,expected)=>{
-      const found=klass.field(name);
-      if(found.type.name!==expected)throw Error('Unsupported inventory field: '+name);
-      return found;
-    };
+    const {method:plain,field}=PgqlBinding.create('inventory');
     const cell=type('Niantic.Holoholo.UI.PokemonInventoryCellView'),pokemon=type('Holoholo.Rpc.PokemonProto'),text=type('UnityEngine.UI.Text');
     const initialize=plain(cell,'Initialize',['Niantic.Holoholo.UI.PokemonInventoryCellView.Initializer']);
     plain(text,'get_text',[]);plain(text,'set_text',['System.String']);
@@ -38,8 +28,8 @@ globalThis.PgqlGameInventoryIvs = class PgqlGameInventoryIvs {
       pokemon:field(initialize.parameters[0].type.class,'PokemonProto','Holoholo.Rpc.PokemonProto'),
       attack:field(pokemon,'individualAttack_','System.Int32'),defense:field(pokemon,'individualDefense_','System.Int32'),
       stamina:field(pokemon,'individualStamina_','System.Int32'),egg:field(pokemon,'isEgg_','System.Boolean'),
-      frame:plain(type('UnityEngine.UnitySynchronizationContext'),'ExecuteTasks',[],true).virtualAddress,
-      findAll:plain(type('UnityEngine.Resources'),'FindObjectsOfTypeAll',['System.Type'],true)};
+      frame:plain(type('UnityEngine.UnitySynchronizationContext'),'ExecuteTasks',[],null,true).virtualAddress,
+      findAll:plain(type('UnityEngine.Resources'),'FindObjectsOfTypeAll',['System.Type'],null,true)};
     return this.bound;
   }
   // Runs on the game thread, right after the game filled the cell.

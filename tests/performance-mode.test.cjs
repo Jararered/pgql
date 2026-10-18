@@ -58,6 +58,7 @@ const context=vm.createContext({setTimeout,clearTimeout,
   Interceptor:{attach:(address,callbacks)=>{attached.set(address,callbacks);return {detach:()=>attached.delete(address)};}},
 });
 vm.runInContext(fs.readFileSync(path.join(__dirname,'../agent/core/game-version.js'),'utf8'),context);
+vm.runInContext(fs.readFileSync(path.join(__dirname,'../agent/core/metadata-binding.js'),'utf8'),context);
 vm.runInContext(fs.readFileSync(path.join(__dirname,'../agent/adapters/game-performance.js'),'utf8'),context);
 const Performance=context.PgqlGamePerformance;
 const ctx={cleanup:fn=>cleanups.push(fn),log:(message,details)=>logs.push({message,details})};

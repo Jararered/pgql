@@ -34,22 +34,12 @@ globalThis.PgqlGameCooldown = class PgqlGameCooldown {
     PgqlGameVersion.require(version,'Cooldown Tracker supports');
     const type=name=>this.game.type(name);
     const proto=name=>{try{return type('Holoholo.Rpc.'+name);}catch(_){return type(name);}};
-    const args=m=>m.parameters.map(p=>p.type.name).join('|');
-    const plain=(klass,name,params,returns,isStatic=false)=>{
-      const matches=klass.methods.filter(m=>m.name===name&&!m.isGeneric&&m.isStatic===isStatic&&args(m)===params.join('|'));
-      if(matches.length!==1||(returns&&matches[0].returnType.name!==returns))throw Error('Unsupported cooldown method: '+name);
-      return matches[0];
-    };
+    const {args,method:plain,field}=PgqlBinding.create('cooldown');
     // The only instance method of that name, for members whose argument types vary.
     const only=(klass,name,count)=>{
       const matches=klass.methods.filter(m=>m.name===name&&!m.isGeneric&&!m.isStatic&&(count===undefined||m.parameters.length===count));
       if(matches.length!==1)throw Error('Unsupported cooldown method: '+name);
       return matches[0];
-    };
-    const field=(klass,name,expected)=>{
-      const found=klass.field(name);
-      if(expected&&found.type.name!==expected)throw Error('Unsupported cooldown field: '+name);
-      return found;
     };
     const parser=klass=>{
       const found=klass.methods.filter(m=>!m.isStatic&&m.parameters.length===1&&m.returnType.name==='System.Void'&&m.parameters[0].type.name.includes('ParseContext'));

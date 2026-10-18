@@ -14,13 +14,7 @@ globalThis.PgqlGameMainMenu = class PgqlGameMainMenu {
     const version=Il2Cpp.application.version;
     PgqlGameVersion.require(version,'Main menu entry supports');
     const type=name=>this.game.type(name);
-    const one=(name,klass,predicate)=>{
-      const matches=klass.methods.filter(predicate);
-      if(matches.length!==1)throw Error('Unsupported main menu method: '+name);
-      return matches[0];
-    };
-    const plain=(klass,name,args,isStatic)=>one(name,klass,m=>m.name===name&&!m.isGeneric&&m.isStatic===isStatic&&
-      m.parameters.map(p=>p.type.name).join('|')===args.join('|'));
+    const {method:plain}=PgqlBinding.create('main menu');
     const object=type('UnityEngine.Object'),controller=type('Niantic.Holoholo.Map.UI.MainMenuGuiController');
     const button=type('UnityEngine.UI.Button'),text=type('Niantic.Holoholo.UI.UIWidgets.HoloText');
     const clicked=button.field('m_OnClick').type.class;
@@ -37,13 +31,13 @@ globalThis.PgqlGameMainMenu = class PgqlGameMainMenu {
       [type('UnityEngine.Transform'),'SetSiblingIndex',['System.Int32']],
       [type('UnityEngine.SceneManagement.Scene'),'IsValid',[]],
       [type('UnityEngine.Events.UnityEvent'),'AddListener',['UnityEngine.Events.UnityAction']],
-    ])plain(klass,name,args,false);
+    ])plain(klass,name,args,null,false);
     return {controller,button,text,clicked,action:type('UnityEngine.Events.UnityAction'),
-      open:plain(controller,'OpenMenu',[],false),
-      frame:plain(type('UnityEngine.UnitySynchronizationContext'),'ExecuteTasks',[],true).virtualAddress,
-      instantiate:plain(object,'Instantiate',['UnityEngine.Object','UnityEngine.Transform'],true),
-      destroy:plain(object,'Destroy',['UnityEngine.Object'],true),
-      findAll:plain(type('UnityEngine.Resources'),'FindObjectsOfTypeAll',['System.Type'],true)};
+      open:plain(controller,'OpenMenu',[],null,false),
+      frame:plain(type('UnityEngine.UnitySynchronizationContext'),'ExecuteTasks',[],null,true).virtualAddress,
+      instantiate:plain(object,'Instantiate',['UnityEngine.Object','UnityEngine.Transform'],null,true),
+      destroy:plain(object,'Destroy',['UnityEngine.Object'],null,true),
+      findAll:plain(type('UnityEngine.Resources'),'FindObjectsOfTypeAll',['System.Type'],null,true)};
   }
   find(transform,name){return transform.method('Find',1).invoke(Il2Cpp.string(name));}
   component(object,type){return object.method('GetComponent',1).overload('System.Type').invoke(type.type.object);}

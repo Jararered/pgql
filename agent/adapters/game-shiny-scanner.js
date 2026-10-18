@@ -38,17 +38,7 @@ globalThis.PgqlGameShinyScanner = class PgqlGameShinyScanner {
     const version=Il2Cpp.application.version;
     PgqlGameVersion.require(version,'Shiny Scanner supports');
     const type=name=>this.game.type(name),number=PgqlGameShinyScanner.number;
-    const plain=(klass,name,args,returns,isStatic=false)=>{
-      const matches=klass.methods.filter(m=>m.name===name&&!m.isGeneric&&m.isStatic===isStatic&&
-        m.parameters.map(p=>p.type.name).join('|')===args.join('|'));
-      if(matches.length!==1||(returns&&matches[0].returnType.name!==returns))throw Error('Unsupported scanner method: '+klass.type.name+'.'+name);
-      return matches[0];
-    };
-    const field=(klass,name,expected)=>{
-      const found=klass.field(name);
-      if(found.type.name!==expected)throw Error('Unsupported scanner field: '+klass.type.name+'.'+name);
-      return found;
-    };
+    const {method:plain,field}=PgqlBinding.create('scanner');
     const byType=(klass,expected)=>{
       const matches=[...klass.hierarchy({includeCurrent:true})].flatMap(k=>k.fields).filter(f=>!f.isStatic&&f.type.name===expected);
       if(matches.length!==1)throw Error('Unsupported encounter result on '+klass.type.name);

@@ -20,12 +20,7 @@ globalThis.PgqlGameGymBattle = class PgqlGameGymBattle {
     if(this.bound)return this.bound;
     PgqlGameVersion.require(Il2Cpp.application.version,'Auto Gym Battle supports');
     const type=name=>this.type(name),number=PgqlGameGymBattle.number;
-    const args=m=>m.parameters.map(p=>p.type.name).join('|');
-    const plain=(klass,name,params,returns)=>{
-      const matches=klass.methods.filter(m=>m.name===name&&!m.isGeneric&&!m.isStatic&&args(m)===params.join('|'));
-      if(matches.length!==1||(returns&&matches[0].returnType.name!==returns))throw Error('Unsupported Auto Gym Battle method: '+klass.type.name+'.'+name);
-      return matches[0];
-    };
+    const {args,method:plain}=PgqlBinding.create('Auto Gym Battle');
     const field=(klass,name,typeName)=>{
       const found=klass.fields.find(f=>f.name===name);
       if(!found||found.isStatic||found.type.name!==typeName)throw Error('Unsupported Auto Gym Battle field: '+klass.type.name+'.'+name);

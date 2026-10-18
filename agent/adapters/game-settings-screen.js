@@ -17,17 +17,9 @@ globalThis.PgqlGameSettingsScreen = class PgqlGameSettingsScreen {
     const version=Il2Cpp.application.version;
     PgqlGameVersion.require(version,'Native settings support');
     const type=name=>this.game.type(name);
-    const plain=(klass,name,args,isStatic=false)=>{
-      const matches=klass.methods.filter(m=>m.name===name&&!m.isGeneric&&m.isStatic===isStatic&&
-        m.parameters.map(p=>p.type.name).join('|')===args.join('|'));
-      if(matches.length!==1)throw Error('Unsupported settings screen method: '+name);
-      return matches[0];
-    };
-    const field=(klass,name,expected)=>{
-      const found=klass.field(name);
-      if(found.type.name!==expected)throw Error('Unsupported settings screen field: '+name);
-      return found.type.class;
-    };
+    const binding=PgqlBinding.create('settings screen'),plain=binding.method;
+    // Bound fields are used for their class (prefab component types).
+    const field=(klass,name,expected)=>binding.field(klass,name,expected).type.class;
     const object=type('UnityEngine.Object'),toggle=type('UnityEngine.UI.Toggle'),button=type('UnityEngine.UI.Button');
     const pgoButton=type('Niantic.Holoholo.UI.PgoButton'),pgoText=type('Niantic.Holoholo.UI.PgoText');
     const holoText=type('Niantic.Holoholo.UI.UIWidgets.HoloText'),panel=type('Niantic.Holoholo.UI.GpuPanel');
@@ -69,15 +61,15 @@ globalThis.PgqlGameSettingsScreen = class PgqlGameSettingsScreen {
       menu:type('Niantic.Holoholo.Map.UI.MainMenuGuiController'),scene:type('Niantic.Holoholo.MapSceneContext'),
       ok:events.field('OK').value,cancel:events.field('Cancel').value,
       showModal:plain(prompts,'ShowModal',['System.String','UnityEngine.Sprite','System.String','UnityEngine.Sprite','System.Boolean','Niantic.Holoholo.UI.IModalButton[]']),
-      frame:plain(type('UnityEngine.UnitySynchronizationContext'),'ExecuteTasks',[],true).virtualAddress,
-      quiet:plain(type('Niantic.Holoholo.Settings.SettingsToggle_Ext'),'SetIsOnWithoutNotify_Settings',['UnityEngine.UI.Toggle','System.Boolean'],true),
-      instantiate:plain(object,'Instantiate',['UnityEngine.Object'],true),
-      instantiateIn:plain(object,'Instantiate',['UnityEngine.Object','UnityEngine.Transform'],true),
-      destroy:plain(object,'Destroy',['UnityEngine.Object'],true),
+      frame:plain(type('UnityEngine.UnitySynchronizationContext'),'ExecuteTasks',[],null,true).virtualAddress,
+      quiet:plain(type('Niantic.Holoholo.Settings.SettingsToggle_Ext'),'SetIsOnWithoutNotify_Settings',['UnityEngine.UI.Toggle','System.Boolean'],null,true),
+      instantiate:plain(object,'Instantiate',['UnityEngine.Object'],null,true),
+      instantiateIn:plain(object,'Instantiate',['UnityEngine.Object','UnityEngine.Transform'],null,true),
+      destroy:plain(object,'Destroy',['UnityEngine.Object'],null,true),
       // Immediate removal keeps discarded template rows out of later clones.
-      destroyNow:plain(object,'DestroyImmediate',['UnityEngine.Object'],true),
-      findAll:plain(type('UnityEngine.Resources'),'FindObjectsOfTypeAll',['System.Type'],true),
-      findOne:plain(object,'FindObjectOfType',['System.Type'],true)};
+      destroyNow:plain(object,'DestroyImmediate',['UnityEngine.Object'],null,true),
+      findAll:plain(type('UnityEngine.Resources'),'FindObjectsOfTypeAll',['System.Type'],null,true),
+      findOne:plain(object,'FindObjectOfType',['System.Type'],null,true)};
     return this.bound;
   }
   text(value){return Il2Cpp.string(value);}

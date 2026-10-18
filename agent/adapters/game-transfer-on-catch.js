@@ -19,17 +19,7 @@ globalThis.PgqlGameTransferOnCatch = class PgqlGameTransferOnCatch {
     const version=Il2Cpp.application.version;
     PgqlGameVersion.require(version,'Transfer on Catch supports');
     const type=name=>this.game.type(name),number=PgqlGameTransferOnCatch.number;
-    const plain=(klass,name,args,returns,isStatic=false)=>{
-      const matches=klass.methods.filter(m=>m.name===name&&!m.isGeneric&&m.isStatic===isStatic&&
-        m.parameters.map(p=>p.type.name).join('|')===args.join('|'));
-      if(matches.length!==1||matches[0].returnType.name!==returns)throw Error('Unsupported transfer method: '+name);
-      return matches[0];
-    };
-    const field=(klass,name,expected)=>{
-      const found=klass.field(name);
-      if(found.type.name!==expected)throw Error('Unsupported transfer field: '+name);
-      return found;
-    };
+    const {method:plain,field}=PgqlBinding.create('transfer');
     const constant=(klass,name)=>number(klass.field(name).value);
     const output=type('Holoholo.Rpc.CatchPokemonOutProto'),pokemon=type('Holoholo.Rpc.PokemonProto'),settings=type('Holoholo.Rpc.PokemonSettingsProto');
     const display=type('Holoholo.Rpc.PokemonDisplayProto'),detail=type('Holoholo.Rpc.PokemonCreateDetail'),bag=type('Niantic.Holoholo.IPokemonBag');

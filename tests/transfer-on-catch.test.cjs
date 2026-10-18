@@ -24,6 +24,7 @@ const sandbox={setTimeout,clearTimeout,
 const context=vm.createContext(sandbox);
 vm.runInContext(read('core/transfer-policy.js'),context);
 vm.runInContext(read('core/game-version.js'),context);
+vm.runInContext(read('core/metadata-binding.js'),context);
 vm.runInContext(read('adapters/game-toast.js'),context);
 vm.runInContext(read('adapters/game-transfer-on-catch.js'),context);
 const Adapter=context.PgqlGameTransferOnCatch;

@@ -47,6 +47,7 @@ const context=vm.createContext({setTimeout,clearTimeout,
   Interceptor:{attach:(address,callbacks)=>{attached.set(address,callbacks);return {detach:()=>attached.delete(address)};}},
 });
 vm.runInContext(fs.readFileSync(path.join(__dirname,'../agent/core/game-version.js'),'utf8'),context);
+vm.runInContext(fs.readFileSync(path.join(__dirname,'../agent/core/metadata-binding.js'),'utf8'),context);
 vm.runInContext(fs.readFileSync(path.join(__dirname,'../agent/adapters/game-map-refresh.js'),'utf8'),context);
 const Refresh=context.PgqlGameMapRefresh;
 const ctx={cleanup:fn=>cleanups.push(fn),log:(message,details)=>logs.push({message,details}),hook:(address,callbacks)=>hooks.set(address,callbacks)};

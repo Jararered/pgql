@@ -99,6 +99,7 @@ const context=vm.createContext({setTimeout:fakeSetTimeout,clearTimeout:fakeClear
   Interceptor:{attach:(address,callbacks)=>{const entry={address:address.name,callbacks,detached:false};attached.push(entry);return {detach:()=>{entry.detached=true;}};}}});
 vm.runInContext(read('core/cooldown-policy.js'),context);
 vm.runInContext(read('core/game-version.js'),context);
+vm.runInContext(read('core/metadata-binding.js'),context);
 vm.runInContext(read('adapters/game-toast.js'),context);
 vm.runInContext(read('adapters/game-cooldown.js'),context);
 const Cooldown=context.PgqlGameCooldown;

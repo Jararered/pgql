@@ -87,6 +87,7 @@ const context=vm.createContext({setTimeout,clearTimeout,Date:{now:()=>clock},
   Interceptor:{replace:(address,wrapped)=>replaced.set(address.name,wrapped),revert:address=>{reverted.push(address.name);replaced.delete(address.name);},flush:()=>{}},
 });
 vm.runInContext(read('core/game-version.js'),context);
+vm.runInContext(read('core/metadata-binding.js'),context);
 vm.runInContext(read('adapters/game-tap-to-teleport.js'),context);
 const Teleport=context.PgqlGameTapToTeleport;
 const teleports=[],logs=[],cleanups=[];

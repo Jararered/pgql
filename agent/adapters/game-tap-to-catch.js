@@ -38,12 +38,7 @@ globalThis.PgqlGameTapToCatch = class PgqlGameTapToCatch {
     const version=Il2Cpp.application.version;
     PgqlGameVersion.require(version,'Tap to Catch supports');
     const type=name=>this.game.type(name),number=PgqlGameTapToCatch.number;
-    const args=m=>m.parameters.map(p=>p.type.name).join('|');
-    const plain=(klass,name,params,returns,isStatic=false)=>{
-      const matches=klass.methods.filter(m=>m.name===name&&!m.isGeneric&&m.isStatic===isStatic&&args(m)===params.join('|'));
-      if(matches.length!==1||(returns&&matches[0].returnType.name!==returns))throw Error('Unsupported Tap to Catch method: '+klass.type.name+'.'+name);
-      return matches[0];
-    };
+    const {args,method:plain,fieldOfType:typed}=PgqlBinding.create('Tap to Catch');
     // The nearest declaration in the class hierarchy.
     const inherited=(klass,name,params,returns)=>{
       for(const owner of klass.hierarchy({includeCurrent:true})) {
@@ -52,11 +47,6 @@ globalThis.PgqlGameTapToCatch = class PgqlGameTapToCatch {
         if(matches.length===1&&(!returns||matches[0].returnType.name===returns))return matches[0];
       }
       throw Error('Unsupported Tap to Catch method: '+klass.type.name+'.'+name);
-    };
-    const typed=(klass,typeName)=>{
-      const matches=klass.fields.filter(f=>!f.isStatic&&f.type.name===typeName);
-      if(matches.length!==1)throw Error('Unsupported Tap to Catch field: '+klass.type.name+' of type '+typeName);
-      return matches[0];
     };
     // A throw field by name (or auto-property backing field) and type.
     const member=(klass,name,typeName)=>{

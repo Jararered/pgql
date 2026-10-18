@@ -19,23 +19,7 @@ globalThis.PgqlGameGymFeeder = class PgqlGameGymFeeder {
     if(this.bound)return this.bound;
     PgqlGameVersion.require(Il2Cpp.application.version,'Gym Feeder supports');
     const type=name=>this.game.type(name),number=PgqlGameGymFeeder.number;
-    const args=m=>m.parameters.map(p=>p.type.name).join('|');
-    const plain=(klass,name,params,returns,isStatic=false)=>{
-      const matches=klass.methods.filter(m=>m.name===name&&!m.isGeneric&&m.isStatic===isStatic&&args(m)===params.join('|'));
-      if(matches.length!==1||(returns&&matches[0].returnType.name!==returns))throw Error('Unsupported Gym Feeder method: '+klass.type.name+'.'+name);
-      return matches[0];
-    };
-    // Obfuscated member names change between builds; bind the only field of a type.
-    const typed=(klass,typeName)=>{
-      const matches=klass.fields.filter(f=>!f.isStatic&&f.type.name===typeName);
-      if(matches.length!==1)throw Error('Unsupported Gym Feeder field: '+klass.type.name+' of type '+typeName);
-      return matches[0];
-    };
-    const field=(klass,name,typeName)=>{
-      const found=klass.field(name);
-      if(found.isStatic||found.type.name!==typeName)throw Error('Unsupported Gym Feeder field: '+klass.type.name+'.'+name);
-      return found;
-    };
+    const {args,method:plain,fieldOfType:typed,inheritedField:field}=PgqlBinding.create('Gym Feeder');
     const approach=type('Niantic.Holoholo.Gym.Approach.GymApproachGuiController'),gym=type('Niantic.Holoholo.Gym.GymState');
     const place=type('Niantic.Holoholo.Map.AbstractMapPlace'),fort=type('Holoholo.Rpc.PokemonFortProto');
     const defender=type('Holoholo.Rpc.GymDefenderProto'),motivated=type('Holoholo.Rpc.MotivatedPokemonProto'),pokemon=type('Holoholo.Rpc.PokemonProto');

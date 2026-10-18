@@ -17,15 +17,7 @@ globalThis.PgqlGamePerformance = class PgqlGamePerformance {
     const version=Il2Cpp.application.version;
     PgqlGameVersion.require(version,'Performance Mode supports');
     const type=name=>this.game.type(name);
-    const plain=(klass,name,args,isStatic=false)=>{
-      const matches=klass.methods.filter(m=>m.name===name&&!m.isGeneric&&m.isStatic===isStatic&&
-        m.parameters.map(p=>p.type.name).join('|')===args.join('|'));
-      if(matches.length!==1)throw Error('Unsupported performance method: '+name);
-      return matches[0];
-    };
-    const field=(klass,name,expected)=>{
-      if(klass.field(name).type.name!==expected)throw Error('Unsupported performance field: '+name);
-    };
+    const {method:plain,field}=PgqlBinding.create('performance');
     const weather=type('Niantic.Holoholo.Map.WeatherService'),sky=type('Niantic.Holoholo.Map.Skydome');
     const tile=type('Niantic.Holoholo.Map.GameMapTile'),quality=type('UnityEngine.QualitySettings');
     const render=type('Niantic.Holoholo.Performance.Rendering.IRenderQualityService'),renderer=type('UnityEngine.Renderer');
@@ -38,11 +30,11 @@ globalThis.PgqlGamePerformance = class PgqlGamePerformance {
       [type('UnityEngine.SceneManagement.Scene'),'IsValid',[]],[type('Zenject.DiContainer'),'Resolve',['System.Type']],
       [type('Zenject.Context'),'get_Container',[]]])plain(klass,name,args);
     this.bound={weather,sky,tile,render,scene:type('Niantic.Holoholo.MapSceneContext'),
-      level:plain(quality,'GetQualityLevel',[],true),setLevel:plain(quality,'SetQualityLevel',['System.Int32','System.Boolean'],true),
-      names:plain(quality,'get_names',[],true),initialize:plain(tile,'Initialize',['Niantic.Lightship.Maps.Core.IMapTile']),
-      frame:plain(type('UnityEngine.UnitySynchronizationContext'),'ExecuteTasks',[],true).virtualAddress,
-      findAll:plain(type('UnityEngine.Resources'),'FindObjectsOfTypeAll',['System.Type'],true),
-      findOne:plain(type('UnityEngine.Object'),'FindObjectOfType',['System.Type'],true)};
+      level:plain(quality,'GetQualityLevel',[],null,true),setLevel:plain(quality,'SetQualityLevel',['System.Int32','System.Boolean'],null,true),
+      names:plain(quality,'get_names',[],null,true),initialize:plain(tile,'Initialize',['Niantic.Lightship.Maps.Core.IMapTile']),
+      frame:plain(type('UnityEngine.UnitySynchronizationContext'),'ExecuteTasks',[],null,true).virtualAddress,
+      findAll:plain(type('UnityEngine.Resources'),'FindObjectsOfTypeAll',['System.Type'],null,true),
+      findOne:plain(type('UnityEngine.Object'),'FindObjectOfType',['System.Type'],null,true)};
     return this.bound;
   }
   // Scene instances only; prefab assets of the same class are also loaded.

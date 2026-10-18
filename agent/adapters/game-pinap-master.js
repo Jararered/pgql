@@ -21,18 +21,7 @@ globalThis.PgqlGamePinapMaster = class PgqlGamePinapMaster {
     const version=Il2Cpp.application.version;
     PgqlGameVersion.require(version,'Pinap Master supports');
     const type=name=>this.game.type(name),number=PgqlGamePinapMaster.number;
-    const args=m=>m.parameters.map(p=>p.type.name).join('|');
-    const plain=(klass,name,params,returns,isStatic=false)=>{
-      const matches=klass.methods.filter(m=>m.name===name&&!m.isGeneric&&m.isStatic===isStatic&&args(m)===params.join('|'));
-      if(matches.length!==1||(returns&&matches[0].returnType.name!==returns))throw Error('Unsupported Pinap Master method: '+klass.type.name+'.'+name);
-      return matches[0];
-    };
-    // Obfuscated member names change between builds; bind the only field of a type.
-    const typed=(klass,typeName)=>{
-      const matches=klass.fields.filter(f=>!f.isStatic&&f.type.name===typeName);
-      if(matches.length!==1)throw Error('Unsupported Pinap Master field: '+klass.type.name+' of type '+typeName);
-      return matches[0];
-    };
+    const {method:plain,fieldOfType:typed}=PgqlBinding.create('Pinap Master');
     const constant=(klass,name)=>number(klass.field(name).value);
     const interaction=type('Niantic.Holoholo.Encounter.EncounterInteractionState'),state=type('Niantic.Holoholo.Encounter.EncounterState');
     const bag=type('Niantic.Holoholo.IItemBag'),item=type('Holoholo.Rpc.Item');

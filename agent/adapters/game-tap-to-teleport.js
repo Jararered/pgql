@@ -18,23 +18,7 @@ globalThis.PgqlGameTapToTeleport = class PgqlGameTapToTeleport {
     const version=Il2Cpp.application.version;
     PgqlGameVersion.require(version,'Tap to Teleport supports');
     const type=name=>this.game.type(name);
-    const plain=(klass,name,args,returns,isStatic=false)=>{
-      const matches=klass.methods.filter(m=>m.name===name&&!m.isGeneric&&m.isStatic===isStatic&&
-        m.parameters.map(p=>p.type.name).join('|')===args.join('|'));
-      if(matches.length!==1||returns!==null&&matches[0].returnType.name!==returns)throw Error('Unsupported teleport method: '+name);
-      return matches[0];
-    };
-    const field=(klass,name,expected)=>{
-      const found=klass.field(name);
-      if(found.type.name!==expected)throw Error('Unsupported teleport field: '+name);
-      return found;
-    };
-    // One instance field of the given type; obfuscated names are not relied on.
-    const typed=(klass,expected)=>{
-      const matches=klass.fields.filter(f=>!f.isStatic&&f.type.name===expected);
-      if(matches.length!==1)throw Error('Unsupported teleport field type: '+expected);
-      return matches[0];
-    };
+    const {method:plain,field,fieldOfType:typed}=PgqlBinding.create('teleport');
     const handler=type('Niantic.Holoholo.Map.GroundTapHandler'),gesture=type('TouchScript.Gestures.TapGesture');
     const controller=type('Niantic.Holoholo.Map.IMapController'),latLng=type('Niantic.LatLng'),place=type('Niantic.Holoholo.Map.IPlace');
     field(latLng,'Latitude','System.Double');field(latLng,'Longitude','System.Double');
