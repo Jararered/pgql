@@ -72,7 +72,16 @@ globalThis.PgqlGameEncounters = class PgqlGameEncounters {
     this.failed=true;this.ctx.log('Encounter hook failed; disabling feature',{error:String(error)});
     setTimeout(()=>{if(!this.closed)Qol.disable(this.feature,{failed:true});},0);
   }
+  // Contract audit binds a feature with dryRun set: every member is resolved
+  // exactly as for install, but nothing is attached or replaced.
+  attach(address,callbacks) {
+    if(this.dryRun)return null;
+    const listener=Interceptor.attach(address,callbacks);
+    this.undo.push(()=>listener.detach());
+    return listener;
+  }
   replace(method,callback) {
+    if(this.dryRun)return;
     const wrapped=method.wrap(function(...args){return callback(this,args,()=>method.bind(this).invoke(...args));});
     Interceptor.replace(method.virtualAddress,wrapped);this.callbacks.push(wrapped);
     this.undo.push(()=>Interceptor.revert(method.virtualAddress));
@@ -101,14 +110,20 @@ globalThis.PgqlGameEncounters = class PgqlGameEncounters {
       if(this.closed)return;
       PgqlGameVersion.require(Il2Cpp.application.version,'Encounter features require');
       try {
-        if(feature==='instant-catch')this.instantCatch();
-        else if(feature==='perfect-throw')this.perfectThrow();
-        else if(feature==='headshot')this.headshot();
-        else if(feature==='skip-encounter-intro')this.skipIntro();
-        else throw Error('Unknown encounter feature');
+        const name=PgqlGameEncounters.features[feature];
+        if(!name)throw Error('Unknown encounter feature');
+        this[name]();
         Interceptor.flush();
       }catch(error){this.dispose();throw error;}
     });
+  }
+  static get features(){return {'instant-catch':'instantCatch','perfect-throw':'perfectThrow',headshot:'headshot','skip-encounter-intro':'skipIntro'};}
+  // Metadata thread, contract audit only. Resolves one feature's members.
+  audit(feature) {
+    const name=PgqlGameEncounters.features[feature];
+    if(!name)throw Error('Unknown encounter feature');
+    this.dryRun=true;this.restoreActions=null;
+    try{this[name]();}finally{this.restoreActions=null;}
   }
   dispose() {
     if(this.closed)return;this.closed=true;
@@ -144,10 +159,9 @@ globalThis.PgqlGameEncounters = class PgqlGameEncounters {
     const stateType=this.type('Niantic.Holoholo.Encounter.EncounterState');
     const complete=this.method(stateType,'EncounterStateComplete',1,'System.Void');
     let retained=null,generation=0,scheduled=false;
-    const endListener=Interceptor.attach(complete.virtualAddress,{onEnter:args=>{
+    this.attach(complete.virtualAddress,{onEnter:args=>{
       if(retained && this.object(retained).handle.equals(args[0])){this.release(retained);retained=null;generation++;scheduled=false;}
     }});
-    this.undo.push(()=>endListener.detach());
     this.before(intro,object=>{
       const state=this.unwrap(this.get(object,stateField));
       if(!stateType.isAssignableFrom(state.class))throw Error('Unexpected encounter state class');
@@ -239,8 +253,7 @@ globalThis.PgqlGameEncounters = class PgqlGameEncounters {
     });
     // Each new launch permits one recovery, even if both miss events fire.
     // Headshot also observes Launch, so use an attach listener rather than replace.
-    const listener=Interceptor.attach(launch.virtualAddress,{onEnter:args=>{const entry=balls.get(args[0].toString());if(entry)entry.recovered=false;}});
-    this.undo.push(()=>listener.detach());
+    this.attach(launch.virtualAddress,{onEnter:args=>{const entry=balls.get(args[0].toString());if(entry)entry.recovered=false;}});
     const restore=entry=>{
       entry.active=false;
       const object=this.object(entry.ball),replacement=this.object(entry.callback);
@@ -251,14 +264,13 @@ globalThis.PgqlGameEncounters = class PgqlGameEncounters {
       for(const key of ['ball','ground','kill','callback'])this.release(entry[key]);
     };
     this.undo.push(()=>{for(const entry of balls.values())restore(entry);balls.clear();});
-    const end=Interceptor.attach(complete.virtualAddress,{onEnter:()=>{
+    this.attach(complete.virtualAddress,{onEnter:()=>{
       if(this.closed)return;
       try {
         for(const entry of balls.values())restore(entry);balls.clear();
         for(const entry of actionStates.values())this.release(entry.handle);actionStates.clear();
       }catch(error){this.problem(error);}
     }});
-    this.undo.push(()=>end.detach());
     this.before(calculate,object=>{
       let values=this.get(object,arValues);
       if(values.isNull()){values=ar.alloc();arCtor.bind(values).invoke();this.set(object,arValues,values);}
@@ -322,7 +334,7 @@ globalThis.PgqlGameEncounters = class PgqlGameEncounters {
     const vector=this.type('UnityEngine.Vector3'),lerp=this.method(vector,'Lerp',3);
     const owner=this;
     // Attach preserves independence from Perfect Throw's Launch observer.
-    const listener=Interceptor.attach(launch.virtualAddress,{onEnter(args){
+    this.attach(launch.virtualAddress,{onEnter(args){
       if(owner.closed || owner.failed)return;
       try {
         const object=new Il2Cpp.Object(args[0]),target=owner.get(object,pokemonField);
@@ -336,7 +348,6 @@ globalThis.PgqlGameEncounters = class PgqlGameEncounters {
         setPosition.bind(from).invoke(value);
       }catch(error){owner.problem(error);}
     }});
-    this.undo.push(()=>listener.detach());
     this.before(collision,(object,args)=>{
       const target=this.get(object,pokemonField);if(target.isNull() || args[0].isNull())return;
       const go=gameObject.bind(target).invoke();if(go.isNull())return;

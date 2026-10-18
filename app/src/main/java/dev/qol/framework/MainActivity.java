@@ -12,9 +12,9 @@ import android.widget.*;
 import org.json.*;
 
 public class MainActivity extends Activity {
-    private TextView status, logs;
+    private TextView status, compatibility, logs;
     private LinearLayout modules;
-    private Button attach, detach, snapshot, goPlus;
+    private Button attach, detach, snapshot, audit, goPlus;
     private final BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override public void onReceive(Context context, Intent intent) { render(); }
     };
@@ -32,6 +32,7 @@ public class MainActivity extends Activity {
         TextView title=new TextView(this); title.setText("PGQL 0.1"); title.setTextSize(28); page.addView(title);
         TextView subtitle=new TextView(this); subtitle.setText("Pokemon Go QoL · module development"); page.addView(subtitle);
         status=new TextView(this); status.setPadding(0,20,0,12); page.addView(status);
+        compatibility=new TextView(this); compatibility.setTextColor(0xFFB3261E); compatibility.setPadding(0,0,0,12); page.addView(compatibility);
         CheckBox policy=new CheckBox(this);
         policy.setText("Apply Frida SELinux setup (system-wide, until reboot)");
         policy.setChecked(getSharedPreferences("lab",MODE_PRIVATE).getBoolean("prepare_selinux",false));
@@ -61,6 +62,8 @@ public class MainActivity extends Activity {
         ScrollView moduleScroll=new ScrollView(this); moduleScroll.addView(modules);
         page.addView(moduleScroll,new LinearLayout.LayoutParams(-1,0,1));
         snapshot=button("Run diagnostics",v -> {SessionService.command("invoke","diagnostics"); foregroundGame();}); page.addView(snapshot);
+        // Binds every adapter on the installed build without hooking; the report lands in the session log.
+        audit=button("Check game compatibility",v -> {SessionService.auditContracts(); foregroundGame();}); page.addView(audit);
         TextView caption=new TextView(this); caption.setText("Session log"); page.addView(caption);
         ScrollView scroll=new ScrollView(this);
         logs=new TextView(this); logs.setTypeface(Typeface.MONOSPACE); logs.setTextSize(11); scroll.addView(logs);
@@ -94,6 +97,12 @@ public class MainActivity extends Activity {
         status.setText("Session: "+state+(detail.isEmpty()?"":" · "+detail));
         boolean idle=state.equals("idle") || state.equals("error");
         attach.setEnabled(idle); goPlus.setEnabled(idle); detach.setEnabled(!idle); snapshot.setEnabled(state.equals("attached"));
+        audit.setEnabled(state.equals("attached") && !SessionService.accessorySession());
+        String installed=SessionService.installedGameVersion(this),supported=SessionService.supportedGameVersion(this);
+        boolean mismatch=installed!=null && supported!=null && !installed.equals(supported);
+        compatibility.setText(mismatch?"Pokémon GO "+installed+" is installed; PGQL is verified for "+supported
+            +". Game modules will refuse to start. Tap Start, then Check game compatibility (docs/UPGRADING.md).":"");
+        compatibility.setVisibility(mismatch?View.VISIBLE:View.GONE);
         logs.setText(SessionService.logText());
         modules.removeAllViews();
         JSONArray list=SessionService.modules();

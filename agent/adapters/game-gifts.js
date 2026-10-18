@@ -15,14 +15,28 @@ globalThis.PgqlGameGifts = class PgqlGameGifts {
   // game-thread work in the same frame.
   static get frame() {
     if(!this.shared)this.shared={types:new Map(),named:null,members:new Set(),queue:[],hook:null,starting:null,loaded:null,
-      execute:null,find:null,map:null,mapWaiters:[],mapChecked:0,version:undefined,firstFrame:null,frameSeen:null};
+      execute:null,find:null,map:null,mapWaiters:[],mapChecked:0,version:undefined,firstFrame:null,frameSeen:null,record:null};
     return this.shared;
   }
   static lookup(name) {
-    const types=this.frame.types;
-    if(types.has(name))return types.get(name);
-    for(const assembly of Il2Cpp.domain.assemblies){const type=assembly.image.tryClass(name);if(type){types.set(name,type);return type;}}
-    throw Error('Unsupported game metadata: '+name);
+    const frame=this.frame,types=frame.types;
+    if(!types.has(name)) {
+      for(const assembly of Il2Cpp.domain.assemblies){const type=assembly.image.tryClass(name);if(type){types.set(name,type);break;}}
+      if(!types.has(name)){if(frame.record)frame.record.missing.add(name);throw Error('Unsupported game metadata: '+name);}
+    }
+    const type=types.get(name);
+    if(frame.record)frame.record.classes.set(name,type);
+    return type;
+  }
+  // Contract audit only: collects every class resolved while fn runs.
+  static recording(fn) {
+    const frame=this.frame;
+    if(frame.record)throw Error('Contract recording already running');
+    const record={classes:new Map(),missing:new Set()};
+    frame.record=record;
+    try{return {record,value:fn()};}
+    catch(error){error.record=record;throw error;}
+    finally{frame.record=null;}
   }
   // Attach may land while the game is still loading. Wait for il2cpp_init to
   // finish before using the bridge, whose own wait can miss an init in progress.
@@ -109,7 +123,12 @@ globalThis.PgqlGameGifts = class PgqlGameGifts {
       }
       frame.named=index;
     }
-    return frame.named.get(name) || [];
+    const matches=frame.named.get(name) || [];
+    if(frame.record && name){
+      if(!matches.length)frame.record.missing.add(name);
+      for(const type of matches)frame.record.classes.set(type.fullName,type);
+    }
+    return matches;
   }
   async initialize() {
     if(this.closed)throw Error('Module disabled');

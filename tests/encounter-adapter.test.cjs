@@ -162,4 +162,15 @@ function call(m,o,...args){return replacements.has(m.virtualAddress.id)?replacem
  assert.throws(()=>a.typedField(interaction,lazy),/Unsupported encounter field/);
  assert.throws(()=>a.typedField(interaction,'Missing.Type'),/Unsupported encounter field/);
 }
+{
+ // Contract audit: the feature's members are all resolved, nothing is installed.
+ const f=fixture(),replaced=replacements.size,attached=attachments.size;
+ f.adapter.audit('perfect-throw');
+ assert.equal(replacements.size,replaced);assert.equal(attachments.size,attached);
+ assert.equal(f.adapter.restoreActions,null);
+ f.types.delete('CatchPokemonProto');
+ assert.throws(()=>f.adapter.audit('perfect-throw'),/Missing CatchPokemonProto/);
+ assert.throws(()=>f.adapter.audit('unknown'),/Unknown encounter feature/);
+ assert.equal(replacements.size,replaced);
+}
 console.log('Encounter adapter catch sequencing, throw overrides, recovery, collision targeting, intro skipping, cleanup and contract validation tests passed.');

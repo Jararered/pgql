@@ -48,6 +48,26 @@ public class SessionService extends Service {
         if(service!=null) service.post(action,moduleId);
     }
     public static boolean accessorySession() {synchronized(LOCK){return accessorySession;}}
+    // Runs the contract audit (docs/UPGRADING.md) through the diagnostics module.
+    public static void auditContracts() {
+        SessionService service=current;
+        if(service!=null)try{service.post("invoke","diagnostics",new JSONObject().put("action","contracts"));}catch(JSONException ignored){}
+    }
+    // The installed game build, and the one the bundled agent's adapters are
+    // verified against (agent/core/game-version.js, read from the bundle).
+    private static String supportedGame;
+    public static String installedGameVersion(Context context) {
+        try{return context.getPackageManager().getPackageInfo(TARGET,0).versionName;}catch(Exception e){return null;}
+    }
+    public static synchronized String supportedGameVersion(Context context) {
+        if(supportedGame==null) try(InputStream in=context.getAssets().open("agent.js")) {
+            ByteArrayOutputStream out=new ByteArrayOutputStream();byte[] buffer=new byte[65536];int read;
+            while((read=in.read(buffer))>0)out.write(buffer,0,read);
+            java.util.regex.Matcher match=java.util.regex.Pattern.compile("PgqlGameVersion\\s*=[\\s\\S]{0,240}?supported:\\s*[\"']([0-9][0-9.]*)[\"']").matcher(out.toString("UTF-8"));
+            supportedGame=match.find()?match.group(1):"";
+        }catch(IOException e){supportedGame="";}
+        return supportedGame.isEmpty()?null:supportedGame;
+    }
     public static JSONObject goPlusStatus() {synchronized(LOCK){try{return new JSONObject(goPlusStatus.toString());}catch(JSONException e){return new JSONObject();}}}
     public static void config(String moduleId,String key,boolean value) {
         SessionService service=current;if(service!=null)service.configure(moduleId,key,value);
@@ -335,6 +355,8 @@ public class SessionService extends Service {
                     if(details!=null && details.has("connected"))synchronized(LOCK){goPlusStatus=new JSONObject(details.toString());}
                 }
                 String change=payload.optString("type");
+                JSONObject result=change.equals("response") && payload.optBoolean("ok")?payload.optJSONObject("result"):null;
+                if(result!=null && result.has("schema") && result.has("adapters")){saveAudit(result);return;}
                 if(change.equals("notify"))alert(payload);
                 if(change.equals("teleport")) {
                     double latitude=payload.optDouble("latitude"),longitude=payload.optDouble("longitude");
@@ -353,6 +375,21 @@ public class SessionService extends Service {
             }
         }catch(JSONException ignored){}
         log(line);
+    }
+    // Contract audit report: saved where adb can pull it without root, and
+    // summarised in the session log instead of the raw (large) response line.
+    private void saveAudit(JSONObject report) {
+        String game=report.optString("game","unknown");
+        JSONArray failed=report.optJSONArray("failed");
+        String summary="Contract audit: game "+game+", PGQL verified for "+report.optString("supported")+" · "
+            +(report.optBoolean("ok")?"all contracts bind":"failed: "+(failed==null?"unknown":failed.toString()));
+        try {
+            File folder=getExternalFilesDir(null);
+            if(folder==null)throw new IOException("app storage unavailable");
+            File file=new File(folder,"contracts-"+game.replaceAll("[^0-9A-Za-z._-]","_")+".json");
+            try(Writer out=new OutputStreamWriter(new FileOutputStream(file),StandardCharsets.UTF_8)){out.write(report.toString(1));}
+            log(summary+" · saved "+file.getAbsolutePath());
+        }catch(Exception e){log(summary+" · not saved: "+e.getMessage());}
     }
     private void post(String action,String moduleId) { post(action,moduleId,null); }
     private synchronized void post(String action,String moduleId,JSONObject args) {

@@ -68,10 +68,16 @@ globalThis.PgqlGameGoPlus = class PgqlGameGoPlus {
     if(Process.pointerSize!==8)throw Error('Virtual GO Plus requires Android arm64');
     const version=await PgqlPackageVersion();
     this.version=version;
+    this.bindExports(version);
+  }
+  // Resolves every pinned export without hooking; the contract audit calls it
+  // directly. Missing exports throw before anything is installed.
+  bindExports(version) {
     PgqlGameVersion.require(version,'Virtual GO Plus supports');
     this.lib=Process.getModuleByName('libholoholo.so');
     if(!this.lib)throw Error('libholoholo.so is not loaded');
-    const sym=name=>{const address=this.lib.findExportByName(name);if(!address)throw Error('Unsupported export: '+name);return address;};
+    this.resolved=[];
+    const sym=name=>{const address=this.lib.findExportByName(name);if(!address)throw Error('Unsupported export: '+name);this.resolved.push(name);return address;};
     this.catchPokemon=new NativeFunction(sym('_ZN3pgp5sfida6Module12CatchPokemonENSt6__ndk112basic_stringIcNS2_11char_traitsIcEENS2_9allocatorIcEEEEl13EncounterType'),'void',['pointer','pointer','uint64','uint32']);
     this.searchPokestop=new NativeFunction(sym('_ZN3pgp5sfida6Module14SearchPokestopERK19SfidaUpdateResponse'),'void',['pointer','pointer']);
     this.handleUpdate=new NativeFunction(sym('_ZN3pgp5sfida6Module12HandleUpdateEv'),'void',['pointer']);
@@ -79,7 +85,7 @@ globalThis.PgqlGameGoPlus = class PgqlGameGoPlus {
     this.sessionStart=sym('_ZN3pgp5sfida6Module12StartSessionERKNSt6__ndk112basic_stringIcNS2_11char_traitsIcEENS2_9allocatorIcEEEESA_bSA_li');
     this.startSession=new NativeFunction(this.sessionStart,'void',['pointer','pointer','pointer','uint8','pointer','int64','int']);
     this.moduleDestructor=sym('_ZN3pgp5sfida6ModuleD2Ev');
-    this.pgp=new PgqlPgpManager(this.lib);
+    this.pgp=new PgqlPgpManager(this.lib);this.resolved.push(...PgqlPgpManager.exports);
     this.startScanning=sym('_ZN3pgp7android22AndroidBluetoothDriver23StartScanningWithFilterENSt6__ndk16vectorINS2_12basic_stringIcNS2_11char_traitsIcEENS2_9allocatorIcEEEENS7_IS9_EEEES9_NS2_8functionIFvNS2_10shared_ptrINS_10PeripheralEEEEEE');
     this.peripheralConnect=sym('_ZN3pgp7android17AndroidPeripheral7ConnectENSt6__ndk18functionIFvbNS_14BluetoothErrorEEEE');
     this.deviceConnect=sym('_ZN3pgp5sfida6Device7ConnectENSt6__ndk18functionIFvNS0_15PairingResponseENS_14BluetoothErrorEEEE');

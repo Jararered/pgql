@@ -1012,3 +1012,26 @@ while a halo is up, and photobomb spawns. These are covered by tests only.
 
 The game was left running with no runner attached. The last runner acknowledged
 shutdown but did not exit, so it was terminated.
+
+## Game-update tooling — October 15, 2026
+
+Added the contract audit, `scripts/contract-audit.py`, `scripts/contract-diff.py`,
+`scripts/native-diff.py`, `scripts/archive-game.py`, the controller's version
+notice and **Check game compatibility** action. See [UPGRADING.md](UPGRADING.md).
+
+Local results: all thirty-seven Node suites (including the new
+`contract-audit.test.cjs` and an encounter dry-run case), the Python tests
+(including `contract_tools_test.py`) and the native JSON host check pass.
+`scripts/build.py` produced `build/pgql-debug.apk` (45,732,379 bytes, SHA-256
+`9e3e97930e0c45c6c82cae67697d4a6dbab59120f2c8dc9ed9faa0e21c8611df`; `agent.js`
+SHA-256 `a86a1486…cd09d7a8`). The controller's version regex finds
+`0.433.0` in that bundle.
+
+`scripts/native-diff.py build/go-plus-libholoholo.so build/game-433/split_arm64.apk`
+(0.431.0 → 0.433.0) reproduces the manual comparison: all 17 exports present,
+every pinned function identical after normalization, and only
+`SendXpGainedMessage`/`SendEncounterIdMessage` differing (informational).
+
+Not established: no phone was connected, so the audit has not yet run on a
+device and the `contracts/0.433.0.json` baseline has not been recorded. Neither
+has the controller notice or the audit action been exercised.

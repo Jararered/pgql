@@ -110,6 +110,13 @@ Game toasts from PGQL modules show at the top of the screen, below the status
 bar, rather than in the middle: `agent/adapters/game-toast.js` sets the game's
 own `ToastParams.PivotY` for every module toast.
 
+## Keeping up with game updates
+
+Adapters are gated to one verified game build. When Pokémon GO updates, the
+controller shows a notice, and the contract audit reports which adapters still
+bind on the new build and exactly which classes and members changed, without
+installing any hook. See [UPGRADING.md](docs/UPGRADING.md).
+
 ## Validation and boundaries
 
 Build and protocol checks are recorded in [VALIDATION.md](docs/VALIDATION.md). Local agent tests use an explicit mock of Frida globals and exercise only our original runtime, not the recovered Pokemod code. Native syntax/parser checks and an Android cross-build do not prove live injection. Device execution is reported separately.

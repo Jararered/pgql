@@ -4,10 +4,13 @@
 // like a connected accessory. Exports are resolved from libholoholo.so and
 // gated to the supported GO build by the adapter.
 globalThis.PgqlPgpManager = class PgqlPgpManager {
+  static get exports() {
+    return ['_ZN3pgp7android17PgpManagerAndroid19SendXpGainedMessageEi',
+      '_ZN3pgp7android17PgpManagerAndroid26SendUpdateTimestampMessageEl',
+      '_ZN3pgp7android17PgpManagerAndroid22SendEncounterIdMessageEl'];
+  }
   constructor(libholoholo) {
-    const xp=libholoholo.findExportByName('_ZN3pgp7android17PgpManagerAndroid19SendXpGainedMessageEi');
-    const time=libholoholo.findExportByName('_ZN3pgp7android17PgpManagerAndroid26SendUpdateTimestampMessageEl');
-    const id=libholoholo.findExportByName('_ZN3pgp7android17PgpManagerAndroid22SendEncounterIdMessageEl');
+    const [xp,time,id]=PgqlPgpManager.exports.map(name=>libholoholo.findExportByName(name));
     if(!xp || !time || !id)throw Error('Unsupported PgpManagerAndroid exports');
     this.sendXpGained=new NativeFunction(xp,'void',['pointer','int']);
     this.sendTimestamp=new NativeFunction(time,'void',['pointer','int64']);

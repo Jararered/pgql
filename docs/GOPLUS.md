@@ -112,7 +112,7 @@ both. The functions that read or write the pinned fields
 once branch targets and ADRP page addresses are normalized, so every offset in
 the table is unchanged. `PgpManagerAndroid` message builders and `~Module`
 differ only in literal/stack layout, not in the fields PGQL uses. The
-comparison is in `build/go-plus-433-offsets.txt`.
+comparison is in `build/go-plus-433-offsets.txt`; `scripts/native-diff.py` now repeats it for any two builds (see [UPGRADING.md](UPGRADING.md)).
 
 Exports resolved (mangled, abbreviated):
 
