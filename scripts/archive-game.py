@@ -7,7 +7,9 @@ Run it before letting the game update, so the previous build stays available
 for scripts/native-diff.py and as a rollback reference. Existing archives are
 never overwritten.
 """
-import re,subprocess,sys
+import re
+import subprocess
+import sys
 from pathlib import Path
 
 root=Path(__file__).resolve().parents[1]

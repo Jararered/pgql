@@ -1,8 +1,8 @@
 import hashlib
 import importlib.util
-from pathlib import Path
 import tempfile
 import unittest
+from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 spec = importlib.util.spec_from_file_location('prepare_frida', ROOT / 'scripts/prepare-frida.py')

@@ -1,7 +1,8 @@
-from pathlib import Path
-import subprocess
-import shutil
 import json
+import shutil
+import subprocess
+from pathlib import Path
+
 root=Path(__file__).resolve().parents[1]
 inputs=[root/'agent/runtime.js',*sorted((root/'agent/core').glob('*.js')),*sorted((root/'agent/adapters').glob('*.js')),*sorted((root/'agent/modules').glob('*.js')),root/'agent/ui/settings-menu.js',root/'agent/entry.js']
 output=root/'app/src/main/assets/agent.js';output.parent.mkdir(parents=True,exist_ok=True)

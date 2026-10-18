@@ -14,7 +14,14 @@ and the :lo12: offsets paired with them. Exit status is 1 when an export is
 missing or a function that reads or writes the pinned struct offsets
 (docs/GOPLUS.md) changed, so a new build needs review before re-enabling.
 """
-import argparse,difflib,os,re,subprocess,sys,tempfile,zipfile
+import argparse
+import difflib
+import os
+import re
+import subprocess
+import sys
+import tempfile
+import zipfile
 from pathlib import Path
 
 root=Path(__file__).resolve().parents[1]

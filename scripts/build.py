@@ -1,5 +1,9 @@
 """Build a signed debug APK using project-local official Android tools (macOS)."""
-import os, pathlib, subprocess, zipfile
+import os
+import pathlib
+import subprocess
+import zipfile
+
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 BUILD=ROOT/'build';BUILD.mkdir(exist_ok=True)
 SDK=ROOT/'toolchains'

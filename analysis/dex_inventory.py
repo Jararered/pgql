@@ -2,7 +2,10 @@
 
 Not a decompiler; preserves file/code-unit offsets and skips unknown opcodes.
 """
-import json, pathlib, struct
+import json
+import pathlib
+import struct
+
 
 def inspect(path):
     b=path.read_bytes()

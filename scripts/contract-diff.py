@@ -9,8 +9,10 @@ removed field and an added field of the same type in one class are shown as a
 probable rename, which is what an obfuscated-name change looks like. Exit
 status is 1 when NEW has an adapter or native contract that fails to bind.
 """
-import json,sys
+import json
+import sys
 from pathlib import Path
+
 
 def load(path):
   report=json.loads(Path(path).read_text())

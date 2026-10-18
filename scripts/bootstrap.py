@@ -1,5 +1,12 @@
 """Acquire pinned official build inputs into this project, never system paths."""
-import hashlib, json, pathlib, stat, urllib.request, zipfile, xml.etree.ElementTree as ET
+import hashlib
+import json
+import pathlib
+import stat
+import urllib.request
+import xml.etree.ElementTree as ET
+import zipfile
+
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 def download(url, destination, algorithm=None, expected=None):
     destination.parent.mkdir(parents=True, exist_ok=True)
