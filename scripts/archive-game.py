@@ -51,8 +51,7 @@ def main():
             stdout=subprocess.DEVNULL,
         )
     print(
-        "Archived %s %s: %s"
-        % (package, version, ", ".join(sorted(p.name for p in target.glob("*.apk"))))
+        "Archived {} {}: {}".format(package, version, ", ".join(sorted(p.name for p in target.glob("*.apk"))))
     )
     return 0
 
