@@ -11,3 +11,6 @@ local.properties
 # Generated Android package assets
 /app/src/main/assets/agent.js
 /app/src/main/jniLibs/
+
+# Local reference data (extracted phone data, third-party APKs/binaries)
+/apk/

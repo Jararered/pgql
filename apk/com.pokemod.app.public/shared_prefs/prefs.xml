@@ -1,5 +1,0 @@
-<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
-<map>
-    <boolean name="cloud_phone_scan_completed" value="true" />
-    <boolean name="is_likely_cloud_phone" value="false" />
-</map>
