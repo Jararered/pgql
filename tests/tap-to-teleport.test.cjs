@@ -1,7 +1,7 @@
 const assert=require('node:assert/strict');
-const fs=require('node:fs'),vm=require('node:vm'),path=require('node:path');
-const read=file=>fs.readFileSync(path.join(__dirname,'../agent',file),'utf8');
-const settle=()=>new Promise(resolve=>setImmediate(resolve));
+const vm=require('node:vm');
+const {read,flush}=require('./helpers/sandbox.cjs');
+const settle=()=>flush();
 let serial=0;const objects=new Map();
 const pointer=(isNull=false)=>{const id=++serial;return {id,isNull:()=>isNull,equals:other=>!!other&&other.id===id,toString:()=>'p'+id};};
 const NULL={isNull:()=>true,handle:pointer(true)};

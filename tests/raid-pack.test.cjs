@@ -1,5 +1,6 @@
 const assert=require('node:assert/strict');
-const fs=require('node:fs'),vm=require('node:vm'),path=require('node:path');
+const vm=require('node:vm');
+const {read,flush}=require('./helpers/sandbox.cjs');
 let serial=0,version='0.433.0',clock=100000;const byPointer=new Map();
 const NULL_OBJECT={isNull:()=>true,handle:{toString:()=>'0',id:0}};
 function managed(values={},methods={},klass='Managed') {
@@ -12,7 +13,6 @@ const enumFieldOf=key=>({type:{name:'Enum:'+key},bind:object=>({get value(){retu
   if(typeof v==='number' || !v || !v.cell)throw Error('expected a pointer');object.values[key]=v.cell.int;}})});
 const methodOf=(name,fn)=>({virtualAddress:name,bind:object=>({invoke:(...args)=>fn(object,...args)})});
 const disabled=[];
-const read=file=>fs.readFileSync(path.join(__dirname,'../agent',file),'utf8');
 const lookup=class {constructor(handle){return (handle&&byPointer.get(handle.id))||NULL_OBJECT;}};
 const sandbox={setTimeout,clearTimeout,Promise,Date:{now:()=>clock},Number,
   Qol:{disable:id=>disabled.push(id)},ptr:value=>({ptr:value}),
@@ -35,7 +35,7 @@ const sandbox={setTimeout,clearTimeout,Promise,Date:{now:()=>clock},Number,
 const context=vm.createContext(sandbox);
 for(const file of ['core/raid-battle-policy.js','core/game-version.js','core/metadata-binding.js','adapters/game-toast.js','adapters/game-raid-pack.js'])vm.runInContext(read(file),context);
 const Adapter=context.PgqlGameRaidPack;
-const settle=async()=>{for(let i=0;i<6;i++)await new Promise(resolve=>setTimeout(resolve,0));};
+const settle=()=>flush(6,'timeout');
 
 // One raid battle: our Pokemon (Bulbasaur-like, Vine Whip fast, Sludge Bomb and Solar Beam charged) against a boss.
 function world({isMax=false}={}) {

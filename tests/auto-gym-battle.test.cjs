@@ -1,5 +1,6 @@
 const assert=require('node:assert/strict');
-const fs=require('node:fs'),vm=require('node:vm'),path=require('node:path');
+const vm=require('node:vm');
+const {read,flush}=require('./helpers/sandbox.cjs');
 let serial=0,version='0.433.0',clock=100000;const byPointer=new Map();
 const NULL_OBJECT={isNull:()=>true,handle:{toString:()=>'0',id:0}};
 function managed(values={},methods={},klass='Managed') {
@@ -9,7 +10,6 @@ function managed(values={},methods={},klass='Managed') {
 const fieldOf=key=>({bind:object=>({get value(){return object.values[key];},set value(v){object.values[key]=v;}})});
 const methodOf=(name,fn)=>({virtualAddress:name,bind:object=>({invoke:(...args)=>fn(object,...args)})});
 const accessor=key=>methodOf(key,o=>o.values[key]);
-const read=file=>fs.readFileSync(path.join(__dirname,'../agent',file),'utf8');
 const lookup=class {constructor(handle){return (handle&&byPointer.get(handle.id))||NULL_OBJECT;}};
 const disabled=[];
 const sandbox={setTimeout,clearTimeout,Promise,Date:{now:()=>clock},Number,
@@ -28,7 +28,7 @@ const sandbox={setTimeout,clearTimeout,Promise,Date:{now:()=>clock},Number,
 const context=vm.createContext(sandbox);
 for(const file of ['core/gym-battle-policy.js','core/game-version.js','core/metadata-binding.js','adapters/game-gym-battle.js'])vm.runInContext(read(file),context);
 const Adapter=context.PgqlGameGymBattle;
-const settle=async()=>{for(let i=0;i<6;i++)await new Promise(resolve=>setTimeout(resolve,0));};
+const settle=()=>flush(6,'timeout');
 
 // Types: 1 normal, 5 ground, 10 fire, 11 water, 12 grass. Effectiveness of an attack type against defender types.
 const chart={'11>10':1.6,'12>11':1.6,'10>12':1.6,'10>11':0.625,'12>10':0.625,'11>12':0.625,'5>10':1.6,'10>5':1};

@@ -1,5 +1,6 @@
 const assert=require('node:assert/strict');
-const fs=require('node:fs'),vm=require('node:vm'),path=require('node:path');
+const vm=require('node:vm');
+const {read}=require('./helpers/sandbox.cjs');
 let serial=0,version='0.433.0';const byPointer=new Map();
 const NULL_OBJECT={isNull:()=>true,handle:{toString:()=>'0',equals:other=>other&&other.id===undefined}};
 function managed(values={},methods={}) {
@@ -11,7 +12,6 @@ function managed(values={},methods={}) {
 const fieldOf=key=>({bind:object=>({get value(){return object.values[key];},set value(v){object.values[key]=v;}})});
 const methodOf=fn=>({bind:object=>({invoke:(...args)=>fn(object,...args)})});
 const attached=[],replaced=new Map(),reverted=[];
-const read=file=>fs.readFileSync(path.join(__dirname,'../agent',file),'utf8');
 const lookup=class {constructor(handle){return byPointer.get(handle.id)||NULL_OBJECT;}};
 const sandbox={setTimeout,clearTimeout,setInterval,clearInterval,Date,Math,
   Qol:{disable:()=>{}},

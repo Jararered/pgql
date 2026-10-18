@@ -1,5 +1,6 @@
 const assert=require('node:assert/strict');
-const fs=require('node:fs'),vm=require('node:vm'),path=require('node:path');
+const vm=require('node:vm');
+const {read,flush}=require('./helpers/sandbox.cjs');
 let serial=0,version='0.433.0';const byPointer=new Map();
 const NULL_OBJECT={isNull:()=>true,handle:{toString:()=>'0'}};
 function managed(values={},methods={}) {
@@ -8,7 +9,6 @@ function managed(values={},methods={}) {
 }
 const fieldOf=key=>({bind:object=>({get value(){return object.values[key];}})});
 const replaced=new Map(),reverted=[],pinned=[],freed=[];let flushed=0;
-const read=file=>fs.readFileSync(path.join(__dirname,'../agent',file),'utf8');
 const lookup=class {constructor(handle){return byPointer.get(handle.id)||NULL_OBJECT;}};
 const sandbox={setTimeout,clearTimeout,
   Il2Cpp:{get application(){return {version};},string:content=>({content}),Object:lookup,ValueType:lookup,delegate:(type,fn)=>({handle:{type},fn})},
@@ -28,7 +28,7 @@ vm.runInContext(read('core/metadata-binding.js'),context);
 vm.runInContext(read('adapters/game-toast.js'),context);
 vm.runInContext(read('adapters/game-transfer-on-catch.js'),context);
 const Adapter=context.PgqlGameTransferOnCatch;
-const settle=async()=>{for(let i=0;i<8;i++)await new Promise(resolve=>setImmediate(resolve));};
+const settle=()=>flush(8);
 const defaults={showToast:true,minIv:'100',keepXxs:false,keepXxl:false,transferShiny:false,transferBackground:false,transferShadow:false,ignoreList:'132,201,352,570,999'};
 const common={species:16,attack:10,defense:11,stamina:12,size:'other',shiny:false,background:false,shadow:false,wildOrigin:true,specialBall:false,normalClass:true,transferable:true};
 

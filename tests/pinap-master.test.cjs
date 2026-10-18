@@ -1,5 +1,6 @@
 const assert=require('node:assert/strict');
-const fs=require('node:fs'),vm=require('node:vm'),path=require('node:path');
+const vm=require('node:vm');
+const {read,flush}=require('./helpers/sandbox.cjs');
 let serial=0,version='0.433.0';const byPointer=new Map();
 const NULL_OBJECT={isNull:()=>true,handle:{toString:()=>'0'}};
 function managed(values={},methods={}) {
@@ -10,7 +11,6 @@ function managed(values={},methods={}) {
 const fieldOf=key=>({bind:object=>({get value(){return object.values[key];}})});
 const methodOf=fn=>({bind:object=>({invoke:(...args)=>fn(object,...args)})});
 const attached=[],disabled=[];
-const read=file=>fs.readFileSync(path.join(__dirname,'../agent',file),'utf8');
 const lookup=class {constructor(handle){return byPointer.get(handle.id)||NULL_OBJECT;}};
 const sandbox={setTimeout,clearTimeout,Date,
   Qol:{disable:id=>disabled.push(id)},
@@ -31,7 +31,7 @@ vm.runInContext(read('core/metadata-binding.js'),context);
 vm.runInContext(read('adapters/game-toast.js'),context);
 vm.runInContext(read('adapters/game-pinap-master.js'),context);
 const Adapter=context.PgqlGamePinapMaster;
-const settle=async()=>{for(let i=0;i<4;i++)await new Promise(resolve=>setImmediate(resolve));};
+const settle=()=>flush(4);
 
 function fixture(config={}) {
   const logs=[],hooks=new Map(),cleanups=[],used=[],selected=[],toasts=[];

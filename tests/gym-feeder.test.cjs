@@ -1,5 +1,6 @@
 const assert=require('node:assert/strict');
-const fs=require('node:fs'),vm=require('node:vm'),path=require('node:path');
+const vm=require('node:vm');
+const {read,flush}=require('./helpers/sandbox.cjs');
 let serial=0,version='0.433.0',clock=100000;const byPointer=new Map();
 const NULL_OBJECT={isNull:()=>true,handle:{toString:()=>'0'}};
 function managed(values={},methods={}) {
@@ -9,7 +10,6 @@ function managed(values={},methods={}) {
 const fieldOf=key=>({bind:object=>({get value(){return object.values[key];}})});
 const methodOf=fn=>({bind:object=>({invoke:(...args)=>fn(object,...args)})});
 const disabled=[];
-const read=file=>fs.readFileSync(path.join(__dirname,'../agent',file),'utf8');
 const lookup=class {constructor(handle){return byPointer.get(handle.id)||NULL_OBJECT;}};
 const sandbox={setTimeout,clearTimeout,Promise,Date:{now:()=>clock},
   Qol:{disable:id=>disabled.push(id)},
@@ -28,7 +28,7 @@ const sandbox={setTimeout,clearTimeout,Promise,Date:{now:()=>clock},
 const context=vm.createContext(sandbox);
 for(const file of ['core/berry-policy.js','core/gym-feed-policy.js','core/game-version.js','core/metadata-binding.js','adapters/game-toast.js','adapters/game-gym-feeder.js'])vm.runInContext(read(file),context);
 const Adapter=context.PgqlGameGymFeeder;
-const settle=async()=>{for(let i=0;i<6;i++)await new Promise(resolve=>setTimeout(resolve,0));};
+const settle=()=>flush(6,'timeout');
 const results=new Map([[1,'Success'],[3,'ErrorNotInRange'],[5,'ErrorPokemonFull'],[9,'ErrorTooFast']]);
 const number=name=>[...results].find(([,n])=>n===name)[0];
 

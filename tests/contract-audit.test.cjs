@@ -1,9 +1,10 @@
 const assert=require('node:assert/strict');
 const fs=require('node:fs'),vm=require('node:vm'),path=require('node:path');
+const {flush}=require('./helpers/sandbox.cjs');
 // Contract audit: binds every adapter on an unverified build without hooks,
 // records the classes and members each one resolved, and leaves the strict
 // version gate in place for everything else.
-const settle=()=>new Promise(resolve=>setImmediate(resolve));
+const settle=()=>flush();
 const hooks=new Map(),attaches=[];
 let version='0.435.0',packageVersion='0.435.0',holoholo=true;
 class Method {constructor(klass,name,params=[],returns='System.Void'){Object.assign(this,{class:klass,name,isStatic:false,parameters:params.map(name=>({type:{name}})),returnType:{name:returns}});}}

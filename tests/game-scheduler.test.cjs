@@ -1,11 +1,12 @@
 const assert=require('node:assert/strict');
 const fs=require('node:fs'),vm=require('node:vm'),path=require('node:path');
+const {flush}=require('./helpers/sandbox.cjs');
 // Shared Unity frame scheduler: one hook, per-frame budget, off-frame metadata,
 // version capture, map gate and il2cpp readiness after an early attach.
 let clock=1000,corlib=false,map=false,inFrame=false,versionReads=0,classScans=0;
 const timers=[],hooks=new Map(),performs=[];
 const fire=ms=>{for(const timer of timers.splice(0))if(timer.ms===ms)timer.fn();else timers.push(timer);};
-const settle=()=>new Promise(resolve=>setImmediate(resolve));
+const settle=()=>flush();
 const klass=(name,extra={})=>({name,type:{name,object:{name}},methods:[],method:()=>({virtualAddress:'execute'}),...extra});
 const types={
   'UnityEngine.UnitySynchronizationContext':klass('UnitySynchronizationContext'),
