@@ -110,6 +110,12 @@ Game toasts from PGQL modules show at the top of the screen, below the status
 bar, rather than in the middle: `agent/adapters/game-toast.js` sets the game's
 own `ToastParams.PivotY` for every module toast.
 
+Adapters resolve managed methods and fields in `bind()` through
+`PgqlBinding.create('<label>')` (`agent/core/metadata-binding.js`), which
+requires exactly one match and reports misses as
+`Unsupported <label> method|field: <name> on <Type>`. Add a suite under
+`tests/<name>.test.cjs`; `npm test` discovers it automatically.
+
 ## Keeping up with game updates
 
 Adapters are gated to one verified game build. When Pokémon GO updates, the

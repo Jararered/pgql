@@ -1,0 +1,30 @@
+# Host-only checks: agent unit suites, Python tool tests and the native JSON
+# parser. The APK build (scripts/build.py) needs the pinned NDK/SDK and Frida
+# devkit from scripts/bootstrap.py and stays local; device validation is
+# recorded separately in docs/VALIDATION.md.
+name: test
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '26'
+          cache: npm
+      - run: npm ci
+      - name: Agent and tool tests
+        run: npm test
+      - name: Native JSON protocol (ASan/UBSan)
+        working-directory: native
+        run: |
+          cc -std=c11 -Wall -Wextra -Werror -fsanitize=address,undefined json_protocol.c test_json_protocol.c -o "$RUNNER_TEMP/json-test"
+          "$RUNNER_TEMP/json-test"

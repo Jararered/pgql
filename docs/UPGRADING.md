@@ -32,6 +32,10 @@ live map scene, so they stay covered by live checks only.
 The committed baseline lives in `contracts/<version>.json`. After any adapter
 change, refresh it on the verified build:
 
+> **Not generated yet:** `contracts/0.433.0.json` has not been committed. It
+> needs a live device session (commands below). Until it exists, step 4's diff
+> has no baseline to compare against.
+
 ```sh
 python3 scripts/build.py && adb install -r build/pgql-debug.apk
 python3 scripts/contract-audit.py --out contracts/0.433.0.json
@@ -52,8 +56,8 @@ python3 scripts/contract-audit.py --out contracts/0.433.0.json
    `python3 scripts/contract-audit.py` and
    `python3 scripts/contract-diff.py contracts/<old>.json build/contracts-<new>.json`.
 5. Fix the adapters the diff reports. Prefer binding obfuscated members by
-   their unique declared type or signature (see `typedField` in
-   `game-encounters.js` and `typed` in `game-pinap-master.js`) over literal
+   their unique declared type or signature (`PgqlBinding.create(...).fieldOfType` in
+   `agent/core/metadata-binding.js`, or `typedField` in `game-encounters.js`) over literal
    obfuscated names. Re-run the audit until it reports every contract binding.
 6. Bump `supported` in `agent/core/game-version.js`, rebuild, and run the
    per-module live checks, using the table format of the 0.433.0 upgrade in
